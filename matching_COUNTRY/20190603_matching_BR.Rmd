@@ -1,0 +1,518 @@
+---
+title: "sample-matching_IPUMS-NQ_BR"
+author: "Maita Schade"
+date: "May 13, 2019"
+output: html_notebook
+---
+
+
+run: *Ctrl+Shift+Enter*. 
+New chunk: *Ctrl+Alt+I*.
+*Ctrl+Shift+K* to preview the HTML file.
+
+Make sure we're dealing with a clear space:
+```{r}
+rm(list = ls(all = TRUE))
+```
+
+```{r}
+country = "BR"
+strat1 = "GEO1_BR2010"
+strat2 = "URBAN"
+NQ_id  = "gp_codigo"
+
+setwd(
+  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country)
+)
+```
+
+
+```{r}
+library('MatchIt')
+library('haven')
+library('openxlsx')
+library('labelled')
+library(zoo)
+
+require('cem')
+require('plyr')
+```
+
+A word or two about feasibility. The only census information we can get is from IPUMS (it seems), and for the countries we are considering, these are the most recent:
+
+country   IPUMS   census    weighted
+Peru      2007    2017      No
+Brazil    2010    2010      Yes
+Chile     2002    2017      No
+Mexico    2015    2010      Yes
+          (IPUMS intercensal survey)
+Argentina 2010    2010      No
+Colombia  2005    2018      Yes
+
+
+Reading in the sampling data and making necessary updates.
+
+Here, we are using the IPUMS data; in Brazil there was an issue so we had to use only harmonized variables...
+
+```{r}
+census<- read.csv(
+  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/sample/',country,'_ipums-census_geo.csv') #'ipumsi_00023.csv')#
+  )
+```
+```{r}
+netquest <- read.csv(
+  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",
+  country,
+  "/panel/", country, "_netquest-panel_geo.csv")
+)
+```
+
+
+
+```{r}
+save.image(paste0(country,"_data_loaded.RData"))
+```
+
+```{r}
+#load(paste0(country,"_data_loaded.RData"))
+```
+
+
+We have to recode the various characteristics we have at our disposal.
+```{r}
+matching.vars <- c('gend', 
+                   'age', 
+                   'ed', 
+                   #'ed_hhh', 
+                   'emp', 
+                   #'emp_hhh', 
+                   #'san', 
+                   'auto',
+                   #'cell',
+                   'nbath',
+                   'pc',
+                   'fridg',
+                   #'motoc',
+                   'washer',
+                   #'insur_hhh', 
+                   #'walls', 
+                   #'floors', 
+                   'child',
+                   #'hhinc',
+                   'radio',
+                   'tv',
+                   #'water',
+                   'marst',
+                   'pern',
+                   'hhtype',
+                   'hhh',
+                   #'prov', using X and Y instead of province
+                   'X',
+                   'Y'
+                   )
+```
+
+Gender:          is fine.
+```{r}
+census$gend <- census$SEX
+netquest$gend <- netquest$p_sexo
+```
+
+```{r}
+unique(netquest$gend)
+```
+
+Age:          is fine, need to filter these to make sure we exclude too young respondents.
+```{r}
+census$age <- mapvalues(census$AGE, from=c(999), to=c(NA))
+netquest$age <- netquest$panelistAge
+netquest$age[netquest$panelistAge>100] <- 100
+```
+```{r}
+unique(netquest$age)
+```
+
+
+Education:    EDUCCL partially matches CL_education_level; the census doesn't count postgrad so have to collapse in panel
+
+```{r}
+census$ed <- rep(NA, length=length(census$EDUCBR))
+census$ed[census$EDUCBR==0] <- 1
+census$ed[census$EDUCBR>=1000 & census$EDUCBR<=2140] <- 2
+census$ed[(census$EDUCBR==2141)|(census$EDUCBR==2190)] <- 3
+census$ed[(census$EDUCBR>=2210 & census$EDUCBR<=2230)|census$EDUCBR==2900] <- 4
+census$ed[(census$EDUCBR==2241)|(census$EDUCBR==2290)] <- 5
+census$ed[census$EDUCBR>=3100 & census$EDUCBR<=3200] <- 6
+census$ed[census$EDUCBR %in% c(3300, 3900)] <- 7
+census$ed[census$EDUCBR %in% c(4170, 4180)] <- 8
+census$ed[census$EDUCBR==4190] <- 9
+census$ed[census$EDUCBR %in% c(4270, 4280)] <- 10
+census$ed[census$EDUCBR %in% c(4230, 4240)] <- 11
+census$ed[census$EDUCBR %in% c(4250, 4260)] <- 12
+
+netquest$ed <- as.integer(netquest$BR_education_level_full)
+```
+
+    Need head of household, as well--HHH INFORMATION NOT AVAILABLE IN BRAZIL!
+
+Employment. Reconsider ordering.
+```{r}
+census$emp <- mapvalues(census$EMPSTAT,
+        from=c(1, 2, 3,  0),
+        to=  c(1, 3, 4, NA))
+census$emp[census$CLASSWK==2]<- 2   # Wage/salary worker
+netquest$emp <- mapvalues(netquest$BR_laboral_situation,
+       from=c(1,2,3,4,5,6,7,8,9),
+       to=  c(2,1,4,3,4,3,4,4,4))
+```
+```{r}
+unique(census$emp)
+```
+
+  Employment of head of household: no HHH in Brazil
+
+
+Auto
+```{r}
+census$auto <- mapvalues(census$AUTOS,
+        from=c(0,7,9),
+        to=  c(2,1,NA))
+netquest$auto <- mapvalues(netquest$BR_numAutos,
+       from=c(1,2,3,4,5),
+       to=  c(2,1,1,1,1))
+unique(netquest$auto)
+```
+
+
+Have bathroom?
+```{r}
+census$nbath <- mapvalues(census$BATH,
+        from=c(1,2,0),
+        to=  c(2,1,NA))
+netquest$nbath <- mapvalues(netquest$BR_numBaths,
+       from=c(1,2,3,4,5),
+       to=  c(2,1,1,1,1))
+unique(netquest$nbath)
+```
+
+Computer?
+```{r}
+census$pc <- mapvalues(census$COMPUTER,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+netquest$pc <- mapvalues(netquest$BR_numComputer,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+unique(netquest$pc)
+```
+
+Fridge?
+```{r}
+census$fridg <- mapvalues(census$REFRIG,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+netquest$fridg <- mapvalues(netquest$BR_numFridge,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+unique(netquest$fridg)
+```
+
+
+Washing machine?
+```{r}
+census$washer <- mapvalues(census$WASHER,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+netquest$washer <- mapvalues(netquest$BR_numWashmachine,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+unique(netquest$washer)
+```
+
+Children
+```{r}
+census$child<-census$NCHILD
+census$child[census$NCHILD>7] <- 7
+
+netquest$child <- netquest$number_P3
+netquest$child[netquest$P3==2] <- 0
+
+unique(netquest$child)
+```
+
+
+Marital status: need P1 from Netquest!
+```{r}
+census$marst <- mapvalues(census$MARST,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                          )
+
+netquest$marst <- mapvalues(netquest$P1,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                          )
+unique(census$marst)
+```
+
+Has radio
+```{r}
+census$radio <- mapvalues(census$RADIO,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+netquest$radio <- mapvalues(netquest$BR_2012_numRadio,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+unique(netquest$radio)
+```
+
+Has TV
+
+```{r}
+census$tv <- mapvalues(census$TV,
+                       from=c(10,20,0),
+                       to  =c(2,1,NA)
+                       )
+netquest$tv <- mapvalues(netquest$BR_2012_numTV,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+
+unique(netquest$tv)
+```
+
+
+number of persons in household
+```{r}
+census$pern <- census$PERSONS
+netquest$pern <- netquest$P2
+table(netquest$pern)
+```
+
+type of household
+```{r}
+census$hhtype <- mapvalues(census$HHTYPE,
+                          from=c(1,5,6,7,8,2,3,4,6,11,99, 0),
+                          to  =c(1,5,5,6,6,2,4,3,5, 0, 0,NA)
+                          )
+
+netquest$hhtype <- mapvalues(netquest$P8,
+                          from=c(1,2,3,4,5,6,7,99),
+                          to  =c(1,5,6,2,4,3,5, 0)
+                          )
+table(census$hhtype)
+```
+head of household?
+```{r}
+census$hhh <- vector(length=length(census$RELATE))
+census$hhh[census$RELATE>1] <- 2
+census$hhh[census$RELATE==1] <- 1
+
+netquest$hhh <- mapvalues(netquest$P12,
+                          from=c(1,2,3),
+                          to  =c(1,2,1)
+                          )
+
+```
+
+```{r}
+hist(netquest$hhh)
+```
+
+Give ID to both datasets, so we can go back to IDs when necessary
+```{r}
+census$id <- seq(dim(census)[1])
+netquest$id <- seq(dim(netquest)[1])
+```
+
+
+Create the sample and panel from this:
+
+
+If we do some non-numeric matching, we'd want to adjust the labels/levels.
+```{r}
+panel <- to_factor(netquest[append(matching.vars, c('id'))],
+                   drop_unused_labels = TRUE)
+
+panel['Fakeid'] <- netquest[[NQ_id]]
+panel <- panel[panel$age>17,]
+
+panel <- na.omit(panel)        
+summary(panel)
+```
+
+
+ADJUST FOR COUNTRY!
+```{r}
+census.proc <- to_factor(census[append(matching.vars,c(
+  strat2,
+  'PERWT',
+  strat1,'id'))], drop_unused_labels = TRUE)
+
+census.proc <- census.proc[census.proc$age>17,]
+
+census.proc <- na.omit(census.proc)
+census.proc <- census.proc[order(census.proc[strat1],census.proc[strat2]),]
+
+summary(census.proc)
+```
+
+sample! Stratified by urban/rural and by region, weighted
+!REMEMBER TO MATCH THE SEED!
+
+```{r}
+n <- 1200
+set.seed(111)
+strats=c(strat1,strat2)
+library(sampleMatch)
+target  <- strat_weight_sample(census.proc,strats,'PERWT',n)
+#add Fakeid, so we can keep those from the panel in the matching set
+target['Fakeid'] <- as.integer(rep(999999, length(target$age)))
+```
+
+
+Making sure this stratification worked...
+```{r}
+barplot(table(census.proc[[strat2]], census.proc[[strat1]]))
+```
+
+
+
+
+Add a treatment into it:
+```{r}
+panel['treat'] <- rep(0,length(panel$age))
+target['treat'] <- rep(1,length(target$age))
+```
+
+
+Now join this data together:
+```{r}
+levels(panel$Fakeid) <- c(levels(panel$Fakeid),999999) #to make room for the non-existent Fakeid
+alldata<-rbind(panel,target[names(panel)])
+
+
+#jointId will be the sequence number in the joint dataframe -- MAY NOT NEED THIS?
+alldata$jointId <- seq(dim(alldata)[1])
+rownames(alldata) <- alldata$jointId
+
+
+unique(table(alldata$id))
+```
+Divide target sample into age quantiles (in this case, deciles) and add that to the data:
+```{r}
+age_q <- quantile(target$age,prob = seq(0,1,0.1))
+alldata['age_group'] <- as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))
+alldata$age_group[is.na(alldata$age_group)] <- 10
+```
+
+#for the methods that require numeric approximation
+```{r}
+alldata_num<-data.frame(lapply(alldata, as.numeric))
+```
+
+```{r}
+summary(alldata_num)
+```
+
+
+
+
+
+Now the matching begins. This is using the MatchIt package as we are used to...
+```{r}
+
+matching.form <- as.formula(paste0("treat ~ ", paste(matching.vars, collapse=' + ')))
+```
+
+We'll have to repeat this process (at least for everything except PS), since the memory can't deal with all of this. 
+* start empty dataframe initialized with target IDs
+* make a copy of the data to alter
+* for each i in range:
+  + run the matching
+  + store the matched IDs
+  + store some overall metrics about the match
+  + reduce the panel data
+* return the match objects
+
+```{r}
+matchRatio <- function(data, metric, n, exact = c()){
+  
+  # assign the dataframe to hold the matching results
+  df <- data.frame(matrix(ncol=1, nrow=sum(data$treat==1)))
+  names(df) <- c("targetId")
+  df$targetId <- data$id[data$treat==1]
+  
+  # assign the object to hold all the matching information
+  matches <- vector("list",n)
+  
+  # make a copy of the passed-in data
+  data.copy <- data.frame(data)
+  
+  
+  # loop over the number of respondents per target
+  # if there are issues, can I relax the age groups?
+  for(i in 1:n){
+    print(paste('i = ',to_character(i)))
+    m <- matchit(matching.form, 
+                 data = data.copy, exact=exact, method = "nearest", distance = metric)
+    
+    try({matches[[i]] <- m
+        targetids <- data.copy[row.names(m$match.matrix), "id"]
+        panelids <- as.data.frame(data.copy[m$match.matrix,"Fakeid"])
+        names(panelids)<-c("panelId")
+        panelids['targetId']<-targetids
+        df <- merge(x=df, y=panelids, by="targetId", all.x = TRUE, suffixes=c("",to_character(i)))
+        } #... maybe merge instead might be safer?
+    )
+    
+    controls <- match.data(m, group='control')
+    data.copy <- data.copy[!data.copy$jointId %in% controls$jointId,] # not relying on rownames
+    
+  }
+  return(list("ids"=df, "matches"=matches))
+}
+
+```
+
+```{r}
+matches.cem_mah = matchRatio(alldata_num, "mahalanobis", 1, exact = c("age_group","gend"))
+```
+
+
+Save the id's of the matches to a file, so I don't lose them--just in case
+```{r}
+tmp <- matches.cem_mah$ids
+
+# attaching NQ panel code
+tmp[NQ_id] <- merge(x = matches.cem_mah$ids, 
+                    y = alldata[alldata$treat==0, c("Fakeid",'id')], 
+                    by.x = "panelId", 
+                    by.y = "id")[["Fakeid"]]
+
+# attaching census identification, just in case!
+tmp[c("SERIAL","PERNUM")] <- merge(x = matches.cem_mah$ids,
+                                   y = census[c("SERIAL","PERNUM","id")],
+                                   by.x = 'targetId',
+                                   by.y = 'id')[c("SERIAL","PERNUM")]
+
+write.csv(x=tmp[c("targetId",NQ_id, "SERIAL","PERNUM")], file=paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country,"/panel/matches_cem-mah.csv"))
+```
+```{r}
+summary(tmp)
+```
+
+
+
+
+
+
+

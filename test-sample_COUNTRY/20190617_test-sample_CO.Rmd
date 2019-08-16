@@ -1,0 +1,103 @@
+---
+title: "sample-matching_IPUMS-NQ_AR"
+author: "Maita Schade"
+date: "May 16, 2019"
+output: html_notebook
+---
+
+
+run: *Ctrl+Shift+Enter*. 
+New chunk: *Ctrl+Alt+I*.
+*Ctrl+Shift+K* to preview the HTML file.
+
+Make sure we're dealing with a clear space:
+```{r}
+rm(list = ls(all = TRUE))
+```
+
+```{r}
+country = "CO"
+strat1 = "GEO1_CO2005"
+strat2 = "URBAN"
+NQ_id  = "gp_codigo"
+
+
+setwd(
+  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country)
+)
+```
+
+
+A word or two about feasibility. The only census information we can get is from IPUMS (it seems), and for the countries we are considering, these are the most recent:
+
+country   IPUMS   census    weighted
+Peru      2007    2017      No
+Brazil    2010    2010      Yes
+Chile     2002    2017      No
+Mexico    2015    2010      Yes
+          (IPUMS intercensal survey)
+Argentina 2010    2010      No
+Colombia  2005    2018      Yes
+
+Reading in the sampling data and making necessary updates.
+
+Here, we are using the IPUMS data.
+
+```{r}
+load(paste0(country,"_data_loaded.RData"))
+```
+
+```{r}
+select = read.csv(file=paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country,"/panel/matches_cem-mah.csv"))
+```
+
+```{r}
+library('plyr')
+
+#census$ed <- vector(length=length(census$EDUCCL))
+census$ed[census$EDUCCO<=250 | census$EDUCCO==270] <- 1
+census$ed[census$EDUCCO==260] <- 2
+census$ed[census$EDUCCO>=320 & census$EDUCCO<=380] <- 3
+census$ed[census$EDUCCO>=390 & census$EDUCCO<=439] <- 4
+census$ed[census$EDUCCO>=440 & census$EDUCCO<=449] <- 5
+census$ed[census$EDUCCO>=500 & census$EDUCCO<=590] <- 6
+
+netquest$ed <- as.integer(netquest$CO_education_level)
+```
+
+
+```{r}
+target <- join(select, census, by=c('SERIAL','PERNUM'))
+sample <- join(select, netquest, by=NQ_id)
+```
+
+```{r}
+age_q <- quantile(target$AGE,prob = seq(0,1,0.1))
+sample['age_group'] <- as.integer(cut(sample$panelistAge,breaks = age_q, include.lowest = TRUE))
+target['age_group'] <- as.integer(cut(target$AGE,breaks = age_q, include.lowest = TRUE))
+#alldata$age_group[is.na(alldata$age_group)] <- 10
+age_q
+```
+
+Age
+```{r}
+hist(census$AGE, breaks=9)
+hist(sample$panelistAge)
+hist(target$AGE)
+```
+
+education
+```{r}
+hist(census$ed)
+hist(target$ed, breaks=7)
+hist(sample$ed, breaks=7)
+```
+```{r}
+table(sample$ed)
+```
+
+```{r}
+table(target$ed)
+```
+
+
