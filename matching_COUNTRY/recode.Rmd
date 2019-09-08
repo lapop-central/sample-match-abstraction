@@ -1,0 +1,151 @@
+---
+title: "recode"
+author: "Maita Schade"
+date: "Sep 8, 2019"
+output: html_notebook
+---
+
+Make sure we're dealing with a clear space:
+```{r}
+rm(list = ls(all = TRUE))
+```
+
+Setting specifics--may want to iterate over countries rather than set things individually, eventually.
+```{r}
+country = "AR"
+strat1 = "GEO1_AR2010"
+strat2 = ""
+strats = strat1
+NQ_id  = "p_codigo"
+
+setwd(
+  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country)
+)
+
+censuspath <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/sample/',country,'_ipums-census_geo.csv')
+
+netquestpath <- 
+  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",
+  country,
+  "/panel/", country, "_netquest-panel_geo.csv")
+
+recodepath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_Netquest_IPUMS_",country, ".csv")
+
+datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
+```
+
+
+```{r}
+library(data.table)
+```
+
+
+```{r}
+census<- fread(censuspath)
+```
+
+
+```{r}
+netquest <- fread(netquestpath)
+```
+```{r}
+recode_map <- fread(recodepath)
+```
+
+
+We have to recode the various characteristics we have at our disposal.
+```{r}
+matching.vars <- unique(recode_map$common_var)
+```
+
+Load external function to do the dirty work, depending on country etc.
+Note that this function will need to get updated when adding new countries/data sources.
+```{r}
+source("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_country.R")
+```
+
+
+
+
+## Recode IPUMS
+```{r}
+census.proc <- countryRecode(dt = census, source = 'ipums', country = country)
+```
+
+```{r}
+summary(census.proc)
+```
+
+
+Investigate ones with lots of NA:
+```{r}
+table(census$EMPSTAT)
+```
+These are not in universe.
+```{r}
+table(census$AR2010A_EDLEV)
+```
+This is special ed, and not in universe.
+
+
+Give ID to all members
+```{r}
+census.proc$censusId <- paste0(
+  sprintf(
+    paste0('%0',
+           as.character(max(nchar(census.proc$SERIAL))),
+           '.0f'),
+    census.proc$SERIAL),
+  sprintf(
+    paste0('%0',
+           as.character(max(nchar(census.proc$PERNUM))),
+           '.0f'),
+    census.proc$PERNUM)
+)
+max(table(census.proc$censusId)) #make sure is unique!
+census.proc$censusId[1:10]
+table(nchar(census.proc$censusId))
+```
+
+Then cut things down
+```{r}
+census.proc <- census.proc[,,with=F
+                           ]
+
+census.proc <- census.proc[census.proc$age>17,]
+census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats),with=F]
+
+census.proc <- na.omit(census.proc)
+
+summary(census.proc)
+```
+
+Save to disk:
+```{r}
+write.csv(x = census.proc, 
+          file = paste0(datadir,'/sample/', country,'_ipums_recoded.csv')
+)
+```
+
+
+
+## Recode Netquest
+```{r}
+netquest.proc <- countryRecode(dt = netquest, source = 'netquest', country = country)
+```
+Reduce to what we need:
+```{r}
+netquest.proc$panelId  <- netquest.proc[[NQ_id]]
+netquest.proc <- netquest.proc[netquest.proc$age>17,]
+netquest.proc <- netquest.proc[,c(matching.vars, 'panelId'),with=F]
+netquest.proc <- na.omit(netquest.proc)        
+summary(netquest.proc)
+```
+
+Save to disk:
+```{r}
+write.csv(x = census.proc, 
+          file = paste0(datadir,'/panel/', country, '_netquest_recoded.csv')
+)
+```
+
