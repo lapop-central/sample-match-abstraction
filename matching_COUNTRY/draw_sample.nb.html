@@ -1761,6 +1761,7 @@ summary {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Set the following chunk depending on the circumstances:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY291bnRyeSA9IFwiQVJcIlxuc3RyYXQxID0gXCJHRU8xX0FSMjAxMFwiXG5zdHJhdDIgPSBcIlVSQkFOXCJcbk5RX2lkICA9IFwicF9jb2RpZ29cIlxuY2Vuc3VzcGF0aCA9IHBhc3RlMCgnQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL0lEQiBPbmxpbmUvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhLycsY291bnRyeSwnL3NhbXBsZS8nLGNvdW50cnksJ19pcHVtcy1jZW5zdXNfZ2VvLmNzdicpXG5cbnNldHdkKFxuICBwYXN0ZTAoXCJDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9Db29yZGluYXRpb24vSURCIE9ubGluZS9NYXRjaGluZyBwcm9jZXNzL0RhdGEvXCIsY291bnRyeSlcbilcbmBgYCJ9 -->
@@ -1781,51 +1782,66 @@ setwd(
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSgnTWF0Y2hJdCcpXG5saWJyYXJ5KCdoYXZlbicpXG5saWJyYXJ5KCdvcGVueGxzeCcpXG5saWJyYXJ5KCdsYWJlbGxlZCcpXG5gYGAifQ== -->
-<pre class="r"><code>library(&#39;MatchIt&#39;)
-library(&#39;haven&#39;)
-library(&#39;openxlsx&#39;)
-library(&#39;labelled&#39;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2luc3RhbGwucGFja2FnZXMoJ2RldnRvb2xzJylcbmluc3RhbGxfZ2l0aHViKFwibWFpdGFnb3JyaS9zYW1wbGVNYXRjaFwiKVxuXG5gYGAifQ== -->
+<pre class="r"><code>#install.packages(&#39;devtools&#39;)
+install_github(&quot;maitagorri/sampleMatch&quot;)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2Qgb3ZlcndyaXR0ZW4gYnkgJ2RwbHlyJzpcbiAgbWV0aG9kICAgICAgICAgICBmcm9tXG4gIHByaW50LnJvd3dpc2VfZGYgICAgIFxuIn0= -->
-<pre><code>Registered S3 method overwritten by &#39;dplyr&#39;:
-  method           from
-  print.rowwise_df     </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh6b28pXG5gYGAifQ== -->
-<pre class="r"><code>library(zoo)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixem9v46S847iyXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g46S847ixcGFja2FnZTpiYXNl46S847iyOlxuXG4gICAgYXMuRGF0ZSwgYXMuRGF0ZS5udW1lcmljXG4ifQ== -->
-<pre><code>
-Attaching package: 㤼㸱zoo㤼㸲
+<!-- rnb-output-begin eyJkYXRhIjoiV0FSTklORzogUnRvb2xzIGlzIHJlcXVpcmVkIHRvIGJ1aWxkIFIgcGFja2FnZXMsIGJ1dCBpcyBub3QgY3VycmVudGx5IGluc3RhbGxlZC5cblxuUGxlYXNlIGRvd25sb2FkIGFuZCBpbnN0YWxsIFJ0b29scyAzLjUgZnJvbSBodHRwOi8vY3Jhbi5yLXByb2plY3Qub3JnL2Jpbi93aW5kb3dzL1J0b29scy8uXG5Eb3dubG9hZGluZyBHaXRIdWIgcmVwbyBtYWl0YWdvcnJpL3NhbXBsZU1hdGNoQG1hc3RlclxuV0FSTklORzogUnRvb2xzIGlzIHJlcXVpcmVkIHRvIGJ1aWxkIFIgcGFja2FnZXMsIGJ1dCBpcyBub3QgY3VycmVudGx5IGluc3RhbGxlZC5cblxuUGxlYXNlIGRvd25sb2FkIGFuZCBpbnN0YWxsIFJ0b29scyAzLjUgZnJvbSBodHRwOi8vY3Jhbi5yLXByb2plY3Qub3JnL2Jpbi93aW5kb3dzL1J0b29scy8uXG4ifQ== -->
+<pre><code>WARNING: Rtools is required to build R packages, but is not currently installed.
 
-The following objects are masked from 㤼㸱package:base㤼㸲:
+Please download and install Rtools 3.5 from http://cran.r-project.org/bin/windows/Rtools/.
+Downloading GitHub repo maitagorri/sampleMatch@master
+WARNING: Rtools is required to build R packages, but is not currently installed.
 
-    as.Date, as.Date.numeric</code></pre>
+Please download and install Rtools 3.5 from http://cran.r-project.org/bin/windows/Rtools/.</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkYXRhLnRhYmxlKVxucmVxdWlyZShwbHlyKVxuYGBgIn0= -->
-<pre class="r"><code>library(data.table)
-require(plyr)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBwbHlyXG4ifQ== -->
-<pre><code>Loading required package: plyr</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVxdWlyZShzYW1wbGVNYXRjaClcbmBgYCJ9 -->
-<pre class="r"><code>require(sampleMatch)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBzYW1wbGVNYXRjaFxudGhlcmUgaXMgbm8gcGFja2FnZSBjYWxsZWQg46S847ixc2FtcGxlTWF0Y2jjpLzjuLJcbiJ9 -->
-<pre><code>Loading required package: sampleMatch
-there is no package called 㤼㸱sampleMatch㤼㸲</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVxdWlyZSgnY2VtJylcbmBgYCJ9 -->
-<pre class="r"><code>require(&#39;cem&#39;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBjZW1cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogdGNsdGtcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogbGF0dGljZVxuXG5Ib3cgdG8gdXNlIENFTT8gVHlwZSB2aWduZXR0ZShcImNlbVwiKVxuIn0= -->
-<pre><code>Loading required package: cem
-Loading required package: tcltk
-Loading required package: lattice
+<!-- rnb-output-begin eyJkYXRhIjoiICBcbiAgXG4gIFxuXHUwMDFiWzMybeKImlx1MDAxYlszOW0gIFx1MDAxYls5MG1jaGVja2luZyBmb3IgZmlsZSAnQzpcXFVzZXJzXFxzY2hhZGVtXFxBcHBEYXRhXFxMb2NhbFxcVGVtcFxcUnRtcHFtbmNDcFxccmVtb3RlczJmYmNhYzM1ZDc5XFxtYWl0YWdvcnJpLXNhbXBsZU1hdGNoLTQ3MmMxYWEvREVTQ1JJUFRJT04nXHUwMDFiWzM5bVx1MDAxYlszNm1cdTAwMWJbMzZtICg0MjZtcylcdTAwMWJbMzZtXHUwMDFiWzM5bVxuXG4gIFxuICBcbiAgXG5cdTAwMWJbOTBtLVx1MDAxYlszOW1cdTAwMWJbOTBtICBcdTAwMWJbMzltXHUwMDFiWzkwbXByZXBhcmluZyAnc2FtcGxlTWF0Y2gnOlx1MDAxYlszOW1cdTAwMWJbMzZtXHUwMDFiWzM5bVxuXHUwMDFiWzMybeKImlx1MDAxYlszOW0gIFx1MDAxYls5MG1jaGVja2luZyBERVNDUklQVElPTiBtZXRhLWluZm9ybWF0aW9uXHUwMDFiWzM5bVx1MDAxYlszNm1cdTAwMWJbMzltXG5cbiAgXG4gIFxuICBcblx1MDAxYls5MG0tXHUwMDFiWzM5bVx1MDAxYls5MG0gIFx1MDAxYlszOW1cdTAwMWJbOTBtY2hlY2tpbmcgZm9yIExGIGxpbmUtZW5kaW5ncyBpbiBzb3VyY2UgYW5kIG1ha2UgZmlsZXMgYW5kIHNoZWxsIHNjcmlwdHNcdTAwMWJbMzltXHUwMDFiWzM2bVx1MDAxYlszOW1cblx1MDAxYls5MG0tXHUwMDFiWzM5bVx1MDAxYls5MG0gIFx1MDAxYlszOW1cdTAwMWJbOTBtY2hlY2tpbmcgZm9yIGVtcHR5IG9yIHVubmVlZGVkIGRpcmVjdG9yaWVzXHUwMDFiWzM5bVx1MDAxYlszNm1cdTAwMWJbMzltXG5cdTAwMWJbOTBtLVx1MDAxYlszOW1cdTAwMWJbOTBtICBcdTAwMWJbMzltXHUwMDFiWzkwbWJ1aWxkaW5nICdzYW1wbGVNYXRjaF8wLjEuMC50YXIuZ3onXHUwMDFiWzM5bVx1MDAxYlszNm1cdTAwMWJbMzltXG5cbiAgXG4gICBcbiJ9 -->
+<pre><code>  
+  
+  
+[32m√[39m  [90mchecking for file &#39;C:\Users\schadem\AppData\Local\Temp\RtmpqmncCp\remotes2fbcac35d79\maitagorri-sampleMatch-472c1aa/DESCRIPTION&#39;[39m[36m[36m (426ms)[36m[39m
 
-How to use CEM? Type vignette(&quot;cem&quot;)</code></pre>
+  
+  
+  
+[90m-[39m[90m  [39m[90mpreparing &#39;sampleMatch&#39;:[39m[36m[39m
+[32m√[39m  [90mchecking DESCRIPTION meta-information[39m[36m[39m
+
+  
+  
+  
+[90m-[39m[90m  [39m[90mchecking for LF line-endings in source and make files and shell scripts[39m[36m[39m
+[90m-[39m[90m  [39m[90mchecking for empty or unneeded directories[39m[36m[39m
+[90m-[39m[90m  [39m[90mbuilding &#39;sampleMatch_0.1.0.tar.gz&#39;[39m[36m[39m
+
+  
+   </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSW5zdGFsbGluZyBwYWNrYWdlIGludG8gkUM6L1VzZXJzL3NjaGFkZW0vUi93aW4tbGlicmFyeS8zLjaSXG4oYXMgkWxpYpIgaXMgdW5zcGVjaWZpZWQpXG4ifQ== -->
+<pre><code>Installing package into 㤼㸱C:/Users/schadem/R/win-library/3.6㤼㸲
+(as 㤼㸱lib㤼㸲 is unspecified)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKiBpbnN0YWxsaW5nICpzb3VyY2UqIHBhY2thZ2UgJ3NhbXBsZU1hdGNoJyAuLi5cbioqIHVzaW5nIHN0YWdlZCBpbnN0YWxsYXRpb25cbioqIFJcbioqIGJ5dGUtY29tcGlsZSBhbmQgcHJlcGFyZSBwYWNrYWdlIGZvciBsYXp5IGxvYWRpbmdcbioqIGhlbHBcbioqKiBpbnN0YWxsaW5nIGhlbHAgaW5kaWNlc1xuICBjb252ZXJ0aW5nIGhlbHAgZm9yIHBhY2thZ2UgJ3NhbXBsZU1hdGNoJ1xuICAgIGZpbmRpbmcgSFRNTCBsaW5rcyAuLi4gZG9uZVxuICAgIG1hdGNoUmF0aW8gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBodG1sICBcbiAgICBzdHJhdF93ZWlnaHRfc2FtcGxlICAgICAgICAgICAgICAgICAgICAgaHRtbCAgXG4qKiBidWlsZGluZyBwYWNrYWdlIGluZGljZXNcbioqIHRlc3RpbmcgaWYgaW5zdGFsbGVkIHBhY2thZ2UgY2FuIGJlIGxvYWRlZCBmcm9tIHRlbXBvcmFyeSBsb2NhdGlvblxuKioqIGFyY2ggLSBpMzg2XG4qKiogYXJjaCAtIHg2NFxuKiogdGVzdGluZyBpZiBpbnN0YWxsZWQgcGFja2FnZSBjYW4gYmUgbG9hZGVkIGZyb20gZmluYWwgbG9jYXRpb25cbioqKiBhcmNoIC0gaTM4NlxuKioqIGFyY2ggLSB4NjRcbioqIHRlc3RpbmcgaWYgaW5zdGFsbGVkIHBhY2thZ2Uga2VlcHMgYSByZWNvcmQgb2YgdGVtcG9yYXJ5IGluc3RhbGxhdGlvbiBwYXRoXG4qIERPTkUgKHNhbXBsZU1hdGNoKVxuIn0= -->
+<pre><code>* installing *source* package &#39;sampleMatch&#39; ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package &#39;sampleMatch&#39;
+    finding HTML links ... done
+    matchRatio                              html  
+    strat_weight_sample                     html  
+** building package indices
+** testing if installed package can be loaded from temporary location
+*** arch - i386
+*** arch - x64
+** testing if installed package can be loaded from final location
+*** arch - i386
+*** arch - x64
+** testing if installed package keeps a record of temporary installation path
+* DONE (sampleMatch)</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1833,334 +1849,375 @@ How to use CEM? Type vignette(&quot;cem&quot;)</code></pre>
 <p>Here, we are using the IPUMS data.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjI5LCJucm93Ijo2fSwicmRmIjoiSDRzSUFBQUFBQUFBQnMxVnpXN1RRQkJlL3lRbUxtMmg0VWlrWEVFMGFnSUZjVUZhbWxVVE5iWWpKMjJUVStTbWdVWUV1N0pkd1FXSkk0L0JZM0JCUXVMS0FTNGNlSUlpSkI2QVE4UFkzakcyY1VyRkFXSHA4KzdNTnpPN016dHJtODNCYlhXZ0VrSWtJaFVGSWhWZ1NvcGIzWHBqczBHSUxJSWtFSm1VZ3ZFNVdKVmhVZ0VzQjJZa2VnU0FHSVlBRDBBaHdWY1hnUFBLbDN4RXZQQnRlQ01Qdi95bDB3aktSMEtXM2hDeStwcVE4cXZFK2lLSGtBSHk2Z0p3L29XWWo5L2laeEh0LzlUNGxJZEUvcC96RWNlWEZnQjVyUDFmNXZjbmY2d3QxaGtSKzFQQUE4QWR3RDNBVmNDMWMrS0w2ZmpoWERwbi96YUl0Nkl4QmVTVnhDankvcE1UZkluclN4a0VOU2kraEZjZS9nRi9KZHhmZExIV21sUFBkNmUrVTJYZTJKbFpiclg5SHpDRXJBUjdmS2ZkOTc5K3NMNWZkSXo5cVA3MjVudnQra1hIek1lbTVEclBhcmIxZE9MeHd4U0R3czNuOHg4Wnc4SjRabmtlcnlncTFVUEx0MnFQWFBEUG1tUE13THpDbGVKZW5jK1VMV05YNzV0RExzcERSazArTC9hbzF1MndXR0ptbTNiUXJjdk1ucUgzMEszVjJ1OGp0YzJNK2lpT3NzVEZ4a1o5STJIUlNGczAwaGJ5UTlwdjRjS3dsTDZyWVRvZ3hVc1ZUZGFoZmR5aEVrbE5Ma3AwR3htcHh3Wm94TFJ1cjA4eHdpVXVvdE55dEEwNllzME8yK1BLRlZUdTczUU1ZNGRyTDNQWFVZdlIyQjNESlpWcnFaaEpwcHdPbktSVTJ0VGEra2luR2lZaFlBckNFRjVubVdOV25HTi82dGh3MEdMd3h5cGsra053TTRyVkV6dG9qTVAxOGRHSi9XVDlMci9CUW5SWnd3WVVTUFJGd1hrbFdsS2U4MUFGUElXSi9YaHFUL0NBWnRiQlpJYVZnNllPKzY5MjdFNXRIM01EclZmekhkOUNPeFh1SUdyQzNNalpUNUsxb21TcEJ3QUEifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjEyLCJucm93Ijo2fSwicmRmIjoiSDRzSUFBQUFBQUFBQm8xVHZVNENRUkRlK3dNNXdXQ3dNamEySmhEQXY5aVlFQ1hHQWlYRVJLek1jcXhBaEQxeWQwUkxiWHdCbndEZnc4VEUxcGV3dFBFQkxNQzV2UjBDR3pRVTMzMnpNOS9NemM3dTFvN3IyM2JkSm9RWXhJaHB4TERBSkxHamFxRzRXeVRFMUdHbEVaTWtRcjRIVlFhTUpQQktLQXUxUkhzYVNuNFJiS1JLZ3MzblQ4R3g5VWZCOGVHbVV0Qnl1dFQzd1VoUE9STWRIckFXOC9aMllERUNwT1NmN0QrQWNRMmdTNTYyTVI1MmRRZ0k2KzREVmdGclN2NDhZRHljakNsWkZ3T0xNSjF2L0pPdksvMnBjYlYvaEpqMFcrVWcrUHFnMzR2eUpLOTA5cnIxWHRsWWxPZjBxMkRtQkJPZWU1Zmp0TWQ4bWFnL3dHYzhIdjlFUW4yc25LN2RwQUhOM1hpUW9sNEdMSk1XTnl4eUxqbU0rd1AvdEltaWFybDJlU0VYWm90eERCaTB4ZERkb0VGYjJqcWJDRml2ajRJKzh6aTYyMjNVYW5VMHJxU3hmRkkrTDF5WGFzVjhJUjlkeHBtTzQyNC82TGdjZXRZejhsNU1iMVh6RkVkNndNTTlOck5PZThCdnM2S21MUStaeVBscGN2aG9KNk4vbWpoSFM5YUtNZDdxY055eTFhVU4xcFdMRlRnVE1jdGMzNE8zaElNSHI1OEwzSUNpem5iY0xucWlsemI2QmFSZlRCQU9CQUFBIn0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["V1"],"name":[1],"type":["int"],"align":["right"]},{"label":["COUNTRY"],"name":[2],"type":["int"],"align":["right"]},{"label":["YEAR"],"name":[3],"type":["int"],"align":["right"]},{"label":["SAMPLE"],"name":[4],"type":["int"],"align":["right"]},{"label":["SERIAL"],"name":[5],"type":["int"],"align":["right"]},{"label":["PERSONS"],"name":[6],"type":["int"],"align":["right"]},{"label":["HHWT"],"name":[7],"type":["int"],"align":["right"]},{"label":["GEO1_AR"],"name":[8],"type":["int"],"align":["right"]},{"label":["GEO1_AR2010"],"name":[9],"type":["int"],"align":["right"]},{"label":["GEO2_AR"],"name":[10],"type":["int"],"align":["right"]},{"label":["GEO2_AR2010"],"name":[11],"type":["int"],"align":["right"]},{"label":["BATH"],"name":[12],"type":["int"],"align":["right"]},{"label":["PERNUM"],"name":[13],"type":["int"],"align":["right"]},{"label":["PERWT"],"name":[14],"type":["int"],"align":["right"]},{"label":["RELATE"],"name":[15],"type":["int"],"align":["right"]},{"label":["RELATED"],"name":[16],"type":["int"],"align":["right"]},{"label":["AGE"],"name":[17],"type":["int"],"align":["right"]},{"label":["SEX"],"name":[18],"type":["int"],"align":["right"]},{"label":["EMPSTAT"],"name":[19],"type":["int"],"align":["right"]},{"label":["EMPSTATD"],"name":[20],"type":["int"],"align":["right"]},{"label":["AR2010A_EDLEV"],"name":[21],"type":["int"],"align":["right"]},{"label":["AR2010A_WKLOOK"],"name":[22],"type":["int"],"align":["right"]},{"label":["EMPSTAT_HEAD"],"name":[23],"type":["lgl"],"align":["right"]},{"label":["EMPSTATD_HEAD"],"name":[24],"type":["lgl"],"align":["right"]},{"label":["AR2010A_EDLEV_HEAD"],"name":[25],"type":["lgl"],"align":["right"]},{"label":["AR2010A_WKLOOK_HEAD"],"name":[26],"type":["lgl"],"align":["right"]},{"label":["ADMIN_NAME"],"name":[27],"type":["chr"],"align":["left"]},{"label":["X"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[29],"type":["dbl"],"align":["right"]}],"data":[{"1":"0","2":"32","3":"2010","4":"32201001","5":"1000","6":"2","7":"10","8":"32002","9":"2","10":"32002001","11":"2006","12":"3","13":"1","14":"10","15":"1","16":"1000","17":"65","18":"1","19":"1","20":"110","21":"7","22":"9","23":"NA","24":"NA","25":"NA","26":"NA","27":"Distrito Escolar I","28":"-58.44888","29":"-34.61515"},{"1":"1","2":"32","3":"2010","4":"32201001","5":"1000","6":"2","7":"10","8":"32002","9":"2","10":"32002001","11":"2006","12":"3","13":"2","14":"10","15":"2","16":"2000","17":"62","18":"2","19":"3","20":"300","21":"6","22":"2","23":"NA","24":"NA","25":"NA","26":"NA","27":"Distrito Escolar I","28":"-58.44888","29":"-34.61515"},{"1":"2","2":"32","3":"2010","4":"32201001","5":"2000","6":"1","7":"10","8":"32002","9":"2","10":"32002001","11":"2006","12":"3","13":"1","14":"10","15":"1","16":"1000","17":"52","18":"1","19":"1","20":"110","21":"7","22":"9","23":"NA","24":"NA","25":"NA","26":"NA","27":"Distrito Escolar I","28":"-58.44888","29":"-34.61515"},{"1":"3","2":"32","3":"2010","4":"32201001","5":"3000","6":"1","7":"10","8":"32002","9":"2","10":"32002001","11":"2006","12":"3","13":"1","14":"10","15":"1","16":"1000","17":"55","18":"1","19":"1","20":"110","21":"2","22":"9","23":"NA","24":"NA","25":"NA","26":"NA","27":"Distrito Escolar I","28":"-58.44888","29":"-34.61515"},{"1":"4","2":"32","3":"2010","4":"32201001","5":"4000","6":"1","7":"10","8":"32002","9":"2","10":"32002001","11":"2006","12":"3","13":"1","14":"10","15":"1","16":"1000","17":"17","18":"2","19":"1","20":"110","21":"4","22":"9","23":"NA","24":"NA","25":"NA","26":"NA","27":"Distrito Escolar I","28":"-58.44888","29":"-34.61515"},{"1":"5","2":"32","3":"2010","4":"32201001","5":"5000","6":"1","7":"10","8":"32002","9":"2","10":"32002001","11":"2006","12":"3","13":"1","14":"10","15":"1","16":"1000","17":"20","18":"1","19":"1","20":"110","21":"4","22":"9","23":"NA","24":"NA","25":"NA","26":"NA","27":"Distrito Escolar I","28":"-58.44888","29":"-34.61515"}],"options":{"columns":{"min":{},"max":[10],"total":[29]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+{"columns":[{"label":["censusId"],"name":[1],"type":["S3: integer64"],"align":["right"]},{"label":["PERWT"],"name":[2],"type":["int"],"align":["right"]},{"label":["gend"],"name":[3],"type":["int"],"align":["right"]},{"label":["age"],"name":[4],"type":["int"],"align":["right"]},{"label":["bath"],"name":[5],"type":["int"],"align":["right"]},{"label":["ed"],"name":[6],"type":["int"],"align":["right"]},{"label":["emp"],"name":[7],"type":["int"],"align":["right"]},{"label":["pern"],"name":[8],"type":["int"],"align":["right"]},{"label":["hhh"],"name":[9],"type":["int"],"align":["right"]},{"label":["X"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["GEO1_AR2010"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"100001","2":"10","3":"1","4":"65","5":"1","6":"5","7":"1","8":"2","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"100002","2":"10","3":"2","4":"62","5":"1","6":"4","7":"3","8":"2","9":"2","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"200001","2":"10","3":"1","4":"52","5":"1","6":"5","7":"1","8":"1","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"300001","2":"10","3":"1","4":"55","5":"1","6":"2","7":"1","8":"1","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"400001","2":"10","3":"2","4":"17","5":"1","6":"3","7":"1","8":"1","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"500001","2":"10","3":"1","4":"20","5":"1","6":"3","7":"1","8":"1","9":"1","10":"-58.44888","11":"-34.61515","12":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[12]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Give ID to all members</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzJENFTlNJRCA8LSBwYXN0ZTAoXG4gIHNwcmludGYoXG4gICAgcGFzdGUwKCclMCcsXG4gICAgICAgICAgIGFzLmNoYXJhY3RlcihtYXgobmNoYXIoY2Vuc3VzJFNFUklBTCkpKSxcbiAgICAgICAgICAgJy4wZicpLFxuICAgIGNlbnN1cyRTRVJJQUwpLFxuICBzcHJpbnRmKFxuICAgIHBhc3RlMCgnJTAnLFxuICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKGNlbnN1cyRQRVJOVU0pKSksXG4gICAgICAgICAgICcuMGYnKSxcbiAgICBjZW5zdXMkUEVSTlVNKVxuKVxubWF4KHRhYmxlKGNlbnN1cyRDRU5TSUQpKVxuYGBgIn0= -->
-<pre class="r"><code>census$CENSID &lt;- paste0(
-  sprintf(
-    paste0(&#39;%0&#39;,
-           as.character(max(nchar(census$SERIAL))),
-           &#39;.0f&#39;),
-    census$SERIAL),
-  sprintf(
-    paste0(&#39;%0&#39;,
-           as.character(max(nchar(census$PERNUM))),
-           &#39;.0f&#39;),
-    census$PERNUM)
-)
-max(table(census$CENSID))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 -->
-<pre><code>[1] 1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzJENFTlNJRFsxOjEwXVxuYGBgIn0= -->
-<pre class="r"><code>census$CENSID[1:10]</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIjAwMDAwMDEwMDAwMVwiIFwiMDAwMDAwMTAwMDAyXCIgXCIwMDAwMDAyMDAwMDFcIiBcIjAwMDAwMDMwMDAwMVwiIFwiMDAwMDAwNDAwMDAxXCIgXCIwMDAwMDA1MDAwMDFcIlxuIFs3XSBcIjAwMDAwMDYwMDAwMVwiIFwiMDAwMDAwNjAwMDAyXCIgXCIwMDAwMDA2MDAwMDNcIiBcIjAwMDAwMDcwMDAwMVwiXG4ifQ== -->
-<pre><code> [1] &quot;000000100001&quot; &quot;000000100002&quot; &quot;000000200001&quot; &quot;000000300001&quot; &quot;000000400001&quot; &quot;000000500001&quot;
- [7] &quot;000000600001&quot; &quot;000000600002&quot; &quot;000000600003&quot; &quot;000000700001&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUobmNoYXIoY2Vuc3VzJENFTlNJRCkpXG5gYGAifQ== -->
-<pre class="r"><code>table(nchar(census$CENSID))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgIDEyIFxuMzk2NjI0NSBcbiJ9 -->
-<pre><code>
-     12 
-3966245 </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>ADJUST FOR COUNTRY!</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbY2Vuc3VzLnByb2MkYWdlPjE3LF1cblxuY2Vuc3VzLnByb2MgPC0gbmEub21pdChjZW5zdXMucHJvYylcbmNlbnN1cy5wcm9jIDwtIGNlbnN1cy5wcm9jW29yZGVyKGNlbnN1cy5wcm9jW3N0cmF0MV0pLF1cblxuc3VtbWFyeShjZW5zdXMucHJvYylcbmBgYCJ9 -->
-<pre class="r"><code>census.proc &lt;- census.proc[census.proc$age&gt;17,]
-
-census.proc &lt;- na.omit(census.proc)
-census.proc &lt;- census.proc[order(census.proc[strat1]),]
-
-summary(census.proc)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>!REMEMBER TO MATCH THE SEED!</p>
 <p>Try stratified sampling.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSAxMjAwXG4jcmVxdWlyZSgnc2FtcGxpbmcnKVxuc2V0LnNlZWQoMTExKVxuc3RyYXRzPWMoc3RyYXQxKVxubGlicmFyeShzYW1wbGVNYXRjaClcbnRhcmdldCAgPC0gc3RyYXRfd2VpZ2h0X3NhbXBsZShjZW5zdXMucHJvYyxzdHJhdHMsJ1BFUldUJyxuKVxuI2FkZCBGYWtlaWQsIHNvIHdlIGNhbiBrZWVwIHRob3NlIGZyb20gdGhlIHBhbmVsIGluIHRoZSBtYXRjaGluZyBzZXRcbnRhcmdldFsnRmFrZWlkJ10gPC0gYXMuaW50ZWdlcihyZXAoOTk5OTk5LCBsZW5ndGgodGFyZ2V0JGFnZSkpKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSAxMjAwXG5zZXQuc2VlZCgxMTExMSlcbnRhcmdldCAgPC0gc3RyYXRfd2VpZ2h0X3NhbXBsZShjZW5zdXMucHJvYyxzdHJhdHMsJ1BFUldUJyxuKVxuYGBgIn0= -->
 <pre class="r"><code>n &lt;- 1200
-#require(&#39;sampling&#39;)
-set.seed(111)
-strats=c(strat1)
-library(sampleMatch)
-target  &lt;- strat_weight_sample(census.proc,strats,&#39;PERWT&#39;,n)
-#add Fakeid, so we can keep those from the panel in the matching set
-target[&#39;Fakeid&#39;] &lt;- as.integer(rep(999999, length(target$age)))</code></pre>
+set.seed(11111)
+target  &lt;- strat_weight_sample(census.proc,strats,&#39;PERWT&#39;,n)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUEVSV1QgfiBHRU8xX0FSMjAxMFxuPGVudmlyb25tZW50OiAweDAwMDAwMjRiMDM0OTk2MjA+XG4ifQ== -->
+<pre><code>PERWT ~ GEO1_AR2010
+&lt;environment: 0x0000024b03499620&gt;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Making sure this stratification worked…</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmFycGxvdCh0YWJsZSggdGFyZ2V0W1tzdHJhdDFdXSkpXG5ucm93KHRhcmdldClcbmBgYCJ9 -->
-<pre class="r"><code>barplot(table( target[[strat1]]))
-nrow(target)</code></pre>
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjEyLCJucm93Ijo2fSwicmRmIjoiSDRzSUFBQUFBQUFBQm8xVFRVc2pRUkN0eVdTaWpsRUNnaWVQZTFwd21FK05YbFIyWmZHZ0swRXducVJOMmlTWTlJU1pDWHIwandtQzEvMGpleEhQSG96Vm1hNUpiQ0prNEUxVnZYclYzZFVmamQvTndHN2FBR0NDV1RIQXROQ0Z5cTl6ejQ5OGdISUpJd1BLc0NMdEE2bzIwS2tpYWxLbUVsWFhqU0kzZE9VWFRybHdMNndIa3ZNS3puTkRiMGZqWEc4M0NIekorVk91SHRRanZkYnovU0RNZFFCcmsva0I3RzlBK2J5QnFTVlFmaFBoSXM0USs0Z2ZDQWV4THZNSGJ6RDVGclZVZDdpY0I0VUZ6V3I1NytiVGRYUG1vejRxTTMxU3IyYXhIcGhmci9NVVU5M3o2VjcyL3g5N1hkUVdkVWRuVHo5ZlRyY1d0ZkQxdk9iZ3kwVmNTZUo3UjdBQlQxVmg2UkYvNC9INFhSTmFyVDVMcGFnMlE5cHRsakhuTnNGNlhVNWpTbmxWa2NzdEx0SlJldEltMGZseDQvSkNCZVVPRjVRd1dZY1RmY095cnZKTHZCRHd3WkFFUTU0SW9ydGQwaHBOY3E2VXMvcm4rSzkzZmRUdzhlbGcrS0d0ZUNrZVpyMVk0SnBMOG1GYVdxdEdvaEcxa1pBOXRyZGIzWkc0Mi9ZanlGK0xNWE9iREhVUzVGZnpPY3RqTlphbHhxcHcwZWtKYXRucXN4dmVWOEU2SHRCa0w1MWgwaE1aYlR5eXFaUEZHU09kM1lyN3hFeWFnNDlQbU1Xb0U1RUVBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["censusId"],"name":[1],"type":["chr"],"align":["left"]},{"label":["PERWT"],"name":[2],"type":["int"],"align":["right"]},{"label":["gend"],"name":[3],"type":["int"],"align":["right"]},{"label":["age"],"name":[4],"type":["int"],"align":["right"]},{"label":["bath"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["ed"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["emp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["pern"],"name":[8],"type":["int"],"align":["right"]},{"label":["hhh"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["X"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["GEO1_AR2010"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"005504000004","2":"10","3":"2","4":"22","5":"1","6":"3","7":"1","8":"6","9":"2","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"004948300001","2":"10","3":"1","4":"48","5":"1","6":"3","7":"1","8":"1","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"010416300001","2":"10","3":"2","4":"78","5":"1","6":"2","7":"3","8":"2","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"001733200002","2":"10","3":"1","4":"58","5":"1","6":"2","7":"3","8":"2","9":"2","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"008385300001","2":"10","3":"1","4":"36","5":"1","6":"3","7":"1","8":"1","9":"1","10":"-58.44888","11":"-34.61515","12":"2"},{"1":"011223400002","2":"10","3":"1","4":"46","5":"1","6":"3","7":"1","8":"3","9":"2","10":"-58.44888","11":"-34.61515","12":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[12]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Add a sample id, counting those that occur more than once:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUodGFyZ2V0JGNlbnN1c0lkKVxuXG5gYGAifQ== -->
+<pre class="r"><code>table(target$censusId)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4wMDAxMDQyMDAwMDIgMDAwMTE4NjAwMDAxIDAwMDE1OTcwMDAwMSAwMDAyNTM4MDAwMDIgMDAwMzUwMDAwMDAxIDAwMDQyMTEwMDAwMSAwMDA1NzI2MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDA2ODc1MDAwMDEgMDAwODExMDAwMDAyIDAwMDk1MTgwMDAwMiAwMDExMjg3MDAwMDEgMDAxMTc0MDAwMDAxIDAwMTIwNzIwMDAwMSAwMDEyODMwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDE0NjU3MDAwMDEgMDAxODc0NzAwMDAxIDAwMjA3NTQwMDAwMSAwMDI0NzY1MDAwMDEgMDAyNTA4NzAwMDAyIDAwMjU0MjYwMDAwMiAwMDI1ODY2MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDI2MjYyMDAwMDMgMDAyNjkyOTAwMDAyIDAwMjgxMjMwMDAwMyAwMDI5ODMyMDAwMDEgMDAzMTIxNDAwMDAxIDAwMzI0MjgwMDAwMSAwMDM0MjE2MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDM2MDA2MDAwMDEgMDAzODkxOTAwMDAxIDAwMzk5NjMwMDAwMiAwMDQwMjY0MDAwMDEgMDA0MDg5MDAwMDAxIDAwNDEwODEwMDAwMSAwMDUwNDMyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDUwNjMwMDAwMDIgMDA1MDgxODAwMDAxIDAwNTA4OTMwMDAwMyAwMDUxNTc0MDAwMDIgMDA1MjEwNTAwMDAyIDAwNTMxMjkwMDAwMSAwMDU1MDA2MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDU2MTI5MDAwMDEgMDA1ODY0NTAwMDAxIDAwNTkzNzcwMDAwNiAwMDYwMzA0MDAwMDEgMDA2MDQwNTAwMDAzIDAwNjEzOTYwMDAwMSAwMDYxOTA1MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDY1ODY3MDAwMDEgMDA2NTk5MjAwMDAxIDAwNjgyNTQwMDAwMiAwMDY5Mzg5MDAwMDEgMDA3MDgwNzAwMDAxIDAwNzIwMTYwMDAwMSAwMDcyOTI5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDczMjg3MDAwMDQgMDA3Mzc0ODAwMDAzIDAwNzQ4OTkwMDAwMSAwMDc3OTY3MDAwMDMgMDA3OTc1NTAwMDAxIDAwODA5NzIwMDAwMyAwMDgxMTQyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDgxMzY4MDAwMDIgMDA4MjIxMjAwMDAyIDAwODI4NjgwMDAwMSAwMDg0MTM4MDAwMDEgMDA4NDI3NDAwMDAyIDAwODUwODMwMDAwMSAwMDg4NjE4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDg5MjM3MDAwMDIgMDA4OTQzMDAwMDAyIDAwODk1MDIwMDAwMSAwMDg5NjI3MDAwMDIgMDA5MDk4MzAwMDAyIDAwOTE1OTMwMDAwMyAwMDkyNjcwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMDkyNzk0MDAwMDEgMDA5NDU4ODAwMDAxIDAwOTc4MjgwMDAwMiAwMDk3OTA3MDAwMDEgMDA5ODcwNjAwMDAxIDAwOTkxMTkwMDAwMSAwMTAyMDkyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTAyMzY0MDAwMDIgMDEwMzU0NjAwMDAyIDAxMDQwNjcwMDAwMSAwMTA0MTY4MDAwMDIgMDEwNjY0MjAwMDAyIDAxMDkwNDMwMDAwMyAwMTExNTEwMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTEyMzcxMDAwMDIgMDExMzA5ODAwMDAyIDAxMTMxMzcwMDAwMiAwMTE0MzI1MDAwMDEgMDExNDc2MDAwMDAxIDAxMTcxODAwMDAwMyAwMTE4MzMxMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTE4NzM3MDAwMDcgMDEyMDM2MTAwMDA2IDAxMjA2MjMwMDAwNSAwMTIyNTkwMDAwMDQgMDEyMzAyODAwMDAxIDAxMjMwNjgwMDAwMSAwMTI0NDQwMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTI0ODk3MDAwMDMgMDEyNzE4ODAwMDAyIDAxMjc1MjUwMDAwNSAwMTI5ODIxMDAwMDEgMDEzMDE0MDAwMDAxIDAxMzAxNjkwMDAwMSAwMTMwMzIwMDAwMDUgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTMwNjgyMDAwMDIgMDEzMTM0NzAwMDAyIDAxMzIyOTYwMDAwMSAwMTMyMzQ2MDAwMDIgMDEzMjUwNDAwMDAxIDAxMzI2MTEwMDAwMSAwMTMzNTEyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTMzNTg4MDAwMDIgMDEzNTEwMjAwMDAxIDAxMzU1ODcwMDAwMiAwMTM4MDQ3MDAwMDEgMDEzODE3MzAwMDA1IDAxNDA5NDgwMDAwMiAwMTQzNTc2MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTQ0NDc1MDAwMDEgMDE0NTA4NDAwMDA0IDAxNDUyNjcwMDAwMSAwMTQ2OTQxMDAwMDIgMDE0NzUwOTAwMDAyIDAxNDg1NzAwMDAwMyAwMTQ4OTYzMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTQ5MTI3MDAwMDEgMDE0OTQwNDAwMDAzIDAxNTAwMzgwMDAwMSAwMTUxNzM5MDAwMDEgMDE1Mjk3NzAwMDAzIDAxNTMwMTIwMDAwMSAwMTU2OTA4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTU4MjI4MDAwMDEgMDE1OTIxMDAwMDAxIDAxNjE4MzkwMDAwMSAwMTYyMDkzMDAwMDMgMDE2NDU1NzAwMDAyIDAxNjQ4NzAwMDAwNCAwMTY2ODkwMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTY4MDU2MDAwMDEgMDE2OTc5OTAwMDAzIDAxNzAyOTcwMDAwMSAwMTcwNjUxMDAwMDQgMDE3MTE5NzAwMDAxIDAxNzI3NDkwMDAwNCAwMTczOTc5MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTc2Mzc0MDAwMDEgMDE3Nzc1NjAwMDAyIDAxNzk5MDUwMDAwMiAwMTgwMjI4MDAwMDEgMDE4MDQwNTAwMDAxIDAxODI3NzUwMDAwMSAwMTgyODgwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTg0NTczMDAwMDEgMDE4NjU4MzAwMDAyIDAxODg3NTIwMDAwMSAwMTg5Njc5MDAwMDEgMDE4OTcxNTAwMDAyIDAxOTA2NjYwMDAwMSAwMTkwNzY5MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMTkyNjU5MDAwMDIgMDE5Mjk0MDAwMDAzIDAxOTM4NTAwMDAwMSAwMTk0NTMzMDAwMDIgMDE5NDcxMjAwMDAzIDAxOTgzOTEwMDAwMiAwMTk5OTk1MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjAwMTU2MDAwMDUgMDIwMDI2NTAwMDAzIDAyMDAzNTgwMDAwMyAwMjAwNTM4MDAwMDMgMDIwMTQ1OTAwMDAxIDAyMDIwMTMwMDAwMyAwMjAyMTU4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjAyNTQ2MDAwMDEgMDIwMjYyODAwMDAyIDAyMDI5NDIwMDAwMSAwMjAzMzUxMDAwMDIgMDIwMzg4NjAwMDAxIDAyMDM5OTIwMDAwMSAwMjA0OTI1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjA1NzM3MDAwMDIgMDIwNTgxMjAwMDAxIDAyMDY1OTkwMDAwMSAwMjA2OTcyMDAwMDEgMDIwNzg5MzAwMDAyIDAyMDgxMDUwMDAwNCAwMjEwNjMwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjEwODE5MDAwMDIgMDIxMzExODAwMDEzIDAyMTUyNzMwMDAwNCAwMjE1NTI3MDAwMDMgMDIxNzA3OTAwMDAyIDAyMTcyMzUwMDAwMiAwMjE3OTQ3MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjE4MDc2MDAwMDMgMDIxODQwNzAwMDAxIDAyMTg0NzAwMDAwMyAwMjE4OTk0MDAwMDQgMDIxOTU5ODAwMDA0IDAyMjA1NzEwMDAwNCAwMjIyMDA3MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjIyNTE4MDAwMDIgMDIyMjY1MDAwMDAyIDAyMjQxNDgwMDAwMiAwMjI0ODk1MDAwMDIgMDIyNTIyNTAwMDA0IDAyMjc0MTkwMDAwMSAwMjI4NTQyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjI5NDkxMDAwMDMgMDIyOTc3NjAwMDAxIDAyMzMyNzUwMDAwMiAwMjM0MjY3MDAwMDIgMDIzNDUwNzAwMDAyIDAyMzQ3MDYwMDAwMSAwMjM3MjI4MDAwMTAgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjM3Mjg4MDAwMDEgMDIzNzM2MDAwMDAzIDAyMzgwMTMwMDAwMSAwMjM4MzQ1MDAwMDIgMDIzOTUyMTAwMDAxIDAyNDAyMTEwMDAwMSAwMjQxOTU5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjQyMDMxMDAwMDEgMDI0MzgwNjAwMDAxIDAyNDQ2NTQwMDAwMSAwMjQ1Mzk5MDAwMDEgMDI0NTcxMzAwMDA0IDAyNDYxMDUwMDAwMSAwMjQ3NDAzMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjQ4NzQzMDAwMDEgMDI0ODg4NDAwMDAxIDAyNDkxMDEwMDAwMyAwMjUwMDg3MDAwMDIgMDI1MDE0NjAwMDAzIDAyNTEwNzQwMDAwMSAwMjUzMjM2MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjUzMzA5MDAwMDEgMDI1MzM4NjAwMDAxIDAyNTUyMzMwMDAwMSAwMjU1NDYyMDAwMDIgMDI1NjM0NTAwMDAyIDAyNTcwMTMwMDAwMiAwMjU5NTA5MDAwMDUgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjU5NTI3MDAwMDEgMDI2MDE5MTAwMDAxIDAyNjA3NTIwMDAwMiAwMjYyMTQ4MDAwMDEgMDI2MjIwMzAwMDAxIDAyNjM3NzMwMDAwMiAwMjY1NDIxMDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjY2ODYzMDAwMDMgMDI3MTYwNjAwMDAxIDAyNzIyODAwMDAwMSAwMjcyNjI4MDAwMDIgMDI3NTIyMjAwMDAxIDAyNzU1OTUwMDAwMSAwMjc2NjY4MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjc5NzE4MDAwMDMgMDI3OTc2NDAwMDAzIDAyODAxMDEwMDAwNSAwMjgxMjYzMDAwMDEgMDI4MTQ0OTAwMDAyIDAyODI3MTIwMDAwMiAwMjg0MjY5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjg1MDEwMDAwMDIgMDI4NTcwNDAwMDAxIDAyODcwMzMwMDAwMSAwMjg5MDczMDAwMDEgMDI4OTIwODAwMDAxIDAyODk4MjMwMDAwMSAwMjkyMDg4MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMjkyNzk3MDAwMDMgMDI5MzU3MzAwMDAxIDAyOTM3MzQwMDAwNCAwMjk3NTQwMDAwMDIgMDI5ODY0MzAwMDAxIDAyOTkzNzUwMDAwMyAwMzAwOTU2MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzAxMzg2MDAwMDIgMDMwMzk5NTAwMDAyIDAzMDQxNzMwMDAwNSAwMzA1Njg3MDAwMDIgMDMwNTY5MDAwMDAyIDAzMDY2NTMwMDAwMyAwMzA2NzcwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzA3NDE3MDAwMDEgMDMwODQxNDAwMDAzIDAzMDg0NDgwMDAwNCAwMzA4NjI3MDAwMDEgMDMwODg3MTAwMDAyIDAzMTA5MTIwMDAwMiAwMzEyNzc1MDAwMDYgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzEyODQ2MDAwMDMgMDMxMzA5OTAwMDAyIDAzMTUzNTcwMDAwMiAwMzE1ODE1MDAwMDIgMDMxNzc0MDAwMDAyIDAzMTgzNTgwMDAwNSAwMzE4NTE0MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzE4NzYxMDAwMDIgMDMxOTMwNTAwMDAxIDAzMjA4OTIwMDAwMiAwMzIxMDYwMDAwMDUgMDMyMTY3MDAwMDAzIDAzMjQ0MDEwMDAwMyAwMzI0NTE5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzI0OTc4MDAwMDEgMDMyNjA0NDAwMDAzIDAzMjYxMjQwMDAwMSAwMzI4Mjg0MDAwMDEgMDMyOTE5MzAwMDAxIDAzMjkyMzkwMDAwMyAwMzI5MjQzMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzI5OTczMDAwMDQgMDMzMDg2MDAwMDAxIDAzMzMyOTIwMDAwMiAwMzM0ODQ2MDAwMDQgMDMzNjcyMDAwMDAyIDAzMzcyMDUwMDAwNSAwMzM4MzQ1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzQyMTc4MDAwMDUgMDM0MzIyMDAwMDAyIDAzNDM1MTYwMDAwMiAwMzQ2MDAwMDAwMDEgMDM0NjE3MjAwMDA1IDAzNDc3NjgwMDAwMyAwMzQ3OTM3MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzQ4MTY1MDAwMDIgMDM0ODU4NDAwMDAxIDAzNDg2MTMwMDAwNCAwMzQ4NzQwMDAwMDEgMDM0ODgxOTAwMDAxIDAzNTEwOTcwMDAwMyAwMzUyNjc5MDAwMDUgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzU0MjY4MDAwMDEgMDM1NDc1ODAwMDAyIDAzNTU2MTcwMDAwMiAwMzU3Mjc4MDAwMDIgMDM1NzY2NDAwMDA2IDAzNTg1NzkwMDAwNiAwMzU4Njc5MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzU4NzQxMDAwMDIgMDM1OTI1ODAwMDAzIDAzNjAyMDAwMDAwMSAwMzYwNTI0MDAwMDMgMDM2MDg3NzAwMDA0IDAzNjI1MjAwMDAwMSAwMzYzMTA4MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzY2OTAzMDAwMDEgMDM2ODAyMzAwMDAyIDAzNjkwMTUwMDAwNCAwMzY5NTEzMDAwMDMgMDM3MzIyODAwMDAxIDAzNzQyNDQwMDAwMSAwMzc1MTMyMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzc1MjM5MDAwMDIgMDM3NTc1NjAwMDA1IDAzNzY0MjIwMDAwMSAwMzgxNjE0MDAwMDIgMDM4MzY3MTAwMDA1IDAzODY0ODYwMDAwMSAwMzg5NTA2MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzg5NjcwMDAwMDMgMDM5MDEwMjAwMDAyIDAzOTE0NjMwMDAwMiAwMzkyMzgxMDAwMDIgMDM5Mjk5MDAwMDAxIDAzOTc1NTMwMDAwMiAwMzk3Nzc3MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wMzk3ODU2MDAwMDMgMDM5ODQ2OTAwMDAxIDAzOTg1NTUwMDAwMiAwMzk4NzgxMDAwMDEgMDM5OTA0MzAwMDAyIDAzOTk1MjAwMDAwMSAwMzk5ODQ0MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDAxMjkwMDAwMDIgMDQwMjA0OTAwMDAzIDA0MDU0NzYwMDAwMiAwNDA1NDc4MDAwMDIgMDQwNTY0NjAwMDAzIDA0MDY0NjUwMDAwMiAwNDA2NzM5MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDA3MzUzMDAwMDMgMDQwNzUyODAwMDA0IDA0MTA3NjkwMDAwMyAwNDEwODAxMDAwMDEgMDQxMDg1MDAwMDAyIDA0MTE4NzYwMDAwMSAwNDEyMTk2MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDEzNTE1MDAwMDEgMDQxMzgzMzAwMDAyIDA0MTQ3OTIwMDAwNCAwNDE2MjYzMDAwMDIgMDQxNjMyNjAwMDAxIDA0MTY5MzYwMDAwMSAwNDE4NDc0MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDE4NTcxMDAwMDEgMDQyMjA0NjAwMDAxIDA0MjM5NDEwMDAwMSAwNDI0MTcwMDAwMDMgMDQyNTgxMjAwMDAxIDA0MjU5NTEwMDAwMiAwNDI2MTcyMDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDI3MzM5MDAwMDMgMDQyOTM4MjAwMDAyIDA0MzA3MDUwMDAwNiAwNDMyNzI1MDAwMDIgMDQzMzUwODAwMDAyIDA0MzUyNjIwMDAwNSAwNDM1MzQ5MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDQwNDMzMDAwMDEgMDQ0MDczMzAwMDAyIDA0NDEzNzEwMDAwMiAwNDQyNjE1MDAwMDQgMDQ0MzkzMTAwMDA0IDA0NDM5NTcwMDAwMSAwNDQ0MzM0MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDQ0NDgyMDAwMDEgMDQ0NjYyNzAwMDAzIDA0NDc0MDQwMDAwNiAwNDQ3NTA5MDAwMDEgMDQ1MDA5ODAwMDAxIDA0NTAyNDQwMDAwMiAwNDUwMzYyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDUyMjQ3MDAwMDEgMDQ1MjM3MjAwMDAxIDA0NTQzNTgwMDAwMiAwNDU1NjEyMDAwMDMgMDQ1NzQxNDAwMDAxIDA0NTg1NjgwMDAwMSAwNDU5NTMwMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDYwMzk1MDAwMDEgMDQ2MDYzNTAwMDAxIDA0NjEwMjUwMDAwMiAwNDYxNzIxMDAwMDMgMDQ2Mjk3MzAwMDAxIDA0NjM2NTAwMDAwMiAwNDY0MjQ0MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDY0MzQ5MDAwMDEgMDQ2NDU3MDAwMDAxIDA0NjU0OTIwMDAwMSAwNDY4Njk4MDAwMDEgMDQ3MDM0OTAwMDAyIDA0NzA3OTYwMDAwNCAwNDcyOTk0MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDc0NDYyMDAwMDIgMDQ3NDk0MjAwMDAzIDA0NzUwNDIwMDAwMSAwNDc2MjQyMDAwMDMgMDQ3ODU3NTAwMDAyIDA0Nzg5OTIwMDAwMiAwNDgxNDU0MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDgyMzM4MDAwMDIgMDQ4MjQyMTAwMDAyIDA0ODUwMzQwMDAwMiAwNDg3MzE0MDAwMDMgMDQ4ODAxNDAwMDAxIDA0ODgxMTcwMDAwMiAwNDg5MTQ2MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDg5NTk2MDAwMDEgMDQ5MTM1NjAwMDAyIDA0OTE4NjEwMDAwMSAwNDkzMDU1MDAwMDQgMDQ5NDc1MDAwMDAxIDA0OTUxMTAwMDAwNSAwNDk1MjgzMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNDk1MzUyMDAwMDIgMDQ5NTUyNjAwMDAyIDA0OTY5MTEwMDAwMSAwNDk3NDU3MDAwMDMgMDQ5ODA1OTAwMDAzIDA0OTg0MjcwMDAwMyAwNTAwMzM1MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTAxMjI2MDAwMDEgMDUwMzU1MzAwMDAxIDA1MDQ0MjYwMDAwMSAwNTA0ODcwMDAwMDcgMDUwNjEwNTAwMDAyIDA1MDYxMjcwMDAwMiAwNTA4MjgwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTEwMzY4MDAwMDEgMDUxMDk3NDAwMDAyIDA1MTEyNDkwMDAwMyAwNTEyNDg1MDAwMDEgMDUxNDEzOTAwMDAyIDA1MTU3MzYwMDAwMyAwNTE3ODcxMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMiAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTE4MDMwMDAwMDQgMDUxODg0ODAwMDA1IDA1MTkyNjUwMDAwMyAwNTE5NDE4MDAwMDEgMDUxOTU3NTAwMDAzIDA1MTk2NzYwMDAwMSAwNTIwMjkyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTIwMzY4MDAwMDEgMDUyMzMwNzAwMDAxIDA1MjM3NDgwMDAwMyAwNTI2NDA4MDAwMDUgMDUyODcwNjAwMDA3IDA1Mjk3NjAwMDAwMSAwNTI5OTQ0MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTMxNzU1MDAwMDQgMDUzMzM2NzAwMDAyIDA1MzQyNjYwMDAwNCAwNTM0NTYwMDAwMDIgMDUzNTE4MDAwMDAxIDA1MzU1NDAwMDAwMiAwNTM1NjEzMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTM2NDg0MDAwMDEgMDU0MDMzMzAwMDAxIDA1NDA1NDQwMDAwMSAwNTQ1NDMwMDAwMDIgMDU0NjYzMTAwMDAxIDA1NDc2NDkwMDAwMiAwNTQ5MTYxMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTUxMjExMDAwMDEgMDU1MTU2MTAwMDA0IDA1NTQwMTYwMDAwNSAwNTU1NzUzMDAwMDEgMDU1NTk0NzAwMDAxIDA1NTgyOTkwMDAwMSAwNTU4NjcyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTYwNTAxMDAwMDQgMDU2MTM1OTAwMDAyIDA1NjI0ODcwMDAwMSAwNTY0NzYzMDAwMDEgMDU2NTE4NjAwMDAyIDA1NjU1MzEwMDAwMiAwNTY1NjQ2MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTY4NDMwMDAwMDYgMDU2ODYxNzAwMDAyIDA1NjkzODAwMDAwMiAwNTcxMzgxMDAwMDEgMDU3MjE5NDAwMDAxIDA1NzI4MTMwMDAwMSAwNTc3ODI3MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTc3OTk1MDAwMDEgMDU3ODE0NDAwMDAxIDA1Nzg3NzkwMDAwMSAwNTc5MDk4MDAwMDMgMDU4MDQ0NTAwMDAyIDA1ODE5NzgwMDAwNiAwNTgzMTA0MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTgzMzA0MDAwMDEgMDU4MzMwOTAwMDAxIDA1ODMzODcwMDAwMiAwNTg0Nzk3MDAwMDMgMDU4NTM2NTAwMDAxIDA1ODU5ODgwMDAwNCAwNTg2NzgyMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTg3NDgwMDAwMDQgMDU4NzYyMTAwMDAxIDA1ODc5MzcwMDAwNSAwNTg4MTk3MDAwMDIgMDU4ODI0NzAwMDAxIDA1OTA4ODUwMDAwMyAwNTkzMjY0MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTkzNzY2MDAwMDEgMDU5MzkyNDAwMDA1IDA1OTUyODIwMDAwNSAwNTk2ODYwMDAwMDEgMDU5Njg3MzAwMDAxIDA1OTkyMDEwMDAwMSAwNTk5NTQyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNTk5Njk4MDAwMDQgMDYwMDk3NjAwMDAxIDA2MDEzMTQwMDAwMSAwNjAyMTI5MDAwMDIgMDYwMzQzMTAwMDAxIDA2MDYzMTEwMDAwMiAwNjA2NDUxMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjA2ODQyMDAwMDUgMDYwNzI5NTAwMDAzIDA2MDgzNzIwMDAwMiAwNjA4NjA2MDAwMDIgMDYwOTA3NzAwMDAxIDA2MTAzMDYwMDAwMyAwNjExNTI4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjEyNjQwMDAwMDIgMDYxMjg4MzAwMDA1IDA2MTM4NDMwMDAwMSAwNjE0NjI4MDAwMDIgMDYxNzI2MzAwMDAxIDA2MTc0MDEwMDAwMiAwNjE3NDQxMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjE4MTkzMDAwMDEgMDYxODQ5MTAwMDAyIDA2MTk3MTQwMDAwMSAwNjIwNzg5MDAwMDQgMDYyMTQyNzAwMDAxIDA2MjM3NTkwMDAwMiAwNjI1NjYxMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjI2MDU5MDAwMDIgMDYyODc4MjAwMDAxIDA2Mjk1MzQwMDAwMSAwNjMwMzYyMDAwMDEgMDYzMDQ5MzAwMDAxIDA2MzA4ODEwMDAwMSAwNjMxODc1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjMyMTgzMDAwMDIgMDYzMjg3MjAwMDAxIDA2MzQzMjQwMDAwMSAwNjM1MzkyMDAwMDEgMDYzNzA5MjAwMDAzIDA2Mzc4NDkwMDAwNSAwNjM4OTU3MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjM5NzQ5MDAwMDIgMDY0MDIyODAwMDA1IDA2NDA2NTkwMDAwMyAwNjQxNjE2MDAwMDQgMDY0MzIzMjAwMDA0IDA2NDQ1NTIwMDAwNCAwNjQ2MTM4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjQ2MzU4MDAwMDIgMDY0NjQ4MTAwMDAxIDA2NDg1MTUwMDAwMiAwNjUwMjg4MDAwMDUgMDY1MDk5NDAwMDAxIDA2NTExMDUwMDAwMiAwNjUyNDUwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjUyNjIyMDAwMDMgMDY1NTEwNDAwMDAyIDA2NTU3NzcwMDAwMSAwNjU3MDUyMDAwMDEgMDY1OTUwMTAwMDAyIDA2NTk5ODMwMDAwMiAwNjYwNzM1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjYxMjM1MDAwMDIgMDY2NDMwODAwMDAyIDA2NjYzNjUwMDAwMSAwNjY3NjAzMDAwMDMgMDY2NzcwODAwMDAzIDA2Njg1NDEwMDAwMSAwNjcwNjgyMDAwMDYgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjc0NTA3MDAwMDIgMDY3NjY3NTAwMDAyIDA2NzcwNjkwMDAwMiAwNjgxMTUyMDAwMDggMDY4MjczNzAwMDA1IDA2ODI5NjQwMDAwMSAwNjgzNjE5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjg0MTU4MDAwMDEgMDY4NDI5NjAwMDAzIDA2ODQ1NDQwMDAwMyAwNjg1OTEzMDAwMDUgMDY4NjcyMTAwMDAxIDA2ODY5NDIwMDAwMyAwNjg2OTY4MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjg3MjUyMDAwMDEgMDY5MDE0NjAwMDAxIDA2OTExNzAwMDAwMSAwNjkyNTMyMDAwMDIgMDY5MzA3MTAwMDAyIDA2OTMzNjMwMDAwMSAwNjkzNzcwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNjk2MzkxMDAwMDIgMDY5NzEwMDAwMDA3IDA2OTc5NjYwMDAwNSAwNjk4MjkzMDAwMDEgMDY5ODg5NjAwMDAxIDA3MDExMDIwMDAwMiAwNzAxMzkxMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzAxNTIzMDAwMDEgMDcwMzY4MjAwMDAyIDA3MDUwMjAwMDAwMSAwNzA1MzM1MDAwMDEgMDcwNTQ5MTAwMDAyIDA3MDU4MTAwMDAwMiAwNzA2NTAyMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzA3NTg0MDAwMDEgMDcwOTY4OTAwMDAyIDA3MTAxOTAwMDAwMiAwNzEwODc5MDAwMDEgMDcxMTAzOTAwMDAxIDA3MTI1MjUwMDAwMSAwNzEzNjk5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzEzOTI1MDAwMDMgMDcxNjgyNjAwMDA0IDA3MTc1ODcwMDAwMiAwNzE3OTY4MDAwMDcgMDcxOTI3NjAwMDA2IDA3MTk2NDMwMDAwOCAwNzE5ODU1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzIxMzUxMDAwMDEgMDcyNDUyNTAwMDAyIDA3MjUzNDMwMDAwMSAwNzI2MzU4MDAwMDEgMDcyNzA3NDAwMDAzIDA3Mjc5MzMwMDAwMyAwNzI4MjgyMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzI5MDc0MDAwMDMgMDczMDA0NDAwMDA2IDA3MzAxMTkwMDAxNCAwNzMxMDE0MDAwMDEgMDczMTEyNDAwMDAyIDA3MzMwMTYwMDAwMiAwNzMzMzUwMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzM0MTc4MDAwMDEgMDczNTQ4NDAwMDAyIDA3MzYxNDkwMDAwMyAwNzM2MjI0MDAwMDEgMDczNjI4MjAwMDAyIDA3MzcxNTUwMDAwNCAwNzM3NjY1MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzQxMDUxMDAwMDEgMDc0MTIxNTAwMDAyIDA3NDMwNjkwMDAwNyAwNzQzMjI0MDAwMDQgMDc0NDI4MDAwMDAyIDA3NDQ3NTQwMDAwMiAwNzQ1NTMyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzQ3MjA5MDAwMDEgMDc0Nzk4NTAwMDA3IDA3NDg0NDcwMDAwMSAwNzQ4NTE2MDAwMDIgMDc0ODkxMjAwMDAzIDA3NDkyODgwMDAwMSAwNzQ5NzA1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzQ5ODg3MDAwMDIgMDc1MDEyMzAwMDAyIDA3NTAyNjgwMDAwMiAwNzUyNzIyMDAwMDIgMDc1MzIxNzAwMDAyIDA3NTUyMTAwMDAwMSAwNzU1MjE5MDAwMDYgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzU3Mjk4MDAwMDIgMDc2MzMzODAwMDAzIDA3NjQ2NTUwMDAwMSAwNzY0Njc4MDAwMDEgMDc2NzU4MjAwMDAxIDA3Njc3NzIwMDAwMSAwNzY4NTE5MDAwMDUgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzY4Njc3MDAwMDEgMDc3MjUyOTAwMDAxIDA3NzM1MzEwMDAwMiAwNzc0NDkyMDAwMDEgMDc3NDgxMDAwMDAyIDA3NzUxNjYwMDAwMSAwNzc1OTQ4MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzc3MDQ4MDAwMDIgMDc3NzU5ODAwMDAzIDA3NzgyMDMwMDAwMSAwNzc5OTk1MDAwMDIgMDc4Mjg0MjAwMDA3IDA3ODUyMDEwMDAwMyAwNzg1MjY4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzg3Njk5MDAwMDEgMDc4ODA5MzAwMDAyIDA3OTA1NzAwMDAwMyAwNzkwNjMwMDAwMDIgMDc5MDY0NTAwMDAzIDA3OTA4NDIwMDAwMiAwNzkwODkyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzkxODI5MDAwMDIgMDc5MjAxNDAwMDAyIDA3OTI0NjYwMDAwMSAwNzkyNjI5MDAwMDIgMDc5Mjg0MTAwMDAxIDA3OTMxODYwMDAwMiAwNzkzOTE2MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wNzk0MDg0MDAwMDEgMDc5NTEyNDAwMDAyIDA3OTYxMTQwMDAwMSAwNzk2MTQ4MDAwMDYgMDc5ODE2MTAwMDAyIDA3OTgyMzgwMDAwMSAwODAwMTUzMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODAwODA0MDAwMDIgMDgwNDc3MzAwMDAxIDA4MDg0MjQwMDAwNCAwODA4NjA5MDAwMDIgMDgwOTU1MzAwMDAyIDA4MTAxMTIwMDAwMSAwODExNTk0MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODEyMjcyMDAwMDIgMDgxMzExNjAwMDAxIDA4MTQxODEwMDAwNSAwODE0ODE0MDAwMDEgMDgyMDYzOTAwMDAyIDA4MjE4OTMwMDAwMSAwODIyODQyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODIzMDMzMDAwMDIgMDgyMzQyNzAwMDAxIDA4MjM3MTEwMDAwMyAwODIzOTA2MDAwMDEgMDgyNDUyNTAwMDAxIDA4MjYwNzEwMDAwMiAwODI2MzU5MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODI2NjM0MDAwMDEgMDgyNjk2MzAwMDAxIDA4Mjc4NDUwMDAwMSAwODI4MjkyMDAwMDIgMDgyODYzOTAwMDAyIDA4Mjk2NjcwMDAwMyAwODMwMDE5MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODMwMzg4MDAwMDIgMDgzMjE5MzAwMDAxIDA4MzI1NTkwMDAwMSAwODM3NTMwMDAwMDMgMDgzODM1NTAwMDAxIDA4Mzg0NzIwMDAwMiAwODM4ODkyMDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODM5NDE2MDAwMDEgMDg0MDYxOTAwMDA0IDA4NDA3MTYwMDAwMiAwODQxNjU0MDAwMDIgMDg0MjA4ODAwMDAzIDA4NDI0OTEwMDAwMyAwODQzODc4MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODQ0MTMzMDAwMDYgMDg0NjI0MDAwMDAzIDA4NDcwNTMwMDAwNCAwODQ5NjA5MDAwMDEgMDg1MDkwNjAwMDAyIDA4NTI5MjAwMDAwMyAwODU0NDM1MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODU0NjUwMDAwMDEgMDg1NDgzMDAwMDAxIDA4NTYxMTYwMDAwMSAwODU2NDk1MDAwMDIgMDg1NzczOTAwMDAxIDA4NTg2NzgwMDAwNSAwODU5NjQzMDAwMDUgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODU5Njg0MDAwMDIgMDg2MTk3NjAwMDAxIDA4NjIzMjAwMDAwMSAwODYzNDUwMDAwMDEgMDg2MzYxMTAwMDAxIDA4NjQ0NTAwMDAwMSAwODY0OTQzMDAwMDggXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODY2NDY0MDAwMDMgMDg2NzA5NjAwMDAyIDA4NzA0OTQwMDAwMSAwODcxNDEyMDAwMDMgMDg3MjczNzAwMDAxIDA4NzUwMTAwMDAwMyAwODc2MTY2MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODc2MzU5MDAwMDUgMDg3ODY3NjAwMDAxIDA4Nzk3NTQwMDAwMyAwODgwNjk5MDAwMDEgMDg4MTE5NDAwMDAxIDA4ODEyNDMwMDAwMSAwODgxNTUyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODgyNDIxMDAwMDEgMDg4Mjk0MDAwMDA0IDA4ODMxMDIwMDAwMSAwODgzNjI0MDAwMDMgMDg4Mzc0MzAwMDA0IDA4ODQzMzYwMDAwMSAwODg0OTkyMDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODg2NDk1MDAwMDEgMDg4NzI1ODAwMDA0IDA4ODczNDIwMDAwMiAwODg5MTQ1MDAwMDMgMDg4OTg4NTAwMDA0IDA4OTAwNjAwMDAwMyAwODkxMjU1MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODkyNzMzMDAwMDIgMDg5Mjg5MjAwMDAxIDA4OTM1MDkwMDAwMiAwODk0MDExMDAwMDIgMDg5NDA3NDAwMDAzIDA4OTQxMTAwMDAwMSAwODk0MTk5MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wODk3NTE1MDAwMDIgMDg5ODM1MTAwMDAyIDA4OTg3NDkwMDAwMSAwODk4Nzg4MDAwMDQgMDkwMjk5NjAwMDAxIDA5MDczNjgwMDAwMSAwOTA3NTUyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTA4MDM1MDAwMDIgMDkwODUzMzAwMDA0IDA5MDk0MTkwMDAwMSAwOTA5NjIyMDAwMDEgMDkxMDQ0ODAwMDAyIDA5MTEyMzEwMDAwMSAwOTEyMTc1MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTEzMTUyMDAwMDEgMDkxNDMyMjAwMDAyIDA5MTU2MjkwMDAwNSAwOTE1NjQ4MDAwMDEgMDkxNjczMTAwMDAxIDA5MTY5MjEwMDAwMSAwOTE3MTA5MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTE3Njc3MDAwMDQgMDkxNzg1ODAwMDAxIDA5MjA1NDcwMDAwMSAwOTI0ODM5MDAwMDEgMDkyNDg0MjAwMDA4IDA5MjU5ODEwMDAwMiAwOTI2OTE1MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTI3MjI4MDAwMDIgMDkyNzcxNDAwMDA3IDA5MjkwNjIwMDAwMSAwOTMwMzU3MDAwMDEgMDkzMTEwNzAwMDA0IDA5MzExNTUwMDAwMiAwOTMyOTcxMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTMzMDc3MDAwMDMgMDkzMzgxMDAwMDAxIDA5Mzk0ODIwMDAwNyAwOTQwMTMxMDAwMDIgMDk0MTQyMjAwMDAxIDA5NDI1NDMwMDAwMSAwOTQzMDc1MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTQzNTY4MDAwMDMgMDk0NDA0NjAwMDAzIDA5NDQ5NjcwMDAwMSAwOTQ1NjA1MDAwMDIgMDk0NjA2MTAwMDAyIDA5NDYyODMwMDAwMiAwOTQ3NjA4MDAwMDIgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTQ3ODc1MDAwMDQgMDk0ODc4NTAwMDAxIDA5NDk0MjYwMDAwMiAwOTUwMDU2MDAwMDMgMDk1MTcyMTAwMDAyIDA5NTM3NDcwMDAwMiAwOTUzODYxMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTU1MjkwMDAwMDIgMDk1NjM2NjAwMDAxIDA5NTc1MjcwMDAwMSAwOTU4NjU2MDAwMDEgMDk1OTMwNDAwMDAyIDA5NjA3NzQwMDAwOCAwOTYwODY5MDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTYyMzg0MDAwMDEgMDk2MzkwOTAwMDAxIDA5NjQzODYwMDAwMSAwOTY0ODQ0MDAwMDIgMDk2NzEzMDAwMDA2IDA5Njc2MzQwMDAwMSAwOTcwNDAxMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTcxMzI2MDAwMDMgMDk3MTc2NjAwMDAyIDA5NzIwNTMwMDAwMSAwOTczNjE0MDAwMDIgMDk3MzY2NzAwMDA0IDA5NzM5ODEwMDAwMiAwOTc1MTU4MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTc2MDgzMDAwMDMgMDk3NzcwMDAwMDAyIDA5Nzc5NzAwMDAwMSAwOTc4OTUyMDAwMDEgMDk4MDY0MTAwMDAxIDA5ODA4MjMwMDAwMiAwOTgzNzcwMDAwMDUgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTg2Mjk4MDAwMDIgMDk4NzQyNDAwMDA0IDA5ODc3ODUwMDAwMSAwOTg4NzA4MDAwMDQgMDk4ODkzNTAwMDA0IDA5ODkzMzMwMDAwMSAwOTkwOTIzMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTkyNTgwMDAwMDIgMDk5MzExOTAwMDA1IDA5OTM3NjYwMDAwNCAwOTkzNzk4MDAwMDYgMDk5NTIwODAwMDAyIDA5OTUyMTAwMDAwNCAwOTk1OTAyMDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4wOTk1OTY0MDAwMDIgMDk5NzgyNDAwMDAxIDA5OTg3ODEwMDAwMSAwOTk5NDMyMDAwMDMgMTAwMTM2MTAwMDAyIDEwMDI1NzcwMDAwMiAxMDAyNzE5MDAwMDEgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4xMDA0MjgwMDAwMDEgMTAwNDYzNDAwMDA1IDEwMDUwMzUwMDAwNCAxMDA2MTQ1MDAwMDIgMTAwNjE3OTAwMDAyIDEwMDY3MTIwMDAwMSAxMDA4NDEzMDAwMDMgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4xMDA5NDQwMDAwMDEgMTAxMDI4MDAwMDAyIDEwMTA0NjAwMDAwMSAxMDEyMTQ2MDAwMDEgMTAxMzM4NTAwMDAzIDEwMTU5ODMwMDAwMSAxMDE2MzM4MDAwMDQgXG4gICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgXG4xMDE3MDU5MDAwMDIgMTAxNzIzNjAwMDAyIDEwMTgwMzEwMDAwMiAxMDE4MTkxMDAwMDYgMTAxOTMwMzAwMDAxIDEwMjAwNjgwMDAwMSBcbiAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxICAgICAgICAgICAgMSAgICAgICAgICAgIDEgICAgICAgICAgICAxIFxuIFsgcmVhY2hlZCBnZXRPcHRpb24oXCJtYXgucHJpbnRcIikgLS0gb21pdHRlZCAyMDEgZW50cmllcyBdXG4ifQ== -->
+<pre><code>
+000104200002 000118600001 000159700001 000253800002 000350000001 000421100001 000572600002 
+           1            1            1            1            1            1            1 
+000687500001 000811000002 000951800002 001128700001 001174000001 001207200001 001283000001 
+           1            1            1            1            1            1            1 
+001465700001 001874700001 002075400001 002476500001 002508700002 002542600002 002586600002 
+           1            1            1            1            1            1            1 
+002626200003 002692900002 002812300003 002983200001 003121400001 003242800001 003421600002 
+           1            1            1            1            1            1            1 
+003600600001 003891900001 003996300002 004026400001 004089000001 004108100001 005043200002 
+           1            1            1            1            1            1            1 
+005063000002 005081800001 005089300003 005157400002 005210500002 005312900001 005500600004 
+           1            1            1            1            1            1            1 
+005612900001 005864500001 005937700006 006030400001 006040500003 006139600001 006190500001 
+           1            1            1            1            1            1            1 
+006586700001 006599200001 006825400002 006938900001 007080700001 007201600001 007292900002 
+           1            1            1            1            1            1            1 
+007328700004 007374800003 007489900001 007796700003 007975500001 008097200003 008114200002 
+           1            1            1            1            1            1            1 
+008136800002 008221200002 008286800001 008413800001 008427400002 008508300001 008861800001 
+           1            1            1            1            1            1            1 
+008923700002 008943000002 008950200001 008962700002 009098300002 009159300003 009267000001 
+           1            1            1            1            1            1            1 
+009279400001 009458800001 009782800002 009790700001 009870600001 009911900001 010209200001 
+           1            1            1            1            1            1            1 
+010236400002 010354600002 010406700001 010416800002 010664200002 010904300003 011151000002 
+           1            1            1            1            1            1            1 
+011237100002 011309800002 011313700002 011432500001 011476000001 011718000003 011833100002 
+           1            1            1            1            1            1            1 
+011873700007 012036100006 012062300005 012259000004 012302800001 012306800001 012444000002 
+           1            1            1            1            1            1            1 
+012489700003 012718800002 012752500005 012982100001 013014000001 013016900001 013032000005 
+           1            1            1            1            1            1            1 
+013068200002 013134700002 013229600001 013234600002 013250400001 013261100001 013351200001 
+           1            1            1            1            1            1            1 
+013358800002 013510200001 013558700002 013804700001 013817300005 014094800002 014357600004 
+           1            1            1            1            1            1            1 
+014447500001 014508400004 014526700001 014694100002 014750900002 014857000003 014896300003 
+           1            1            1            1            1            1            1 
+014912700001 014940400003 015003800001 015173900001 015297700003 015301200001 015690800001 
+           1            1            1            1            1            1            1 
+015822800001 015921000001 016183900001 016209300003 016455700002 016487000004 016689000002 
+           1            1            1            1            1            1            1 
+016805600001 016979900003 017029700001 017065100004 017119700001 017274900004 017397900001 
+           1            1            1            1            1            1            1 
+017637400001 017775600002 017990500002 018022800001 018040500001 018277500001 018288000001 
+           1            1            1            1            1            1            1 
+018457300001 018658300002 018875200001 018967900001 018971500002 019066600001 019076900004 
+           1            1            1            1            1            1            1 
+019265900002 019294000003 019385000001 019453300002 019471200003 019839100002 019999500003 
+           1            1            1            1            1            1            1 
+020015600005 020026500003 020035800003 020053800003 020145900001 020201300003 020215800001 
+           1            1            1            1            1            1            1 
+020254600001 020262800002 020294200001 020335100002 020388600001 020399200001 020492500002 
+           1            1            1            1            1            1            1 
+020573700002 020581200001 020659900001 020697200001 020789300002 020810500004 021063000001 
+           1            1            1            1            1            1            1 
+021081900002 021311800013 021527300004 021552700003 021707900002 021723500002 021794700001 
+           1            1            1            1            1            1            1 
+021807600003 021840700001 021847000003 021899400004 021959800004 022057100004 022200700002 
+           1            1            1            1            1            1            1 
+022251800002 022265000002 022414800002 022489500002 022522500004 022741900001 022854200002 
+           1            1            1            1            1            1            1 
+022949100003 022977600001 023327500002 023426700002 023450700002 023470600001 023722800010 
+           1            1            1            1            1            1            1 
+023728800001 023736000003 023801300001 023834500002 023952100001 024021100001 024195900002 
+           1            1            1            1            1            1            1 
+024203100001 024380600001 024465400001 024539900001 024571300004 024610500001 024740300001 
+           1            1            1            1            1            1            1 
+024874300001 024888400001 024910100003 025008700002 025014600003 025107400001 025323600001 
+           1            1            1            1            1            1            1 
+025330900001 025338600001 025523300001 025546200002 025634500002 025701300002 025950900005 
+           1            1            1            1            1            1            1 
+025952700001 026019100001 026075200002 026214800001 026220300001 026377300002 026542100004 
+           1            1            1            1            1            1            1 
+026686300003 027160600001 027228000001 027262800002 027522200001 027559500001 027666800003 
+           1            1            1            1            1            1            1 
+027971800003 027976400003 028010100005 028126300001 028144900002 028271200002 028426900002 
+           1            1            1            1            1            1            1 
+028501000002 028570400001 028703300001 028907300001 028920800001 028982300001 029208800002 
+           1            1            1            1            1            1            1 
+029279700003 029357300001 029373400004 029754000002 029864300001 029937500003 030095600001 
+           1            1            1            1            1            1            1 
+030138600002 030399500002 030417300005 030568700002 030569000002 030665300003 030677000001 
+           1            1            1            1            1            1            1 
+030741700001 030841400003 030844800004 030862700001 030887100002 031091200002 031277500006 
+           1            1            1            1            1            1            1 
+031284600003 031309900002 031535700002 031581500002 031774000002 031835800005 031851400001 
+           1            1            1            1            1            1            1 
+031876100002 031930500001 032089200002 032106000005 032167000003 032440100003 032451900002 
+           1            1            1            1            1            1            1 
+032497800001 032604400003 032612400001 032828400001 032919300001 032923900003 032924300001 
+           1            1            1            1            1            1            1 
+032997300004 033086000001 033329200002 033484600004 033672000002 033720500005 033834500002 
+           1            1            1            1            1            1            1 
+034217800005 034322000002 034351600002 034600000001 034617200005 034776800003 034793700002 
+           1            1            1            1            1            1            1 
+034816500002 034858400001 034861300004 034874000001 034881900001 035109700003 035267900005 
+           1            1            1            1            1            1            1 
+035426800001 035475800002 035561700002 035727800002 035766400006 035857900006 035867900004 
+           1            1            1            1            1            1            1 
+035874100002 035925800003 036020000001 036052400003 036087700004 036252000001 036310800003 
+           1            1            1            1            1            1            1 
+036690300001 036802300002 036901500004 036951300003 037322800001 037424400001 037513200003 
+           1            1            1            1            1            1            1 
+037523900002 037575600005 037642200001 038161400002 038367100005 038648600001 038950600001 
+           1            1            1            1            1            1            1 
+038967000003 039010200002 039146300002 039238100002 039299000001 039755300002 039777700004 
+           1            1            1            1            1            1            1 
+039785600003 039846900001 039855500002 039878100001 039904300002 039952000001 039984400002 
+           1            1            1            1            1            1            1 
+040129000002 040204900003 040547600002 040547800002 040564600003 040646500002 040673900001 
+           1            1            1            1            1            1            1 
+040735300003 040752800004 041076900003 041080100001 041085000002 041187600001 041219600003 
+           1            1            1            1            1            1            1 
+041351500001 041383300002 041479200004 041626300002 041632600001 041693600001 041847400003 
+           1            1            1            1            1            1            1 
+041857100001 042204600001 042394100001 042417000003 042581200001 042595100002 042617200004 
+           1            1            1            1            1            1            1 
+042733900003 042938200002 043070500006 043272500002 043350800002 043526200005 043534900003 
+           1            1            1            1            1            1            1 
+044043300001 044073300002 044137100002 044261500004 044393100004 044395700001 044433400003 
+           1            1            1            1            1            1            1 
+044448200001 044662700003 044740400006 044750900001 045009800001 045024400002 045036200002 
+           1            1            1            1            1            1            1 
+045224700001 045237200001 045435800002 045561200003 045741400001 045856800001 045953000002 
+           1            1            1            1            1            1            1 
+046039500001 046063500001 046102500002 046172100003 046297300001 046365000002 046424400003 
+           1            1            1            1            1            1            1 
+046434900001 046457000001 046549200001 046869800001 047034900002 047079600004 047299400001 
+           1            1            1            1            1            1            1 
+047446200002 047494200003 047504200001 047624200003 047857500002 047899200002 048145400004 
+           1            1            1            1            1            1            1 
+048233800002 048242100002 048503400002 048731400003 048801400001 048811700002 048914600001 
+           1            1            1            1            1            1            1 
+048959600001 049135600002 049186100001 049305500004 049475000001 049511000005 049528300002 
+           1            1            1            1            1            1            1 
+049535200002 049552600002 049691100001 049745700003 049805900003 049842700003 050033500001 
+           1            1            1            1            1            1            1 
+050122600001 050355300001 050442600001 050487000007 050610500002 050612700002 050828000001 
+           1            1            1            1            1            1            1 
+051036800001 051097400002 051124900003 051248500001 051413900002 051573600003 051787100001 
+           1            1            2            1            1            1            1 
+051803000004 051884800005 051926500003 051941800001 051957500003 051967600001 052029200002 
+           1            1            1            1            1            1            1 
+052036800001 052330700001 052374800003 052640800005 052870600007 052976000001 052994400002 
+           1            1            1            1            1            1            1 
+053175500004 053336700002 053426600004 053456000002 053518000001 053554000002 053561300002 
+           1            1            1            1            1            1            1 
+053648400001 054033300001 054054400001 054543000002 054663100001 054764900002 054916100002 
+           1            1            1            1            1            1            1 
+055121100001 055156100004 055401600005 055575300001 055594700001 055829900001 055867200002 
+           1            1            1            1            1            1            1 
+056050100004 056135900002 056248700001 056476300001 056518600002 056553100002 056564600001 
+           1            1            1            1            1            1            1 
+056843000006 056861700002 056938000002 057138100001 057219400001 057281300001 057782700002 
+           1            1            1            1            1            1            1 
+057799500001 057814400001 057877900001 057909800003 058044500002 058197800006 058310400002 
+           1            1            1            1            1            1            1 
+058330400001 058330900001 058338700002 058479700003 058536500001 058598800004 058678200003 
+           1            1            1            1            1            1            1 
+058748000004 058762100001 058793700005 058819700002 058824700001 059088500003 059326400002 
+           1            1            1            1            1            1            1 
+059376600001 059392400005 059528200005 059686000001 059687300001 059920100001 059954200002 
+           1            1            1            1            1            1            1 
+059969800004 060097600001 060131400001 060212900002 060343100001 060631100002 060645100001 
+           1            1            1            1            1            1            1 
+060684200005 060729500003 060837200002 060860600002 060907700001 061030600003 061152800001 
+           1            1            1            1            1            1            1 
+061264000002 061288300005 061384300001 061462800002 061726300001 061740100002 061744100001 
+           1            1            1            1            1            1            1 
+061819300001 061849100002 061971400001 062078900004 062142700001 062375900002 062566100001 
+           1            1            1            1            1            1            1 
+062605900002 062878200001 062953400001 063036200001 063049300001 063088100001 063187500002 
+           1            1            1            1            1            1            1 
+063218300002 063287200001 063432400001 063539200001 063709200003 063784900005 063895700001 
+           1            1            1            1            1            1            1 
+063974900002 064022800005 064065900003 064161600004 064323200004 064455200004 064613800001 
+           1            1            1            1            1            1            1 
+064635800002 064648100001 064851500002 065028800005 065099400001 065110500002 065245000001 
+           1            1            1            1            1            1            1 
+065262200003 065510400002 065577700001 065705200001 065950100002 065998300002 066073500002 
+           1            1            1            1            1            1            1 
+066123500002 066430800002 066636500001 066760300003 066770800003 066854100001 067068200006 
+           1            1            1            1            1            1            1 
+067450700002 067667500002 067706900002 068115200008 068273700005 068296400001 068361900002 
+           1            1            1            1            1            1            1 
+068415800001 068429600003 068454400003 068591300005 068672100001 068694200003 068696800002 
+           1            1            1            1            1            1            1 
+068725200001 069014600001 069117000001 069253200002 069307100002 069336300001 069377000001 
+           1            1            1            1            1            1            1 
+069639100002 069710000007 069796600005 069829300001 069889600001 070110200002 070139100003 
+           1            1            1            1            1            1            1 
+070152300001 070368200002 070502000001 070533500001 070549100002 070581000002 070650200003 
+           1            1            1            1            1            1            1 
+070758400001 070968900002 071019000002 071087900001 071103900001 071252500001 071369900002 
+           1            1            1            1            1            1            1 
+071392500003 071682600004 071758700002 071796800007 071927600006 071964300008 071985500002 
+           1            1            1            1            1            1            1 
+072135100001 072452500002 072534300001 072635800001 072707400003 072793300003 072828200003 
+           1            1            1            1            1            1            1 
+072907400003 073004400006 073011900014 073101400001 073112400002 073301600002 073335000001 
+           1            1            1            1            1            1            1 
+073417800001 073548400002 073614900003 073622400001 073628200002 073715500004 073766500003 
+           1            1            1            1            1            1            1 
+074105100001 074121500002 074306900007 074322400004 074428000002 074475400002 074553200002 
+           1            1            1            1            1            1            1 
+074720900001 074798500007 074844700001 074851600002 074891200003 074928800001 074970500002 
+           1            1            1            1            1            1            1 
+074988700002 075012300002 075026800002 075272200002 075321700002 075521000001 075521900006 
+           1            1            1            1            1            1            1 
+075729800002 076333800003 076465500001 076467800001 076758200001 076777200001 076851900005 
+           1            1            1            1            1            1            1 
+076867700001 077252900001 077353100002 077449200001 077481000002 077516600001 077594800002 
+           1            1            1            1            1            1            1 
+077704800002 077759800003 077820300001 077999500002 078284200007 078520100003 078526800001 
+           1            1            1            1            1            1            1 
+078769900001 078809300002 079057000003 079063000002 079064500003 079084200002 079089200001 
+           1            1            1            1            1            1            1 
+079182900002 079201400002 079246600001 079262900002 079284100001 079318600002 079391600002 
+           1            1            1            1            1            1            1 
+079408400001 079512400002 079611400001 079614800006 079816100002 079823800001 080015300001 
+           1            1            1            1            1            1            1 
+080080400002 080477300001 080842400004 080860900002 080955300002 081011200001 081159400001 
+           1            1            1            1            1            1            1 
+081227200002 081311600001 081418100005 081481400001 082063900002 082189300001 082284200001 
+           1            1            1            1            1            1            1 
+082303300002 082342700001 082371100003 082390600001 082452500001 082607100002 082635900003 
+           1            1            1            1            1            1            1 
+082663400001 082696300001 082784500001 082829200002 082863900002 082966700003 083001900003 
+           1            1            1            1            1            1            1 
+083038800002 083219300001 083255900001 083753000003 083835500001 083847200002 083889200004 
+           1            1            1            1            1            1            1 
+083941600001 084061900004 084071600002 084165400002 084208800003 084249100003 084387800004 
+           1            1            1            1            1            1            1 
+084413300006 084624000003 084705300004 084960900001 085090600002 085292000003 085443500001 
+           1            1            1            1            1            1            1 
+085465000001 085483000001 085611600001 085649500002 085773900001 085867800005 085964300005 
+           1            1            1            1            1            1            1 
+085968400002 086197600001 086232000001 086345000001 086361100001 086445000001 086494300008 
+           1            1            1            1            1            1            1 
+086646400003 086709600002 087049400001 087141200003 087273700001 087501000003 087616600002 
+           1            1            1            1            1            1            1 
+087635900005 087867600001 087975400003 088069900001 088119400001 088124300001 088155200001 
+           1            1            1            1            1            1            1 
+088242100001 088294000004 088310200001 088362400003 088374300004 088433600001 088499200002 
+           1            1            1            1            1            1            1 
+088649500001 088725800004 088734200002 088914500003 088988500004 089006000003 089125500002 
+           1            1            1            1            1            1            1 
+089273300002 089289200001 089350900002 089401100002 089407400003 089411000001 089419900001 
+           1            1            1            1            1            1            1 
+089751500002 089835100002 089874900001 089878800004 090299600001 090736800001 090755200001 
+           1            1            1            1            1            1            1 
+090803500002 090853300004 090941900001 090962200001 091044800002 091123100001 091217500004 
+           1            1            1            1            1            1            1 
+091315200001 091432200002 091562900005 091564800001 091673100001 091692100001 091710900002 
+           1            1            1            1            1            1            1 
+091767700004 091785800001 092054700001 092483900001 092484200008 092598100002 092691500001 
+           1            1            1            1            1            1            1 
+092722800002 092771400007 092906200001 093035700001 093110700004 093115500002 093297100001 
+           1            1            1            1            1            1            1 
+093307700003 093381000001 093948200007 094013100002 094142200001 094254300001 094307500001 
+           1            1            1            1            1            1            1 
+094356800003 094404600003 094496700001 094560500002 094606100002 094628300002 094760800002 
+           1            1            1            1            1            1            1 
+094787500004 094878500001 094942600002 095005600003 095172100002 095374700002 095386100003 
+           1            1            1            1            1            1            1 
+095529000002 095636600001 095752700001 095865600001 095930400002 096077400008 096086900003 
+           1            1            1            1            1            1            1 
+096238400001 096390900001 096438600001 096484400002 096713000006 096763400001 097040100001 
+           1            1            1            1            1            1            1 
+097132600003 097176600002 097205300001 097361400002 097366700004 097398100002 097515800001 
+           1            1            1            1            1            1            1 
+097608300003 097770000002 097797000001 097895200001 098064100001 098082300002 098377000005 
+           1            1            1            1            1            1            1 
+098629800002 098742400004 098778500001 098870800004 098893500004 098933300001 099092300001 
+           1            1            1            1            1            1            1 
+099258000002 099311900005 099376600004 099379800006 099520800002 099521000004 099590200001 
+           1            1            1            1            1            1            1 
+099596400002 099782400001 099878100001 099943200003 100136100002 100257700002 100271900001 
+           1            1            1            1            1            1            1 
+100428000001 100463400005 100503500004 100614500002 100617900002 100671200001 100841300003 
+           1            1            1            1            1            1            1 
+100944000001 101028000002 101046000001 101214600001 101338500003 101598300001 101633800004 
+           1            1            1            1            1            1            1 
+101705900002 101723600002 101803100002 101819100006 101930300001 102006800001 
+           1            1            1            1            1            1 
+ [ reached getOption(&quot;max.print&quot;) -- omitted 201 entries ]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Dice just the variables needed for matching</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVjb2RlX21hcCA8LSBmcmVhZChyZWNvZGVwYXRoKVxubWF0Y2hpbmcudmFycyA8LSB1bmlxdWUocmVjb2RlX21hcCRjb21tb25fdmFyKVxudGFyZ2V0IDwtIHRhcmdldFssYyhcInNhbXBsZUlkXCIsbWF0Y2hpbmcudmFycyksd2l0aD1GXVxuYGBgIn0= -->
+<pre class="r"><code>recode_map &lt;- fread(recodepath)
+matching.vars &lt;- unique(recode_map$common_var)
+target &lt;- target[,c(&quot;sampleId&quot;,matching.vars),with=F]</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a treatment into it:</p>
+<p>Write to disk</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFuZWxbJ3RyZWF0J10gPC0gcmVwKDAsbGVuZ3RoKHBhbmVsJGFnZSkpXG50YXJnZXRbJ3RyZWF0J10gPC0gcmVwKDEsbGVuZ3RoKHRhcmdldCRhZ2UpKVxuYGBgIn0= -->
-<pre class="r"><code>panel[&#39;treat&#39;] &lt;- rep(0,length(panel$age))
-target[&#39;treat&#39;] &lt;- rep(1,length(target$age))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXModGFyZ2V0KVxuYGBgIn0= -->
+<pre class="r"><code>names(target)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now join this data together:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGV2ZWxzKHBhbmVsJEZha2VpZCkgPC0gYyhsZXZlbHMocGFuZWwkRmFrZWlkKSw5OTk5OTkpICN0byBtYWtlIHJvb20gZm9yIHRoZSBub24tZXhpc3RlbnQgRmFrZWlkXG5hbGxkYXRhPC1yYmluZChwYW5lbCx0YXJnZXRbbmFtZXMocGFuZWwpXSlcblxuI2pvaW50SWQgd2lsbCBiZSB0aGUgc2VxdWVuY2UgbnVtYmVyIGluIHRoZSBqb2ludCBkYXRhZnJhbWUgLS0gTUFZIE5PVCBORUVEIFRISVM/XG5hbGxkYXRhJGpvaW50SWQgPC0gc2VxKGRpbShhbGxkYXRhKVsxXSlcbnJvd25hbWVzKGFsbGRhdGEpIDwtIGFsbGRhdGEkam9pbnRJZFxuXG5cbnVuaXF1ZSh0YWJsZShhbGxkYXRhJGlkKSlcbmBgYCJ9 -->
-<pre class="r"><code>levels(panel$Fakeid) &lt;- c(levels(panel$Fakeid),999999) #to make room for the non-existent Fakeid
-alldata&lt;-rbind(panel,target[names(panel)])
-
-#jointId will be the sequence number in the joint dataframe -- MAY NOT NEED THIS?
-alldata$jointId &lt;- seq(dim(alldata)[1])
-rownames(alldata) &lt;- alldata$jointId
-
-
-unique(table(alldata$id))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Divide target sample into age quantiles (in this case, deciles) and add that to the data:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWdlX3EgPC0gcXVhbnRpbGUodGFyZ2V0JGFnZSxwcm9iID0gc2VxKDAsMSwwLjEpKVxuYWxsZGF0YVsnYWdlX2dyb3VwJ10gPC0gYXMuaW50ZWdlcihjdXQoYWxsZGF0YSRhZ2UsYnJlYWtzID0gYWdlX3EsIGluY2x1ZGUubG93ZXN0ID0gVFJVRSkpXG5hbGxkYXRhJGFnZV9ncm91cFtpcy5uYShhbGxkYXRhJGFnZV9ncm91cCldIDwtIDEwXG5gYGAifQ== -->
-<pre class="r"><code>age_q &lt;- quantile(target$age,prob = seq(0,1,0.1))
-alldata[&#39;age_group&#39;] &lt;- as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))
-alldata$age_group[is.na(alldata$age_group)] &lt;- 10</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>#for the methods that require numeric approximation</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWxsZGF0YV9udW08LWRhdGEuZnJhbWUobGFwcGx5KGFsbGRhdGEsIGFzLm51bWVyaWMpKVxuYGBgIn0= -->
-<pre class="r"><code>alldata_num&lt;-data.frame(lapply(alldata, as.numeric))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShhbGxkYXRhX251bSlcbmBgYCJ9 -->
-<pre class="r"><code>summary(alldata_num)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now the matching begins. This is using the MatchIt package as we are used to…</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tYXRjaGluZy5mb3JtIDwtIGFzLmZvcm11bGEocGFzdGUwKFwidHJlYXQgfiBcIiwgcGFzdGUobWF0Y2hpbmcudmFycywgY29sbGFwc2U9JyArICcpKSlcbmBgYCJ9 -->
-<pre class="r"><code>
-matching.form &lt;- as.formula(paste0(&quot;treat ~ &quot;, paste(matching.vars, collapse=&#39; + &#39;)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We’ll have to repeat this process (at least for everything except PS), since the memory can’t deal with all of this. * start empty dataframe initialized with target IDs * make a copy of the data to alter * for each i in range: + run the matching + store the matched IDs + store some overall metrics about the match + reduce the panel data * return the match objects</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hSYXRpbyA8LSBmdW5jdGlvbihkYXRhLCBtZXRyaWMsIG4sIGV4YWN0ID0gYygpKXtcbiAgXG4gICMgYXNzaWduIHRoZSBkYXRhZnJhbWUgdG8gaG9sZCB0aGUgbWF0Y2hpbmcgcmVzdWx0c1xuICBkZiA8LSBkYXRhLmZyYW1lKG1hdHJpeChuY29sPTEsIG5yb3c9c3VtKGRhdGEkdHJlYXQ9PTEpKSlcbiAgbmFtZXMoZGYpIDwtIGMoXCJ0YXJnZXRJZFwiKVxuICBkZiR0YXJnZXRJZCA8LSBkYXRhJGlkW2RhdGEkdHJlYXQ9PTFdXG4gIFxuICAjIGFzc2lnbiB0aGUgb2JqZWN0IHRvIGhvbGQgYWxsIHRoZSBtYXRjaGluZyBpbmZvcm1hdGlvblxuICBtYXRjaGVzIDwtIHZlY3RvcihcImxpc3RcIixuKVxuICBcbiAgIyBtYWtlIGEgY29weSBvZiB0aGUgcGFzc2VkLWluIGRhdGFcbiAgZGF0YS5jb3B5IDwtIGRhdGEuZnJhbWUoZGF0YSlcbiAgXG4gICMgbG9vcCBvdmVyIHRoZSBudW1iZXIgb2YgcmVzcG9uZGVudHMgcGVyIHRhcmdldFxuICAjIGlmIHRoZXJlIGFyZSBpc3N1ZXMsIGNhbiBJIHJlbGF4IHRoZSBhZ2UgZ3JvdXBzP1xuICBmb3IoaSBpbiAxOm4pe1xuICAgIHByaW50KHBhc3RlKCdpID0gJyx0b19jaGFyYWN0ZXIoaSkpKVxuICAgIG0gPC0gbWF0Y2hpdChtYXRjaGluZy5mb3JtLCBcbiAgICAgICAgICAgICAgICAgZGF0YSA9IGRhdGEuY29weSwgZXhhY3Q9ZXhhY3QsIG1ldGhvZCA9IFwibmVhcmVzdFwiLCBkaXN0YW5jZSA9IG1ldHJpYylcbiAgICBcbiAgICB0cnkoe21hdGNoZXNbW2ldXSA8LSBtXG4gICAgICAgIHRhcmdldGlkcyA8LSBkYXRhLmNvcHlbcm93Lm5hbWVzKG0kbWF0Y2gubWF0cml4KSwgXCJpZFwiXVxuICAgICAgICBwYW5lbGlkcyA8LSBhcy5kYXRhLmZyYW1lKGRhdGEuY29weVttJG1hdGNoLm1hdHJpeCxcIkZha2VpZFwiXSlcbiAgICAgICAgbmFtZXMocGFuZWxpZHMpPC1jKFwicGFuZWxJZFwiKVxuICAgICAgICBwYW5lbGlkc1sndGFyZ2V0SWQnXTwtdGFyZ2V0aWRzXG4gICAgICAgIGRmIDwtIG1lcmdlKHg9ZGYsIHk9cGFuZWxpZHMsIGJ5PVwidGFyZ2V0SWRcIiwgYWxsLnggPSBUUlVFLCBzdWZmaXhlcz1jKFwiXCIsdG9fY2hhcmFjdGVyKGkpKSlcbiAgICAgICAgfSAjLi4uIG1heWJlIG1lcmdlIGluc3RlYWQgbWlnaHQgYmUgc2FmZXI/XG4gICAgKVxuICAgIFxuICAgIGNvbnRyb2xzIDwtIG1hdGNoLmRhdGEobSwgZ3JvdXA9J2NvbnRyb2wnKVxuICAgIGRhdGEuY29weSA8LSBkYXRhLmNvcHlbIWRhdGEuY29weSRqb2ludElkICVpbiUgY29udHJvbHMkam9pbnRJZCxdICMgbm90IHJlbHlpbmcgb24gcm93bmFtZXNcbiAgICBcbiAgfVxuICAjIGZpbmFsIDwtIGNiaW5kKGFsbGRhdGFbcm93Lm5hbWVzKG1hdGNoLmxpc3QkbWF0Y2hlc1tbMV1dJG1hdGNoLm1hdHJpeCksXCJpZFwiXSxcbiAgIyAgICAgYXMuZGF0YS5mcmFtZShkby5jYWxsKGNiaW5kLChsYXBwbHkobWF0Y2gubGlzdCRtYXRjaGVzLCBmdW5jdGlvbihtKXthbGxkYXRhW20kbWF0Y2gubWF0cml4LFwiRmFrZWlkXCJdfSkpKSlcbiAgIyAgKVxuICByZXR1cm4obGlzdChcImlkc1wiPWRmLCBcIm1hdGNoZXNcIj1tYXRjaGVzKSlcbn1cbmBgYCJ9 -->
-<pre class="r"><code>matchRatio &lt;- function(data, metric, n, exact = c()){
-  
-  # assign the dataframe to hold the matching results
-  df &lt;- data.frame(matrix(ncol=1, nrow=sum(data$treat==1)))
-  names(df) &lt;- c(&quot;targetId&quot;)
-  df$targetId &lt;- data$id[data$treat==1]
-  
-  # assign the object to hold all the matching information
-  matches &lt;- vector(&quot;list&quot;,n)
-  
-  # make a copy of the passed-in data
-  data.copy &lt;- data.frame(data)
-  
-  # loop over the number of respondents per target
-  # if there are issues, can I relax the age groups?
-  for(i in 1:n){
-    print(paste(&#39;i = &#39;,to_character(i)))
-    m &lt;- matchit(matching.form, 
-                 data = data.copy, exact=exact, method = &quot;nearest&quot;, distance = metric)
-    
-    try({matches[[i]] &lt;- m
-        targetids &lt;- data.copy[row.names(m$match.matrix), &quot;id&quot;]
-        panelids &lt;- as.data.frame(data.copy[m$match.matrix,&quot;Fakeid&quot;])
-        names(panelids)&lt;-c(&quot;panelId&quot;)
-        panelids[&#39;targetId&#39;]&lt;-targetids
-        df &lt;- merge(x=df, y=panelids, by=&quot;targetId&quot;, all.x = TRUE, suffixes=c(&quot;&quot;,to_character(i)))
-        } #... maybe merge instead might be safer?
-    )
-    
-    controls &lt;- match.data(m, group=&#39;control&#39;)
-    data.copy &lt;- data.copy[!data.copy$jointId %in% controls$jointId,] # not relying on rownames
-    
-  }
-  # final &lt;- cbind(alldata[row.names(match.list$matches[[1]]$match.matrix),&quot;id&quot;],
-  #     as.data.frame(do.call(cbind,(lapply(match.list$matches, function(m){alldata[m$match.matrix,&quot;Fakeid&quot;]}))))
-  #  )
-  return(list(&quot;ids&quot;=df, &quot;matches&quot;=matches))
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3RtcGRhdGEgPSByYmluZChhbGxkYXRhX251bVthbGxkYXRhJHRyZWF0PT0xLF1bMToxMCxdLGFsbGRhdGFfbnVtW2FsbGRhdGEkdHJlYXQ9PTAsXVsxOjEwMCxdKVxuIyB0bXAgPSBtYXRjaFJhdGlvKGFsbGRhdGEsIFwibG9naXRcIiwgNSlcbm1hdGNoZXMuY2VtX21haCA9IG1hdGNoUmF0aW8oYWxsZGF0YV9udW0sIFwibWFoYWxhbm9iaXNcIiwgMSwgZXhhY3QgPSBjKFwiYWdlX2dyb3VwXCIsXCJnZW5kXCIpKVxuXG5gYGAifQ== -->
-<pre class="r"><code>#tmpdata = rbind(alldata_num[alldata$treat==1,][1:10,],alldata_num[alldata$treat==0,][1:100,])
-# tmp = matchRatio(alldata, &quot;logit&quot;, 5)
-matches.cem_mah = matchRatio(alldata_num, &quot;mahalanobis&quot;, 1, exact = c(&quot;age_group&quot;,&quot;gend&quot;))
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcInNhbXBsZUlkXCIgXCJnZW5kXCIgICAgIFwiYWdlXCIgICAgICBcImJhdGhcIiAgICAgXCJlZFwiICAgICAgIFwiZW1wXCIgICAgICBcInBlcm5cIiAgICAgXCJoaGhcIiAgICAgXG4gWzldIFwiWFwiICAgICAgICBcIllcIiAgICAgICBcbiJ9 -->
+<pre><code> [1] &quot;sampleId&quot; &quot;gend&quot;     &quot;age&quot;      &quot;bath&quot;     &quot;ed&quot;       &quot;emp&quot;      &quot;pern&quot;     &quot;hhh&quot;     
+ [9] &quot;X&quot;        &quot;Y&quot;       </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHg9dGFyZ2V0LFxuICAgICAgICAgIGZpbGUgPSBwYXN0ZTAoZGF0YWRpcixcbiAgICAgICAgICAgICAgICAgICAgICAgIFwic2FtcGxlL1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgY291bnRyeSxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiX3RhcmdldF9cIixcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvcm1hdChTeXMudGltZSgpLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIiVZJW0lZFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiLmNzdlwiKVxuICAgICAgICAgICAgICAgICAgICApXG5cbmBgYCJ9 -->
+<pre class="r"><code>write.csv(x=target,
+          file = paste0(datadir,
+                        &quot;sample/&quot;,
+                        country,
+                        &quot;_target_&quot;,
+                        format(Sys.time(), 
+                               &quot;%Y%m%d&quot;),
+                        &quot;.csv&quot;)
+                    )
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Save the id’s of the matches to a file, so I don’t lose them–just in case</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG1wIDwtIG1hdGNoZXMuY2VtX21haCRpZHNcblxuIyBhdHRhY2hpbmcgTlEgcGFuZWwgY29kZVxudG1wW05RX2lkXSA8LSBtZXJnZSh4ID0gbWF0Y2hlcy5jZW1fbWFoJGlkcywgXG4gICAgICAgICAgICAgICAgICAgIHkgPSBhbGxkYXRhW2FsbGRhdGEkdHJlYXQ9PTAsIGMoXCJGYWtlaWRcIiwnaWQnKV0sIFxuICAgICAgICAgICAgICAgICAgICBieS54ID0gXCJwYW5lbElkXCIsIFxuICAgICAgICAgICAgICAgICAgICBieS55ID0gXCJpZFwiKVtbXCJGYWtlaWRcIl1dXG5cbiMgYXR0YWNoaW5nIGNlbnN1cyBpZGVudGlmaWNhdGlvbiwganVzdCBpbiBjYXNlIVxudG1wW2MoXCJTRVJJQUxcIixcIlBFUk5VTVwiKV0gPC0gbWVyZ2UoeCA9IG1hdGNoZXMuY2VtX21haCRpZHMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHkgPSBjZW5zdXNbYyhcIlNFUklBTFwiLFwiUEVSTlVNXCIsXCJpZFwiKV0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJ5LnggPSAndGFyZ2V0SWQnLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBieS55ID0gJ2lkJylbYyhcIlNFUklBTFwiLFwiUEVSTlVNXCIpXVxuXG53cml0ZS5jc3YoeD10bXBbYyhcInRhcmdldElkXCIsTlFfaWQsIFwiU0VSSUFMXCIsXCJQRVJOVU1cIildLCBmaWxlPXBhc3RlMChcIkM6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9JREIgT25saW5lL01hdGNoaW5nIHByb2Nlc3MvRGF0YS9cIixjb3VudHJ5LFwiL3BhbmVsL21hdGNoZXNfY2VtLW1haC5jc3ZcIikpXG5gYGAifQ== -->
-<pre class="r"><code>tmp &lt;- matches.cem_mah$ids
 
-# attaching NQ panel code
-tmp[NQ_id] &lt;- merge(x = matches.cem_mah$ids, 
-                    y = alldata[alldata$treat==0, c(&quot;Fakeid&quot;,&#39;id&#39;)], 
-                    by.x = &quot;panelId&quot;, 
-                    by.y = &quot;id&quot;)[[&quot;Fakeid&quot;]]
-
-# attaching census identification, just in case!
-tmp[c(&quot;SERIAL&quot;,&quot;PERNUM&quot;)] &lt;- merge(x = matches.cem_mah$ids,
-                                   y = census[c(&quot;SERIAL&quot;,&quot;PERNUM&quot;,&quot;id&quot;)],
-                                   by.x = &#39;targetId&#39;,
-                                   by.y = &#39;id&#39;)[c(&quot;SERIAL&quot;,&quot;PERNUM&quot;)]
-
-write.csv(x=tmp[c(&quot;targetId&quot;,NQ_id, &quot;SERIAL&quot;,&quot;PERNUM&quot;)], file=paste0(&quot;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/&quot;,country,&quot;/panel/matches_cem-mah.csv&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Trying to get a handle on how good the successive matches are. When desired, the below lets you plot imbalance over time.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZXNoYXBlMikgI2luc3RhbGwucGFja2FnZXMoXCJyZXNoYXBlMlwiKVxubGlicmFyeShnZ3Bsb3QyKSAjaW5zdGFsbC5wYWNrYWdlcyhcImdncGxvdDJcIilcbmBgYCJ9 -->
-<pre class="r"><code>library(reshape2) #install.packages(&quot;reshape2&quot;)
-library(ggplot2) #install.packages(&quot;ggplot2&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lIDwtIGZ1bmN0aW9uKG1hdGNoZXMsIHRpdGxlKXtcbiAgIyBtYWtlIGEgY29weSBvZiBwYXNzZWQtaW4gbWF0Y2ggZGF0YSwgZ2V0IG51bWJlclxuICBwcmludCgnc2V0dGluZyB1cCcpXG4gIHRtcCA8LSBtYXRjaGVzXG4gIG4gPC0gbGVuZ3RoKHRtcCRtYXRjaGVzKVxuXG4gICMgY3JlYXRpbmcgYSBtYXRyaXggdG8gc3RvcmUgcmVzdWx0cyBmb3IgZWFjaCBwYXNzIGFuZCB2YXJpYWJsZSAgXG4gIHByaW50KCdwcmVwYXJlIGRhdGFmcmFtZScpXG4gIG1zIDwtIGRhdGEuZnJhbWUobWF0cml4KG5jb2wgPSBuLCBucm93ID0gbnJvdyhzdW1tYXJ5KHRtcCRtYXRjaGVzW1sxXV0pJHN1bS5tYXRjaGVkKSkpXG4gIHZhcnMgPC0gcm93Lm5hbWVzKHN1bW1hcnkodG1wJG1hdGNoZXNbWzFdXSkkc3VtLm1hdGNoZWQpXG4gIHJvdy5uYW1lcyhtcykgPC0gdmFyc1xuICBcbiAgIyBsb29rIHRocm91Z2ggcGFzc2VzIGFuZFxuICBwcmludChcImdvIHRocm91Z2ggbWF0Y2hlc1wiKVxuICBmb3IgKGkgaW4gMTpuKXtcbiAgICBtc1tpXSA8LSBzdW1tYXJ5KHRtcCRtYXRjaGVzW1tpXV0sIHN0YW5kYXJkaXplID0gVFJVRSkkc3VtLm1hdGNoZWQkYFN0ZC4gTWVhbiBEaWZmLmBcbiAgfSBcbiAgXG4gIHByaW50KFwibWFzc2FnZSBkYXRhXCIpXG4gIG1zLnRyYW5zcCA8LSBhcy5kYXRhLmZyYW1lKHQobXMpKVxuICBjb2xuYW1lcyhtcy50cmFuc3ApIDwtIHZhcnNcbiAgbXMudHJhbnNwWydQYXNzJ10gPC0gc2VxKDEsbilcbiAgbW9sdGVuIDwtIG1lbHQobXMudHJhbnNwLCBpZC52YXJzPVwiUGFzc1wiKVxuICByb3duYW1lcyhtcy50cmFuc3ApXG4gIFxuICAjZ2dwbG90IGl0Li4uXG4gIFxuICAjcG5nKGZpbGVuYW1lPVwicHNfaW1iYWxhbmNlLnBuZ1wiKVxuICBwcmludChcInJldHVybiBwbG90XCIpXG4gIHAgPC0gZ2dwbG90KG1vbHRlbiwgYWVzKHg9UGFzcywgeT12YWx1ZSwgY29sb3VyPXZhcmlhYmxlKSkgKyBnZW9tX2xpbmUoKSArIGxhYnMoeT0gXCJCYWxhbmNlXCIsdGl0bGU9dGl0bGUpICsgdGhlbWUoYXNwZWN0LnJhdGlvID0gMTAvMTYpICsgY29vcmRfY2FydGVzaWFuKHlsaW0gPSBjKC0xLjUsIDEuNSkpIFxuICBnZ3NhdmUocGFzdGUwKFwiQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL0lEQiBPbmxpbmUvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhL1wiLFxuICAgICAgICAgIGNvdW50cnksXG4gICAgICAgICAgXCIvXCIsdGl0bGUsIFwiLnBuZ1wiXG4gICAgICAgICkpXG4gIHJldHVybihwKVxuICAjZGV2Lm9mZigpXG59XG5gYGAifQ== -->
-<pre class="r"><code>plot_imbalance_over_time &lt;- function(matches, title){
-  # make a copy of passed-in match data, get number
-  print(&#39;setting up&#39;)
-  tmp &lt;- matches
-  n &lt;- length(tmp$matches)
-
-  # creating a matrix to store results for each pass and variable  
-  print(&#39;prepare dataframe&#39;)
-  ms &lt;- data.frame(matrix(ncol = n, nrow = nrow(summary(tmp$matches[[1]])$sum.matched)))
-  vars &lt;- row.names(summary(tmp$matches[[1]])$sum.matched)
-  row.names(ms) &lt;- vars
-  
-  # look through passes and
-  print(&quot;go through matches&quot;)
-  for (i in 1:n){
-    ms[i] &lt;- summary(tmp$matches[[i]], standardize = TRUE)$sum.matched$`Std. Mean Diff.`
-  } 
-  
-  print(&quot;massage data&quot;)
-  ms.transp &lt;- as.data.frame(t(ms))
-  colnames(ms.transp) &lt;- vars
-  ms.transp[&#39;Pass&#39;] &lt;- seq(1,n)
-  molten &lt;- melt(ms.transp, id.vars=&quot;Pass&quot;)
-  rownames(ms.transp)
-  
-  #ggplot it...
-  
-  #png(filename=&quot;ps_imbalance.png&quot;)
-  print(&quot;return plot&quot;)
-  p &lt;- ggplot(molten, aes(x=Pass, y=value, colour=variable)) + geom_line() + labs(y= &quot;Balance&quot;,title=title) + theme(aspect.ratio = 10/16) + coord_cartesian(ylim = c(-1.5, 1.5)) 
-  ggsave(paste0(&quot;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/&quot;,
-          country,
-          &quot;/&quot;,title, &quot;.png&quot;
-        ))
-  return(p)
-  #dev.off()
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lKG1hdGNoZXMubWFoLFwiTWFoYWxhbm9iaXMgaW1iYWxhbmNlIGluIHJlcGVhdCBtYXRjaGluZ1wiKVxuIyBwbG90X2ltYmFsYW5jZV9vdmVyX3RpbWUobWF0Y2hlcy5wcyxcIlByb3BlbnNpdHkgc2NvcmUgaW1iYWxhbmNlIGluIHJlcGVhdCBtYXRjaGluZ1wiKVxucGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lKG1hdGNoZXMuY2VtX21haCxcIkV4YWN0K01haGEgaW1iYWxhbmNlIGluIHJlcGVhdCBtYXRjaGluZ1wiKVxuIyBwbG90X2ltYmFsYW5jZV9vdmVyX3RpbWUobWF0Y2hlcy5jZW1fcHMsXCJFeGFjdCtQUyBpbWJhbGFuY2UgaW4gcmVwZWF0IG1hdGNoaW5nXCIpXG5gYGAifQ== -->
-<pre class="r"><code>plot_imbalance_over_time(matches.mah,&quot;Mahalanobis imbalance in repeat matching&quot;)
-# plot_imbalance_over_time(matches.ps,&quot;Propensity score imbalance in repeat matching&quot;)
-plot_imbalance_over_time(matches.cem_mah,&quot;Exact+Maha imbalance in repeat matching&quot;)
-# plot_imbalance_over_time(matches.cem_ps,&quot;Exact+PS imbalance in repeat matching&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Visualizing the different imbalances.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kaWZmLm1haCA8LSBkYXRhLmZyYW1lKHN1bW1hcnkobS5tYWgsIHN0YW5kYXJkaXplID0gVFJVRSkkc3VtLm1hdGNoZWQkYFN0ZC4gTWVhbiBEaWZmLmApXG5yb3cubmFtZXMoZGlmZi5tYWgpPC1yb3cubmFtZXMoc3VtbWFyeShtLm1haCkkc3VtLm1hdGNoZWQpXG5wbmcoZmlsZW5hbWU9cGFzdGUwKFwiQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL0lEQiBPbmxpbmUvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhL1wiLGNvdW50cnksXCIvbWFoYWxhbm9iaXNfYmFsYW5jZS5wbmdcIikpXG5iYXJwbG90KGRpZmYubWFoW1sxXV0sIG5hbWVzLmFyZyA9IHJvd25hbWVzKGRpZmYubWFoKSxsYXM9Mix5bGltPWMoLTAuNSwwLjUpKVxudGl0bGUoXCJNYWhhbGFub2Jpc1wiKVxuZGV2Lm9mZigpXG5cblxuIyBkaWZmLnBzIDwtIGRhdGEuZnJhbWUoc3VtbWFyeShtLnBzLCBzdGFuZGFyZGl6ZSA9IFRSVUUpJHN1bS5tYXRjaGVkJGBTdGQuIE1lYW4gRGlmZi5gKVxuIyByb3cubmFtZXMoZGlmZi5wcyk8LXJvdy5uYW1lcyhzdW1tYXJ5KG0ucHMpJHN1bS5tYXRjaGVkKVxuIyBwbmcoZmlsZW5hbWU9XCJwc19iYWxhbmNlLnBuZ1wiKVxuIyBiYXJwbG90KGRpZmYucHNbWzFdXSwgbmFtZXMuYXJnID0gcm93bmFtZXMoZGlmZi5wcyksbGFzPTIseWxpbT1jKC0wLjUsMC41KSlcbiMgdGl0bGUoXCJQcm9wZW5zaXR5IHNjb3JlXCIpXG4jIGRldi5vZmYoKVxuIyBcbiMgZGlmZi5wcy5udW0gPC0gZGF0YS5mcmFtZShzdW1tYXJ5KG0ucHMubnVtLCBzdGFuZGFyZGl6ZSA9IFRSVUUpJHN1bS5tYXRjaGVkJGBTdGQuIE1lYW4gRGlmZi5gKVxuIyByb3cubmFtZXMoZGlmZi5wcy5udW0pPC1yb3cubmFtZXMoc3VtbWFyeShtLnBzLm51bSkkc3VtLm1hdGNoZWQpXG4jIHBuZyhmaWxlbmFtZT1cInBzLW51bV9iYWxhbmNlLnBuZ1wiKVxuIyBiYXJwbG90KGRpZmYucHMubnVtW1sxXV0sIG5hbWVzLmFyZyA9IHJvd25hbWVzKGRpZmYucHMubnVtKSxsYXM9Mix5bGltPWMoLTAuNSwwLjUpKVxuIyB0aXRsZShcIlByb3BlbnNpdHkgc2NvcmUgKGNvbnRpbnVvdXMgSVYpXCIpXG4jIGRldi5vZmYoKVxuIyBcbiMgZGlmZi5ubmV0IDwtIGRhdGEuZnJhbWUoc3VtbWFyeShtLm5uZXQsIHN0YW5kYXJkaXplID0gVFJVRSkkc3VtLm1hdGNoZWQkYFN0ZC4gTWVhbiBEaWZmLmApXG4jIHJvdy5uYW1lcyhkaWZmLm5uZXQpPC1yb3cubmFtZXMoc3VtbWFyeShtLm5uZXQpJHN1bS5tYXRjaGVkKVxuIyBwbmcoZmlsZW5hbWU9XCJubmV0X2JhbGFuY2UucG5nXCIpXG4jIGJhcnBsb3QoZGlmZi5ubmV0W1sxXV0sIG5hbWVzLmFyZyA9IHJvd25hbWVzKGRpZmYubm5ldCksbGFzPTIsIHlsaW09YygtMC41LDAuNSkpXG4jIHRpdGxlKFwiTmV1cmFsIG5ldFwiKVxuIyBkZXYub2ZmKClcbiMgXG4jIGRpZmYudHJlZSA8LSBkYXRhLmZyYW1lKHN1bW1hcnkobS50cmVlLCBzdGFuZGFyZGl6ZSA9IFRSVUUpJHN1bS5tYXRjaGVkJGBTdGQuIE1lYW4gRGlmZi5gKVxuIyByb3cubmFtZXMoZGlmZi50cmVlKTwtcm93Lm5hbWVzKHN1bW1hcnkobS50cmVlKSRzdW0ubWF0Y2hlZClcbiMgcG5nKGZpbGVuYW1lPVwidHJlZV9iYWxhbmNlLnBuZ1wiKVxuIyBiYXJwbG90KGRpZmYudHJlZVtbMV1dLCBuYW1lcy5hcmcgPSByb3duYW1lcyhkaWZmLnRyZWUpLGxhcz0yLCB5bGltPWMoLTAuNSwwLjUpKVxuIyB0aXRsZShcIkRlY2lzaW9uIHRyZWVcIilcbiMgZGV2Lm9mZigpXG5cbmBgYCJ9 -->
-<pre class="r"><code>
-diff.mah &lt;- data.frame(summary(m.mah, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-row.names(diff.mah)&lt;-row.names(summary(m.mah)$sum.matched)
-png(filename=paste0(&quot;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/&quot;,country,&quot;/mahalanobis_balance.png&quot;))
-barplot(diff.mah[[1]], names.arg = rownames(diff.mah),las=2,ylim=c(-0.5,0.5))
-title(&quot;Mahalanobis&quot;)
-dev.off()
-
-
-# diff.ps &lt;- data.frame(summary(m.ps, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.ps)&lt;-row.names(summary(m.ps)$sum.matched)
-# png(filename=&quot;ps_balance.png&quot;)
-# barplot(diff.ps[[1]], names.arg = rownames(diff.ps),las=2,ylim=c(-0.5,0.5))
-# title(&quot;Propensity score&quot;)
-# dev.off()
-# 
-# diff.ps.num &lt;- data.frame(summary(m.ps.num, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.ps.num)&lt;-row.names(summary(m.ps.num)$sum.matched)
-# png(filename=&quot;ps-num_balance.png&quot;)
-# barplot(diff.ps.num[[1]], names.arg = rownames(diff.ps.num),las=2,ylim=c(-0.5,0.5))
-# title(&quot;Propensity score (continuous IV)&quot;)
-# dev.off()
-# 
-# diff.nnet &lt;- data.frame(summary(m.nnet, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.nnet)&lt;-row.names(summary(m.nnet)$sum.matched)
-# png(filename=&quot;nnet_balance.png&quot;)
-# barplot(diff.nnet[[1]], names.arg = rownames(diff.nnet),las=2, ylim=c(-0.5,0.5))
-# title(&quot;Neural net&quot;)
-# dev.off()
-# 
-# diff.tree &lt;- data.frame(summary(m.tree, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.tree)&lt;-row.names(summary(m.tree)$sum.matched)
-# png(filename=&quot;tree_balance.png&quot;)
-# barplot(diff.tree[[1]], names.arg = rownames(diff.tree),las=2, ylim=c(-0.5,0.5))
-# title(&quot;Decision tree&quot;)
-# dev.off()
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-
-<div id="rmd-source-code">LS0tDQp0aXRsZTogImRyYXdfc2FtcGxlIg0KYXV0aG9yOiAiTWFpdGEgU2NoYWRlIg0KZGF0ZTogIkF1ZyA4LCAyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KTWFrZSBzdXJlIHdlJ3JlIGRlYWxpbmcgd2l0aCBhIGNsZWFyIHNwYWNlOg0KYGBge3J9DQpybShsaXN0ID0gbHMoYWxsID0gVFJVRSkpDQpgYGANCiAgDQpgYGB7cn0NCmNvdW50cnkgPSAiQVIiDQpzdHJhdDEgPSAiR0VPMV9BUjIwMTAiDQpzdHJhdDIgPSAiVVJCQU4iDQpOUV9pZCAgPSAicF9jb2RpZ28iDQpjZW5zdXNwYXRoID0gcGFzdGUwKCdDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9Db29yZGluYXRpb24vSURCIE9ubGluZS9NYXRjaGluZyBwcm9jZXNzL0RhdGEvJyxjb3VudHJ5LCcvc2FtcGxlLycsY291bnRyeSwnX2lwdW1zLWNlbnN1c19nZW8uY3N2JykNCg0Kc2V0d2QoDQogIHBhc3RlMCgiQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL0lEQiBPbmxpbmUvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhLyIsY291bnRyeSkNCikNCmBgYA0KDQoNCmBgYHtyfQ0KbGlicmFyeSgnTWF0Y2hJdCcpDQpsaWJyYXJ5KCdoYXZlbicpDQpsaWJyYXJ5KCdvcGVueGxzeCcpDQpsaWJyYXJ5KCdsYWJlbGxlZCcpDQpsaWJyYXJ5KHpvbykNCmxpYnJhcnkoZGF0YS50YWJsZSkNCnJlcXVpcmUocGx5cikNCg0KcmVxdWlyZShzYW1wbGVNYXRjaCkNCnJlcXVpcmUoJ2NlbScpDQpgYGANCg0KUmVhZGluZyBpbiB0aGUgc2FtcGxpbmcgZGF0YSBhbmQgbWFraW5nIG5lY2Vzc2FyeSB1cGRhdGVzLg0KDQpIZXJlLCB3ZSBhcmUgdXNpbmcgdGhlIElQVU1TIGRhdGEuDQpgYGB7cn0NCmNlbnN1czwtIGZyZWFkKGNlbnN1c3BhdGgpDQpgYGANCg0KDQpHaXZlIElEIHRvIGFsbCBtZW1iZXJzDQpgYGB7cn0NCmNlbnN1cyRDRU5TSUQgPC0gcGFzdGUwKA0KICBzcHJpbnRmKA0KICAgIHBhc3RlMCgnJTAnLA0KICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKGNlbnN1cyRTRVJJQUwpKSksDQogICAgICAgICAgICcuMGYnKSwNCiAgICBjZW5zdXMkU0VSSUFMKSwNCiAgc3ByaW50ZigNCiAgICBwYXN0ZTAoJyUwJywNCiAgICAgICAgICAgYXMuY2hhcmFjdGVyKG1heChuY2hhcihjZW5zdXMkUEVSTlVNKSkpLA0KICAgICAgICAgICAnLjBmJyksDQogICAgY2Vuc3VzJFBFUk5VTSkNCikNCm1heCh0YWJsZShjZW5zdXMkQ0VOU0lEKSkNCmNlbnN1cyRDRU5TSURbMToxMF0NCnRhYmxlKG5jaGFyKGNlbnN1cyRDRU5TSUQpKQ0KYGBgDQoNCkFESlVTVCBGT1IgQ09VTlRSWSENCmBgYHtyfQ0KY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbY2Vuc3VzLnByb2MkYWdlPjE3LF0NCg0KY2Vuc3VzLnByb2MgPC0gbmEub21pdChjZW5zdXMucHJvYykNCmNlbnN1cy5wcm9jIDwtIGNlbnN1cy5wcm9jW29yZGVyKGNlbnN1cy5wcm9jW3N0cmF0MV0pLF0NCg0Kc3VtbWFyeShjZW5zdXMucHJvYykNCmBgYA0KDQoNCg0KIVJFTUVNQkVSIFRPIE1BVENIIFRIRSBTRUVEIQ0KDQpUcnkgc3RyYXRpZmllZCBzYW1wbGluZy4NCg0KYGBge3J9DQpuIDwtIDEyMDANCiNyZXF1aXJlKCdzYW1wbGluZycpDQpzZXQuc2VlZCgxMTEpDQpzdHJhdHM9YyhzdHJhdDEpDQpsaWJyYXJ5KHNhbXBsZU1hdGNoKQ0KdGFyZ2V0ICA8LSBzdHJhdF93ZWlnaHRfc2FtcGxlKGNlbnN1cy5wcm9jLHN0cmF0cywnUEVSV1QnLG4pDQojYWRkIEZha2VpZCwgc28gd2UgY2FuIGtlZXAgdGhvc2UgZnJvbSB0aGUgcGFuZWwgaW4gdGhlIG1hdGNoaW5nIHNldA0KdGFyZ2V0WydGYWtlaWQnXSA8LSBhcy5pbnRlZ2VyKHJlcCg5OTk5OTksIGxlbmd0aCh0YXJnZXQkYWdlKSkpDQpgYGANCg0KTWFraW5nIHN1cmUgdGhpcyBzdHJhdGlmaWNhdGlvbiB3b3JrZWQuLi4NCmBgYHtyfQ0KYmFycGxvdCh0YWJsZSggdGFyZ2V0W1tzdHJhdDFdXSkpDQpucm93KHRhcmdldCkNCmBgYA0KDQoNCg0KDQpBZGQgYSB0cmVhdG1lbnQgaW50byBpdDoNCmBgYHtyfQ0KcGFuZWxbJ3RyZWF0J10gPC0gcmVwKDAsbGVuZ3RoKHBhbmVsJGFnZSkpDQp0YXJnZXRbJ3RyZWF0J10gPC0gcmVwKDEsbGVuZ3RoKHRhcmdldCRhZ2UpKQ0KYGBgDQoNCg0KTm93IGpvaW4gdGhpcyBkYXRhIHRvZ2V0aGVyOg0KYGBge3J9DQpsZXZlbHMocGFuZWwkRmFrZWlkKSA8LSBjKGxldmVscyhwYW5lbCRGYWtlaWQpLDk5OTk5OSkgI3RvIG1ha2Ugcm9vbSBmb3IgdGhlIG5vbi1leGlzdGVudCBGYWtlaWQNCmFsbGRhdGE8LXJiaW5kKHBhbmVsLHRhcmdldFtuYW1lcyhwYW5lbCldKQ0KDQojam9pbnRJZCB3aWxsIGJlIHRoZSBzZXF1ZW5jZSBudW1iZXIgaW4gdGhlIGpvaW50IGRhdGFmcmFtZSAtLSBNQVkgTk9UIE5FRUQgVEhJUz8NCmFsbGRhdGEkam9pbnRJZCA8LSBzZXEoZGltKGFsbGRhdGEpWzFdKQ0Kcm93bmFtZXMoYWxsZGF0YSkgPC0gYWxsZGF0YSRqb2ludElkDQoNCg0KdW5pcXVlKHRhYmxlKGFsbGRhdGEkaWQpKQ0KYGBgDQpEaXZpZGUgdGFyZ2V0IHNhbXBsZSBpbnRvIGFnZSBxdWFudGlsZXMgKGluIHRoaXMgY2FzZSwgZGVjaWxlcykgYW5kIGFkZCB0aGF0IHRvIHRoZSBkYXRhOg0KYGBge3J9DQphZ2VfcSA8LSBxdWFudGlsZSh0YXJnZXQkYWdlLHByb2IgPSBzZXEoMCwxLDAuMSkpDQphbGxkYXRhWydhZ2VfZ3JvdXAnXSA8LSBhcy5pbnRlZ2VyKGN1dChhbGxkYXRhJGFnZSxicmVha3MgPSBhZ2VfcSwgaW5jbHVkZS5sb3dlc3QgPSBUUlVFKSkNCmFsbGRhdGEkYWdlX2dyb3VwW2lzLm5hKGFsbGRhdGEkYWdlX2dyb3VwKV0gPC0gMTANCmBgYA0KDQojZm9yIHRoZSBtZXRob2RzIHRoYXQgcmVxdWlyZSBudW1lcmljIGFwcHJveGltYXRpb24NCmBgYHtyfQ0KYWxsZGF0YV9udW08LWRhdGEuZnJhbWUobGFwcGx5KGFsbGRhdGEsIGFzLm51bWVyaWMpKQ0KYGBgDQoNCmBgYHtyfQ0Kc3VtbWFyeShhbGxkYXRhX251bSkNCmBgYA0KDQoNCg0KDQoNCk5vdyB0aGUgbWF0Y2hpbmcgYmVnaW5zLiBUaGlzIGlzIHVzaW5nIHRoZSBNYXRjaEl0IHBhY2thZ2UgYXMgd2UgYXJlIHVzZWQgdG8uLi4NCmBgYHtyfQ0KDQptYXRjaGluZy5mb3JtIDwtIGFzLmZvcm11bGEocGFzdGUwKCJ0cmVhdCB+ICIsIHBhc3RlKG1hdGNoaW5nLnZhcnMsIGNvbGxhcHNlPScgKyAnKSkpDQpgYGANCg0KDQpXZSdsbCBoYXZlIHRvIHJlcGVhdCB0aGlzIHByb2Nlc3MgKGF0IGxlYXN0IGZvciBldmVyeXRoaW5nIGV4Y2VwdCBQUyksIHNpbmNlIHRoZSBtZW1vcnkgY2FuJ3QgZGVhbCB3aXRoIGFsbCBvZiB0aGlzLiANCiogc3RhcnQgZW1wdHkgZGF0YWZyYW1lIGluaXRpYWxpemVkIHdpdGggdGFyZ2V0IElEcw0KKiBtYWtlIGEgY29weSBvZiB0aGUgZGF0YSB0byBhbHRlcg0KKiBmb3IgZWFjaCBpIGluIHJhbmdlOg0KICArIHJ1biB0aGUgbWF0Y2hpbmcNCiAgKyBzdG9yZSB0aGUgbWF0Y2hlZCBJRHMNCiAgKyBzdG9yZSBzb21lIG92ZXJhbGwgbWV0cmljcyBhYm91dCB0aGUgbWF0Y2gNCiAgKyByZWR1Y2UgdGhlIHBhbmVsIGRhdGENCiogcmV0dXJuIHRoZSBtYXRjaCBvYmplY3RzDQoNCmBgYHtyfQ0KbWF0Y2hSYXRpbyA8LSBmdW5jdGlvbihkYXRhLCBtZXRyaWMsIG4sIGV4YWN0ID0gYygpKXsNCiAgDQogICMgYXNzaWduIHRoZSBkYXRhZnJhbWUgdG8gaG9sZCB0aGUgbWF0Y2hpbmcgcmVzdWx0cw0KICBkZiA8LSBkYXRhLmZyYW1lKG1hdHJpeChuY29sPTEsIG5yb3c9c3VtKGRhdGEkdHJlYXQ9PTEpKSkNCiAgbmFtZXMoZGYpIDwtIGMoInRhcmdldElkIikNCiAgZGYkdGFyZ2V0SWQgPC0gZGF0YSRpZFtkYXRhJHRyZWF0PT0xXQ0KICANCiAgIyBhc3NpZ24gdGhlIG9iamVjdCB0byBob2xkIGFsbCB0aGUgbWF0Y2hpbmcgaW5mb3JtYXRpb24NCiAgbWF0Y2hlcyA8LSB2ZWN0b3IoImxpc3QiLG4pDQogIA0KICAjIG1ha2UgYSBjb3B5IG9mIHRoZSBwYXNzZWQtaW4gZGF0YQ0KICBkYXRhLmNvcHkgPC0gZGF0YS5mcmFtZShkYXRhKQ0KICANCiAgIyBsb29wIG92ZXIgdGhlIG51bWJlciBvZiByZXNwb25kZW50cyBwZXIgdGFyZ2V0DQogICMgaWYgdGhlcmUgYXJlIGlzc3VlcywgY2FuIEkgcmVsYXggdGhlIGFnZSBncm91cHM/DQogIGZvcihpIGluIDE6bil7DQogICAgcHJpbnQocGFzdGUoJ2kgPSAnLHRvX2NoYXJhY3RlcihpKSkpDQogICAgbSA8LSBtYXRjaGl0KG1hdGNoaW5nLmZvcm0sIA0KICAgICAgICAgICAgICAgICBkYXRhID0gZGF0YS5jb3B5LCBleGFjdD1leGFjdCwgbWV0aG9kID0gIm5lYXJlc3QiLCBkaXN0YW5jZSA9IG1ldHJpYykNCiAgICANCiAgICB0cnkoe21hdGNoZXNbW2ldXSA8LSBtDQogICAgICAgIHRhcmdldGlkcyA8LSBkYXRhLmNvcHlbcm93Lm5hbWVzKG0kbWF0Y2gubWF0cml4KSwgImlkIl0NCiAgICAgICAgcGFuZWxpZHMgPC0gYXMuZGF0YS5mcmFtZShkYXRhLmNvcHlbbSRtYXRjaC5tYXRyaXgsIkZha2VpZCJdKQ0KICAgICAgICBuYW1lcyhwYW5lbGlkcyk8LWMoInBhbmVsSWQiKQ0KICAgICAgICBwYW5lbGlkc1sndGFyZ2V0SWQnXTwtdGFyZ2V0aWRzDQogICAgICAgIGRmIDwtIG1lcmdlKHg9ZGYsIHk9cGFuZWxpZHMsIGJ5PSJ0YXJnZXRJZCIsIGFsbC54ID0gVFJVRSwgc3VmZml4ZXM9YygiIix0b19jaGFyYWN0ZXIoaSkpKQ0KICAgICAgICB9ICMuLi4gbWF5YmUgbWVyZ2UgaW5zdGVhZCBtaWdodCBiZSBzYWZlcj8NCiAgICApDQogICAgDQogICAgY29udHJvbHMgPC0gbWF0Y2guZGF0YShtLCBncm91cD0nY29udHJvbCcpDQogICAgZGF0YS5jb3B5IDwtIGRhdGEuY29weVshZGF0YS5jb3B5JGpvaW50SWQgJWluJSBjb250cm9scyRqb2ludElkLF0gIyBub3QgcmVseWluZyBvbiByb3duYW1lcw0KICAgIA0KICB9DQogICMgZmluYWwgPC0gY2JpbmQoYWxsZGF0YVtyb3cubmFtZXMobWF0Y2gubGlzdCRtYXRjaGVzW1sxXV0kbWF0Y2gubWF0cml4KSwiaWQiXSwNCiAgIyAgICAgYXMuZGF0YS5mcmFtZShkby5jYWxsKGNiaW5kLChsYXBwbHkobWF0Y2gubGlzdCRtYXRjaGVzLCBmdW5jdGlvbihtKXthbGxkYXRhW20kbWF0Y2gubWF0cml4LCJGYWtlaWQiXX0pKSkpDQogICMgICkNCiAgcmV0dXJuKGxpc3QoImlkcyI9ZGYsICJtYXRjaGVzIj1tYXRjaGVzKSkNCn0NCmBgYA0KDQpgYGB7cn0NCiN0bXBkYXRhID0gcmJpbmQoYWxsZGF0YV9udW1bYWxsZGF0YSR0cmVhdD09MSxdWzE6MTAsXSxhbGxkYXRhX251bVthbGxkYXRhJHRyZWF0PT0wLF1bMToxMDAsXSkNCiMgdG1wID0gbWF0Y2hSYXRpbyhhbGxkYXRhLCAibG9naXQiLCA1KQ0KbWF0Y2hlcy5jZW1fbWFoID0gbWF0Y2hSYXRpbyhhbGxkYXRhX251bSwgIm1haGFsYW5vYmlzIiwgMSwgZXhhY3QgPSBjKCJhZ2VfZ3JvdXAiLCJnZW5kIikpDQoNCmBgYA0KDQpTYXZlIHRoZSBpZCdzIG9mIHRoZSBtYXRjaGVzIHRvIGEgZmlsZSwgc28gSSBkb24ndCBsb3NlIHRoZW0tLWp1c3QgaW4gY2FzZQ0KYGBge3J9DQp0bXAgPC0gbWF0Y2hlcy5jZW1fbWFoJGlkcw0KDQojIGF0dGFjaGluZyBOUSBwYW5lbCBjb2RlDQp0bXBbTlFfaWRdIDwtIG1lcmdlKHggPSBtYXRjaGVzLmNlbV9tYWgkaWRzLCANCiAgICAgICAgICAgICAgICAgICAgeSA9IGFsbGRhdGFbYWxsZGF0YSR0cmVhdD09MCwgYygiRmFrZWlkIiwnaWQnKV0sIA0KICAgICAgICAgICAgICAgICAgICBieS54ID0gInBhbmVsSWQiLCANCiAgICAgICAgICAgICAgICAgICAgYnkueSA9ICJpZCIpW1siRmFrZWlkIl1dDQoNCiMgYXR0YWNoaW5nIGNlbnN1cyBpZGVudGlmaWNhdGlvbiwganVzdCBpbiBjYXNlIQ0KdG1wW2MoIlNFUklBTCIsIlBFUk5VTSIpXSA8LSBtZXJnZSh4ID0gbWF0Y2hlcy5jZW1fbWFoJGlkcywNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgeSA9IGNlbnN1c1tjKCJTRVJJQUwiLCJQRVJOVU0iLCJpZCIpXSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnkueCA9ICd0YXJnZXRJZCcsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJ5LnkgPSAnaWQnKVtjKCJTRVJJQUwiLCJQRVJOVU0iKV0NCg0Kd3JpdGUuY3N2KHg9dG1wW2MoInRhcmdldElkIixOUV9pZCwgIlNFUklBTCIsIlBFUk5VTSIpXSwgZmlsZT1wYXN0ZTAoIkM6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9JREIgT25saW5lL01hdGNoaW5nIHByb2Nlc3MvRGF0YS8iLGNvdW50cnksIi9wYW5lbC9tYXRjaGVzX2NlbS1tYWguY3N2IikpDQpgYGANCg0KDQoNCg0KDQoNCg0KVHJ5aW5nIHRvIGdldCBhIGhhbmRsZSBvbiBob3cgZ29vZCB0aGUgc3VjY2Vzc2l2ZSBtYXRjaGVzIGFyZS4NCldoZW4gZGVzaXJlZCwgdGhlIGJlbG93IGxldHMgeW91IHBsb3QgaW1iYWxhbmNlIG92ZXIgdGltZS4NCg0KYGBge3J9DQpsaWJyYXJ5KHJlc2hhcGUyKSAjaW5zdGFsbC5wYWNrYWdlcygicmVzaGFwZTIiKQ0KbGlicmFyeShnZ3Bsb3QyKSAjaW5zdGFsbC5wYWNrYWdlcygiZ2dwbG90MiIpDQpgYGANCg0KDQoNCmBgYHtyfQ0KcGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lIDwtIGZ1bmN0aW9uKG1hdGNoZXMsIHRpdGxlKXsNCiAgIyBtYWtlIGEgY29weSBvZiBwYXNzZWQtaW4gbWF0Y2ggZGF0YSwgZ2V0IG51bWJlcg0KICBwcmludCgnc2V0dGluZyB1cCcpDQogIHRtcCA8LSBtYXRjaGVzDQogIG4gPC0gbGVuZ3RoKHRtcCRtYXRjaGVzKQ0KDQogICMgY3JlYXRpbmcgYSBtYXRyaXggdG8gc3RvcmUgcmVzdWx0cyBmb3IgZWFjaCBwYXNzIGFuZCB2YXJpYWJsZSAgDQogIHByaW50KCdwcmVwYXJlIGRhdGFmcmFtZScpDQogIG1zIDwtIGRhdGEuZnJhbWUobWF0cml4KG5jb2wgPSBuLCBucm93ID0gbnJvdyhzdW1tYXJ5KHRtcCRtYXRjaGVzW1sxXV0pJHN1bS5tYXRjaGVkKSkpDQogIHZhcnMgPC0gcm93Lm5hbWVzKHN1bW1hcnkodG1wJG1hdGNoZXNbWzFdXSkkc3VtLm1hdGNoZWQpDQogIHJvdy5uYW1lcyhtcykgPC0gdmFycw0KICANCiAgIyBsb29rIHRocm91Z2ggcGFzc2VzIGFuZA0KICBwcmludCgiZ28gdGhyb3VnaCBtYXRjaGVzIikNCiAgZm9yIChpIGluIDE6bil7DQogICAgbXNbaV0gPC0gc3VtbWFyeSh0bXAkbWF0Y2hlc1tbaV1dLCBzdGFuZGFyZGl6ZSA9IFRSVUUpJHN1bS5tYXRjaGVkJGBTdGQuIE1lYW4gRGlmZi5gDQogIH0gDQogIA0KICBwcmludCgibWFzc2FnZSBkYXRhIikNCiAgbXMudHJhbnNwIDwtIGFzLmRhdGEuZnJhbWUodChtcykpDQogIGNvbG5hbWVzKG1zLnRyYW5zcCkgPC0gdmFycw0KICBtcy50cmFuc3BbJ1Bhc3MnXSA8LSBzZXEoMSxuKQ0KICBtb2x0ZW4gPC0gbWVsdChtcy50cmFuc3AsIGlkLnZhcnM9IlBhc3MiKQ0KICByb3duYW1lcyhtcy50cmFuc3ApDQogIA0KICAjZ2dwbG90IGl0Li4uDQogIA0KICAjcG5nKGZpbGVuYW1lPSJwc19pbWJhbGFuY2UucG5nIikNCiAgcHJpbnQoInJldHVybiBwbG90IikNCiAgcCA8LSBnZ3Bsb3QobW9sdGVuLCBhZXMoeD1QYXNzLCB5PXZhbHVlLCBjb2xvdXI9dmFyaWFibGUpKSArIGdlb21fbGluZSgpICsgbGFicyh5PSAiQmFsYW5jZSIsdGl0bGU9dGl0bGUpICsgdGhlbWUoYXNwZWN0LnJhdGlvID0gMTAvMTYpICsgY29vcmRfY2FydGVzaWFuKHlsaW0gPSBjKC0xLjUsIDEuNSkpIA0KICBnZ3NhdmUocGFzdGUwKCJDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9Db29yZGluYXRpb24vSURCIE9ubGluZS9NYXRjaGluZyBwcm9jZXNzL0RhdGEvIiwNCiAgICAgICAgICBjb3VudHJ5LA0KICAgICAgICAgICIvIix0aXRsZSwgIi5wbmciDQogICAgICAgICkpDQogIHJldHVybihwKQ0KICAjZGV2Lm9mZigpDQp9DQpgYGANCmBgYHtyfQ0KcGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lKG1hdGNoZXMubWFoLCJNYWhhbGFub2JpcyBpbWJhbGFuY2UgaW4gcmVwZWF0IG1hdGNoaW5nIikNCiMgcGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lKG1hdGNoZXMucHMsIlByb3BlbnNpdHkgc2NvcmUgaW1iYWxhbmNlIGluIHJlcGVhdCBtYXRjaGluZyIpDQpwbG90X2ltYmFsYW5jZV9vdmVyX3RpbWUobWF0Y2hlcy5jZW1fbWFoLCJFeGFjdCtNYWhhIGltYmFsYW5jZSBpbiByZXBlYXQgbWF0Y2hpbmciKQ0KIyBwbG90X2ltYmFsYW5jZV9vdmVyX3RpbWUobWF0Y2hlcy5jZW1fcHMsIkV4YWN0K1BTIGltYmFsYW5jZSBpbiByZXBlYXQgbWF0Y2hpbmciKQ0KYGBgDQoNCg0KVmlzdWFsaXppbmcgdGhlIGRpZmZlcmVudCBpbWJhbGFuY2VzLg0KYGBge3J9DQoNCmRpZmYubWFoIDwtIGRhdGEuZnJhbWUoc3VtbWFyeShtLm1haCwgc3RhbmRhcmRpemUgPSBUUlVFKSRzdW0ubWF0Y2hlZCRgU3RkLiBNZWFuIERpZmYuYCkNCnJvdy5uYW1lcyhkaWZmLm1haCk8LXJvdy5uYW1lcyhzdW1tYXJ5KG0ubWFoKSRzdW0ubWF0Y2hlZCkNCnBuZyhmaWxlbmFtZT1wYXN0ZTAoIkM6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9JREIgT25saW5lL01hdGNoaW5nIHByb2Nlc3MvRGF0YS8iLGNvdW50cnksIi9tYWhhbGFub2Jpc19iYWxhbmNlLnBuZyIpKQ0KYmFycGxvdChkaWZmLm1haFtbMV1dLCBuYW1lcy5hcmcgPSByb3duYW1lcyhkaWZmLm1haCksbGFzPTIseWxpbT1jKC0wLjUsMC41KSkNCnRpdGxlKCJNYWhhbGFub2JpcyIpDQpkZXYub2ZmKCkNCg0KDQojIGRpZmYucHMgPC0gZGF0YS5mcmFtZShzdW1tYXJ5KG0ucHMsIHN0YW5kYXJkaXplID0gVFJVRSkkc3VtLm1hdGNoZWQkYFN0ZC4gTWVhbiBEaWZmLmApDQojIHJvdy5uYW1lcyhkaWZmLnBzKTwtcm93Lm5hbWVzKHN1bW1hcnkobS5wcykkc3VtLm1hdGNoZWQpDQojIHBuZyhmaWxlbmFtZT0icHNfYmFsYW5jZS5wbmciKQ0KIyBiYXJwbG90KGRpZmYucHNbWzFdXSwgbmFtZXMuYXJnID0gcm93bmFtZXMoZGlmZi5wcyksbGFzPTIseWxpbT1jKC0wLjUsMC41KSkNCiMgdGl0bGUoIlByb3BlbnNpdHkgc2NvcmUiKQ0KIyBkZXYub2ZmKCkNCiMgDQojIGRpZmYucHMubnVtIDwtIGRhdGEuZnJhbWUoc3VtbWFyeShtLnBzLm51bSwgc3RhbmRhcmRpemUgPSBUUlVFKSRzdW0ubWF0Y2hlZCRgU3RkLiBNZWFuIERpZmYuYCkNCiMgcm93Lm5hbWVzKGRpZmYucHMubnVtKTwtcm93Lm5hbWVzKHN1bW1hcnkobS5wcy5udW0pJHN1bS5tYXRjaGVkKQ0KIyBwbmcoZmlsZW5hbWU9InBzLW51bV9iYWxhbmNlLnBuZyIpDQojIGJhcnBsb3QoZGlmZi5wcy5udW1bWzFdXSwgbmFtZXMuYXJnID0gcm93bmFtZXMoZGlmZi5wcy5udW0pLGxhcz0yLHlsaW09YygtMC41LDAuNSkpDQojIHRpdGxlKCJQcm9wZW5zaXR5IHNjb3JlIChjb250aW51b3VzIElWKSIpDQojIGRldi5vZmYoKQ0KIyANCiMgZGlmZi5ubmV0IDwtIGRhdGEuZnJhbWUoc3VtbWFyeShtLm5uZXQsIHN0YW5kYXJkaXplID0gVFJVRSkkc3VtLm1hdGNoZWQkYFN0ZC4gTWVhbiBEaWZmLmApDQojIHJvdy5uYW1lcyhkaWZmLm5uZXQpPC1yb3cubmFtZXMoc3VtbWFyeShtLm5uZXQpJHN1bS5tYXRjaGVkKQ0KIyBwbmcoZmlsZW5hbWU9Im5uZXRfYmFsYW5jZS5wbmciKQ0KIyBiYXJwbG90KGRpZmYubm5ldFtbMV1dLCBuYW1lcy5hcmcgPSByb3duYW1lcyhkaWZmLm5uZXQpLGxhcz0yLCB5bGltPWMoLTAuNSwwLjUpKQ0KIyB0aXRsZSgiTmV1cmFsIG5ldCIpDQojIGRldi5vZmYoKQ0KIyANCiMgZGlmZi50cmVlIDwtIGRhdGEuZnJhbWUoc3VtbWFyeShtLnRyZWUsIHN0YW5kYXJkaXplID0gVFJVRSkkc3VtLm1hdGNoZWQkYFN0ZC4gTWVhbiBEaWZmLmApDQojIHJvdy5uYW1lcyhkaWZmLnRyZWUpPC1yb3cubmFtZXMoc3VtbWFyeShtLnRyZWUpJHN1bS5tYXRjaGVkKQ0KIyBwbmcoZmlsZW5hbWU9InRyZWVfYmFsYW5jZS5wbmciKQ0KIyBiYXJwbG90KGRpZmYudHJlZVtbMV1dLCBuYW1lcy5hcmcgPSByb3duYW1lcyhkaWZmLnRyZWUpLGxhcz0yLCB5bGltPWMoLTAuNSwwLjUpKQ0KIyB0aXRsZSgiRGVjaXNpb24gdHJlZSIpDQojIGRldi5vZmYoKQ0KDQpgYGANCg0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogImRyYXdfc2FtcGxlIg0KYXV0aG9yOiAiTWFpdGEgU2NoYWRlIg0KZGF0ZTogIkF1ZyA4LCAyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KTWFrZSBzdXJlIHdlJ3JlIGRlYWxpbmcgd2l0aCBhIGNsZWFyIHNwYWNlOg0KYGBge3J9DQpybShsaXN0ID0gbHMoYWxsID0gVFJVRSkpDQpgYGANCiAgDQpTZXQgdGhlIGZvbGxvd2luZyBjaHVuayBkZXBlbmRpbmcgb24gdGhlIGNpcmN1bXN0YW5jZXM6DQpgYGB7cn0NCmNvdW50cnkgPSAiQVIiDQpzdHJhdHMgPSBjKCJHRU8xX0FSMjAxMCIpDQoNCmRhdGFkaXIgPSBwYXN0ZTAoJ0M6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9JREIgT25saW5lL01hdGNoaW5nIHByb2Nlc3MvRGF0YS8nLGNvdW50cnksJy8nKQ0KDQpjZW5zdXNwYXRoIDwtIHBhc3RlMChkYXRhZGlyLCdzYW1wbGUvJywgY291bnRyeSwnX2lwdW1zX3JlY29kZWQuY3N2JykNCg0KcmVjb2RlcGF0aCA8LSBwYXN0ZTAoIkM6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0FuYWx5c2lzL1NhbXBsZSBtYXRjaCBhYnN0cmFjdGlvbi9tYXRjaGluZ19DT1VOVFJZL3JlY29kZV9OZXRxdWVzdF9JUFVNU18iLGNvdW50cnksICIuY3N2IikNCmBgYA0KDQpgYGB7cn0NCmxpYnJhcnkoZGF0YS50YWJsZSkNCmxpYnJhcnkoZGV2dG9vbHMpDQojaW5zdGFsbC5wYWNrYWdlcygnZGV2dG9vbHMnKQ0KI2luc3RhbGxfZ2l0aHViKCJtYWl0YWdvcnJpL3NhbXBsZU1hdGNoIikNCmxpYnJhcnkoc2FtcGxlTWF0Y2gpDQppbnN0YWxsLnBhY2thZ2VzKCdiaXQ2NCcpDQpgYGANCg0KUmVhZGluZyBpbiB0aGUgc2FtcGxpbmcgZGF0YSBhbmQgbWFraW5nIG5lY2Vzc2FyeSB1cGRhdGVzLg0KDQpIZXJlLCB3ZSBhcmUgdXNpbmcgdGhlIElQVU1TIGRhdGEuDQpgYGB7cn0NCmNlbnN1czwtIGZyZWFkKGNlbnN1c3BhdGgsIGRyb3A9J1YxJykNCmhlYWQoY2Vuc3VzKQ0KYGBgDQoNCg0KVHJ5IHN0cmF0aWZpZWQgc2FtcGxpbmcuDQoNCmBgYHtyfQ0KbiA8LSAxMjAwDQpzZXQuc2VlZCgxMTExMSkNCnRhcmdldCAgPC0gc3RyYXRfd2VpZ2h0X3NhbXBsZShjZW5zdXMucHJvYyxzdHJhdHMsJ1BFUldUJyxuKQ0KYGBgDQoNCk1ha2luZyBzdXJlIHRoaXMgc3RyYXRpZmljYXRpb24gd29ya2VkLi4uDQpgYGB7cn0NCmJhcnBsb3QodGFibGUoIHRhcmdldFtbc3RyYXQxXV0pKQ0KbnJvdyh0YXJnZXQpDQpoZWFkKHRhcmdldCkNCmBgYA0KDQpBZGQgYSBzYW1wbGUgaWQsIGNvdW50aW5nIHRob3NlIHRoYXQgb2NjdXIgbW9yZSB0aGFuIG9uY2U6DQpgYGB7cn0NCnRhcmdldCRTQU1QQ1Q8LTENCm11bHRpcyA8LSB1bmlxdWUodGFyZ2V0W2R1cGxpY2F0ZWQodGFyZ2V0JGNlbnN1c0lkKSwnY2Vuc3VzSWQnXSkNCmZvciAoaSBpbiBtdWx0aXMpew0KICAgIHRhcmdldFt0YXJnZXQkY2Vuc3VzSWQ9PWksJ1NBTVBDVCc6PTE6dGFibGUodGFyZ2V0JGNlbnN1c0lkKVtpXV0NCn0NCg0KdGFyZ2V0JHNhbXBsZUlkIDwtIHBhc3RlMCgNCiAgdGFyZ2V0JGNlbnN1c0lkLA0KICBzcHJpbnRmKA0KICAgIHBhc3RlMCgnJTAnLA0KICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKHRhcmdldCRTQU1QQ1QpKSksDQogICAgICAgICAgICcuMGYnKSwNCiAgICB0YXJnZXQkU0FNUENUKQ0KKQ0KDQpgYGANCg0KDQpEaWNlIGp1c3QgdGhlIHZhcmlhYmxlcyBuZWVkZWQgZm9yIG1hdGNoaW5nDQpgYGB7cn0NCnJlY29kZV9tYXAgPC0gZnJlYWQocmVjb2RlcGF0aCkNCm1hdGNoaW5nLnZhcnMgPC0gdW5pcXVlKHJlY29kZV9tYXAkY29tbW9uX3ZhcikNCnRhcmdldCA8LSB0YXJnZXRbLGMoInNhbXBsZUlkIixtYXRjaGluZy52YXJzKSx3aXRoPUZdDQpgYGANCg0KDQpXcml0ZSB0byBkaXNrDQpgYGB7cn0NCm5hbWVzKHRhcmdldCkNCndyaXRlLmNzdih4PXRhcmdldCwNCiAgICAgICAgICBmaWxlID0gcGFzdGUwKGRhdGFkaXIsDQogICAgICAgICAgICAgICAgICAgICAgICAic2FtcGxlLyIsDQogICAgICAgICAgICAgICAgICAgICAgICBjb3VudHJ5LA0KICAgICAgICAgICAgICAgICAgICAgICAgIl90YXJnZXRfIiwNCiAgICAgICAgICAgICAgICAgICAgICAgIGZvcm1hdChTeXMudGltZSgpLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiJVklbSVkIiksDQogICAgICAgICAgICAgICAgICAgICAgICAiLmNzdiIpDQogICAgICAgICAgICAgICAgICAgICkNCg0KYGBgDQo=</div>
 
 
 

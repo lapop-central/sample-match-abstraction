@@ -15,7 +15,7 @@ Setting specifics--may want to iterate over countries rather than set things ind
 country = "AR"
 strat1 = "GEO1_AR2010"
 strat2 = ""
-strats = strat1
+strats = strat1            #set which strata to keep for sampling
 NQ_id  = "p_codigo"
 
 setwd(

@@ -10,321 +10,90 @@ Make sure we're dealing with a clear space:
 rm(list = ls(all = TRUE))
 ```
   
+Set the following chunk depending on the circumstances:
 ```{r}
 country = "AR"
-strat1 = "GEO1_AR2010"
-strat2 = "URBAN"
-NQ_id  = "p_codigo"
-censuspath = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/sample/',country,'_ipums-census_geo.csv')
+strats = c("GEO1_AR2010")
 
-setwd(
-  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country)
-)
+datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
+
+censuspath <- paste0(datadir,'sample/', country,'_ipums_recoded.csv')
+
+recodepath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_Netquest_IPUMS_",country, ".csv")
 ```
 
-
 ```{r}
-library('MatchIt')
-library('haven')
-library('openxlsx')
-library('labelled')
-library(zoo)
 library(data.table)
-require(plyr)
-
-require(sampleMatch)
-require('cem')
+library(devtools)
+#install.packages('devtools')
+#install_github("maitagorri/sampleMatch")
+library(sampleMatch)
+install.packages('bit64')
 ```
 
 Reading in the sampling data and making necessary updates.
 
 Here, we are using the IPUMS data.
 ```{r}
-census<- fread(censuspath)
+census<- fread(censuspath, drop='V1')
+head(census)
 ```
 
-
-Give ID to all members
-```{r}
-census$CENSID <- paste0(
-  sprintf(
-    paste0('%0',
-           as.character(max(nchar(census$SERIAL))),
-           '.0f'),
-    census$SERIAL),
-  sprintf(
-    paste0('%0',
-           as.character(max(nchar(census$PERNUM))),
-           '.0f'),
-    census$PERNUM)
-)
-max(table(census$CENSID))
-census$CENSID[1:10]
-table(nchar(census$CENSID))
-```
-
-ADJUST FOR COUNTRY!
-```{r}
-census.proc <- census.proc[census.proc$age>17,]
-
-census.proc <- na.omit(census.proc)
-census.proc <- census.proc[order(census.proc[strat1]),]
-
-summary(census.proc)
-```
-
-
-
-!REMEMBER TO MATCH THE SEED!
 
 Try stratified sampling.
 
 ```{r}
 n <- 1200
-#require('sampling')
-set.seed(111)
-strats=c(strat1)
-library(sampleMatch)
+set.seed(11111)
 target  <- strat_weight_sample(census.proc,strats,'PERWT',n)
-#add Fakeid, so we can keep those from the panel in the matching set
-target['Fakeid'] <- as.integer(rep(999999, length(target$age)))
 ```
 
 Making sure this stratification worked...
 ```{r}
 barplot(table( target[[strat1]]))
 nrow(target)
+head(target)
 ```
 
-
-
-
-Add a treatment into it:
+Add a sample id, counting those that occur more than once:
 ```{r}
-panel['treat'] <- rep(0,length(panel$age))
-target['treat'] <- rep(1,length(target$age))
-```
-
-
-Now join this data together:
-```{r}
-levels(panel$Fakeid) <- c(levels(panel$Fakeid),999999) #to make room for the non-existent Fakeid
-alldata<-rbind(panel,target[names(panel)])
-
-#jointId will be the sequence number in the joint dataframe -- MAY NOT NEED THIS?
-alldata$jointId <- seq(dim(alldata)[1])
-rownames(alldata) <- alldata$jointId
-
-
-unique(table(alldata$id))
-```
-Divide target sample into age quantiles (in this case, deciles) and add that to the data:
-```{r}
-age_q <- quantile(target$age,prob = seq(0,1,0.1))
-alldata['age_group'] <- as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))
-alldata$age_group[is.na(alldata$age_group)] <- 10
-```
-
-#for the methods that require numeric approximation
-```{r}
-alldata_num<-data.frame(lapply(alldata, as.numeric))
-```
-
-```{r}
-summary(alldata_num)
-```
-
-
-
-
-
-Now the matching begins. This is using the MatchIt package as we are used to...
-```{r}
-
-matching.form <- as.formula(paste0("treat ~ ", paste(matching.vars, collapse=' + ')))
-```
-
-
-We'll have to repeat this process (at least for everything except PS), since the memory can't deal with all of this. 
-* start empty dataframe initialized with target IDs
-* make a copy of the data to alter
-* for each i in range:
-  + run the matching
-  + store the matched IDs
-  + store some overall metrics about the match
-  + reduce the panel data
-* return the match objects
-
-```{r}
-matchRatio <- function(data, metric, n, exact = c()){
-  
-  # assign the dataframe to hold the matching results
-  df <- data.frame(matrix(ncol=1, nrow=sum(data$treat==1)))
-  names(df) <- c("targetId")
-  df$targetId <- data$id[data$treat==1]
-  
-  # assign the object to hold all the matching information
-  matches <- vector("list",n)
-  
-  # make a copy of the passed-in data
-  data.copy <- data.frame(data)
-  
-  # loop over the number of respondents per target
-  # if there are issues, can I relax the age groups?
-  for(i in 1:n){
-    print(paste('i = ',to_character(i)))
-    m <- matchit(matching.form, 
-                 data = data.copy, exact=exact, method = "nearest", distance = metric)
-    
-    try({matches[[i]] <- m
-        targetids <- data.copy[row.names(m$match.matrix), "id"]
-        panelids <- as.data.frame(data.copy[m$match.matrix,"Fakeid"])
-        names(panelids)<-c("panelId")
-        panelids['targetId']<-targetids
-        df <- merge(x=df, y=panelids, by="targetId", all.x = TRUE, suffixes=c("",to_character(i)))
-        } #... maybe merge instead might be safer?
-    )
-    
-    controls <- match.data(m, group='control')
-    data.copy <- data.copy[!data.copy$jointId %in% controls$jointId,] # not relying on rownames
-    
-  }
-  # final <- cbind(alldata[row.names(match.list$matches[[1]]$match.matrix),"id"],
-  #     as.data.frame(do.call(cbind,(lapply(match.list$matches, function(m){alldata[m$match.matrix,"Fakeid"]}))))
-  #  )
-  return(list("ids"=df, "matches"=matches))
+target$SAMPCT<-1
+multis <- unique(target[duplicated(target$censusId),'censusId'])
+for (i in multis){
+    target[target$censusId==i,'SAMPCT':=1:table(target$censusId)[i]]
 }
+
+target$sampleId <- paste0(
+  target$censusId,
+  sprintf(
+    paste0('%0',
+           as.character(max(nchar(target$SAMPCT))),
+           '.0f'),
+    target$SAMPCT)
+)
+
 ```
 
+
+Dice just the variables needed for matching
 ```{r}
-#tmpdata = rbind(alldata_num[alldata$treat==1,][1:10,],alldata_num[alldata$treat==0,][1:100,])
-# tmp = matchRatio(alldata, "logit", 5)
-matches.cem_mah = matchRatio(alldata_num, "mahalanobis", 1, exact = c("age_group","gend"))
-
+recode_map <- fread(recodepath)
+matching.vars <- unique(recode_map$common_var)
+target <- target[,c("sampleId",matching.vars),with=F]
 ```
 
-Save the id's of the matches to a file, so I don't lose them--just in case
+
+Write to disk
 ```{r}
-tmp <- matches.cem_mah$ids
-
-# attaching NQ panel code
-tmp[NQ_id] <- merge(x = matches.cem_mah$ids, 
-                    y = alldata[alldata$treat==0, c("Fakeid",'id')], 
-                    by.x = "panelId", 
-                    by.y = "id")[["Fakeid"]]
-
-# attaching census identification, just in case!
-tmp[c("SERIAL","PERNUM")] <- merge(x = matches.cem_mah$ids,
-                                   y = census[c("SERIAL","PERNUM","id")],
-                                   by.x = 'targetId',
-                                   by.y = 'id')[c("SERIAL","PERNUM")]
-
-write.csv(x=tmp[c("targetId",NQ_id, "SERIAL","PERNUM")], file=paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country,"/panel/matches_cem-mah.csv"))
-```
-
-
-
-
-
-
-
-Trying to get a handle on how good the successive matches are.
-When desired, the below lets you plot imbalance over time.
-
-```{r}
-library(reshape2) #install.packages("reshape2")
-library(ggplot2) #install.packages("ggplot2")
-```
-
-
-
-```{r}
-plot_imbalance_over_time <- function(matches, title){
-  # make a copy of passed-in match data, get number
-  print('setting up')
-  tmp <- matches
-  n <- length(tmp$matches)
-
-  # creating a matrix to store results for each pass and variable  
-  print('prepare dataframe')
-  ms <- data.frame(matrix(ncol = n, nrow = nrow(summary(tmp$matches[[1]])$sum.matched)))
-  vars <- row.names(summary(tmp$matches[[1]])$sum.matched)
-  row.names(ms) <- vars
-  
-  # look through passes and
-  print("go through matches")
-  for (i in 1:n){
-    ms[i] <- summary(tmp$matches[[i]], standardize = TRUE)$sum.matched$`Std. Mean Diff.`
-  } 
-  
-  print("massage data")
-  ms.transp <- as.data.frame(t(ms))
-  colnames(ms.transp) <- vars
-  ms.transp['Pass'] <- seq(1,n)
-  molten <- melt(ms.transp, id.vars="Pass")
-  rownames(ms.transp)
-  
-  #ggplot it...
-  
-  #png(filename="ps_imbalance.png")
-  print("return plot")
-  p <- ggplot(molten, aes(x=Pass, y=value, colour=variable)) + geom_line() + labs(y= "Balance",title=title) + theme(aspect.ratio = 10/16) + coord_cartesian(ylim = c(-1.5, 1.5)) 
-  ggsave(paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",
-          country,
-          "/",title, ".png"
-        ))
-  return(p)
-  #dev.off()
-}
-```
-```{r}
-plot_imbalance_over_time(matches.mah,"Mahalanobis imbalance in repeat matching")
-# plot_imbalance_over_time(matches.ps,"Propensity score imbalance in repeat matching")
-plot_imbalance_over_time(matches.cem_mah,"Exact+Maha imbalance in repeat matching")
-# plot_imbalance_over_time(matches.cem_ps,"Exact+PS imbalance in repeat matching")
-```
-
-
-Visualizing the different imbalances.
-```{r}
-
-diff.mah <- data.frame(summary(m.mah, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-row.names(diff.mah)<-row.names(summary(m.mah)$sum.matched)
-png(filename=paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country,"/mahalanobis_balance.png"))
-barplot(diff.mah[[1]], names.arg = rownames(diff.mah),las=2,ylim=c(-0.5,0.5))
-title("Mahalanobis")
-dev.off()
-
-
-# diff.ps <- data.frame(summary(m.ps, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.ps)<-row.names(summary(m.ps)$sum.matched)
-# png(filename="ps_balance.png")
-# barplot(diff.ps[[1]], names.arg = rownames(diff.ps),las=2,ylim=c(-0.5,0.5))
-# title("Propensity score")
-# dev.off()
-# 
-# diff.ps.num <- data.frame(summary(m.ps.num, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.ps.num)<-row.names(summary(m.ps.num)$sum.matched)
-# png(filename="ps-num_balance.png")
-# barplot(diff.ps.num[[1]], names.arg = rownames(diff.ps.num),las=2,ylim=c(-0.5,0.5))
-# title("Propensity score (continuous IV)")
-# dev.off()
-# 
-# diff.nnet <- data.frame(summary(m.nnet, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.nnet)<-row.names(summary(m.nnet)$sum.matched)
-# png(filename="nnet_balance.png")
-# barplot(diff.nnet[[1]], names.arg = rownames(diff.nnet),las=2, ylim=c(-0.5,0.5))
-# title("Neural net")
-# dev.off()
-# 
-# diff.tree <- data.frame(summary(m.tree, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
-# row.names(diff.tree)<-row.names(summary(m.tree)$sum.matched)
-# png(filename="tree_balance.png")
-# barplot(diff.tree[[1]], names.arg = rownames(diff.tree),las=2, ylim=c(-0.5,0.5))
-# title("Decision tree")
-# dev.off()
+names(target)
+write.csv(x=target,
+          file = paste0(datadir,
+                        "sample/",
+                        country,
+                        "_target_",
+                        format(Sys.time(), 
+                               "%Y%m%d"),
+                        ".csv")
+                    )
 
 ```
-
-
-
