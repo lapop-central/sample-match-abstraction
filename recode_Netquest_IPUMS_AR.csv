@@ -19,7 +19,7 @@ ed,4,AR2010A_EDLEV,6,AR_education_level,7,
 ed,4,AR2010A_EDLEV,6,AR_education_level,8,
 ed,5,AR2010A_EDLEV,7,AR_education_level,9,
 ed,6,AR2010A_EDLEV,8,AR_education_level,10,
-ed,NaN,AR2010A_EDLEV,99,AR_education_level,11,
+ed,NaN,AR2010A_EDLEV,99,AR_education_level,11,NIU/DK
 emp,1,EMPSTAT,1,AR_laboral_situation,1,
 emp,2,EMPSTAT,2,AR_laboral_situation,2,
 emp,3,EMPSTAT,3,AR_laboral_situation,3,

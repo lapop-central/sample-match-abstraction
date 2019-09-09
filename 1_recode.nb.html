@@ -1763,6 +1763,22 @@ summary {
 <p>Setting specifics–may want to iterate over countries rather than set things individually, eventually.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY291bnRyeSA9IFwiQVJcIlxuc3RyYXQxID0gXCJHRU8xX0FSMjAxMFwiXG5zdHJhdDIgPSBcIlwiXG5zdHJhdHMgPSBzdHJhdDEgICAgICAgICAgICAjc2V0IHdoaWNoIHN0cmF0YSB0byBrZWVwIGZvciBzYW1wbGluZ1xuTlFfaWQgID0gXCJwX2NvZGlnb1wiXG5cbmRhdGFkaXIgPC0gIHBhc3RlMCgnQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQW5hbHlzaXMvU2FtcGxlIG1hdGNoIGFic3RyYWN0aW9uL0RhdGEvJyxjb3VudHJ5LCcvJylcblxuY2Vuc3VzcGF0aCA8LSBwYXN0ZTAoZGF0YWRpciwnc2FtcGxlLycsY291bnRyeSwnX2lwdW1zLWNlbnN1c19nZW8uY3N2JylcblxubmV0cXVlc3RwYXRoIDwtIHBhc3RlMChkYXRhZGlyLCBcInBhbmVsL1wiLCBjb3VudHJ5LCBcIl9uZXRxdWVzdC1wYW5lbF9nZW8uY3N2XCIpXG5cbnJlY29kZXBhdGggPC0gcGFzdGUwKFwiLi9yZWNvZGVfTmV0cXVlc3RfSVBVTVNfXCIsY291bnRyeSwgXCIuY3N2XCIpICN0YWJsZSBzcGVjaWZ5aW5nIHJlY29kZXNcblxuYGBgIn0= -->
+<pre class="r"><code>country = &quot;AR&quot;
+strat1 = &quot;GEO1_AR2010&quot;
+strat2 = &quot;&quot;
+strats = strat1            #set which strata to keep for sampling
+NQ_id  = &quot;p_codigo&quot;
+
+datadir &lt;-  paste0(&#39;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/&#39;,country,&#39;/&#39;)
+
+censuspath &lt;- paste0(datadir,&#39;sample/&#39;,country,&#39;_ipums-census_geo.csv&#39;)
+
+netquestpath &lt;- paste0(datadir, &quot;panel/&quot;, country, &quot;_netquest-panel_geo.csv&quot;)
+
+recodepath &lt;- paste0(&quot;./recode_Netquest_IPUMS_&quot;,country, &quot;.csv&quot;) #table specifying recodes
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1773,18 +1789,6 @@ summary {
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzPC0gZnJlYWQoY2Vuc3VzcGF0aClcbmBgYCJ9 -->
-<pre class="r"><code>census&lt;- fread(censuspath)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmV0cXVlc3QgPC0gZnJlYWQobmV0cXVlc3RwYXRoKVxuYGBgIn0= -->
-<pre class="r"><code>netquest &lt;- fread(netquestpath)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVjb2RlX21hcCA8LSBmcmVhZChyZWNvZGVwYXRoKVxuYGBgIn0= -->
 <pre class="r"><code>recode_map &lt;- fread(recodepath)</code></pre>
@@ -1802,18 +1806,30 @@ summary {
 <p>Load external function to do the dirty work, depending on country etc. Note that this function will need to get updated when adding new countries/data sources.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQW5hbHlzaXMvU2FtcGxlIG1hdGNoIGFic3RyYWN0aW9uL21hdGNoaW5nX0NPVU5UUlkvcmVjb2RlX2NvdW50cnkuUlwiKVxuYGBgIn0= -->
-<pre class="r"><code>source(&quot;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_country.R&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiLi9yZWNvZGVfY291bnRyeS5SXCIpXG5gYGAifQ== -->
+<pre class="r"><code>source(&quot;./recode_country.R&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="recode-ipums" class="section level2">
 <h2>Recode IPUMS</h2>
+<p>Load datafile</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzPC0gZnJlYWQoY2Vuc3VzcGF0aClcbmBgYCJ9 -->
+<pre class="r"><code>census&lt;- fread(censuspath)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Recode</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MgPC0gY291bnRyeVJlY29kZShkdCA9IGNlbnN1cywgc291cmNlID0gJ2lwdW1zJywgY291bnRyeSA9IGNvdW50cnkpXG5gYGAifQ== -->
 <pre class="r"><code>census.proc &lt;- countryRecode(dt = census, source = &#39;ipums&#39;, country = country)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZvbGxvd2luZyBgZnJvbWAgdmFsdWVzIHdlcmUgbm90IHByZXNlbnQgaW4gYHhgOiA5OTlcbiJ9 -->
+<pre><code>The following `from` values were not present in `x`: 999</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1821,6 +1837,64 @@ summary {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShjZW5zdXMucHJvYylcbmBgYCJ9 -->
 <pre class="r"><code>summary(census.proc)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIFYxICAgICAgICAgICAgIENPVU5UUlkgICAgICAgIFlFQVIgICAgICAgICAgU0FNUExFICAgICAgICAgICAgIFNFUklBTCAgICAgICAgIFxuIE1pbi4gICA6ICAgICAgMCAgIE1pbi4gICA6MzIgICBNaW4uICAgOjIwMTAgICBNaW4uICAgOjMyMjAxMDAxICAgTWluLiAgIDoxLjAwMGUrMDMgIFxuIDFzdCBRdS46IDk5MTU2MSAgIDFzdCBRdS46MzIgICAxc3QgUXUuOjIwMTAgICAxc3QgUXUuOjMyMjAxMDAxICAgMXN0IFF1LjozLjMzMWUrMDggIFxuIE1lZGlhbiA6MTk4MzEyMiAgIE1lZGlhbiA6MzIgICBNZWRpYW4gOjIwMTAgICBNZWRpYW4gOjMyMjAxMDAxICAgTWVkaWFuIDo2LjQwNGUrMDggIFxuIE1lYW4gICA6MTk4MzEyMiAgIE1lYW4gICA6MzIgICBNZWFuICAgOjIwMTAgICBNZWFuICAgOjMyMjAxMDAxICAgTWVhbiAgIDo2LjMxNmUrMDggIFxuIDNyZCBRdS46Mjk3NDY4MyAgIDNyZCBRdS46MzIgICAzcmQgUXUuOjIwMTAgICAzcmQgUXUuOjMyMjAxMDAxICAgM3JkIFF1Ljo5LjMwOWUrMDggIFxuIE1heC4gICA6Mzk2NjI0NCAgIE1heC4gICA6MzIgICBNYXguICAgOjIwMTAgICBNYXguICAgOjMyMjAxMDAxICAgTWF4LiAgIDoxLjIxN2UrMDkgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuICAgIFBFUlNPTlMgICAgICAgICAgICBISFdUICAgICAgIEdFTzFfQVIgICAgICAgR0VPMV9BUjIwMTAgICAgICAgR0VPMl9BUiAgICAgICAgICBHRU8yX0FSMjAxMCAgIFxuIE1pbi4gICA6IDEuMDAwICAgTWluLiAgIDoxMCAgIE1pbi4gICA6MzIwMDIgICBNaW4uICAgOiAyLjAwICAgTWluLiAgIDozMjAwMjAwMSAgIE1pbi4gICA6IDIwMDEgIFxuIDFzdCBRdS46IDMuMDAwICAgMXN0IFF1LjoxMCAgIDFzdCBRdS46MzIwMDYgICAxc3QgUXUuOiA2LjAwICAgMXN0IFF1LjozMjAwNjA3NCAgIDFzdCBRdS46IDYwNDQgIFxuIE1lZGlhbiA6IDQuMDAwICAgTWVkaWFuIDoxMCAgIE1lZGlhbiA6MzIwMTQgICBNZWRpYW4gOjE0LjAwICAgTWVkaWFuIDozMjAxNDAwMSAgIE1lZGlhbiA6MTQwMDcgIFxuIE1lYW4gICA6IDQuMzI2ICAgTWVhbiAgIDoxMCAgIE1lYW4gICA6MzIwMzAgICBNZWFuICAgOjI5LjczICAgTWVhbiAgIDozMjAyOTc1NCAgIE1lYW4gICA6Mjk3NTcgIFxuIDNyZCBRdS46IDUuMDAwICAgM3JkIFF1LjoxMCAgIDNyZCBRdS46MzIwNTQgICAzcmQgUXUuOjU0LjAwICAgM3JkIFF1LjozMjA1NDAwMyAgIDNyZCBRdS46NTQwMDcgIFxuIE1heC4gICA6NDAuMDAwICAgTWF4LiAgIDoxMCAgIE1heC4gICA6MzIwOTQgICBNYXguICAgOjk0LjAwICAgTWF4LiAgIDozMjA5NDAwMiAgIE1heC4gICA6OTQwMDIgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuICAgICAgQkFUSCAgICAgICAgICAgUEVSTlVNICAgICAgICAgICBQRVJXVCAgICAgICAgUkVMQVRFICAgICAgICBSRUxBVEVEICAgICAgICAgIEFHRSAgICAgICAgXG4gTWluLiAgIDoxLjAwMCAgIE1pbi4gICA6IDEuMDAwICAgTWluLiAgIDoxMCAgIE1pbi4gICA6MS4wMCAgIE1pbi4gICA6MTAwMCAgIE1pbi4gICA6ICAwLjAwICBcbiAxc3QgUXUuOjMuMDAwICAgMXN0IFF1LjogMS4wMDAgICAxc3QgUXUuOjEwICAgMXN0IFF1LjoxLjAwICAgMXN0IFF1LjoxMDAwICAgMXN0IFF1LjogMTQuMDAgIFxuIE1lZGlhbiA6My4wMDAgICBNZWRpYW4gOiAyLjAwMCAgIE1lZGlhbiA6MTAgICBNZWRpYW4gOjMuMDAgICBNZWRpYW4gOjMwMDAgICBNZWRpYW4gOiAyOS4wMCAgXG4gTWVhbiAgIDoyLjk4OSAgIE1lYW4gICA6IDIuNjYzICAgTWVhbiAgIDoxMCAgIE1lYW4gICA6Mi4zMiAgIE1lYW4gICA6MjM2NyAgIE1lYW4gICA6IDMyLjQyICBcbiAzcmQgUXUuOjMuMDAwICAgM3JkIFF1LjogNC4wMDAgICAzcmQgUXUuOjEwICAgM3JkIFF1LjozLjAwICAgM3JkIFF1LjozMDAwICAgM3JkIFF1LjogNDguMDAgIFxuIE1heC4gICA6NC4wMDAgICBNYXguICAgOjQwLjAwMCAgIE1heC4gICA6MTAgICBNYXguICAgOjUuMDAgICBNYXguICAgOjU5MDAgICBNYXguICAgOjEwMC4wMCAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiAgICAgIFNFWCAgICAgICAgICAgRU1QU1RBVCAgICAgICAgIEVNUFNUQVREICAgICBBUjIwMTBBX0VETEVWICAgIEFSMjAxMEFfV0tMT09LICBFTVBTVEFUX0hFQUQgIFxuIE1pbi4gICA6MS4wMDAgICBNaW4uICAgOjAuMDAwICAgTWluLiAgIDogIDAuMCAgIE1pbi4gICA6IDEuMDAwICAgTWluLiAgIDoxLjAwMCAgIE1vZGU6bG9naWNhbCAgXG4gMXN0IFF1LjoxLjAwMCAgIDFzdCBRdS46MS4wMDAgICAxc3QgUXUuOjExMC4wICAgMXN0IFF1LjogMi4wMDAgICAxc3QgUXUuOjIuMDAwICAgTkEnczozOTY2MjQ1ICBcbiBNZWRpYW4gOjIuMDAwICAgTWVkaWFuIDoxLjAwMCAgIE1lZGlhbiA6MTEwLjAgICBNZWRpYW4gOiA0LjAwMCAgIE1lZGlhbiA6OS4wMDAgICAgICAgICAgICAgICAgIFxuIE1lYW4gICA6MS41MTQgICBNZWFuICAgOjEuMzE3ICAgTWVhbiAgIDoxMzYuNSAgIE1lYW4gICA6IDYuOTI3ICAgTWVhbiAgIDo2LjkyNyAgICAgICAgICAgICAgICAgXG4gM3JkIFF1LjoyLjAwMCAgIDNyZCBRdS46My4wMDAgICAzcmQgUXUuOjMwMC4wICAgM3JkIFF1LjogNC4wMDAgICAzcmQgUXUuOjkuMDAwICAgICAgICAgICAgICAgICBcbiBNYXguICAgOjIuMDAwICAgTWF4LiAgIDozLjAwMCAgIE1heC4gICA6MzAwLjAgICBNYXguICAgOjk5LjAwMCAgIE1heC4gICA6OS4wMDAgICAgICAgICAgICAgICAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gRU1QU1RBVERfSEVBRCAgQVIyMDEwQV9FRExFVl9IRUFEIEFSMjAxMEFfV0tMT09LX0hFQUQgIEFETUlOX05BTUUgICAgICAgICAgICAgIFggICAgICAgICBcbiBNb2RlOmxvZ2ljYWwgICBNb2RlOmxvZ2ljYWwgICAgICAgTW9kZTpsb2dpY2FsICAgICAgICBMZW5ndGg6Mzk2NjI0NSAgICAgTWluLiAgIDotNzEuNTMgIFxuIE5BJ3M6Mzk2NjI0NSAgIE5BJ3M6Mzk2NjI0NSAgICAgICBOQSdzOjM5NjYyNDUgICAgICAgIENsYXNzIDpjaGFyYWN0ZXIgICAxc3QgUXUuOi02NC4yMCAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9kZSAgOmNoYXJhY3RlciAgIE1lZGlhbiA6LTU5LjUwICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWVhbiAgIDotNjEuMzAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAzcmQgUXUuOi01OC40NSAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1heC4gICA6LTUzLjk1ICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuICAgICAgIFkgICAgICAgICAgICAgICBnZW5kICAgICAgICAgICAgYWdlICAgICAgICAgICAgICAgZWQgICAgICAgICAgICAgIGVtcCAgICAgICAgXG4gTWluLiAgIDotNTQuNzQgICBNaW4uICAgOjEuMDAwICAgTWluLiAgIDogIDAuMDAgICBNaW4uICAgOjEuMCAgICAgIE1pbi4gICA6MS4wICAgICBcbiAxc3QgUXUuOi0zNC43NyAgIDFzdCBRdS46MS4wMDAgICAxc3QgUXUuOiAxNC4wMCAgIDFzdCBRdS46Mi4wICAgICAgMXN0IFF1LjoxLjAgICAgIFxuIE1lZGlhbiA6LTM0LjM4ICAgTWVkaWFuIDoyLjAwMCAgIE1lZGlhbiA6IDI5LjAwICAgTWVkaWFuIDozLjAgICAgICBNZWRpYW4gOjEuMCAgICAgXG4gTWVhbiAgIDotMzIuOTIgICBNZWFuICAgOjEuNTE0ICAgTWVhbiAgIDogMzIuNDIgICBNZWFuICAgOjIuNyAgICAgIE1lYW4gICA6MS43ICAgICBcbiAzcmQgUXUuOi0zMS4yNCAgIDNyZCBRdS46Mi4wMDAgICAzcmQgUXUuOiA0OC4wMCAgIDNyZCBRdS46My4wICAgICAgM3JkIFF1LjozLjAgICAgIFxuIE1heC4gICA6LTIyLjcxICAgTWF4LiAgIDoyLjAwMCAgIE1heC4gICA6MTAwLjAwICAgTWF4LiAgIDo2LjAgICAgICBNYXguICAgOjMuMCAgICAgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOQSdzICAgOjE2NzEwMiAgIE5BJ3MgICA6OTQyNDQ1ICBcbiAgICAgIGJhdGggICAgICAgICAgICBwZXJuICAgICAgICAgICAgIGhoaCAgICAgICBcbiBNaW4uICAgOjEuMDAwICAgTWluLiAgIDogMS4wMDAgICBNaW4uICAgOjEuMDAwICBcbiAxc3QgUXUuOjEuMDAwICAgMXN0IFF1LjogMy4wMDAgICAxc3QgUXUuOjEuMDAwICBcbiBNZWRpYW4gOjEuMDAwICAgTWVkaWFuIDogNC4wMDAgICBNZWRpYW4gOjIuMDAwICBcbiBNZWFuICAgOjEuMDI3ICAgTWVhbiAgIDogNC4zMjYgICBNZWFuICAgOjEuNjkzICBcbiAzcmQgUXUuOjEuMDAwICAgM3JkIFF1LjogNS4wMDAgICAzcmQgUXUuOjIuMDAwICBcbiBNYXguICAgOjIuMDAwICAgTWF4LiAgIDo0MC4wMDAgICBNYXguICAgOjIuMDAwICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiJ9 -->
+<pre><code>       V1             COUNTRY        YEAR          SAMPLE             SERIAL         
+ Min.   :      0   Min.   :32   Min.   :2010   Min.   :32201001   Min.   :1.000e+03  
+ 1st Qu.: 991561   1st Qu.:32   1st Qu.:2010   1st Qu.:32201001   1st Qu.:3.331e+08  
+ Median :1983122   Median :32   Median :2010   Median :32201001   Median :6.404e+08  
+ Mean   :1983122   Mean   :32   Mean   :2010   Mean   :32201001   Mean   :6.316e+08  
+ 3rd Qu.:2974683   3rd Qu.:32   3rd Qu.:2010   3rd Qu.:32201001   3rd Qu.:9.309e+08  
+ Max.   :3966244   Max.   :32   Max.   :2010   Max.   :32201001   Max.   :1.217e+09  
+                                                                                     
+    PERSONS            HHWT       GEO1_AR       GEO1_AR2010       GEO2_AR          GEO2_AR2010   
+ Min.   : 1.000   Min.   :10   Min.   :32002   Min.   : 2.00   Min.   :32002001   Min.   : 2001  
+ 1st Qu.: 3.000   1st Qu.:10   1st Qu.:32006   1st Qu.: 6.00   1st Qu.:32006074   1st Qu.: 6044  
+ Median : 4.000   Median :10   Median :32014   Median :14.00   Median :32014001   Median :14007  
+ Mean   : 4.326   Mean   :10   Mean   :32030   Mean   :29.73   Mean   :32029754   Mean   :29757  
+ 3rd Qu.: 5.000   3rd Qu.:10   3rd Qu.:32054   3rd Qu.:54.00   3rd Qu.:32054003   3rd Qu.:54007  
+ Max.   :40.000   Max.   :10   Max.   :32094   Max.   :94.00   Max.   :32094002   Max.   :94002  
+                                                                                                 
+      BATH           PERNUM           PERWT        RELATE        RELATED          AGE        
+ Min.   :1.000   Min.   : 1.000   Min.   :10   Min.   :1.00   Min.   :1000   Min.   :  0.00  
+ 1st Qu.:3.000   1st Qu.: 1.000   1st Qu.:10   1st Qu.:1.00   1st Qu.:1000   1st Qu.: 14.00  
+ Median :3.000   Median : 2.000   Median :10   Median :3.00   Median :3000   Median : 29.00  
+ Mean   :2.989   Mean   : 2.663   Mean   :10   Mean   :2.32   Mean   :2367   Mean   : 32.42  
+ 3rd Qu.:3.000   3rd Qu.: 4.000   3rd Qu.:10   3rd Qu.:3.00   3rd Qu.:3000   3rd Qu.: 48.00  
+ Max.   :4.000   Max.   :40.000   Max.   :10   Max.   :5.00   Max.   :5900   Max.   :100.00  
+                                                                                             
+      SEX           EMPSTAT         EMPSTATD     AR2010A_EDLEV    AR2010A_WKLOOK  EMPSTAT_HEAD  
+ Min.   :1.000   Min.   :0.000   Min.   :  0.0   Min.   : 1.000   Min.   :1.000   Mode:logical  
+ 1st Qu.:1.000   1st Qu.:1.000   1st Qu.:110.0   1st Qu.: 2.000   1st Qu.:2.000   NA&#39;s:3966245  
+ Median :2.000   Median :1.000   Median :110.0   Median : 4.000   Median :9.000                 
+ Mean   :1.514   Mean   :1.317   Mean   :136.5   Mean   : 6.927   Mean   :6.927                 
+ 3rd Qu.:2.000   3rd Qu.:3.000   3rd Qu.:300.0   3rd Qu.: 4.000   3rd Qu.:9.000                 
+ Max.   :2.000   Max.   :3.000   Max.   :300.0   Max.   :99.000   Max.   :9.000                 
+                                                                                                
+ EMPSTATD_HEAD  AR2010A_EDLEV_HEAD AR2010A_WKLOOK_HEAD  ADMIN_NAME              X         
+ Mode:logical   Mode:logical       Mode:logical        Length:3966245     Min.   :-71.53  
+ NA&#39;s:3966245   NA&#39;s:3966245       NA&#39;s:3966245        Class :character   1st Qu.:-64.20  
+                                                       Mode  :character   Median :-59.50  
+                                                                          Mean   :-61.30  
+                                                                          3rd Qu.:-58.45  
+                                                                          Max.   :-53.95  
+                                                                                          
+       Y               gend            age               ed              emp        
+ Min.   :-54.74   Min.   :1.000   Min.   :  0.00   Min.   :1.0      Min.   :1.0     
+ 1st Qu.:-34.77   1st Qu.:1.000   1st Qu.: 14.00   1st Qu.:2.0      1st Qu.:1.0     
+ Median :-34.38   Median :2.000   Median : 29.00   Median :3.0      Median :1.0     
+ Mean   :-32.92   Mean   :1.514   Mean   : 32.42   Mean   :2.7      Mean   :1.7     
+ 3rd Qu.:-31.24   3rd Qu.:2.000   3rd Qu.: 48.00   3rd Qu.:3.0      3rd Qu.:3.0     
+ Max.   :-22.71   Max.   :2.000   Max.   :100.00   Max.   :6.0      Max.   :3.0     
+                                                   NA&#39;s   :167102   NA&#39;s   :942445  
+      bath            pern             hhh       
+ Min.   :1.000   Min.   : 1.000   Min.   :1.000  
+ 1st Qu.:1.000   1st Qu.: 3.000   1st Qu.:1.000  
+ Median :1.000   Median : 4.000   Median :2.000  
+ Mean   :1.027   Mean   : 4.326   Mean   :1.693  
+ 3rd Qu.:1.000   3rd Qu.: 5.000   3rd Qu.:2.000  
+ Max.   :2.000   Max.   :40.000   Max.   :2.000  
+                                                 </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Investigate ones with lots of NA:</p>
@@ -1829,6 +1903,11 @@ summary {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoY2Vuc3VzJEVNUFNUQVQpXG5gYGAifQ== -->
 <pre class="r"><code>table(census$EMPSTAT)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgICAwICAgICAgIDEgICAgICAgMiAgICAgICAzIFxuIDk0MjQ0NSAxODY1ODM5ICAxMTcyNTEgMTA0MDcxMCBcbiJ9 -->
+<pre><code>
+      0       1       2       3 
+ 942445 1865839  117251 1040710 </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>These are not in universe.</p>
@@ -1837,13 +1916,18 @@ summary {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoY2Vuc3VzJEFSMjAxMEFfRURMRVYpXG5gYGAifQ== -->
 <pre class="r"><code>table(census$AR2010A_EDLEV)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgICAxICAgICAgIDIgICAgICAgMyAgICAgICA0ICAgICAgIDUgICAgICAgNiAgICAgICA3ICAgICAgIDggICAgICAgOSAgICAgIDk5IFxuIDMyNTQ1OCAxNDM1ODk4ICAxMzcyNjMgMTEwNzc1MyAgMTMzMzU2ICAyNTEzNTIgIDM4MzUyNSAgIDI0NTM4ICAgMjQwNDkgIDE0MzA1MyBcbiJ9 -->
+<pre><code>
+      1       2       3       4       5       6       7       8       9      99 
+ 325458 1435898  137263 1107753  133356  251352  383525   24538   24049  143053 </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>This is special ed, and not in universe.</p>
 <p>Give ID to all members</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MkY2Vuc3VzSWQgPC0gcGFzdGUwKFxuICBzcHJpbnRmKFxuICAgIHBhc3RlMCgnJTAnLFxuICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKGNlbnN1cy5wcm9jJFNFUklBTCkpKSxcbiAgICAgICAgICAgJy4wZicpLFxuICAgIGNlbnN1cy5wcm9jJFNFUklBTCksXG4gIHNwcmludGYoXG4gICAgcGFzdGUwKCclMCcsXG4gICAgICAgICAgIGFzLmNoYXJhY3RlcihtYXgobmNoYXIoY2Vuc3VzLnByb2MkUEVSTlVNKSkpLFxuICAgICAgICAgICAnLjBmJyksXG4gICAgY2Vuc3VzLnByb2MkUEVSTlVNKVxuKVxubWF4KHRhYmxlKGNlbnN1cy5wcm9jJGNlbnN1c0lkKSkgI21ha2Ugc3VyZSBpcyB1bmlxdWUhXG5jZW5zdXMucHJvYyRjZW5zdXNJZFsxOjEwXVxudGFibGUobmNoYXIoY2Vuc3VzLnByb2MkY2Vuc3VzSWQpKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MkY2Vuc3VzSWQgPC0gcGFzdGUwKFxuICBzcHJpbnRmKFxuICAgIHBhc3RlMCgnJTAnLFxuICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKGNlbnN1cy5wcm9jJFNFUklBTCkpKSxcbiAgICAgICAgICAgJy4wZicpLFxuICAgIGNlbnN1cy5wcm9jJFNFUklBTCksXG4gIHNwcmludGYoXG4gICAgcGFzdGUwKCclMCcsXG4gICAgICAgICAgIGFzLmNoYXJhY3RlcihtYXgobmNoYXIoY2Vuc3VzLnByb2MkUEVSTlVNKSkpLFxuICAgICAgICAgICAnLjBmJyksXG4gICAgY2Vuc3VzLnByb2MkUEVSTlVNKVxuKVxubWF4KHRhYmxlKGNlbnN1cy5wcm9jJGNlbnN1c0lkKSkgI21ha2Ugc3VyZSBpcyB1bmlxdWUhXG5gYGAifQ== -->
 <pre class="r"><code>census.proc$censusId &lt;- paste0(
   sprintf(
     paste0(&#39;%0&#39;,
@@ -1856,51 +1940,95 @@ summary {
            &#39;.0f&#39;),
     census.proc$PERNUM)
 )
-max(table(census.proc$censusId)) #make sure is unique!
-census.proc$censusId[1:10]
-table(nchar(census.proc$censusId))</code></pre>
+max(table(census.proc$censusId)) #make sure is unique!</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 -->
+<pre><code>[1] 1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MkY2Vuc3VzSWRbMToxMF1cbmBgYCJ9 -->
+<pre class="r"><code>census.proc$censusId[1:10]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIjAwMDAwMDEwMDAwMVwiIFwiMDAwMDAwMTAwMDAyXCIgXCIwMDAwMDAyMDAwMDFcIiBcIjAwMDAwMDMwMDAwMVwiIFwiMDAwMDAwNDAwMDAxXCIgXCIwMDAwMDA1MDAwMDFcIlxuIFs3XSBcIjAwMDAwMDYwMDAwMVwiIFwiMDAwMDAwNjAwMDAyXCIgXCIwMDAwMDA2MDAwMDNcIiBcIjAwMDAwMDcwMDAwMVwiXG4ifQ== -->
+<pre><code> [1] &quot;000000100001&quot; &quot;000000100002&quot; &quot;000000200001&quot; &quot;000000300001&quot; &quot;000000400001&quot; &quot;000000500001&quot;
+ [7] &quot;000000600001&quot; &quot;000000600002&quot; &quot;000000600003&quot; &quot;000000700001&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUobmNoYXIoY2Vuc3VzLnByb2MkY2Vuc3VzSWQpKVxuYGBgIn0= -->
+<pre class="r"><code>table(nchar(census.proc$censusId))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgIDEyIFxuMzk2NjI0NSBcbiJ9 -->
+<pre><code>
+     12 
+3966245 </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Then cut things down</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbLCx3aXRoPUZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cblxuY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbY2Vuc3VzLnByb2MkYWdlPjE3LF1cbmNlbnN1cy5wcm9jIDwtIGNlbnN1cy5wcm9jWyxjKCdjZW5zdXNJZCcsJ1BFUldUJyxtYXRjaGluZy52YXJzLHN0cmF0cyksd2l0aD1GXVxuXG5jZW5zdXMucHJvYyA8LSBuYS5vbWl0KGNlbnN1cy5wcm9jKVxuXG5zdW1tYXJ5KGNlbnN1cy5wcm9jKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbLCx3aXRoPUZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cbmBgYCJ9 -->
 <pre class="r"><code>census.proc &lt;- census.proc[,,with=F
-                           ]
-
-census.proc &lt;- census.proc[census.proc$age&gt;17,]
+                           ]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiaSBhbmQgaiBhcmUgYm90aCBtaXNzaW5nIHNvIGlnbm9yaW5nIHRoZSBvdGhlciBhcmd1bWVudHMuIFRoaXMgd2FybmluZyB3aWxsIGJlIHVwZ3JhZGVkIHRvIGVycm9yIGluIGZ1dHVyZS5cbiJ9 -->
+<pre><code>i and j are both missing so ignoring the other arguments. This warning will be upgraded to error in future.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbY2Vuc3VzLnByb2MkYWdlPjE3LF1cbmNlbnN1cy5wcm9jIDwtIGNlbnN1cy5wcm9jWyxjKCdjZW5zdXNJZCcsJ1BFUldUJyxtYXRjaGluZy52YXJzLHN0cmF0cyksd2l0aD1GXVxuXG5jZW5zdXMucHJvYyA8LSBuYS5vbWl0KGNlbnN1cy5wcm9jKVxuXG5zdW1tYXJ5KGNlbnN1cy5wcm9jKVxuYGBgIn0= -->
+<pre class="r"><code>census.proc &lt;- census.proc[census.proc$age&gt;17,]
 census.proc &lt;- census.proc[,c(&#39;censusId&#39;,&#39;PERWT&#39;,matching.vars,strats),with=F]
 
 census.proc &lt;- na.omit(census.proc)
 
 summary(census.proc)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgY2Vuc3VzSWQgICAgICAgICAgICAgUEVSV1QgICAgICAgICBnZW5kICAgICAgICAgICAgYWdlICAgICAgICAgICAgICBiYXRoICAgICAgICAgICAgIGVkICAgICAgIFxuIExlbmd0aDoyNjc5MDExICAgICBNaW4uICAgOjEwICAgTWluLiAgIDoxLjAwMCAgIE1pbi4gICA6IDE4LjAwICAgTWluLiAgIDoxLjAwMCAgIE1pbi4gICA6MS4wMDAgIFxuIENsYXNzIDpjaGFyYWN0ZXIgICAxc3QgUXUuOjEwICAgMXN0IFF1LjoxLjAwMCAgIDFzdCBRdS46IDI4LjAwICAgMXN0IFF1LjoxLjAwMCAgIDFzdCBRdS46Mi4wMDAgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNZWRpYW4gOjEwICAgTWVkaWFuIDoyLjAwMCAgIE1lZGlhbiA6IDQwLjAwICAgTWVkaWFuIDoxLjAwMCAgIE1lZGlhbiA6My4wMDAgIFxuICAgICAgICAgICAgICAgICAgICBNZWFuICAgOjEwICAgTWVhbiAgIDoxLjUyNCAgIE1lYW4gICA6IDQyLjg0ICAgTWVhbiAgIDoxLjAyMiAgIE1lYW4gICA6My4wMjMgIFxuICAgICAgICAgICAgICAgICAgICAzcmQgUXUuOjEwICAgM3JkIFF1LjoyLjAwMCAgIDNyZCBRdS46IDU2LjAwICAgM3JkIFF1LjoxLjAwMCAgIDNyZCBRdS46My4wMDAgIFxuICAgICAgICAgICAgICAgICAgICBNYXguICAgOjEwICAgTWF4LiAgIDoyLjAwMCAgIE1heC4gICA6MTAwLjAwICAgTWF4LiAgIDoyLjAwMCAgIE1heC4gICA6Ni4wMDAgIFxuICAgICAgZW1wICAgICAgICAgICAgIHBlcm4gICAgICAgICAgICAgaGhoICAgICAgICAgICAgICBYICAgICAgICAgICAgICAgIFkgICAgICAgICAgIEdFTzFfQVIyMDEwICBcbiBNaW4uICAgOjEuMDAwICAgTWluLiAgIDogMS4wMDAgICBNaW4uICAgOjEuMDAwICAgTWluLiAgIDotNzEuNTMgICBNaW4uICAgOi01NC43NCAgIE1pbi4gICA6IDIuMCAgXG4gMXN0IFF1LjoxLjAwMCAgIDFzdCBRdS46IDIuMDAwICAgMXN0IFF1LjoxLjAwMCAgIDFzdCBRdS46LTY0LjE4ICAgMXN0IFF1LjotMzQuNzcgICAxc3QgUXUuOiA2LjAgIFxuIE1lZGlhbiA6MS4wMDAgICBNZWRpYW4gOiA0LjAwMCAgIE1lZGlhbiA6Mi4wMDAgICBNZWRpYW4gOi01OS4xOCAgIE1lZGlhbiA6LTM0LjQ5ICAgTWVkaWFuIDoxNC4wICBcbiBNZWFuICAgOjEuNjMzICAgTWVhbiAgIDogMy44OTcgICBNZWFuICAgOjEuNTU2ICAgTWVhbiAgIDotNjEuMjMgICBNZWFuICAgOi0zMy4wOCAgIE1lYW4gICA6MjguOCAgXG4gM3JkIFF1LjozLjAwMCAgIDNyZCBRdS46IDUuMDAwICAgM3JkIFF1LjoyLjAwMCAgIDNyZCBRdS46LTU4LjQ1ICAgM3JkIFF1LjotMzEuNDIgICAzcmQgUXUuOjU0LjAgIFxuIE1heC4gICA6My4wMDAgICBNYXguICAgOjQwLjAwMCAgIE1heC4gICA6Mi4wMDAgICBNYXguICAgOi01My45NSAgIE1heC4gICA6LTIyLjcxICAgTWF4LiAgIDo5NC4wICBcbiJ9 -->
+<pre><code>   censusId             PERWT         gend            age              bath             ed       
+ Length:2679011     Min.   :10   Min.   :1.000   Min.   : 18.00   Min.   :1.000   Min.   :1.000  
+ Class :character   1st Qu.:10   1st Qu.:1.000   1st Qu.: 28.00   1st Qu.:1.000   1st Qu.:2.000  
+ Mode  :character   Median :10   Median :2.000   Median : 40.00   Median :1.000   Median :3.000  
+                    Mean   :10   Mean   :1.524   Mean   : 42.84   Mean   :1.022   Mean   :3.023  
+                    3rd Qu.:10   3rd Qu.:2.000   3rd Qu.: 56.00   3rd Qu.:1.000   3rd Qu.:3.000  
+                    Max.   :10   Max.   :2.000   Max.   :100.00   Max.   :2.000   Max.   :6.000  
+      emp             pern             hhh              X                Y           GEO1_AR2010  
+ Min.   :1.000   Min.   : 1.000   Min.   :1.000   Min.   :-71.53   Min.   :-54.74   Min.   : 2.0  
+ 1st Qu.:1.000   1st Qu.: 2.000   1st Qu.:1.000   1st Qu.:-64.18   1st Qu.:-34.77   1st Qu.: 6.0  
+ Median :1.000   Median : 4.000   Median :2.000   Median :-59.18   Median :-34.49   Median :14.0  
+ Mean   :1.633   Mean   : 3.897   Mean   :1.556   Mean   :-61.23   Mean   :-33.08   Mean   :28.8  
+ 3rd Qu.:3.000   3rd Qu.: 5.000   3rd Qu.:2.000   3rd Qu.:-58.45   3rd Qu.:-31.42   3rd Qu.:54.0  
+ Max.   :3.000   Max.   :40.000   Max.   :2.000   Max.   :-53.95   Max.   :-22.71   Max.   :94.0  </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Save to disk:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHggPSBjZW5zdXMucHJvYywgXG4gICAgICAgICAgZmlsZSA9IHBhc3RlMChkYXRhZGlyLGNvdW50cnksJy9wYW5lbC8nLCBjb3VudHJ5LCdfaXB1bXNfcmVjb2RlZC5jc3YnKVxuKVxuXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHggPSBjZW5zdXMucHJvYywgXG4gICAgICAgICAgZmlsZSA9IHBhc3RlMChkYXRhZGlyLCcvc2FtcGxlLycsIGNvdW50cnksJ19pcHVtc19yZWNvZGVkLmNzdicpLFxuICAgICAgICAgIHJvdy5uYW1lcyA9IEZcbilcbmBgYCJ9 -->
 <pre class="r"><code>write.csv(x = census.proc, 
-          file = paste0(datadir,country,&#39;/panel/&#39;, country,&#39;_ipums_recoded.csv&#39;)
-)
-</code></pre>
+          file = paste0(datadir,&#39;/sample/&#39;, country,&#39;_ipums_recoded.csv&#39;),
+          row.names = F
+)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiY2Fubm90IG9wZW4gZmlsZSAnQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL0lEQiBPbmxpbmUvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhL0FSL0FSL3BhbmVsL0FSX2lwdW1zX3JlY29kZWQuY3N2JzogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeUVycm9yIGluIGZpbGUoZmlsZSwgaWZlbHNlKGFwcGVuZCwgXCJhXCIsIFwid1wiKSkgOiBcbiAgY2Fubm90IG9wZW4gdGhlIGNvbm5lY3Rpb25cbiJ9 -->
-<pre><code>cannot open file &#39;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/AR/AR/panel/AR_ipums_recoded.csv&#39;: No such file or directoryError in file(file, ifelse(append, &quot;a&quot;, &quot;w&quot;)) : 
-  cannot open the connection</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="recode-netquest" class="section level2">
 <h2>Recode Netquest</h2>
+<p>Load datafile</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmV0cXVlc3QgPC0gZnJlYWQobmV0cXVlc3RwYXRoKVxuYGBgIn0= -->
+<pre class="r"><code>netquest &lt;- fread(netquestpath)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Recode</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmV0cXVlc3QucHJvYyA8LSBjb3VudHJ5UmVjb2RlKGR0ID0gbmV0cXVlc3QsIHNvdXJjZSA9ICduZXRxdWVzdCcsIGNvdW50cnkgPSBjb3VudHJ5KVxuYGBgIn0= -->
 <pre class="r"><code>netquest.proc &lt;- countryRecode(dt = netquest, source = &#39;netquest&#39;, country = country)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZvbGxvd2luZyBgZnJvbWAgdmFsdWVzIHdlcmUgbm90IHByZXNlbnQgaW4gYHhgOiAxMVxuIn0= -->
+<pre><code>The following `from` values were not present in `x`: 11</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Reduce to what we need:</p>
@@ -1913,14 +2041,31 @@ netquest.proc &lt;- netquest.proc[,c(matching.vars, &#39;panelId&#39;),with=F]
 netquest.proc &lt;- na.omit(netquest.proc)        
 summary(netquest.proc)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgZ2VuZCAgICAgICAgICAgIGFnZSAgICAgICAgICAgICAgYmF0aCAgICAgICAgICAgICBlZCAgICAgICAgICAgIGVtcCAgICAgICAgICAgICBwZXJuICAgICAgIFxuIE1pbi4gICA6MS4wMDAgICBNaW4uICAgOiAxOC4wMCAgIE1pbi4gICA6MS4wMDAgICBNaW4uICAgOjEuMDAgICBNaW4uICAgOjEuMDAwICAgTWluLiAgIDogMS4wMDAgIFxuIDFzdCBRdS46MS4wMDAgICAxc3QgUXUuOiAyMy4wMCAgIDFzdCBRdS46MS4wMDAgICAxc3QgUXUuOjMuMDAgICAxc3QgUXUuOjEuMDAwICAgMXN0IFF1LjogMy4wMDAgIFxuIE1lZGlhbiA6Mi4wMDAgICBNZWRpYW4gOiAzMC4wMCAgIE1lZGlhbiA6MS4wMDAgICBNZWRpYW4gOjMuMDAgICBNZWRpYW4gOjEuMDAwICAgTWVkaWFuIDogNC4wMDAgIFxuIE1lYW4gICA6MS41NzggICBNZWFuICAgOiAzMy4yOSAgIE1lYW4gICA6MS4wNDQgICBNZWFuICAgOjMuMzMgICBNZWFuICAgOjEuNjQ4ICAgTWVhbiAgIDogMy44NzYgIFxuIDNyZCBRdS46Mi4wMDAgICAzcmQgUXUuOiA0MC4wMCAgIDNyZCBRdS46MS4wMDAgICAzcmQgUXUuOjQuMDAgICAzcmQgUXUuOjIuMDAwICAgM3JkIFF1LjogNS4wMDAgIFxuIE1heC4gICA6Mi4wMDAgICBNYXguICAgOjEwMC4wMCAgIE1heC4gICA6Mi4wMDAgICBNYXguICAgOjYuMDAgICBNYXguICAgOjMuMDAwICAgTWF4LiAgIDoxNS4wMDAgIFxuICAgICAgaGhoICAgICAgICAgICAgICBYICAgICAgICAgICAgICAgIFkgICAgICAgICAgICBwYW5lbElkICAgICAgICAgXG4gTWluLiAgIDoxLjAwMCAgIE1pbi4gICA6LTcxLjUzICAgTWluLiAgIDotNTQuNzQgICBMZW5ndGg6Mzg3MDAxICAgICBcbiAxc3QgUXUuOjEuMDAwICAgMXN0IFF1LjotNjQuMTggICAxc3QgUXUuOi0zNC44MiAgIENsYXNzIDpjaGFyYWN0ZXIgIFxuIE1lZGlhbiA6MS4wMDAgICBNZWRpYW4gOi01OS43OCAgIE1lZGlhbiA6LTM0LjQ1ICAgTW9kZSAgOmNoYXJhY3RlciAgXG4gTWVhbiAgIDoxLjM4NyAgIE1lYW4gICA6LTYxLjM4ICAgTWVhbiAgIDotMzMuNDcgICAgICAgICAgICAgICAgICAgICBcbiAzcmQgUXUuOjIuMDAwICAgM3JkIFF1LjotNTguNTQgICAzcmQgUXUuOi0zMS40MiAgICAgICAgICAgICAgICAgICAgIFxuIE1heC4gICA6Mi4wMDAgICBNYXguICAgOi01My45NSAgIE1heC4gICA6LTIyLjcxICAgICAgICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code>      gend            age              bath             ed            emp             pern       
+ Min.   :1.000   Min.   : 18.00   Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   : 1.000  
+ 1st Qu.:1.000   1st Qu.: 23.00   1st Qu.:1.000   1st Qu.:3.00   1st Qu.:1.000   1st Qu.: 3.000  
+ Median :2.000   Median : 30.00   Median :1.000   Median :3.00   Median :1.000   Median : 4.000  
+ Mean   :1.578   Mean   : 33.29   Mean   :1.044   Mean   :3.33   Mean   :1.648   Mean   : 3.876  
+ 3rd Qu.:2.000   3rd Qu.: 40.00   3rd Qu.:1.000   3rd Qu.:4.00   3rd Qu.:2.000   3rd Qu.: 5.000  
+ Max.   :2.000   Max.   :100.00   Max.   :2.000   Max.   :6.00   Max.   :3.000   Max.   :15.000  
+      hhh              X                Y            panelId         
+ Min.   :1.000   Min.   :-71.53   Min.   :-54.74   Length:387001     
+ 1st Qu.:1.000   1st Qu.:-64.18   1st Qu.:-34.82   Class :character  
+ Median :1.000   Median :-59.78   Median :-34.45   Mode  :character  
+ Mean   :1.387   Mean   :-61.38   Mean   :-33.47                     
+ 3rd Qu.:2.000   3rd Qu.:-58.54   3rd Qu.:-31.42                     
+ Max.   :2.000   Max.   :-53.95   Max.   :-22.71                     </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Save to disk:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHggPSBjZW5zdXMucHJvYywgXG4gICAgICAgICAgZmlsZSA9IHBhc3RlMChkYXRhZGlyLCcvcGFuZWwvJywgY291bnRyeSwgJ19pcHVtc19yZWNvZGVkLmNzdicpXG4pXG5cbmBgYCJ9 -->
-<pre class="r"><code>write.csv(x = census.proc, 
-          file = paste0(datadir,&#39;/panel/&#39;, country, &#39;_ipums_recoded.csv&#39;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHggPSBuZXRxdWVzdC5wcm9jLCBcbiAgICAgICAgICBmaWxlID0gcGFzdGUwKGRhdGFkaXIsJy9wYW5lbC8nLCBjb3VudHJ5LCAnX25ldHF1ZXN0X3JlY29kZWQuY3N2JyksXG4gICAgICAgICAgcm93Lm5hbWVzID0gRlxuKVxuXG5gYGAifQ== -->
+<pre class="r"><code>write.csv(x = netquest.proc, 
+          file = paste0(datadir,&#39;/panel/&#39;, country, &#39;_netquest_recoded.csv&#39;),
+          row.names = F
 )
 </code></pre>
 <!-- rnb-source-end -->
@@ -1929,7 +2074,7 @@ summary(netquest.proc)</code></pre>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogInJlY29kZSINCmF1dGhvcjogIk1haXRhIFNjaGFkZSINCmRhdGU6ICJTZXAgOCwgMjAxOSINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCk1ha2Ugc3VyZSB3ZSdyZSBkZWFsaW5nIHdpdGggYSBjbGVhciBzcGFjZToNCmBgYHtyfQ0Kcm0obGlzdCA9IGxzKGFsbCA9IFRSVUUpKQ0KYGBgDQoNClNldHRpbmcgc3BlY2lmaWNzLS1tYXkgd2FudCB0byBpdGVyYXRlIG92ZXIgY291bnRyaWVzIHJhdGhlciB0aGFuIHNldCB0aGluZ3MgaW5kaXZpZHVhbGx5LCBldmVudHVhbGx5Lg0KYGBge3J9DQpjb3VudHJ5ID0gIkFSIg0Kc3RyYXQxID0gIkdFTzFfQVIyMDEwIg0Kc3RyYXQyID0gIiINCnN0cmF0cyA9IHN0cmF0MSAgICAgICAgICAgICNzZXQgd2hpY2ggc3RyYXRhIHRvIGtlZXAgZm9yIHNhbXBsaW5nDQpOUV9pZCAgPSAicF9jb2RpZ28iDQoNCnNldHdkKA0KICBwYXN0ZTAoIkM6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9JREIgT25saW5lL01hdGNoaW5nIHByb2Nlc3MvRGF0YS8iLGNvdW50cnkpDQopDQoNCmNlbnN1c3BhdGggPC0gcGFzdGUwKCdDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9Db29yZGluYXRpb24vSURCIE9ubGluZS9NYXRjaGluZyBwcm9jZXNzL0RhdGEvJyxjb3VudHJ5LCcvc2FtcGxlLycsY291bnRyeSwnX2lwdW1zLWNlbnN1c19nZW8uY3N2JykNCg0KbmV0cXVlc3RwYXRoIDwtIA0KICBwYXN0ZTAoIkM6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9JREIgT25saW5lL01hdGNoaW5nIHByb2Nlc3MvRGF0YS8iLA0KICBjb3VudHJ5LA0KICAiL3BhbmVsLyIsIGNvdW50cnksICJfbmV0cXVlc3QtcGFuZWxfZ2VvLmNzdiIpDQoNCnJlY29kZXBhdGggPC0gcGFzdGUwKCJDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9BbmFseXNpcy9TYW1wbGUgbWF0Y2ggYWJzdHJhY3Rpb24vbWF0Y2hpbmdfQ09VTlRSWS9yZWNvZGVfTmV0cXVlc3RfSVBVTVNfIixjb3VudHJ5LCAiLmNzdiIpDQoNCmRhdGFkaXIgPC0gIHBhc3RlMCgnQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL0lEQiBPbmxpbmUvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhLycsY291bnRyeSwnLycpDQpgYGANCg0KDQpgYGB7cn0NCmxpYnJhcnkoZGF0YS50YWJsZSkNCmBgYA0KDQoNCmBgYHtyfQ0KY2Vuc3VzPC0gZnJlYWQoY2Vuc3VzcGF0aCkNCmBgYA0KDQoNCmBgYHtyfQ0KbmV0cXVlc3QgPC0gZnJlYWQobmV0cXVlc3RwYXRoKQ0KYGBgDQpgYGB7cn0NCnJlY29kZV9tYXAgPC0gZnJlYWQocmVjb2RlcGF0aCkNCmBgYA0KDQoNCldlIGhhdmUgdG8gcmVjb2RlIHRoZSB2YXJpb3VzIGNoYXJhY3RlcmlzdGljcyB3ZSBoYXZlIGF0IG91ciBkaXNwb3NhbC4NCmBgYHtyfQ0KbWF0Y2hpbmcudmFycyA8LSB1bmlxdWUocmVjb2RlX21hcCRjb21tb25fdmFyKQ0KYGBgDQoNCkxvYWQgZXh0ZXJuYWwgZnVuY3Rpb24gdG8gZG8gdGhlIGRpcnR5IHdvcmssIGRlcGVuZGluZyBvbiBjb3VudHJ5IGV0Yy4NCk5vdGUgdGhhdCB0aGlzIGZ1bmN0aW9uIHdpbGwgbmVlZCB0byBnZXQgdXBkYXRlZCB3aGVuIGFkZGluZyBuZXcgY291bnRyaWVzL2RhdGEgc291cmNlcy4NCmBgYHtyfQ0Kc291cmNlKCJDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9BbmFseXNpcy9TYW1wbGUgbWF0Y2ggYWJzdHJhY3Rpb24vbWF0Y2hpbmdfQ09VTlRSWS9yZWNvZGVfY291bnRyeS5SIikNCmBgYA0KDQoNCg0KDQojIyBSZWNvZGUgSVBVTVMNCmBgYHtyfQ0KY2Vuc3VzLnByb2MgPC0gY291bnRyeVJlY29kZShkdCA9IGNlbnN1cywgc291cmNlID0gJ2lwdW1zJywgY291bnRyeSA9IGNvdW50cnkpDQpgYGANCg0KYGBge3J9DQpzdW1tYXJ5KGNlbnN1cy5wcm9jKQ0KYGBgDQoNCg0KSW52ZXN0aWdhdGUgb25lcyB3aXRoIGxvdHMgb2YgTkE6DQpgYGB7cn0NCnRhYmxlKGNlbnN1cyRFTVBTVEFUKQ0KYGBgDQpUaGVzZSBhcmUgbm90IGluIHVuaXZlcnNlLg0KYGBge3J9DQp0YWJsZShjZW5zdXMkQVIyMDEwQV9FRExFVikNCmBgYA0KVGhpcyBpcyBzcGVjaWFsIGVkLCBhbmQgbm90IGluIHVuaXZlcnNlLg0KDQoNCkdpdmUgSUQgdG8gYWxsIG1lbWJlcnMNCmBgYHtyfQ0KY2Vuc3VzLnByb2MkY2Vuc3VzSWQgPC0gcGFzdGUwKA0KICBzcHJpbnRmKA0KICAgIHBhc3RlMCgnJTAnLA0KICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKGNlbnN1cy5wcm9jJFNFUklBTCkpKSwNCiAgICAgICAgICAgJy4wZicpLA0KICAgIGNlbnN1cy5wcm9jJFNFUklBTCksDQogIHNwcmludGYoDQogICAgcGFzdGUwKCclMCcsDQogICAgICAgICAgIGFzLmNoYXJhY3RlcihtYXgobmNoYXIoY2Vuc3VzLnByb2MkUEVSTlVNKSkpLA0KICAgICAgICAgICAnLjBmJyksDQogICAgY2Vuc3VzLnByb2MkUEVSTlVNKQ0KKQ0KbWF4KHRhYmxlKGNlbnN1cy5wcm9jJGNlbnN1c0lkKSkgI21ha2Ugc3VyZSBpcyB1bmlxdWUhDQpjZW5zdXMucHJvYyRjZW5zdXNJZFsxOjEwXQ0KdGFibGUobmNoYXIoY2Vuc3VzLnByb2MkY2Vuc3VzSWQpKQ0KYGBgDQoNClRoZW4gY3V0IHRoaW5ncyBkb3duDQpgYGB7cn0NCmNlbnN1cy5wcm9jIDwtIGNlbnN1cy5wcm9jWywsd2l0aD1GDQogICAgICAgICAgICAgICAgICAgICAgICAgICBdDQoNCmNlbnN1cy5wcm9jIDwtIGNlbnN1cy5wcm9jW2NlbnN1cy5wcm9jJGFnZT4xNyxdDQpjZW5zdXMucHJvYyA8LSBjZW5zdXMucHJvY1ssYygnY2Vuc3VzSWQnLCdQRVJXVCcsbWF0Y2hpbmcudmFycyxzdHJhdHMpLHdpdGg9Rl0NCg0KY2Vuc3VzLnByb2MgPC0gbmEub21pdChjZW5zdXMucHJvYykNCg0Kc3VtbWFyeShjZW5zdXMucHJvYykNCmBgYA0KDQpTYXZlIHRvIGRpc2s6DQpgYGB7cn0NCndyaXRlLmNzdih4ID0gY2Vuc3VzLnByb2MsIA0KICAgICAgICAgIGZpbGUgPSBwYXN0ZTAoZGF0YWRpciwnL3NhbXBsZS8nLCBjb3VudHJ5LCdfaXB1bXNfcmVjb2RlZC5jc3YnKQ0KKQ0KYGBgDQoNCg0KDQojIyBSZWNvZGUgTmV0cXVlc3QNCmBgYHtyfQ0KbmV0cXVlc3QucHJvYyA8LSBjb3VudHJ5UmVjb2RlKGR0ID0gbmV0cXVlc3QsIHNvdXJjZSA9ICduZXRxdWVzdCcsIGNvdW50cnkgPSBjb3VudHJ5KQ0KYGBgDQpSZWR1Y2UgdG8gd2hhdCB3ZSBuZWVkOg0KYGBge3J9DQpuZXRxdWVzdC5wcm9jJHBhbmVsSWQgIDwtIG5ldHF1ZXN0LnByb2NbW05RX2lkXV0NCm5ldHF1ZXN0LnByb2MgPC0gbmV0cXVlc3QucHJvY1tuZXRxdWVzdC5wcm9jJGFnZT4xNyxdDQpuZXRxdWVzdC5wcm9jIDwtIG5ldHF1ZXN0LnByb2NbLGMobWF0Y2hpbmcudmFycywgJ3BhbmVsSWQnKSx3aXRoPUZdDQpuZXRxdWVzdC5wcm9jIDwtIG5hLm9taXQobmV0cXVlc3QucHJvYykgICAgICAgIA0Kc3VtbWFyeShuZXRxdWVzdC5wcm9jKQ0KYGBgDQoNClNhdmUgdG8gZGlzazoNCmBgYHtyfQ0Kd3JpdGUuY3N2KHggPSBjZW5zdXMucHJvYywgDQogICAgICAgICAgZmlsZSA9IHBhc3RlMChkYXRhZGlyLCcvcGFuZWwvJywgY291bnRyeSwgJ19uZXRxdWVzdF9yZWNvZGVkLmNzdicpDQopDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogInJlY29kZSINCmF1dGhvcjogIk1haXRhIFNjaGFkZSINCmRhdGU6ICJTZXAgOCwgMjAxOSINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCk1ha2Ugc3VyZSB3ZSdyZSBkZWFsaW5nIHdpdGggYSBjbGVhciBzcGFjZToNCmBgYHtyfQ0Kcm0obGlzdCA9IGxzKGFsbCA9IFRSVUUpKQ0KYGBgDQoNClNldHRpbmcgc3BlY2lmaWNzLS1tYXkgd2FudCB0byBpdGVyYXRlIG92ZXIgY291bnRyaWVzIHJhdGhlciB0aGFuIHNldCB0aGluZ3MgaW5kaXZpZHVhbGx5LCBldmVudHVhbGx5Lg0KYGBge3J9DQpjb3VudHJ5ID0gIkFSIg0Kc3RyYXQxID0gIkdFTzFfQVIyMDEwIg0Kc3RyYXQyID0gIiINCnN0cmF0cyA9IHN0cmF0MSAgICAgICAgICAgICNzZXQgd2hpY2ggc3RyYXRhIHRvIGtlZXAgZm9yIHNhbXBsaW5nDQpOUV9pZCAgPSAicF9jb2RpZ28iDQoNCmRhdGFkaXIgPC0gIHBhc3RlMCgnQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQW5hbHlzaXMvU2FtcGxlIG1hdGNoIGFic3RyYWN0aW9uL0RhdGEvJyxjb3VudHJ5LCcvJykNCg0KY2Vuc3VzcGF0aCA8LSBwYXN0ZTAoZGF0YWRpciwnc2FtcGxlLycsY291bnRyeSwnX2lwdW1zLWNlbnN1c19nZW8uY3N2JykNCg0KbmV0cXVlc3RwYXRoIDwtIHBhc3RlMChkYXRhZGlyLCAicGFuZWwvIiwgY291bnRyeSwgIl9uZXRxdWVzdC1wYW5lbF9nZW8uY3N2IikNCg0KcmVjb2RlcGF0aCA8LSBwYXN0ZTAoIi4vcmVjb2RlX05ldHF1ZXN0X0lQVU1TXyIsY291bnRyeSwgIi5jc3YiKSAjdGFibGUgc3BlY2lmeWluZyByZWNvZGVzDQoNCmBgYA0KDQoNCmBgYHtyfQ0KbGlicmFyeShkYXRhLnRhYmxlKQ0KYGBgDQoNCg0KDQpgYGB7cn0NCnJlY29kZV9tYXAgPC0gZnJlYWQocmVjb2RlcGF0aCkNCmBgYA0KDQoNCldlIGhhdmUgdG8gcmVjb2RlIHRoZSB2YXJpb3VzIGNoYXJhY3RlcmlzdGljcyB3ZSBoYXZlIGF0IG91ciBkaXNwb3NhbC4NCmBgYHtyfQ0KbWF0Y2hpbmcudmFycyA8LSB1bmlxdWUocmVjb2RlX21hcCRjb21tb25fdmFyKQ0KYGBgDQoNCkxvYWQgZXh0ZXJuYWwgZnVuY3Rpb24gdG8gZG8gdGhlIGRpcnR5IHdvcmssIGRlcGVuZGluZyBvbiBjb3VudHJ5IGV0Yy4NCk5vdGUgdGhhdCB0aGlzIGZ1bmN0aW9uIHdpbGwgbmVlZCB0byBnZXQgdXBkYXRlZCB3aGVuIGFkZGluZyBuZXcgY291bnRyaWVzL2RhdGEgc291cmNlcy4NCmBgYHtyfQ0Kc291cmNlKCIuL3JlY29kZV9jb3VudHJ5LlIiKQ0KYGBgDQoNCg0KDQoNCiMjIFJlY29kZSBJUFVNUw0KDQpMb2FkIGRhdGFmaWxlDQpgYGB7cn0NCmNlbnN1czwtIGZyZWFkKGNlbnN1c3BhdGgpDQpgYGANCg0KUmVjb2RlDQpgYGB7cn0NCmNlbnN1cy5wcm9jIDwtIGNvdW50cnlSZWNvZGUoZHQgPSBjZW5zdXMsIHNvdXJjZSA9ICdpcHVtcycsIGNvdW50cnkgPSBjb3VudHJ5KQ0KYGBgDQoNCmBgYHtyfQ0Kc3VtbWFyeShjZW5zdXMucHJvYykNCmBgYA0KDQoNCkludmVzdGlnYXRlIG9uZXMgd2l0aCBsb3RzIG9mIE5BOg0KYGBge3J9DQp0YWJsZShjZW5zdXMkRU1QU1RBVCkNCmBgYA0KVGhlc2UgYXJlIG5vdCBpbiB1bml2ZXJzZS4NCmBgYHtyfQ0KdGFibGUoY2Vuc3VzJEFSMjAxMEFfRURMRVYpDQpgYGANClRoaXMgaXMgc3BlY2lhbCBlZCwgYW5kIG5vdCBpbiB1bml2ZXJzZS4NCg0KDQpHaXZlIElEIHRvIGFsbCBtZW1iZXJzDQpgYGB7cn0NCmNlbnN1cy5wcm9jJGNlbnN1c0lkIDwtIHBhc3RlMCgNCiAgc3ByaW50ZigNCiAgICBwYXN0ZTAoJyUwJywNCiAgICAgICAgICAgYXMuY2hhcmFjdGVyKG1heChuY2hhcihjZW5zdXMucHJvYyRTRVJJQUwpKSksDQogICAgICAgICAgICcuMGYnKSwNCiAgICBjZW5zdXMucHJvYyRTRVJJQUwpLA0KICBzcHJpbnRmKA0KICAgIHBhc3RlMCgnJTAnLA0KICAgICAgICAgICBhcy5jaGFyYWN0ZXIobWF4KG5jaGFyKGNlbnN1cy5wcm9jJFBFUk5VTSkpKSwNCiAgICAgICAgICAgJy4wZicpLA0KICAgIGNlbnN1cy5wcm9jJFBFUk5VTSkNCikNCm1heCh0YWJsZShjZW5zdXMucHJvYyRjZW5zdXNJZCkpICNtYWtlIHN1cmUgaXMgdW5pcXVlIQ0KY2Vuc3VzLnByb2MkY2Vuc3VzSWRbMToxMF0NCnRhYmxlKG5jaGFyKGNlbnN1cy5wcm9jJGNlbnN1c0lkKSkNCmBgYA0KDQpUaGVuIGN1dCB0aGluZ3MgZG93bg0KYGBge3J9DQpjZW5zdXMucHJvYyA8LSBjZW5zdXMucHJvY1ssLHdpdGg9Rg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgXQ0KDQpjZW5zdXMucHJvYyA8LSBjZW5zdXMucHJvY1tjZW5zdXMucHJvYyRhZ2U+MTcsXQ0KY2Vuc3VzLnByb2MgPC0gY2Vuc3VzLnByb2NbLGMoJ2NlbnN1c0lkJywnUEVSV1QnLG1hdGNoaW5nLnZhcnMsc3RyYXRzKSx3aXRoPUZdDQoNCmNlbnN1cy5wcm9jIDwtIG5hLm9taXQoY2Vuc3VzLnByb2MpDQoNCnN1bW1hcnkoY2Vuc3VzLnByb2MpDQpgYGANCg0KU2F2ZSB0byBkaXNrOg0KYGBge3J9DQp3cml0ZS5jc3YoeCA9IGNlbnN1cy5wcm9jLCANCiAgICAgICAgICBmaWxlID0gcGFzdGUwKGRhdGFkaXIsJy9zYW1wbGUvJywgY291bnRyeSwnX2lwdW1zX3JlY29kZWQuY3N2JyksDQogICAgICAgICAgcm93Lm5hbWVzID0gRg0KKQ0KYGBgDQoNCg0KDQojIyBSZWNvZGUgTmV0cXVlc3QNCg0KTG9hZCBkYXRhZmlsZQ0KYGBge3J9DQpuZXRxdWVzdCA8LSBmcmVhZChuZXRxdWVzdHBhdGgpDQpgYGANCg0KUmVjb2RlDQpgYGB7cn0NCm5ldHF1ZXN0LnByb2MgPC0gY291bnRyeVJlY29kZShkdCA9IG5ldHF1ZXN0LCBzb3VyY2UgPSAnbmV0cXVlc3QnLCBjb3VudHJ5ID0gY291bnRyeSkNCmBgYA0KUmVkdWNlIHRvIHdoYXQgd2UgbmVlZDoNCmBgYHtyfQ0KbmV0cXVlc3QucHJvYyRwYW5lbElkICA8LSBuZXRxdWVzdC5wcm9jW1tOUV9pZF1dDQpuZXRxdWVzdC5wcm9jIDwtIG5ldHF1ZXN0LnByb2NbbmV0cXVlc3QucHJvYyRhZ2U+MTcsXQ0KbmV0cXVlc3QucHJvYyA8LSBuZXRxdWVzdC5wcm9jWyxjKG1hdGNoaW5nLnZhcnMsICdwYW5lbElkJyksd2l0aD1GXQ0KbmV0cXVlc3QucHJvYyA8LSBuYS5vbWl0KG5ldHF1ZXN0LnByb2MpICAgICAgICANCnN1bW1hcnkobmV0cXVlc3QucHJvYykNCmBgYA0KDQpTYXZlIHRvIGRpc2s6DQpgYGB7cn0NCndyaXRlLmNzdih4ID0gbmV0cXVlc3QucHJvYywgDQogICAgICAgICAgZmlsZSA9IHBhc3RlMChkYXRhZGlyLCcvcGFuZWwvJywgY291bnRyeSwgJ19uZXRxdWVzdF9yZWNvZGVkLmNzdicpLA0KICAgICAgICAgIHJvdy5uYW1lcyA9IEYNCikNCg0KYGBgDQoNCg==</div>
 
 
 
@@ -1976,7 +2121,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("recode.Rmd");
+  window.initializeSourceEmbed("1_recode.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

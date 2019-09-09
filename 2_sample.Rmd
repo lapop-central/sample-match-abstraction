@@ -13,13 +13,13 @@ rm(list = ls(all = TRUE))
 Set the following chunk depending on the circumstances:
 ```{r}
 country = "AR"
-strats = c("GEO1_AR2010")
+strats = c("GEO1_AR2010") #strata to sample on
 
-datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
+datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/',country,'/')
 
 censuspath <- paste0(datadir,'sample/', country,'_ipums_recoded.csv')
 
-recodepath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_Netquest_IPUMS_",country, ".csv")
+recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv")
 ```
 
 ```{r}
@@ -28,14 +28,13 @@ library(devtools)
 #install.packages('devtools')
 #install_github("maitagorri/sampleMatch")
 library(sampleMatch)
-install.packages('bit64')
 ```
 
 Reading in the sampling data and making necessary updates.
 
 Here, we are using the IPUMS data.
 ```{r}
-census<- fread(censuspath, drop='V1')
+census<- fread(censuspath, colClasses = c(censusId="character")) #keep it simple, and keep leading 0s
 head(census)
 ```
 
@@ -44,24 +43,38 @@ Try stratified sampling.
 
 ```{r}
 n <- 1200
-set.seed(11111)
-target  <- strat_weight_sample(census.proc,strats,'PERWT',n)
+set.seed(1151)
+target  <- strat_weight_sample(census,strats,'PERWT',n)
+```
+
+This chunk just for testing multi-appearances of censusIds
+```{r}
+# while(nrow(multis)!=0){
+#   target  <- strat_weight_sample(census,strats,'PERWT',n)
+#   multis <- unique(target[duplicated(target$censusId),'censusId'])
+# }
 ```
 
 Making sure this stratification worked...
 ```{r}
-barplot(table( target[[strat1]]))
+barplot(table( target[[strats[1]]]))
 nrow(target)
 head(target)
+hist(target$age)
+hist(census$age)
+table(target$age,target$gend)
 ```
 
 Add a sample id, counting those that occur more than once:
 ```{r}
 target$SAMPCT<-1
 multis <- unique(target[duplicated(target$censusId),'censusId'])
+
 for (i in multis){
-    target[target$censusId==i,'SAMPCT':=1:table(target$censusId)[i]]
+  print(i)
+  target[target$censusId==i,'SAMPCT':=1:table(target$censusId)[i]]
 }
+table(target$SAMPCT) # check that the sampcounts are right
 
 target$sampleId <- paste0(
   target$censusId,
@@ -71,7 +84,7 @@ target$sampleId <- paste0(
            '.0f'),
     target$SAMPCT)
 )
-
+head(target)
 ```
 
 
@@ -93,7 +106,8 @@ write.csv(x=target,
                         "_target_",
                         format(Sys.time(), 
                                "%Y%m%d"),
-                        ".csv")
+                        ".csv"),
+          row.names = F
                     )
 
 ```

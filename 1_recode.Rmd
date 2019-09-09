@@ -18,20 +18,14 @@ strat2 = ""
 strats = strat1            #set which strata to keep for sampling
 NQ_id  = "p_codigo"
 
-setwd(
-  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",country)
-)
+datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/',country,'/')
 
-censuspath <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/sample/',country,'_ipums-census_geo.csv')
+censuspath <- paste0(datadir,'sample/',country,'_ipums-census_geo.csv')
 
-netquestpath <- 
-  paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/",
-  country,
-  "/panel/", country, "_netquest-panel_geo.csv")
+netquestpath <- paste0(datadir, "panel/", country, "_netquest-panel_geo.csv")
 
-recodepath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_Netquest_IPUMS_",country, ".csv")
+recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 
-datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
 ```
 
 
@@ -40,14 +34,7 @@ library(data.table)
 ```
 
 
-```{r}
-census<- fread(censuspath)
-```
 
-
-```{r}
-netquest <- fread(netquestpath)
-```
 ```{r}
 recode_map <- fread(recodepath)
 ```
@@ -61,13 +48,20 @@ matching.vars <- unique(recode_map$common_var)
 Load external function to do the dirty work, depending on country etc.
 Note that this function will need to get updated when adding new countries/data sources.
 ```{r}
-source("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/matching_COUNTRY/recode_country.R")
+source("./recode_country.R")
 ```
 
 
 
 
 ## Recode IPUMS
+
+Load datafile
+```{r}
+census<- fread(censuspath)
+```
+
+Recode
 ```{r}
 census.proc <- countryRecode(dt = census, source = 'ipums', country = country)
 ```
@@ -123,13 +117,21 @@ summary(census.proc)
 Save to disk:
 ```{r}
 write.csv(x = census.proc, 
-          file = paste0(datadir,'/sample/', country,'_ipums_recoded.csv')
+          file = paste0(datadir,'/sample/', country,'_ipums_recoded.csv'),
+          row.names = F
 )
 ```
 
 
 
 ## Recode Netquest
+
+Load datafile
+```{r}
+netquest <- fread(netquestpath)
+```
+
+Recode
 ```{r}
 netquest.proc <- countryRecode(dt = netquest, source = 'netquest', country = country)
 ```
@@ -144,8 +146,10 @@ summary(netquest.proc)
 
 Save to disk:
 ```{r}
-write.csv(x = census.proc, 
-          file = paste0(datadir,'/panel/', country, '_netquest_recoded.csv')
+write.csv(x = netquest.proc, 
+          file = paste0(datadir,'/panel/', country, '_netquest_recoded.csv'),
+          row.names = F
 )
+
 ```
 

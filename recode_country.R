@@ -1,8 +1,12 @@
 countryRecode <- function(dt, source, country){
+  require(plyr)
   ###Function to recode census datatables.
   # Takes as input a datatable or similar object, an indication where 
   # it came from (ipums or dt), and the country it pertains to.
   # Returns the dataframe with the variables added in as defined below.
+  # 
+  # To add further countries: add the various recoding steps for ipums
+  # and netquest below.
   # 
   # Dirty preliminary fix; hopefully in the future this will take a file 
   # as an input and read the recodes from there.
