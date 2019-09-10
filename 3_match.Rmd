@@ -13,17 +13,17 @@ Make sure we're dealing with a clear space:
 rm(list = ls(all = TRUE))
 ```
 
-Set the space up
+Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 ```{r}
 country <- "AR"
 ```
 
+Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
 #strats = ("GEO1_AR2010")
 #strat2 = "URBAN"
 # wave = 17
 # filedate = "190826"
-target.date <- "190909"
 
 datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/',country,'/')
 
@@ -32,9 +32,16 @@ targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv
 panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
+parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
 # completes
 # previous selections
+```
+
+Load country-specific parameters:
+```{r}
+params <- fread(parampath,key = "country")[country,]
+target.date <- params[,target.date]
 ```
 
 

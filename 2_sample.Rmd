@@ -13,13 +13,22 @@ rm(list = ls(all = TRUE))
 Set the following chunk depending on the circumstances:
 ```{r}
 country = "AR"
-strats = c("GEO1_AR2010") #strata to sample on
+```
 
+Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
+```{r}
 datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/',country,'/')
 
 censuspath <- paste0(datadir,'sample/', country,'_ipums_recoded.csv')
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv")
+parampath <- "./country_parameters.csv" # set specific parametrs in this file
+```
+
+Load country-specific parameters:
+```{r}
+params <- fread(parampath,key = "country")[country,]
+strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
 ```
 
 ```{r}

@@ -5,6 +5,13 @@ date: "Sep 8, 2019"
 output: html_notebook
 ---
 
+This notebook helps in recoding panel and census datasets to a compatible format.
+Important input that need to be adjusted with country specifics:
+  * recode_Netquest_IPUMS_COUNTRY.csv currently supplies matching variables
+  * country_parameters.csv supplies parameters (such as specific labels or strata)
+  * recode_country.R contains the individual recodes for each country
+
+
 Make sure we're dealing with a clear space:
 ```{r}
 rm(list = ls(all = TRUE))
@@ -12,12 +19,11 @@ rm(list = ls(all = TRUE))
 
 Setting specifics--may want to iterate over countries rather than set things individually, eventually.
 ```{r}
-country = "AR"
-strat1 = "GEO1_AR2010"
-strat2 = ""
-strats = strat1            #set which strata to keep for sampling
-NQ_id  = "p_codigo"
+country = "MX"
+```
 
+Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
+```{r}
 datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/',country,'/')
 
 censuspath <- paste0(datadir,'sample/',country,'_ipums-census_geo.csv')
@@ -25,7 +31,14 @@ censuspath <- paste0(datadir,'sample/',country,'_ipums-census_geo.csv')
 netquestpath <- paste0(datadir, "panel/", country, "_netquest-panel_geo.csv")
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
+parampath <- "./country_parameters.csv" # set specific parameters in this file
+```
 
+Load country-specific parameters:
+```{r}
+params <- fread(parampath,key = "country")[country,]
+NQ_id <- params$NQ_id
+strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
 ```
 
 
@@ -103,9 +116,8 @@ table(nchar(census.proc$censusId))
 
 Then cut things down
 ```{r}
-census.proc <- census.proc[,,with=F
-                           ]
-
+#census.proc <- census.proc[,,with=F
+#                           ]
 census.proc <- census.proc[census.proc$age>17,]
 census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats),with=F]
 
