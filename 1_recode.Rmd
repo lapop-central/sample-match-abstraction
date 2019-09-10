@@ -71,7 +71,7 @@ source("./recode_country.R")
 
 Load datafile
 ```{r}
-census<- fread(censuspath)
+census<- fread(censuspath, colClasses = c(SERIAL="character",PERNUM="character"))
 ```
 
 Recode
@@ -113,6 +113,10 @@ max(table(census.proc$censusId)) #make sure is unique!
 census.proc$censusId[1:10]
 table(nchar(census.proc$censusId))
 ```
+```{r}
+sprintf(paste0('%0', "10",'.0f'), 
+        census.proc$SERIAL[1:10])
+```
 
 Then cut things down
 ```{r}
@@ -122,7 +126,7 @@ census.proc <- census.proc[census.proc$age>17,]
 census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats),with=F]
 
 census.proc <- na.omit(census.proc)
-
+head(census.proc)
 summary(census.proc)
 ```
 
