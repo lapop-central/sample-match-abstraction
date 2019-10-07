@@ -34,7 +34,7 @@ panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_September 27, 2019_01.02.csv')
+responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 3, 2019_11.23.csv')
 #file of not yet sent IDs
 recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 # completes
@@ -200,7 +200,8 @@ if (!is.null(responsefile)){
   
   # Check that no sampleId's are duplicated:
   if (sum(duplicated(responded.wide$sampleId))!= 0){
-    print("Alert! Somehow you have duplicated sampleIds!")
+    print("Alert! Duplicated sampleIds in responses")
+    print(sum(duplicated(responded.wide$sampleId)))
     }
   
   # keep only targets that are not included in response set
@@ -212,7 +213,16 @@ if (!is.null(responsefile)){
   dim(target.pruned)
 } else {
   target.pruned <- target
+
+    # Check that no sampleId's are duplicated:
+  if (sum(duplicated(target.pruned$sampleId))!= 0){
+    print("Alert! Duplicated sampleIds in target!")
+    print(sum(duplicated(target.pruned$sampleId)))
+    }
+  
   }
+
+  
 
 ```
 
@@ -315,44 +325,44 @@ n <- 5
 matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
 ```
 
-Save the id's of the matches to a file, so I don't lose them--just in case
+
 ```{r}
-write.csv(
-  matches$ids, 
-  file=paste0(datadir,"panel/",country,"_selected_wave",wave,"_",format(Sys.time(),"%y%m%d"),".csv"),
-  row.names = F)
-wave
-```
+plot_imbalance_over_time <- function(matches, title){
+  require(ggplot2)
+  # make a copy of passed-in match data, get number
+  print('setting up')
+  tmp <- matches
+  n <- length(tmp$matches)
 
-Do I have a good number of discrete location codes?
+  # creating a matrix to store results for each pass and variable  
+  print('prepare dataframe')
+  ms <- data.frame(matrix(ncol = n, nrow = nrow(summary(tmp$matches[[1]])$sum.matched)))
+  vars <- row.names(summary(tmp$matches[[1]])$sum.matched)
+  row.names(ms) <- vars
+  
+  # look through passes and
+  print("go through matches")
+  for (i in 1:n){
+    ms[i] <- summary(tmp$matches[[i]], standardize = TRUE)$sum.matched$`Std. Mean Diff.`
+  } 
+  
+  print("massage data")
+  ms.transp <- as.data.frame(t(ms))
+  colnames(ms.transp) <- vars
+  ms.transp['Pass'] <- seq(1,n)
+  molten <- melt(ms.transp, id.vars="Pass")
+  rownames(ms.transp)
+  
+  #ggplot it...
+  
+  #png(filename="ps_imbalance.png")
+  print("return plot")
+  p <- ggplot(molten, aes(x=Pass, y=value, colour=variable)) + geom_line() + labs(y= "Balance",title=title) + theme(aspect.ratio = 10/16) + coord_cartesian(ylim = c(-1.5, 1.5)) 
+  ggsave(paste0("./",title, ".png"))
+  return(p)
+  #dev.off()
+}
+```
 ```{r}
-length(unique(panel$X))
-length(unique(target$X))
+plot_imbalance_over_time(matches,"Mahalanobis imbalance in repeat matching")
 ```
-
-What are these NAs? --oh, it was the censusId! fixed now.
-```{r}
-lapply(names(alldata), function(x){
-  print(x)
-  alldata[is.na(alldata[[x]]),]
-  })
-```
-What does the sample look like?
-```{r}
-set <- matches$ids
-set <- Reduce(x = set[,grep("panelId",names(set),value = T)],f = append)
-set <- panel[panelId%in%set,]
-
-hist(target.pruned$gend)
-hist(set$gend)
-```
-```{r}
-target.pruned[,censusId:=substr(sampleId,1,12)]
-target.pruned[,PERNUM:=substr(censusId,11,12)]
-target.pruned[,SERIAL:=substr(censusId,1,10)]
-write.csv(target.pruned,"pruned_target_190927.csv")
-write.csv(set,"selected_IDs_190927.csv")
-```
-
-
-
