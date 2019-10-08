@@ -13,7 +13,7 @@
 <meta name="author" content="Maita Schade" />
 
 
-<title>draw_sample</title>
+<title>match</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -1744,14 +1744,15 @@ summary {
 
 
 
-<h1 class="title toc-ignore">draw_sample</h1>
+<h1 class="title toc-ignore">match</h1>
 <h4 class="author">Maita Schade</h4>
-<h4 class="date">Aug 8, 2019</h4>
+<h4 class="date">Aug 26, 2019</h4>
 
 </div>
 
 
 <!-- rnb-text-begin -->
+<p>Given a target sample, recoded panel, and possibly previous invites and completes, this notebook produces a new set of panelists to invite, with flexible number of columns (for larger batches).</p>
 <p>Make sure we’re dealing with a clear space:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1760,262 +1761,452 @@ summary {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Set the following chunk depending on the circumstances:</p>
+<p>Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY291bnRyeSA9IFwiQVJcIlxuYGBgIn0= -->
-<pre class="r"><code>country = &quot;AR&quot;</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY291bnRyeSA8LSBcIkFSXCJcbmBgYCJ9 -->
+<pre class="r"><code>country &lt;- &quot;AR&quot;</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Defining files–make sure the dirs are okay; other than that you shouldn’t need to touch this if the file structure is set up properly.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YWRpciA9IHBhc3RlMCgnQzovVXNlcnMvc2NoYWRlbS9Cb3ggU3luYy9MQVBPUCBTaGFyZWQvd29ya2luZyBkb2N1bWVudHMvbWFpdGEvQ29vcmRpbmF0aW9uL05vYW0gQXJnZW50aW5hIFBhbmVsL01hdGNoaW5nIHByb2Nlc3MvRGF0YS8nLGNvdW50cnksJy8nKVxuXG5jZW5zdXNwYXRoIDwtIHBhc3RlMChkYXRhZGlyLCdzYW1wbGUvJywgY291bnRyeSwnX2lwdW1zX3JlY29kZWQuY3N2JylcblxucmVjb2RlcGF0aCA8LSBwYXN0ZTAoXCIuL3JlY29kZV9OZXRxdWVzdF9JUFVNU19cIixjb3VudHJ5LCBcIi5jc3ZcIilcbnBhcmFtcGF0aCA8LSBcIi4vY291bnRyeV9wYXJhbWV0ZXJzLmNzdlwiICMgc2V0IHNwZWNpZmljIHBhcmFtZXRycyBpbiB0aGlzIGZpbGVcbmBgYCJ9 -->
-<pre class="r"><code>datadir = paste0(&#39;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/&#39;,country,&#39;/&#39;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3N0cmF0cyA9IChcIkdFTzFfQVIyMDEwXCIpXG4jc3RyYXQyID0gXCJVUkJBTlwiXG4jIHdhdmUgPSAxN1xuIyBmaWxlZGF0ZSA9IFwiMTkwODI2XCJcblxuZGF0YWRpciA8LSBwYXN0ZTAoJ0M6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9Ob2FtIEFyZ2VudGluYSBQYW5lbC9NYXRjaGluZyBwcm9jZXNzL0RhdGEvJyxjb3VudHJ5LCcvJylcblxuXG5cbnBhbmVsZmlsZSA8LSBwYXN0ZTAoZGF0YWRpciwncGFuZWwvJywgY291bnRyeSwgJ19uZXRxdWVzdF9yZWNvZGVkLmNzdicpXG5cbnJlY29kZXBhdGggPC0gcGFzdGUwKFwiLi9yZWNvZGVfTmV0cXVlc3RfSVBVTVNfXCIsY291bnRyeSwgXCIuY3N2XCIpICN0YWJsZSBzcGVjaWZ5aW5nIHJlY29kZXNcbnBhcmFtcGF0aCA8LSBcIi4vY291bnRyeV9wYXJhbWV0ZXJzLmNzdlwiICMgc2V0IHNwZWNlZmljIHBhcmFtZXRlcnMgaW4gdGhpcyBmaWxlXG5cbnJlc3BvbnNlZmlsZSA8LSBwYXN0ZTAoJ0M6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9Ob2FtIEFyZ2VudGluYSBQYW5lbC9EYXRhIHByb2Nlc3NpbmcvRGF0YS9BUEVfMjAxOV9zZXB0N3YyX1NlcHRlbWJlciAyNywgMjAxOV8wMS4wMi5jc3YnKVxuI2ZpbGUgb2Ygbm90IHlldCBzZW50IElEc1xucmVjeWNsZWZpbGUgPC0gcGFzdGUwKGRhdGFkaXIsIFwicGFuZWwvQVJfc2VsZWN0ZWRfd2F2ZTFfUUMuY3N2XCIpXG4jIGNvbXBsZXRlc1xuIyBwcmV2aW91cyBzZWxlY3Rpb25zXG5gYGAifQ== -->
+<pre class="r"><code>#strats = (&quot;GEO1_AR2010&quot;)
+#strat2 = &quot;URBAN&quot;
+# wave = 17
+# filedate = &quot;190826&quot;
 
-censuspath &lt;- paste0(datadir,&#39;sample/&#39;, country,&#39;_ipums_recoded.csv&#39;)
+datadir &lt;- paste0(&#39;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/&#39;,country,&#39;/&#39;)
 
-recodepath &lt;- paste0(&quot;./recode_Netquest_IPUMS_&quot;,country, &quot;.csv&quot;)
-parampath &lt;- &quot;./country_parameters.csv&quot; # set specific parametrs in this file</code></pre>
+
+
+panelfile &lt;- paste0(datadir,&#39;panel/&#39;, country, &#39;_netquest_recoded.csv&#39;)
+
+recodepath &lt;- paste0(&quot;./recode_Netquest_IPUMS_&quot;,country, &quot;.csv&quot;) #table specifying recodes
+parampath &lt;- &quot;./country_parameters.csv&quot; # set specefic parameters in this file
+
+responsefile &lt;- paste0(&#39;C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_September 27, 2019_01.02.csv&#39;)
+#file of not yet sent IDs
+recyclefile &lt;- paste0(datadir, &quot;panel/AR_selected_wave1_QC.csv&quot;)
+# completes
+# previous selections</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkYXRhLnRhYmxlKVxubGlicmFyeShkZXZ0b29scylcbiNpbnN0YWxsLnBhY2thZ2VzKCdkZXZ0b29scycpXG4jaW5zdGFsbF9naXRodWIoXCJtYWl0YWdvcnJpL3NhbXBsZU1hdGNoXCIpXG5saWJyYXJ5KHNhbXBsZU1hdGNoKVxuYGBgIn0= -->
-<pre class="r"><code>library(data.table)
-library(devtools)
-#install.packages(&#39;devtools&#39;)
-#install_github(&quot;maitagorri/sampleMatch&quot;)
-library(sampleMatch)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSgnTWF0Y2hJdCcpXG5saWJyYXJ5KCdkYXRhLnRhYmxlJylcbmxpYnJhcnkoJ29wZW54bHN4JylcbiMgbGlicmFyeSgnbGFiZWxsZWQnKVxuIyBcbiMgcmVxdWlyZShwbHlyKVxuIyByZXF1aXJlKHJlc2hhcGUyKVxubGlicmFyeShzdHJpbmdyKVxuYGBgIn0= -->
+<pre class="r"><code>library(&#39;MatchIt&#39;)
+library(&#39;data.table&#39;)
+library(&#39;openxlsx&#39;)
+# library(&#39;labelled&#39;)
+# 
+# require(plyr)
+# require(reshape2)
+library(stringr)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Load country-specific parameters:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFyYW1zIDwtIGZyZWFkKHBhcmFtcGF0aCxrZXkgPSBcImNvdW50cnlcIilbY291bnRyeSxdXG5zdHJhdHMgPC0gdW5saXN0KEZpbHRlcihmID0gTmVnYXRlKGlzLm5hKSwgcGFyYW1zWyxjKFwic3RyYXQxXCIsXCJzdHJhdDJcIildKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFyYW1zIDwtIGZyZWFkKHBhcmFtcGF0aCxrZXkgPSBcImNvdW50cnlcIilbY291bnRyeSxdXG50YXJnZXQuZGF0ZSA8LSBwYXJhbXNbLHRhcmdldC5kYXRlXVxucHJpbnQocGFzdGUwKFwiVGFyZ2V0IGRhdGUgaXMgXCIsIHRhcmdldC5kYXRlKSlcbmBgYCJ9 -->
 <pre class="r"><code>params &lt;- fread(parampath,key = &quot;country&quot;)[country,]
-strats &lt;- unlist(Filter(f = Negate(is.na), params[,c(&quot;strat1&quot;,&quot;strat2&quot;)]))</code></pre>
+target.date &lt;- params[,target.date]
+print(paste0(&quot;Target date is &quot;, target.date))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGFyZ2V0IGRhdGUgaXMgMjAxOTA5MDlcIlxuIn0= -->
+<pre><code>[1] &quot;Target date is 20190909&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTlFfaWQgPC0gcGFyYW1zWyxOUV9pZF1cblxuXG50YXJnZXRmaWxlIDwtIHBhc3RlMChkYXRhZGlyLCBcInNhbXBsZS9cIiwgY291bnRyeSwgXCJfdGFyZ2V0X1wiLCB0YXJnZXQuZGF0ZSwgXCIuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>NQ_id &lt;- params[,NQ_id]
+
+
+targetfile &lt;- paste0(datadir, &quot;sample/&quot;, country, &quot;_target_&quot;, target.date, &quot;.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Reading in the sampling data and making necessary updates.</p>
-<p>Here, we are using the IPUMS data.</p>
+<p>Load data</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzPC0gZnJlYWQoY2Vuc3VzcGF0aCwgY29sQ2xhc3NlcyA9IGMoY2Vuc3VzSWQ9XCJjaGFyYWN0ZXJcIikpICNrZWVwIGl0IHNpbXBsZSwgYW5kIGtlZXAgbGVhZGluZyAwc1xuaGVhZChjZW5zdXMpXG5gYGAifQ== -->
-<pre class="r"><code>census&lt;- fread(censuspath, colClasses = c(censusId=&quot;character&quot;)) #keep it simple, and keep leading 0s
-head(census)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFyZ2V0IDwtIGZyZWFkKHRhcmdldGZpbGUsIGNvbENsYXNzZXMgPSBjKHNhbXBsZUlkPVwiY2hhcmFjdGVyXCIpLGRyb3AgPSBjKFwiY2Vuc3VzSWRcIikpXG50YXJnZXRbLHNhbXBsZUlkOj1zdHJfcGFkKHNhbXBsZUlkLHdpZHRoPTEzLHBhZD1cIjBcIildXG5wYW5lbCA8LSBmcmVhZChwYW5lbGZpbGUpXG5yZWN5Y2xlIDwtIGZyZWFkKHJlY3ljbGVmaWxlKVxubGVuZ3RoKHVuaXF1ZShwYW5lbCRYKSlcbmBgYCJ9 -->
+<pre class="r"><code>target &lt;- fread(targetfile, colClasses = c(sampleId=&quot;character&quot;),drop = c(&quot;censusId&quot;))
+target[,sampleId:=str_pad(sampleId,width=13,pad=&quot;0&quot;)]
+panel &lt;- fread(panelfile)
+recycle &lt;- fread(recyclefile)
+length(unique(panel$X))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjEyLCJucm93Ijo2fSwicmRmIjoiSDRzSUFBQUFBQUFBQm8xU3pVckRRQkRlL0ZVYnF4VHFVd2dOTm0wVkwwTFJJaDdVVWdUclNkSjBiWXJwcGlRcGV2VGlxL2dFWGtVZndCZnhGVHcwVHBLWmtvWW9EWHlaMlcrKzJaMmRuZjdwb0trUGRNYVl3cFNTeEJRTlhGWTY2VFhNdHNtWUtzTktZaW9yeC9ZSlZEVndLb0JxTE1OQVpULzVHc212Z0ROWE9iTkExeXpnMmdYY1Fjb3h0cDJjejVqK0J5Z3VBV1MwV1ZDOEF6Z0d0QUNIZ0YxRU5yOElGSS83cGFLVmt6YW1OcHV2L0pNdkY5U25yRkgvVGh6LzdGeSs3MzI4aUhYdE11L2lLUHorZW4xYjF4YlVtOFBLb0pSOTc5RVExcFFIbUNnL3d5K0tvcCtjVUxOZEt3aHdtb2pVUjFab0dmYys1T2ZsdEdjMUdjS1UzTFM1Q09iQitZaEV2VzcvNWhvWDZwZ0xDaWpXbUJNOXRFSUhmWmt2Qlh3Nkk4R00rNEpveHlHdE5DRG5GcDJ0cys1VjQ2N1ROMkhTWWJuSVZiemh6Y0tKSjZCbXVZWkRrcjJxNU9lSTZsekVkeHpWYldjdUh1cnRGazV6L09JTW15bmhTNUJmU2M5VUk5eEx3NzFLWEl3bmdxNnN1ZGFRdTdqWWdRZEtlbW5NL0lrSXFmSEFCa2JvaFJicGROdHppVWt1eHhhL2pOTTRjVEVFQUFBPSJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMzNVxuIn0= -->
+<pre><code>[1] 335</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZSh0YXJnZXQkWCkpXG5gYGAifQ== -->
+<pre class="r"><code>length(unique(target$X))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1OFxuIn0= -->
+<pre><code>[1] 258</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Are there previous invites? If so, load them. Also, prune the panel to just those not previously invited.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKGxlbmd0aChsaXN0LmZpbGVzKHBhdGg9cGFzdGUwKGRhdGFkaXIsXCJwYW5lbC9cIiksIHBhdHRlcm4gPSBcIndhdmVcIikpPjApe1xuICBwcmludChcInByZXZpb3VzIGludml0ZXMgZm91bmRcIilcbiAgIyBQcmludGluZyB3aGF0IGludml0ZXMgYXJlIGNvbnNpZGVyZWRcbiAgY2F0KHBhc3RlMChcIkluY2x1ZGVkIGludml0ZSBmaWxlczogXFxuXCIpKVxuXG4gICMgUmVhZGluZyBpbiBpbnZpdGUgZmlsZXMgZnJvbSBhbGwgd2F2ZXNcbiAgd2F2ZXMgPC0gbGFwcGx5KFxuICAgIGdyZXAoXCJRQ1wiLGxpc3QuZmlsZXMocGF0aD1wYXN0ZTAoZGF0YWRpcixcInBhbmVsL1wiKSwgcGF0dGVybiA9IFwid2F2ZVwiKSxcbiAgICAgICAgIGludmVydCA9IFQsIHZhbHVlID0gVCksIFxuICAgIGZ1bmN0aW9uICh4KXtcbiAgICAgIGNhdChwYXN0ZTAoXCIgICAgXCIseCxcIlxcblwiKSlcbiAgICAjIyBXZSBtYWtlIHN1cmUgdGhlIGluZGl2aWR1YWwgd2F2ZXMgaGF2ZSBkaXN0aW5ndWlzaGFibGUgbmFtZXMgYnkgYXR0YWNoaW5nIHN1ZmZpeGVzXG4gIFxuICAgICAgZGY8LWZyZWFkKHBhc3RlMChkYXRhZGlyLCBcInBhbmVsL1wiLHgpLGNvbENsYXNzZXMgPSBjKHNhbXBsZUlkPVwiY2hhcmFjdGVyXCIpKVxuICAgICAgZGZbLHNhbXBsZUlkIDo9IHN0cl9wYWQoc3RyaW5nID0gc2FtcGxlSWQsIHdpZHRoID0gbWF4KG5jaGFyKHNhbXBsZUlkKSksIHNpZGUgPSBcImxlZnRcIiwgcGFkID0gXCIwXCIpXVxuICAgICAgI2RmWyxncmVwKFwicGFuZWxJZFwiLG5hbWVzKGRmKSx2YWx1ZSA9IFQpXTwtc2FwcGx5KGRmWyxncmVwKFwicGFuZWxJZFwiLG5hbWVzKGRmKSx2YWx1ZSA9IFQpXSwgdG9sb3dlcilcbiAgICAgIG53YXZlPWFzLm51bWVyaWMoc3RyX21hdGNoKHgsIFwid2F2ZShcXFxcZCspXCIpWzJdKVxuICAgICAgc3VmZml4PXBhc3RlMChcIi5cIiwoKG53YXZlLTEpKjUpKzE6KG5jb2woZGYpLTEpKVxuICAgICAgcHJpbnQoc3VmZml4KVxuICAgICAgbmFtZXMoZGYpW2dyZXAoXCJwYW5lbElkLj9cIixuYW1lcyhkZikpXSA8LSBwYXN0ZTAoXCJwYW5lbElkXCIsc3VmZml4KVxuICAgICAgcmV0dXJuKGRmKVxuXG4gICB9XG4gIClcbiAgXG4gICMgVGhlIHRhcmdldCBpcyBhIHRhYmxlIG9mIHRhcmdldCByZWNvcmRzLCB3aXRoIHNlbGVjdGVkIHBhbmVsaXN0IElEcyBmb3IgZWFjaCB3YXZlXG4gIHRhcmdldC5zZWxlY3QgPC0gUmVkdWNlKGZ1bmN0aW9uKGR0ZjEsIGR0ZjIpIHttZXJnZShkdGYxLCBkdGYyLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBieSA9IGMoXCJzYW1wbGVJZFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWxsLnggPSBUUlVFKX0sXG4gICAgICAgICAgICAgICAgICAgd2F2ZXMpXG4gIFxuICAjIHRhcmdldCA8LSB0YXJnZXRbbmFtZXModGFyZ2V0KVssLWdyZXAoXCJ0YXJnZXRJZHxYXCIsbmFtZXModGFyZ2V0KSldXVxuICBcbiAgIyBcInNlbGVjdGVkXCIgaXMgYSBsb25nIGxpc3Qgb2YgYWxsIE5RIHBhbmVsaXN0cyBzZWxlY3RlZCBmcm9tIG91ciBlbmRcbiAgc2VsZWN0ZWQud2lkZSA8LSBSZWR1Y2UoZnVuY3Rpb24oZHRmMSwgZHRmMikge21lcmdlKGR0ZjEsIGR0ZjIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJ5ID0gYyhcInNhbXBsZUlkXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhbGwueCA9IFRSVUUsIGFsbC55ID0gVFJVRSl9LFxuICAgICAgICAgICAgICAgICAgIHdhdmVzKVxuICBzZWxlY3RlZC53aWRlXG4gICMgc2VsZWN0ZWQgPC0gc2VsZWN0ZWRfd2lkZVtuYW1lcyhzZWxlY3RlZF93aWRlKVstZ3JlcChcInRhcmdldElkfFhcIixuYW1lcyhzZWxlY3RlZF93aWRlKSldXVxuICBzZWxlY3RlZCA8LSBtZWx0KGRhdGEgPSBzZWxlY3RlZC53aWRlLG1lYXN1cmUudmFycyA9IGMoZ3JlcChcInBhbmVsSWRcIixuYW1lcyhzZWxlY3RlZC53aWRlKSkpKVxuICBcbiAgbmFtZXMoc2VsZWN0ZWQpPC1jKFwic2FtcGxlSWRcIiwgICBcInZhcmlhYmxlXCIsICAgXCJwYW5lbElkXCIpXG4gIHNlbGVjdGVkWyxiYXRjaDo9IGFzLmludGVnZXIoc3RyX21hdGNoKHZhcmlhYmxlLFwiXFxcXGRcXFxcZD9cIikpXVxuICBcbiAgc2VsZWN0ZWQ8LXNlbGVjdGVkW3NlbGVjdGVkWywhaXMubmEocGFuZWxJZCldLF1cbiAgIyBzZWxlY3RlZCR3YXZlIDwtIGFzLmludGVnZXIocmVnbWF0Y2hlcyhzZWxlY3RlZCR2YXJpYWJsZSwgXG4gICMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnZXhwcihcIlxcXFwuXFxcXEtcXFxcZCskXCIsc2VsZWN0ZWQkdmFyaWFibGUscGVybD1UUlVFKVxuICAjICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIClcbiAgIyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKVxuXG4gICMgUmVtb3ZlIHdobyB3YXMgX25vdF8gaW52aXRlZFxuICBuYW1lcyhyZWN5Y2xlKVsxXSA8LSBcInBhbmVsSWRcIlxuXG4gICMgd2hhdCBpcyBnb2luZyBvbiB3aXRoIG1vcmUgcmVtb3ZhbHMgdGhhbiByZWN5Y2xlZCBJRHM/XG4gICMgSSB3b3VsZCBleHBlY3QgdGhhdCB0aGUgbnVtYmVyIG9mIHJlY3ljbGVzIG1pbnVzIHRoZSBudW1iZXIgb2YgZHVwbGljYXRlcyBlcXVhbHMgdGhlIHJlbW92YWxzLlxuICBhY3R1YWxseS51c2VkIDwtICghKHNlbGVjdGVkJHBhbmVsSWQlaW4lcmVjeWNsZSRwYW5lbElkKSl8KHNlbGVjdGVkJGJhdGNoPjUpXG4gIG5yb3coc2VsZWN0ZWQpLXN1bShhY3R1YWxseS51c2VkKVxuICBcbiAgXG4gIGludml0ZWQgPC0gc2VsZWN0ZWRbYWN0dWFsbHkudXNlZCxdXG4gIGRpbShpbnZpdGVkKVxuXG4gICMgUHJ1bmUgcGFuZWwgdG8gZXhjbHVkZSBpbnZpdGVkXG4gIHBhbmVsIDwtIHBhbmVsWyFwYW5lbElkICVpbiUgaW52aXRlZCRwYW5lbElkLF1cbiAgXG4gICMgc2V0IHdhdmVcbiAgd2F2ZSA8LSBsZW5ndGgod2F2ZXMpKzFcbiAgXG5cbn0gZWxzZSB7d2F2ZSA8LSAxfVxuYGBgIn0= -->
+<pre class="r"><code>if (length(list.files(path=paste0(datadir,&quot;panel/&quot;), pattern = &quot;wave&quot;))&gt;0){
+  print(&quot;previous invites found&quot;)
+  # Printing what invites are considered
+  cat(paste0(&quot;Included invite files: \n&quot;))
+
+  # Reading in invite files from all waves
+  waves &lt;- lapply(
+    grep(&quot;QC&quot;,list.files(path=paste0(datadir,&quot;panel/&quot;), pattern = &quot;wave&quot;),
+         invert = T, value = T), 
+    function (x){
+      cat(paste0(&quot;    &quot;,x,&quot;\n&quot;))
+    ## We make sure the individual waves have distinguishable names by attaching suffixes
+  
+      df&lt;-fread(paste0(datadir, &quot;panel/&quot;,x),colClasses = c(sampleId=&quot;character&quot;))
+      df[,sampleId := str_pad(string = sampleId, width = max(nchar(sampleId)), side = &quot;left&quot;, pad = &quot;0&quot;)]
+      #df[,grep(&quot;panelId&quot;,names(df),value = T)]&lt;-sapply(df[,grep(&quot;panelId&quot;,names(df),value = T)], tolower)
+      nwave=as.numeric(str_match(x, &quot;wave(\\d+)&quot;)[2])
+      suffix=paste0(&quot;.&quot;,((nwave-1)*5)+1:(ncol(df)-1))
+      print(suffix)
+      names(df)[grep(&quot;panelId.?&quot;,names(df))] &lt;- paste0(&quot;panelId&quot;,suffix)
+      return(df)
+
+   }
+  )
+  
+  # The target is a table of target records, with selected panelist IDs for each wave
+  target.select &lt;- Reduce(function(dtf1, dtf2) {merge(dtf1, dtf2,
+                                               by = c(&quot;sampleId&quot;),
+                                               all.x = TRUE)},
+                   waves)
+  
+  # target &lt;- target[names(target)[,-grep(&quot;targetId|X&quot;,names(target))]]
+  
+  # &quot;selected&quot; is a long list of all NQ panelists selected from our end
+  selected.wide &lt;- Reduce(function(dtf1, dtf2) {merge(dtf1, dtf2,
+                                               by = c(&quot;sampleId&quot;),
+                                               all.x = TRUE, all.y = TRUE)},
+                   waves)
+  selected.wide
+  # selected &lt;- selected_wide[names(selected_wide)[-grep(&quot;targetId|X&quot;,names(selected_wide))]]
+  selected &lt;- melt(data = selected.wide,measure.vars = c(grep(&quot;panelId&quot;,names(selected.wide))))
+  
+  names(selected)&lt;-c(&quot;sampleId&quot;,   &quot;variable&quot;,   &quot;panelId&quot;)
+  selected[,batch:= as.integer(str_match(variable,&quot;\\d\\d?&quot;))]
+  
+  selected&lt;-selected[selected[,!is.na(panelId)],]
+  # selected$wave &lt;- as.integer(regmatches(selected$variable, 
+  #                                        regexpr(&quot;\\.\\K\\d+$&quot;,selected$variable,perl=TRUE)
+  #                                        )
+  #                             )
+
+  # Remove who was _not_ invited
+  names(recycle)[1] &lt;- &quot;panelId&quot;
+
+  # what is going on with more removals than recycled IDs?
+  # I would expect that the number of recycles minus the number of duplicates equals the removals.
+  actually.used &lt;- (!(selected$panelId%in%recycle$panelId))|(selected$batch&gt;5)
+  nrow(selected)-sum(actually.used)
+  
+  
+  invited &lt;- selected[actually.used,]
+  dim(invited)
+
+  # Prune panel to exclude invited
+  panel &lt;- panel[!panelId %in% invited$panelId,]
+  
+  # set wave
+  wave &lt;- length(waves)+1
+  
+
+} else {wave &lt;- 1}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwicHJldmlvdXMgaW52aXRlcyBmb3VuZFwiXG5JbmNsdWRlZCBpbnZpdGUgZmlsZXM6IFxuICAgIEFSX3NlbGVjdGVkX3dhdmUxXzE5MDkxMi5jc3ZcblsxXSBcIi4xXCIgXCIuMlwiIFwiLjNcIiBcIi40XCIgXCIuNVwiXG4gICAgQVJfc2VsZWN0ZWRfd2F2ZTJfMTkwOTIzLmNzdlxuWzFdIFwiLjZcIiAgXCIuN1wiICBcIi44XCIgIFwiLjlcIiAgXCIuMTBcIlxuIn0= -->
+<pre><code>[1] &quot;previous invites found&quot;
+Included invite files: 
+    AR_selected_wave1_190912.csv
+[1] &quot;.1&quot; &quot;.2&quot; &quot;.3&quot; &quot;.4&quot; &quot;.5&quot;
+    AR_selected_wave2_190923.csv
+[1] &quot;.6&quot;  &quot;.7&quot;  &quot;.8&quot;  &quot;.9&quot;  &quot;.10&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0FyZSB3ZSBva2F5LS1kaWQgd2Ugbm90IG1lc3MgdXAgdGhlIHNhbXBsZSB3aGVuIGZpeGluZyBkZXB0cz9cbnN1bSghdGFyZ2V0LnNlbGVjdCRzYW1wbGVJZCVpbiV0YXJnZXQkc2FtcGxlSWQpPT0wXG5gYGAifQ== -->
+<pre class="r"><code>#Are we okay--did we not mess up the sample when fixing depts?
+sum(!target.select$sampleId%in%target$sampleId)==0</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFRSVUVcbiJ9 -->
+<pre><code>[1] TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Are there previous completes? If so, load them.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKCFpcy5udWxsKHJlc3BvbnNlZmlsZSkpe1xuICBwcmludChcImNvbXBsZXRlcyBmb3VuZCFcIilcblxuICAjICMgXCJyZXNwb25kZWRcIiBjYW4gYmUgbG9hZGVkIHN0cmFpZ2h0IGZyb20gUXVhbHRyaWNzIFxuICByZXNwb25kZWQgPC0gZnJlYWQocmVzcG9uc2VmaWxlKVxuICByZXNwb25kZWRbLFwicGFuZWxJZFwiIDo9IHN1YnN0cih0aWNrZXQsMSwxNildXG4gIHJlc3BvbmRlZCA8LSByZXNwb25kZWRbLSgxOjMpLHBhbmVsSWRdXG5cbiAgIy4uLiBmb3IgaWRlbnRpZnlpbmcgaG93IG1hbnkgdGFyZ2V0cyBoYXZlIGJlZW4gaGl0LCBhdHRhY2ggdG8gZWFjaCByZXNwb25kZW50IGl0cyB1bmlxdWUgU0FNUElEXG4gIHJlc3BvbmRlZCA8LSBzZWxlY3RlZFtwYW5lbElkJWluJXJlc3BvbmRlZF1cbiAgcmVzcG9uZGVkIDwtIHJlc3BvbmRlZFshZHVwbGljYXRlZChwYW5lbElkLGZyb21MYXN0ID0gVFJVRSksXVxuICBcblxuICAgIFxuICAjIENvdW50aW5nIGR1cGxpY2F0ZXMgYnkgY291bnRpbmcgb2NjdXJyZW5jZSBvZiBzYW1wbGVJZCBpbiByZXNwb25kZW50czpcbiAgbnNhbXBfcmVzcCA8LSB0YWJsZShyZXNwb25kZWQkc2FtcGxlSWQpXG4gXG4gIGR1cGVzIDwtIHN1bShuc2FtcF9yZXNwLTEpICBcbiAgZHVwZXNcbiAgXG4gIGxlZ2l0IDwtIG5yb3cocmVzcG9uZGVkKS1kdXBlc1xuXG4gIGNhdChwYXN0ZTAoXCJcXG5EdXBsaWNhdGVzIGluIFwiLCBjb3VudHJ5LCBcIjogXCIsIGR1cGVzLFwiXFxuXCIpKVxuICBjYXQocGFzdGUwKFwiXFxuTGVnaXQgcmVzcG9uc2VzOiBcIiwgbGVnaXQpKVxuXG4gICMgIyBSZXNwb25kZW50cyB0aGF0IHdlcmUgbm90IGludml0ZWQ/XG4gICMgY2F0KHJlc3BvbmRlZFtpcy5uYShyZXNwb25kZWQkU0FNUElEKSxdW1tOUV9pZF1dKVxuICBcbiAgIyMgUHJ1bmUgdGFyZ2V0IHRvIGV4Y2x1ZGUgZmlsbGVkIHNsb3RzXG4gICMgY3JlYXRlIGxpc3Qgb2YgcmVzcG9uZGVudHMgaW4gd2lkZSBzYW1wbGUgaWQgZm9ybWF0LS1hY3R1YWxseSB0aGlzIHNob3VsZG4ndCBiZSBuZWNlc3NhcnkgaGVyZSwgYnV0IGxldCdzIG5vdCBmdXR6IHdpdGggaXQgZm9yIG5vd1xuICBpbnZpdGVkLnJlc3AgPC0gaW52aXRlZFsocGFuZWxJZCAlaW4lIHJlc3BvbmRlZCRwYW5lbElkKSxdICN0aG9zZSB0aGF0IHdlcmUgaW52aXRlZCBhbmQgYWN0dWFsbHkgcmVzcG9uZGVkXG4gIHJlc3BvbmRlZC53aWRlIDwtIGRjYXN0KGludml0ZWQucmVzcCwgLi4uIH4gdmFyaWFibGUpXG4gIHJlc3BvbmRlZC53aWRlXG4gIFxuICAjIENoZWNrIHRoYXQgbm8gc2FtcGxlSWQncyBhcmUgZHVwbGljYXRlZDpcbiAgaWYgKHN1bShkdXBsaWNhdGVkKHJlc3BvbmRlZC53aWRlJHNhbXBsZUlkKSkhPSAwKXtcbiAgICBwcmludChcIkFsZXJ0ISBTb21laG93IHlvdSBoYXZlIGR1cGxpY2F0ZWQgc2FtcGxlSWRzIVwiKVxuICAgIH1cbiAgXG4gICMga2VlcCBvbmx5IHRhcmdldHMgdGhhdCBhcmUgbm90IGluY2x1ZGVkIGluIHJlc3BvbnNlIHNldFxuICB0YXJnZXQucHJ1bmVkIDwtIHRhcmdldFshc2FtcGxlSWQlaW4lcmVzcG9uZGVkLndpZGUkc2FtcGxlSWQsXVxuICBkaW0oaW52aXRlZC5yZXNwKVxuICBkaW0ocmVzcG9uZGVkKVxuICBkaW0ocmVzcG9uZGVkLndpZGUpXG4gIHByaW50KFwiRGltZW5zaW9ucyBvZiBwcnVuZWQgdGFyZ2V0OlwiKVxuICBkaW0odGFyZ2V0LnBydW5lZClcbn0gZWxzZSB7XG4gIHRhcmdldC5wcnVuZWQgPC0gdGFyZ2V0XG4gIH1cbmBgYCJ9 -->
+<pre class="r"><code>if (!is.null(responsefile)){
+  print(&quot;completes found!&quot;)
+
+  # # &quot;responded&quot; can be loaded straight from Qualtrics 
+  responded &lt;- fread(responsefile)
+  responded[,&quot;panelId&quot; := substr(ticket,1,16)]
+  responded &lt;- responded[-(1:3),panelId]
+
+  #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
+  responded &lt;- selected[panelId%in%responded]
+  responded &lt;- responded[!duplicated(panelId,fromLast = TRUE),]
+  
+
+    
+  # Counting duplicates by counting occurrence of sampleId in respondents:
+  nsamp_resp &lt;- table(responded$sampleId)
+ 
+  dupes &lt;- sum(nsamp_resp-1)  
+  dupes
+  
+  legit &lt;- nrow(responded)-dupes
+
+  cat(paste0(&quot;\nDuplicates in &quot;, country, &quot;: &quot;, dupes,&quot;\n&quot;))
+  cat(paste0(&quot;\nLegit responses: &quot;, legit))
+
+  # # Respondents that were not invited?
+  # cat(responded[is.na(responded$SAMPID),][[NQ_id]])
+  
+  ## Prune target to exclude filled slots
+  # create list of respondents in wide sample id format--actually this shouldn&#39;t be necessary here, but let&#39;s not futz with it for now
+  invited.resp &lt;- invited[(panelId %in% responded$panelId),] #those that were invited and actually responded
+  responded.wide &lt;- dcast(invited.resp, ... ~ variable)
+  responded.wide
+  
+  # Check that no sampleId&#39;s are duplicated:
+  if (sum(duplicated(responded.wide$sampleId))!= 0){
+    print(&quot;Alert! Somehow you have duplicated sampleIds!&quot;)
+    }
+  
+  # keep only targets that are not included in response set
+  target.pruned &lt;- target[!sampleId%in%responded.wide$sampleId,]
+  dim(invited.resp)
+  dim(responded)
+  dim(responded.wide)
+  print(&quot;Dimensions of pruned target:&quot;)
+  dim(target.pruned)
+} else {
+  target.pruned &lt;- target
+  }</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiY29tcGxldGVzIGZvdW5kIVwiXG5cbkR1cGxpY2F0ZXMgaW4gQVI6IDE1MlxuXG5MZWdpdCByZXNwb25zZXM6IDk5MlxuIn0= -->
+<pre><code>[1] &quot;completes found!&quot;
+
+Duplicates in AR: 152
+
+Legit responses: 992</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVXNpbmcgJ2JhdGNoJyBhcyB2YWx1ZSBjb2x1bW4uIFVzZSAndmFsdWUudmFyJyB0byBvdmVycmlkZVxuIn0= -->
+<pre><code>Using &#39;batch&#39; as value column. Use &#39;value.var&#39; to override</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQWxlcnQhIFNvbWVob3cgeW91IGhhdmUgZHVwbGljYXRlZCBzYW1wbGVJZHMhXCJcblsxXSBcIkRpbWVuc2lvbnMgb2YgcHJ1bmVkIHRhcmdldDpcIlxuWzFdIDIwOCAgMTBcbiJ9 -->
+<pre><code>[1] &quot;Alert! Somehow you have duplicated sampleIds!&quot;
+[1] &quot;Dimensions of pruned target:&quot;
+[1] 208  10</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Add a treatment into it:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFuZWxbLCd0cmVhdCc6PSByZXAoMCxucm93KHBhbmVsKSldXG50YXJnZXQucHJ1bmVkWywndHJlYXQnOj1yZXAoMSxucm93KHRhcmdldC5wcnVuZWQpKV1cbmBgYCJ9 -->
+<pre class="r"><code>panel[,&#39;treat&#39;:= rep(0,nrow(panel))]
+target.pruned[,&#39;treat&#39;:=rep(1,nrow(target.pruned))]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now join this data together:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWxsZGF0YSA8LSByYmluZChwYW5lbCwgdGFyZ2V0LnBydW5lZCwgZmlsbD1UKVxuI2ZpbGwgTkFcbmFsbGRhdGFbaXMubmEocGFuZWxJZCkscGFuZWxJZDo9XCI5OTk5OTk5OTk5XCJdXG5hbGxkYXRhW2lzLm5hKHNhbXBsZUlkKSxzYW1wbGVJZDo9XCI5OTk5OTk5OTk5XCJdXG5cbmhlYWQoYWxsZGF0YSlcbmBgYCJ9 -->
+<pre class="r"><code>alldata &lt;- rbind(panel, target.pruned, fill=T)
+#fill NA
+alldata[is.na(panelId),panelId:=&quot;9999999999&quot;]
+alldata[is.na(sampleId),sampleId:=&quot;9999999999&quot;]
+
+head(alldata)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjEyLCJucm93Ijo2fSwicmRmIjoiSDRzSUFBQUFBQUFBQnJWVE8yL1VRQkJldnk3RUhGR2lDQ0pxS0s0NXk4L1lTWUYwSEJKQ1NxS0FCQndTUWxxZjErZFQvSkx0RTZUalYvRDRCWFMwaUZRckhwR2dDejBwU0VHVGtnYUtIT3ZMN3NsbkJTRUtWdnE4czk5OHM1NlozYjF6bzJmSVBSa0FJQUNod1FGQklpWm9kTGMxM2RJQkVIbXk0b0FJNXN2NUNWRXRFNk5KY0tHVVRad0E4QlZ3Rk16ZklyaEkwQ2E0U3VEUXVScC9GcGhmbktRMkMvR01lUDRQOFVJbE42R2kvZHYvRjBvLzNycjcvclAvbk1lM0x5VXZ2KzE5d0Z1djIxL1BIMy9DbTFlaW5kM0xOL0gyMFp1SEFmcU9ONWNQTis2UDdHbmM5V2h2LzJmckkrN3NyanhiZVhVUFgxdi8wVHBXM3VIT282VXZSMUlIZDdzSEc0Y093SjNnN2NHTC9iS2ZpNU44VGh1OXFKSmg2WWJwZXByV3QzMTdocmNkM1ZYMVZjYzAxQ3J2UVYyRHFtbGJwcTFWZU0zVXZEWERzeHpvV3JEQzZ5NzBYUjE2cnUwWVZvVTNOTU5lVlgzVnNtek5ZZldBZngvVmV1UzE2ZmlQek94bG5jK1N4MG9NSTVUVHcrYWZrczk0UFA1VkUwcjlFT1k1elppUnNnY0xxUGdaaWEvTDJaNmx2RWxKY1lCaWo5b0NIQ0JHdTdBSXFNMmpxUUJGS1JPa0tJc1pIUVJNeS9XWThZQWFjeW1NVVhpTGJTRVZHWUlGWFp6TFlaU0dpRGdCT0tsbE81ZWt4VENKU2I1OCtYQ2xXcGxjVmlPV1JuRlpuOWZ1QjZONHA2MnJhdGtNK2lRQTdTUkhyd1N6bTZjL0ZjZDBNNGx1MWtEeFlCaXpaa2doZEZGSUZ3dmtkQ2FOVk5Kc0dMTktaTUxtU3BFVWtPbmtmaEl5WmxJZE9Qa05HMjY0UDdJRUFBQT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["censusId"],"name":[1],"type":["chr"],"align":["left"]},{"label":["PERWT"],"name":[2],"type":["int"],"align":["right"]},{"label":["gend"],"name":[3],"type":["int"],"align":["right"]},{"label":["age"],"name":[4],"type":["int"],"align":["right"]},{"label":["bath"],"name":[5],"type":["int"],"align":["right"]},{"label":["ed"],"name":[6],"type":["int"],"align":["right"]},{"label":["emp"],"name":[7],"type":["int"],"align":["right"]},{"label":["pern"],"name":[8],"type":["int"],"align":["right"]},{"label":["hhh"],"name":[9],"type":["int"],"align":["right"]},{"label":["X"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["GEO1_AR2010"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"000000100001","2":"10","3":"1","4":"65","5":"1","6":"5","7":"1","8":"2","9":"1","10":"-34.61515","11":"-58.44888","12":"2"},{"1":"000000100002","2":"10","3":"2","4":"62","5":"1","6":"4","7":"3","8":"2","9":"2","10":"-34.61515","11":"-58.44888","12":"2"},{"1":"000000200001","2":"10","3":"1","4":"52","5":"1","6":"5","7":"1","8":"1","9":"1","10":"-34.61515","11":"-58.44888","12":"2"},{"1":"000000300001","2":"10","3":"1","4":"55","5":"1","6":"2","7":"1","8":"1","9":"1","10":"-34.61515","11":"-58.44888","12":"2"},{"1":"000000500001","2":"10","3":"1","4":"20","5":"1","6":"3","7":"1","8":"1","9":"1","10":"-34.61515","11":"-58.44888","12":"2"},{"1":"000000600001","2":"10","3":"1","4":"20","5":"1","6":"2","7":"1","8":"3","9":"1","10":"-34.61515","11":"-58.44888","12":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[12]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+{"columns":[{"label":["gend"],"name":[1],"type":["int"],"align":["right"]},{"label":["age"],"name":[2],"type":["int"],"align":["right"]},{"label":["bath"],"name":[3],"type":["int"],"align":["right"]},{"label":["ed"],"name":[4],"type":["int"],"align":["right"]},{"label":["emp"],"name":[5],"type":["int"],"align":["right"]},{"label":["pern"],"name":[6],"type":["int"],"align":["right"]},{"label":["hhh"],"name":[7],"type":["int"],"align":["right"]},{"label":["X"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["panelId"],"name":[10],"type":["chr"],"align":["left"]},{"label":["treat"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["sampleId"],"name":[12],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"40","3":"1","4":"4","5":"1","6":"3","7":"1","8":"-60.67004","9":"-36.85726","10":"00005234bd11c7f7","11":"0","12":"9999999999"},{"1":"2","2":"21","3":"1","4":"3","5":"1","6":"2","7":"1","8":"-68.35056","9":"-34.94603","10":"00005782b0268430","11":"0","12":"9999999999"},{"1":"2","2":"45","3":"1","4":"3","5":"2","6":"2","7":"1","8":"-61.36077","9":"-30.23029","10":"0000da21a0475471","11":"0","12":"9999999999"},{"1":"2","2":"36","3":"1","4":"3","5":"1","6":"3","7":"1","8":"-58.27678","9":"-34.73492","10":"000141d93d58ab5a","11":"0","12":"9999999999"},{"1":"1","2":"56","3":"1","4":"3","5":"1","6":"1","7":"1","8":"-67.55807","9":"-38.52982","10":"0002bafb2adb7835","11":"0","12":"9999999999"},{"1":"1","2":"36","3":"1","4":"4","5":"1","6":"2","7":"1","8":"-58.15522","9":"-34.81817","10":"000313760f055718","11":"0","12":"9999999999"}],"options":{"columns":{"min":{},"max":[10],"total":[12]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Divide target sample into age quantiles (in this case, deciles) and add that to the data:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWdlX3EgPC0gcXVhbnRpbGUodGFyZ2V0JGFnZSxwcm9iID0gc2VxKDAsMSwwLjEpKSAjdGhpcyBpcyB0aGUgZnVsbCB0YXJnZXRcbmFsbGRhdGFbLCdhZ2VfZ3JvdXAnIDo9ICBhcy5pbnRlZ2VyKGN1dChhbGxkYXRhJGFnZSxicmVha3MgPSBhZ2VfcSwgaW5jbHVkZS5sb3dlc3QgPSBUUlVFKSldXG5hbGxkYXRhW2lzLm5hKGFnZV9ncm91cCksYWdlXVxuYGBgIn0= -->
+<pre class="r"><code>age_q &lt;- quantile(target$age,prob = seq(0,1,0.1)) #this is the full target
+alldata[,&#39;age_group&#39; :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
+alldata[is.na(age_group),age]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdICA5OSAxMDAgMTAwICA5MiAgOTlcbiJ9 -->
+<pre><code>[1]  99 100 100  92  99</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWxsZGF0YSRhZ2VfZ3JvdXBbaXMubmEoYWxsZGF0YSRhZ2VfZ3JvdXApXSA8LSAxMCAjaGlnaGVzdCBhZ2UtZ3JvdXAgY2FuIGdldCBsb3N0OyBmaWxsIGl0IGluXG5gYGAifQ== -->
+<pre class="r"><code>alldata$age_group[is.na(alldata$age_group)] &lt;- 10 #highest age-group can get lost; fill it in</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Try stratified sampling.</p>
+<p>Load in matching.vars from recodefile</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSAxMjAwXG5zZXQuc2VlZCgxMjE5ODgpXG50YXJnZXQgIDwtIHN0cmF0X3dlaWdodF9zYW1wbGUoY2Vuc3VzLHN0cmF0cywnUEVSV1QnLG4pXG5gYGAifQ== -->
-<pre class="r"><code>n &lt;- 1200
-set.seed(121988)
-target  &lt;- strat_weight_sample(census,strats,&#39;PERWT&#39;,n)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>This chunk just for testing multi-appearances of censusIds</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB3aGlsZShucm93KG11bHRpcykhPTApe1xuIyAgIHRhcmdldCAgPC0gc3RyYXRfd2VpZ2h0X3NhbXBsZShjZW5zdXMsc3RyYXRzLCdQRVJXVCcsbilcbiMgICBtdWx0aXMgPC0gdW5pcXVlKHRhcmdldFtkdXBsaWNhdGVkKHRhcmdldCRjZW5zdXNJZCksJ2NlbnN1c0lkJ10pXG4jIH1cbmBgYCJ9 -->
-<pre class="r"><code># while(nrow(multis)!=0){
-#   target  &lt;- strat_weight_sample(census,strats,&#39;PERWT&#39;,n)
-#   multis &lt;- unique(target[duplicated(target$censusId),&#39;censusId&#39;])
-# }</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Making sure this stratification worked…</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmFycGxvdCh0YWJsZSggdGFyZ2V0W1tzdHJhdHNbMV1dXSkpXG5ucm93KHRhcmdldClcbmhlYWQodGFyZ2V0KVxuaGlzdCh0YXJnZXQkYWdlKVxuaGlzdChjZW5zdXMkYWdlKVxudGFibGUodGFyZ2V0JGFnZSx0YXJnZXQkZ2VuZClcbmBgYCJ9 -->
-<pre class="r"><code>barplot(table( target[[strats[1]]]))
-nrow(target)
-head(target)
-hist(target$age)
-hist(census$age)
-table(target$age,target$gend)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Add a sample id, counting those that occur more than once:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFyZ2V0JFNBTVBDVDwtMVxubXVsdGlzIDwtIHVuaXF1ZSh0YXJnZXRbZHVwbGljYXRlZCh0YXJnZXQkY2Vuc3VzSWQpLCdjZW5zdXNJZCddKVxuXG5mb3IgKGkgaW4gbXVsdGlzKXtcbiAgcHJpbnQoaSlcbiAgdGFyZ2V0W3RhcmdldCRjZW5zdXNJZD09aSwnU0FNUENUJzo9MTp0YWJsZSh0YXJnZXQkY2Vuc3VzSWQpW2ldXVxufVxudGFibGUodGFyZ2V0JFNBTVBDVCkgIyBjaGVjayB0aGF0IHRoZSBzYW1wY291bnRzIGFyZSByaWdodFxuXG50YXJnZXQkc2FtcGxlSWQgPC0gcGFzdGUwKFxuICB0YXJnZXQkY2Vuc3VzSWQsXG4gIHNwcmludGYoXG4gICAgcGFzdGUwKCclMCcsXG4gICAgICAgICAgIGFzLmNoYXJhY3RlcihtYXgobmNoYXIodGFyZ2V0JFNBTVBDVCkpKSxcbiAgICAgICAgICAgJy4wZicpLFxuICAgIHRhcmdldCRTQU1QQ1QpXG4pXG5oZWFkKHRhcmdldClcbmBgYCJ9 -->
-<pre class="r"><code>target$SAMPCT&lt;-1
-multis &lt;- unique(target[duplicated(target$censusId),&#39;censusId&#39;])
-
-for (i in multis){
-  print(i)
-  target[target$censusId==i,&#39;SAMPCT&#39;:=1:table(target$censusId)[i]]
-}
-table(target$SAMPCT) # check that the sampcounts are right
-
-target$sampleId &lt;- paste0(
-  target$censusId,
-  sprintf(
-    paste0(&#39;%0&#39;,
-           as.character(max(nchar(target$SAMPCT))),
-           &#39;.0f&#39;),
-    target$SAMPCT)
-)
-head(target)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dice just the variables needed for matching</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVjb2RlX21hcCA8LSBmcmVhZChyZWNvZGVwYXRoKVxubWF0Y2hpbmcudmFycyA8LSB1bmlxdWUocmVjb2RlX21hcCRjb21tb25fdmFyKVxudGFyZ2V0IDwtIHRhcmdldFssYyhcInNhbXBsZUlkXCIsbWF0Y2hpbmcudmFycyksd2l0aD1GXVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVjb2RlX21hcCA8LSBmcmVhZChyZWNvZGVwYXRoKVxubWF0Y2hpbmcudmFycyA8LSB1bmlxdWUocmVjb2RlX21hcCRjb21tb25fdmFyKVxuYGBgIn0= -->
 <pre class="r"><code>recode_map &lt;- fread(recodepath)
-matching.vars &lt;- unique(recode_map$common_var)
-target &lt;- target[,c(&quot;sampleId&quot;,matching.vars),with=F]</code></pre>
+matching.vars &lt;- unique(recode_map$common_var)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Since we just re-defined the geographies to departments again, let’s make sure the new and improved target is exactly the same as the previous, except for X and Y.</p>
-<p>Load previous target:</p>
+<p>Now carry out the matching.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFyZ2V0Lm9sZCA8LSBmcmVhZChwYXN0ZTAoZGF0YWRpciwgXCJzYW1wbGUvQVJfdGFyZ2V0XzIwMTkwOTA5X3Byb3ZpbmNlLmNzdlwiKSxjb2xDbGFzc2VzID0gYyhzYW1wbGVJZD1cImNoYXJhY3RlclwiKSlcbiN0YXJnZXQub3RoZXIgPC0gZnJlYWQocGFzdGUwKGRhdGFkaXIsIFwiL3NhbXBsZS9BUl90YXJnZXRfMTkwOTEyX3Byb3ZpbmNlLmNzdlwiKSxjb2xDbGFzc2VzID0gYyhzYW1wbGVJZD1cImNoYXJhY3RlclwiKSlcblxuYGBgIn0= -->
-<pre class="r"><code>target.old &lt;- fread(paste0(datadir, &quot;sample/AR_target_20190909_province.csv&quot;),colClasses = c(sampleId=&quot;character&quot;))
-#target.other &lt;- fread(paste0(datadir, &quot;/sample/AR_target_190912_province.csv&quot;),colClasses = c(sampleId=&quot;character&quot;))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hpbmcuZm9ybSA8LSBhcy5mb3JtdWxhKHBhc3RlMChcInRyZWF0IH4gXCIsIHBhc3RlKG1hdGNoaW5nLnZhcnMsIGNvbGxhcHNlPScgKyAnKSkpXG5gYGAifQ== -->
+<pre class="r"><code>matching.form &lt;- as.formula(paste0(&quot;treat ~ &quot;, paste(matching.vars, collapse=&#39; + &#39;)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We’ll have to repeat this process (at least for everything except PS). * start empty dataframe initialized with target IDs * make a copy of the data to alter * for each i in range: + run the matching + store the matched IDs + store some overall metrics about the match + reduce the panel data * return the match objects</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hSYXRpbyA8LSBmdW5jdGlvbihkYXRhLCBtZXRyaWMsIG4sIGV4YWN0ID0gYygpKXtcbiAgIyBBIHdyYXBwZXIgZm9yIHRoZSBNYXRjaEl0IGZyYW1ld29yayB0byBjYXJyeSBvdXQgYXJiaXRyYXJ5IG51bWJlcnMgb2Ygc3VjY2Vzc2l2ZSBtYXRjaGVzXG4gICMgZGF0YSBtdXN0IGhhdmU6XG4gICMgICAqIHNhbXBsZUlkXG4gICMgICAqIHBhbmVsSWRcbiAgIyAgICogdHJlYXRcbiAgcmVxdWlyZShNYXRjaEl0KVxuICAgIFxuICAjIGFzc2lnbiB0aGUgZGF0YWZyYW1lIHRvIGhvbGQgdGhlIG1hdGNoaW5nIHJlc3VsdHNcbiAgZGYgPC0gZGF0YS5mcmFtZShtYXRyaXgobmNvbD0xLCBucm93PXN1bShkYXRhJHRyZWF0PT0xKSkpXG4gIG5hbWVzKGRmKSA8LSBjKFwic2FtcGxlSWRcIilcbiAgZGYkc2FtcGxlSWQgPC0gZGF0YSRzYW1wbGVJZFtkYXRhJHRyZWF0PT0xXVxuICBcbiAgIyBhc3NpZ24gdGhlIG9iamVjdCB0byBob2xkIGFsbCB0aGUgbWF0Y2hpbmcgaW5mb3JtYXRpb25cbiAgbWF0Y2hlcyA8LSB2ZWN0b3IoXCJsaXN0XCIsbilcbiAgXG4gICMgbWFrZSBhIGNvcHkgb2YgdGhlIHBhc3NlZC1pbiBkYXRhXG4gIGRhdGEuY29weSA8LSBkYXRhLmZyYW1lKGRhdGEpXG4gIFxuICAjIGxvb3Agb3ZlciB0aGUgbnVtYmVyIG9mIHJlc3BvbmRlbnRzIHBlciB0YXJnZXRcbiAgIyBpZiB0aGVyZSBhcmUgaXNzdWVzLCBjYW4gSSByZWxheCB0aGUgYWdlIGdyb3Vwcz9cbiAgZm9yKGkgaW4gMTpuKXtcbiAgICBwcmludChwYXN0ZSgnaSA9ICcsYXMuY2hhcmFjdGVyKGkpKSlcbiAgICBtIDwtIG1hdGNoaXQobWF0Y2hpbmcuZm9ybSwgXG4gICAgICAgICAgICAgICAgIGRhdGEgPSBkYXRhLmNvcHksIGV4YWN0PWV4YWN0LCBtZXRob2QgPSBcIm5lYXJlc3RcIiwgZGlzdGFuY2UgPSBtZXRyaWMpXG4gICAgY29udHJvbHMgPC0gbWF0Y2guZGF0YShtLCBncm91cD0nY29udHJvbCcpXG4gICAgXG4gICAgdHJ5KHttYXRjaGVzW1tpXV0gPC0gbVxuICAgICAgICBzYW1wbGVpZHMgPC0gZGF0YS5jb3B5W3Jvdy5uYW1lcyhtJG1hdGNoLm1hdHJpeCksIFwic2FtcGxlSWRcIl1cbiAgICAgICAgcGFuZWxpZHMgPC0gZGF0YS5jb3B5W20kbWF0Y2gubWF0cml4LFwicGFuZWxJZFwiXVxuICAgICAgICBpZHMgPC0gZGF0YS5mcmFtZShzYW1wbGVJZD1zYW1wbGVpZHMsIHBhbmVsSWQ9cGFuZWxpZHMsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGKVxuICAgICAgICBkZiA8LSBtZXJnZSh4PWRmLCB5PWlkcywgYnk9XCJzYW1wbGVJZFwiLCBhbGwueCA9IFRSVUUsIHN1ZmZpeGVzPWMoXCJcIixhcy5jaGFyYWN0ZXIoaSkpKVxuICAgICAgICB9IFxuICAgIClcbiAgICBkYXRhLmNvcHkgPC0gZGF0YS5jb3B5WyFkYXRhLmNvcHkkcGFuZWxJZCAlaW4lIGNvbnRyb2xzJHBhbmVsSWQsXSAjIG5vdCByZWx5aW5nIG9uIHJvd25hbWVzXG4gICAgXG4gIH1cbiAgcmV0dXJuKGxpc3QoXCJpZHNcIj1kZiwgXCJtYXRjaGVzXCI9bWF0Y2hlcykpXG59XG5cbmBgYCJ9 -->
+<pre class="r"><code>matchRatio &lt;- function(data, metric, n, exact = c()){
+  # A wrapper for the MatchIt framework to carry out arbitrary numbers of successive matches
+  # data must have:
+  #   * sampleId
+  #   * panelId
+  #   * treat
+  require(MatchIt)
+    
+  # assign the dataframe to hold the matching results
+  df &lt;- data.frame(matrix(ncol=1, nrow=sum(data$treat==1)))
+  names(df) &lt;- c(&quot;sampleId&quot;)
+  df$sampleId &lt;- data$sampleId[data$treat==1]
+  
+  # assign the object to hold all the matching information
+  matches &lt;- vector(&quot;list&quot;,n)
+  
+  # make a copy of the passed-in data
+  data.copy &lt;- data.frame(data)
+  
+  # loop over the number of respondents per target
+  # if there are issues, can I relax the age groups?
+  for(i in 1:n){
+    print(paste(&#39;i = &#39;,as.character(i)))
+    m &lt;- matchit(matching.form, 
+                 data = data.copy, exact=exact, method = &quot;nearest&quot;, distance = metric)
+    controls &lt;- match.data(m, group=&#39;control&#39;)
+    
+    try({matches[[i]] &lt;- m
+        sampleids &lt;- data.copy[row.names(m$match.matrix), &quot;sampleId&quot;]
+        panelids &lt;- data.copy[m$match.matrix,&quot;panelId&quot;]
+        ids &lt;- data.frame(sampleId=sampleids, panelId=panelids, stringsAsFactors = F)
+        df &lt;- merge(x=df, y=ids, by=&quot;sampleId&quot;, all.x = TRUE, suffixes=c(&quot;&quot;,as.character(i)))
+        } 
+    )
+    data.copy &lt;- data.copy[!data.copy$panelId %in% controls$panelId,] # not relying on rownames
+    
+  }
+  return(list(&quot;ids&quot;=df, &quot;matches&quot;=matches))
+}
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Look at both:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3N1bSh0YXJnZXQub3RoZXIkc2FtcGxlSWQlaW4ldGFyZ2V0Lm9sZCRzYW1wbGVJZClcbmBgYCJ9 -->
-<pre class="r"><code>#sum(target.other$sampleId%in%target.old$sampleId)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubiA8LSA1XG5tYXRjaGVzID0gbWF0Y2hSYXRpbyhhbGxkYXRhLCBcIm1haGFsYW5vYmlzXCIsIG4sIGV4YWN0ID0gYyhcImFnZV9ncm91cFwiLFwiZ2VuZFwiKSlcbmBgYCJ9 -->
+<pre class="r"><code>n &lt;- 5
+matches = matchRatio(alldata, &quot;mahalanobis&quot;, n, exact = c(&quot;age_group&quot;,&quot;gend&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Note that this doesn’t work. We’ll need to re-fit the old sample with the new data. It seems I used the 1909 census target all along; hopefully nothing else big changed…</p>
-<p>Re-engineer censusId:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF4KG5jaGFyKGNlbnN1cyRjZW5zdXNJZCkpXG5gYGAifQ== -->
-<pre class="r"><code>max(nchar(census$censusId))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyXG4ifQ== -->
-<pre><code>[1] 12</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF4KG5jaGFyKHRhcmdldC5vbGQkc2FtcGxlSWQpKVxuYGBgIn0= -->
-<pre class="r"><code>max(nchar(target.old$sampleId))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEzXG4ifQ== -->
-<pre><code>[1] 13</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBtYXgobmNoYXIodGFyZ2V0JHNhbXBsZUlkKSlcbnRhcmdldC5vbGQkY2Vuc3VzSWQgPC0gc3Vic3RyKHRhcmdldC5vbGQkc2FtcGxlSWQsMSwxMilcbnRhYmxlKG5jaGFyKHRhcmdldC5vbGQkY2Vuc3VzSWQpKVxuYGBgIn0= -->
-<pre class="r"><code># max(nchar(target$sampleId))
-target.old$censusId &lt;- substr(target.old$sampleId,1,12)
-table(nchar(target.old$censusId))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gIDEyIFxuMTIwMCBcbiJ9 -->
-<pre><code>
-  12 
-1200 </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUobmNoYXIodGFyZ2V0Lm9sZCRzYW1wbGVJZCkpXG5gYGAifQ== -->
-<pre class="r"><code>table(nchar(target.old$sampleId))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gIDEzIFxuMTIwMCBcbiJ9 -->
-<pre><code>
-  13 
-1200 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaSA9ICAxXCJcblsxXSBcImkgPSAgMlwiXG5bMV0gXCJpID0gIDNcIlxuWzFdIFwiaSA9ICA0XCJcblsxXSBcImkgPSAgNVwiXG4ifQ== -->
+<pre><code>[1] &quot;i =  1&quot;
+[1] &quot;i =  2&quot;
+[1] &quot;i =  3&quot;
+[1] &quot;i =  4&quot;
+[1] &quot;i =  5&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Use censusId to replace X,Y in target.old</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFyZ2V0Lm5ldyA8LSBtZXJnZSh0YXJnZXQub2xkWyxncmVwKFwiWHxZXCIsbmFtZXModGFyZ2V0Lm9sZCksaW52ZXJ0PVQsdmFsdWUgPSBUKSx3aXRoPUZdLFxuICAgICAgY2Vuc3VzWyxjKFwiY2Vuc3VzSWRcIixcIlhcIixcIllcIiksd2l0aD1GXSwgYnk9XCJjZW5zdXNJZFwiKVxuc3VtKCF0YXJnZXQubmV3JHNhbXBsZUlkJWluJXRhcmdldC5vbGQkc2FtcGxlSWQpXG5gYGAifQ== -->
-<pre class="r"><code>target.new &lt;- merge(target.old[,grep(&quot;X|Y&quot;,names(target.old),invert=T,value = T),with=F],
-      census[,c(&quot;censusId&quot;,&quot;X&quot;,&quot;Y&quot;),with=F], by=&quot;censusId&quot;)
-sum(!target.new$sampleId%in%target.old$sampleId)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lIDwtIGZ1bmN0aW9uKG1hdGNoZXMsIHRpdGxlKXtcbiAgcmVxdWlyZShnZ3Bsb3QyKVxuICAjIG1ha2UgYSBjb3B5IG9mIHBhc3NlZC1pbiBtYXRjaCBkYXRhLCBnZXQgbnVtYmVyXG4gIHByaW50KCdzZXR0aW5nIHVwJylcbiAgdG1wIDwtIG1hdGNoZXNcbiAgbiA8LSBsZW5ndGgodG1wJG1hdGNoZXMpXG5cbiAgIyBjcmVhdGluZyBhIG1hdHJpeCB0byBzdG9yZSByZXN1bHRzIGZvciBlYWNoIHBhc3MgYW5kIHZhcmlhYmxlICBcbiAgcHJpbnQoJ3ByZXBhcmUgZGF0YWZyYW1lJylcbiAgbXMgPC0gZGF0YS5mcmFtZShtYXRyaXgobmNvbCA9IG4sIG5yb3cgPSBucm93KHN1bW1hcnkodG1wJG1hdGNoZXNbWzFdXSkkc3VtLm1hdGNoZWQpKSlcbiAgdmFycyA8LSByb3cubmFtZXMoc3VtbWFyeSh0bXAkbWF0Y2hlc1tbMV1dKSRzdW0ubWF0Y2hlZClcbiAgcm93Lm5hbWVzKG1zKSA8LSB2YXJzXG4gIFxuICAjIGxvb2sgdGhyb3VnaCBwYXNzZXMgYW5kXG4gIHByaW50KFwiZ28gdGhyb3VnaCBtYXRjaGVzXCIpXG4gIGZvciAoaSBpbiAxOm4pe1xuICAgIG1zW2ldIDwtIHN1bW1hcnkodG1wJG1hdGNoZXNbW2ldXSwgc3RhbmRhcmRpemUgPSBUUlVFKSRzdW0ubWF0Y2hlZCRgU3RkLiBNZWFuIERpZmYuYFxuICB9IFxuICBcbiAgcHJpbnQoXCJtYXNzYWdlIGRhdGFcIilcbiAgbXMudHJhbnNwIDwtIGFzLmRhdGEuZnJhbWUodChtcykpXG4gIGNvbG5hbWVzKG1zLnRyYW5zcCkgPC0gdmFyc1xuICBtcy50cmFuc3BbJ1Bhc3MnXSA8LSBzZXEoMSxuKVxuICBtb2x0ZW4gPC0gbWVsdChtcy50cmFuc3AsIGlkLnZhcnM9XCJQYXNzXCIpXG4gIHJvd25hbWVzKG1zLnRyYW5zcClcbiAgXG4gICNnZ3Bsb3QgaXQuLi5cbiAgXG4gICNwbmcoZmlsZW5hbWU9XCJwc19pbWJhbGFuY2UucG5nXCIpXG4gIHByaW50KFwicmV0dXJuIHBsb3RcIilcbiAgcCA8LSBnZ3Bsb3QobW9sdGVuLCBhZXMoeD1QYXNzLCB5PXZhbHVlLCBjb2xvdXI9dmFyaWFibGUpKSArIGdlb21fbGluZSgpICsgbGFicyh5PSBcIkJhbGFuY2VcIix0aXRsZT10aXRsZSkgKyB0aGVtZShhc3BlY3QucmF0aW8gPSAxMC8xNikgKyBjb29yZF9jYXJ0ZXNpYW4oeWxpbSA9IGMoLTEuNSwgMS41KSkgXG4gIGdnc2F2ZShwYXN0ZTAoXCIuL1wiLHRpdGxlLCBcIi5wbmdcIikpXG4gIHJldHVybihwKVxuICAjZGV2Lm9mZigpXG59XG5gYGAifQ== -->
+<pre class="r"><code>plot_imbalance_over_time &lt;- function(matches, title){
+  require(ggplot2)
+  # make a copy of passed-in match data, get number
+  print(&#39;setting up&#39;)
+  tmp &lt;- matches
+  n &lt;- length(tmp$matches)
+
+  # creating a matrix to store results for each pass and variable  
+  print(&#39;prepare dataframe&#39;)
+  ms &lt;- data.frame(matrix(ncol = n, nrow = nrow(summary(tmp$matches[[1]])$sum.matched)))
+  vars &lt;- row.names(summary(tmp$matches[[1]])$sum.matched)
+  row.names(ms) &lt;- vars
+  
+  # look through passes and
+  print(&quot;go through matches&quot;)
+  for (i in 1:n){
+    ms[i] &lt;- summary(tmp$matches[[i]], standardize = TRUE)$sum.matched$`Std. Mean Diff.`
+  } 
+  
+  print(&quot;massage data&quot;)
+  ms.transp &lt;- as.data.frame(t(ms))
+  colnames(ms.transp) &lt;- vars
+  ms.transp[&#39;Pass&#39;] &lt;- seq(1,n)
+  molten &lt;- melt(ms.transp, id.vars=&quot;Pass&quot;)
+  rownames(ms.transp)
+  
+  #ggplot it...
+  
+  #png(filename=&quot;ps_imbalance.png&quot;)
+  print(&quot;return plot&quot;)
+  p &lt;- ggplot(molten, aes(x=Pass, y=value, colour=variable)) + geom_line() + labs(y= &quot;Balance&quot;,title=title) + theme(aspect.ratio = 10/16) + coord_cartesian(ylim = c(-1.5, 1.5)) 
+  ggsave(paste0(&quot;./&quot;,title, &quot;.png&quot;))
+  return(p)
+  #dev.off()
+}</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDBcbiJ9 -->
-<pre><code>[1] 0</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGltKHRhcmdldC5uZXcpXG5gYGAifQ== -->
-<pre class="r"><code>dim(target.new)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyMDAgICAxMVxuIn0= -->
-<pre><code>[1] 1200   11</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtKCF0YXJnZXQub2xkJGNlbnN1c0lkJWluJWNlbnN1cyRjZW5zdXNJZClcbmBgYCJ9 -->
-<pre class="r"><code>sum(!target.old$censusId%in%census$censusId)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDBcbiJ9 -->
-<pre><code>[1] 0</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFyZ2V0Lm9sZFshY2Vuc3VzSWQlaW4lY2Vuc3VzJGNlbnN1c0lkLF1cbmBgYCJ9 -->
-<pre class="r"><code>target.old[!censusId%in%census$censusId,]</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjExLCJucm93IjowfSwicmRmIjoiSDRzSUFBQUFBQUFBQnAxUnkyNkRNQkJjSHFZSlVTT2tma2VRbWlycUI3U1gzcXFlNk5FQkYxQ01iZGxHN2Rlbk5lQnRGQjlqQ2Uzc2VIYlhzM3k4Vms5NWxRTkFBa2tXUVVJY2hPemwvWEYvMkFPa3Njc2lTR0U5eFIrbmVuQmc0NzRDbG5OL1k5d0cwZmU3R3JqVzhyc1VkR0RtVW5nbElEV254dmhxSlBPR1dscCthVmNYeXJGWE1adFl5SldoZytMc3JmRjUyaktCT0tFdFEvcEliZWR4elA0RmJGQW9VRXdMcExzT3RWR0Y0Qk1IMWt5WTBiaUJBT2ZnaFhkUzJWNEs5OFo0V2pRSnJFVTZJSXBSVEo2YVhkMk40clE3UEUvKzUvdkx0a084V1dhbXY3NFg4YjB5SnRwZW9GL0M2WkZ4bjJ6ZGo1aDNWeXJkQzR1TGRxd3ByYlFVZFhrdE9US3pPVGovQVZGMmFkaGhBZ0FBIn0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["sampleId"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gend"],"name":[2],"type":["int"],"align":["right"]},{"label":["age"],"name":[3],"type":["int"],"align":["right"]},{"label":["bath"],"name":[4],"type":["int"],"align":["right"]},{"label":["ed"],"name":[5],"type":["int"],"align":["right"]},{"label":["emp"],"name":[6],"type":["int"],"align":["right"]},{"label":["pern"],"name":[7],"type":["int"],"align":["right"]},{"label":["hhh"],"name":[8],"type":["int"],"align":["right"]},{"label":["X"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["censusId"],"name":[11],"type":["chr"],"align":["left"]}],"data":[],"options":{"columns":{"min":{},"max":[10],"total":[11]},"rows":{"min":[10],"max":[10],"total":[0]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2Vuc3VzW1g9PS01OC40NDg4OCxdXG5gYGAifQ== -->
-<pre class="r"><code>census[X==-58.44888,]</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEudGFibGUiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjEyLCJucm93IjowfSwicmRmIjoiSDRzSUFBQUFBQUFBQnFWUlhVdkRNQlM5L2RUVk9RcitqcFcxTW53V0hlS1Rvd2lyVDVLMXNTMTJTV2xTOU5kUDB6WlhNYkFuQStHZWUzSnljODlOZXA5ZEIxa0FBQTQ0dmdXT3B5RDRkOXM0V1NjQXJxMHlDMXlZRGZGVHFhNFVtS3Nkd3JRdS94a1hSdFQ4bjRkbkhmK0lHRGxRY1VMZzVRMFJRbmVGWkZBUVNhSzNUdDB6NVZnckhNMU01SGxPbWVqRlk0R2k3U2JkUGV2RUxTbkRBNGVVRk9rOWtaWEdOdjBSMEVPTGdwWjJET21xUXEyVklYalI0T0poOHhTLzNxYkpLbDZwOUdoMGZNWmJXWE9tZXJhSEQvQU1xMVpuRUdIUEJvL0ZNcTk2OXI1YzN3enpHTTkvcDJ6aStmU20rNlZyZWJxV1QxbFpNN1RzTldSUEc1MHMxTWVNczR6YXJtWVNCNjlZRVVrdUNlcUNuRGZJak9iZytBMDIzc01zZVFJQUFBPT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["censusId"],"name":[1],"type":["chr"],"align":["left"]},{"label":["PERWT"],"name":[2],"type":["int"],"align":["right"]},{"label":["gend"],"name":[3],"type":["int"],"align":["right"]},{"label":["age"],"name":[4],"type":["int"],"align":["right"]},{"label":["bath"],"name":[5],"type":["int"],"align":["right"]},{"label":["ed"],"name":[6],"type":["int"],"align":["right"]},{"label":["emp"],"name":[7],"type":["int"],"align":["right"]},{"label":["pern"],"name":[8],"type":["int"],"align":["right"]},{"label":["hhh"],"name":[9],"type":["int"],"align":["right"]},{"label":["X"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Y"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["GEO1_AR2010"],"name":[12],"type":["int"],"align":["right"]}],"data":[],"options":{"columns":{"min":{},"max":[10],"total":[12]},"rows":{"min":[10],"max":[10],"total":[0]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Write target with new geography to disk</p>
-<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXModGFyZ2V0Lm5ldylcbmBgYCJ9 -->
-<pre class="r"><code>names(target.new)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcImNlbnN1c0lkXCIgXCJzYW1wbGVJZFwiIFwiZ2VuZFwiICAgICBcImFnZVwiICAgICAgXCJiYXRoXCIgICAgIFwiZWRcIiAgICAgICBcImVtcFwiICAgICAgXCJwZXJuXCIgICAgIFwiaGhoXCIgICAgICBcIlhcIiAgICAgICAgXCJZXCIgICAgICAgXG4ifQ== -->
-<pre><code> [1] &quot;censusId&quot; &quot;sampleId&quot; &quot;gend&quot;     &quot;age&quot;      &quot;bath&quot;     &quot;ed&quot;       &quot;emp&quot;      &quot;pern&quot;     &quot;hhh&quot;      &quot;X&quot;        &quot;Y&quot;       </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHg9dGFyZ2V0Lm5ldyxcbiAgICAgICAgICBmaWxlID0gcGFzdGUwKGRhdGFkaXIsXG4gICAgICAgICAgICAgICAgICAgICAgICBcInNhbXBsZS9cIixcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50cnksXG4gICAgICAgICAgICAgICAgICAgICAgICBcIl90YXJnZXRfXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAjIGZvcm1hdChTeXMudGltZSgpLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIFwiJXklbSVkXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgXCIyMDE5MDkwOVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgXCIuY3N2XCIpLFxuICAgICAgICAgIHJvdy5uYW1lcyA9IEZcbiAgICAgICAgICAgICAgICAgICAgKVxuXG5gYGAifQ== -->
-<pre class="r"><code>write.csv(x=target.new,
-          file = paste0(datadir,
-                        &quot;sample/&quot;,
-                        country,
-                        &quot;_target_&quot;,
-                        # format(Sys.time(), 
-                               # &quot;%y%m%d&quot;),
-                        &quot;20190909&quot;,
-                        &quot;.csv&quot;),
-          row.names = F
-                    )
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lKG1hdGNoZXMsXCJNYWhhbGFub2JpcyBpbWJhbGFuY2UgaW4gcmVwZWF0IG1hdGNoaW5nXCIpXG5cbmBgYCJ9 -->
+<pre class="r"><code>plot_imbalance_over_time(matches,&quot;Mahalanobis imbalance in repeat matching&quot;)
 </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBnZ3Bsb3QyXG5Vc2Ugc3VwcHJlc3NQYWNrYWdlU3RhcnR1cE1lc3NhZ2VzKCkgdG8gZWxpbWluYXRlIHBhY2thZ2Ugc3RhcnR1cCBtZXNzYWdlcy5cbiJ9 -->
+<pre><code>Loading required package: ggplot2
+Use suppressPackageStartupMessages() to eliminate package startup messages.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwic2V0dGluZyB1cFwiXG5bMV0gXCJwcmVwYXJlIGRhdGFmcmFtZVwiXG5bMV0gXCJnbyB0aHJvdWdoIG1hdGNoZXNcIlxuWzFdIFwibWFzc2FnZSBkYXRhXCJcblsxXSBcInJldHVybiBwbG90XCJcbiJ9 -->
+<pre><code>[1] &quot;setting up&quot;
+[1] &quot;prepare dataframe&quot;
+[1] &quot;go through matches&quot;
+[1] &quot;massage data&quot;
+[1] &quot;return plot&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiU2F2aW5nIDcgeCA3IGluIGltYWdlXG4ifQ== -->
+<pre><code>Saving 7 x 7 in image</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
+<p><img src="data:image/png;base64,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" /></p>
+<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogImRyYXdfc2FtcGxlIg0KYXV0aG9yOiAiTWFpdGEgU2NoYWRlIg0KZGF0ZTogIkF1ZyA4LCAyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KTWFrZSBzdXJlIHdlJ3JlIGRlYWxpbmcgd2l0aCBhIGNsZWFyIHNwYWNlOg0KYGBge3J9DQpybShsaXN0ID0gbHMoYWxsID0gVFJVRSkpDQpgYGANCiAgDQpTZXQgdGhlIGZvbGxvd2luZyBjaHVuayBkZXBlbmRpbmcgb24gdGhlIGNpcmN1bXN0YW5jZXM6DQpgYGB7cn0NCmNvdW50cnkgPSAiQVIiDQpgYGANCg0KRGVmaW5pbmcgZmlsZXMtLW1ha2Ugc3VyZSB0aGUgZGlycyBhcmUgb2theTsgb3RoZXIgdGhhbiB0aGF0IHlvdSBzaG91bGRuJ3QgbmVlZCB0byB0b3VjaCB0aGlzIGlmIHRoZSBmaWxlIHN0cnVjdHVyZSBpcyBzZXQgdXAgcHJvcGVybHkuDQpgYGB7cn0NCmRhdGFkaXIgPSBwYXN0ZTAoJ0M6L1VzZXJzL3NjaGFkZW0vQm94IFN5bmMvTEFQT1AgU2hhcmVkL3dvcmtpbmcgZG9jdW1lbnRzL21haXRhL0Nvb3JkaW5hdGlvbi9Ob2FtIEFyZ2VudGluYSBQYW5lbC9NYXRjaGluZyBwcm9jZXNzL0RhdGEvJyxjb3VudHJ5LCcvJykNCg0KY2Vuc3VzcGF0aCA8LSBwYXN0ZTAoZGF0YWRpciwnc2FtcGxlLycsIGNvdW50cnksJ19pcHVtc19yZWNvZGVkLmNzdicpDQoNCnJlY29kZXBhdGggPC0gcGFzdGUwKCIuL3JlY29kZV9OZXRxdWVzdF9JUFVNU18iLGNvdW50cnksICIuY3N2IikNCnBhcmFtcGF0aCA8LSAiLi9jb3VudHJ5X3BhcmFtZXRlcnMuY3N2IiAjIHNldCBzcGVjaWZpYyBwYXJhbWV0cnMgaW4gdGhpcyBmaWxlDQpgYGANCg0KYGBge3J9DQpsaWJyYXJ5KGRhdGEudGFibGUpDQpsaWJyYXJ5KGRldnRvb2xzKQ0KI2luc3RhbGwucGFja2FnZXMoJ2RldnRvb2xzJykNCiNpbnN0YWxsX2dpdGh1YigibWFpdGFnb3JyaS9zYW1wbGVNYXRjaCIpDQpsaWJyYXJ5KHNhbXBsZU1hdGNoKQ0KYGBgDQoNCkxvYWQgY291bnRyeS1zcGVjaWZpYyBwYXJhbWV0ZXJzOg0KYGBge3J9DQpwYXJhbXMgPC0gZnJlYWQocGFyYW1wYXRoLGtleSA9ICJjb3VudHJ5IilbY291bnRyeSxdDQpzdHJhdHMgPC0gdW5saXN0KEZpbHRlcihmID0gTmVnYXRlKGlzLm5hKSwgcGFyYW1zWyxjKCJzdHJhdDEiLCJzdHJhdDIiKV0pKQ0KYGBgDQoNCg0KUmVhZGluZyBpbiB0aGUgc2FtcGxpbmcgZGF0YSBhbmQgbWFraW5nIG5lY2Vzc2FyeSB1cGRhdGVzLg0KDQpIZXJlLCB3ZSBhcmUgdXNpbmcgdGhlIElQVU1TIGRhdGEuDQpgYGB7cn0NCmNlbnN1czwtIGZyZWFkKGNlbnN1c3BhdGgsIGNvbENsYXNzZXMgPSBjKGNlbnN1c0lkPSJjaGFyYWN0ZXIiKSkgI2tlZXAgaXQgc2ltcGxlLCBhbmQga2VlcCBsZWFkaW5nIDBzDQpoZWFkKGNlbnN1cykNCg0KYGBgDQoNCg0KVHJ5IHN0cmF0aWZpZWQgc2FtcGxpbmcuDQoNCmBgYHtyfQ0KbiA8LSAxMjAwDQpzZXQuc2VlZCgxMjE5ODgpDQp0YXJnZXQgIDwtIHN0cmF0X3dlaWdodF9zYW1wbGUoY2Vuc3VzLHN0cmF0cywnUEVSV1QnLG4pDQpgYGANCg0KVGhpcyBjaHVuayBqdXN0IGZvciB0ZXN0aW5nIG11bHRpLWFwcGVhcmFuY2VzIG9mIGNlbnN1c0lkcw0KYGBge3J9DQojIHdoaWxlKG5yb3cobXVsdGlzKSE9MCl7DQojICAgdGFyZ2V0ICA8LSBzdHJhdF93ZWlnaHRfc2FtcGxlKGNlbnN1cyxzdHJhdHMsJ1BFUldUJyxuKQ0KIyAgIG11bHRpcyA8LSB1bmlxdWUodGFyZ2V0W2R1cGxpY2F0ZWQodGFyZ2V0JGNlbnN1c0lkKSwnY2Vuc3VzSWQnXSkNCiMgfQ0KYGBgDQoNCk1ha2luZyBzdXJlIHRoaXMgc3RyYXRpZmljYXRpb24gd29ya2VkLi4uDQpgYGB7cn0NCmJhcnBsb3QodGFibGUoIHRhcmdldFtbc3RyYXRzWzFdXV0pKQ0KbnJvdyh0YXJnZXQpDQpoZWFkKHRhcmdldCkNCmhpc3QodGFyZ2V0JGFnZSkNCmhpc3QoY2Vuc3VzJGFnZSkNCnRhYmxlKHRhcmdldCRhZ2UsdGFyZ2V0JGdlbmQpDQpgYGANCg0KQWRkIGEgc2FtcGxlIGlkLCBjb3VudGluZyB0aG9zZSB0aGF0IG9jY3VyIG1vcmUgdGhhbiBvbmNlOg0KYGBge3J9DQp0YXJnZXQkU0FNUENUPC0xDQptdWx0aXMgPC0gdW5pcXVlKHRhcmdldFtkdXBsaWNhdGVkKHRhcmdldCRjZW5zdXNJZCksJ2NlbnN1c0lkJ10pDQoNCmZvciAoaSBpbiBtdWx0aXMpew0KICBwcmludChpKQ0KICB0YXJnZXRbdGFyZ2V0JGNlbnN1c0lkPT1pLCdTQU1QQ1QnOj0xOnRhYmxlKHRhcmdldCRjZW5zdXNJZClbaV1dDQp9DQp0YWJsZSh0YXJnZXQkU0FNUENUKSAjIGNoZWNrIHRoYXQgdGhlIHNhbXBjb3VudHMgYXJlIHJpZ2h0DQoNCnRhcmdldCRzYW1wbGVJZCA8LSBwYXN0ZTAoDQogIHRhcmdldCRjZW5zdXNJZCwNCiAgc3ByaW50ZigNCiAgICBwYXN0ZTAoJyUwJywNCiAgICAgICAgICAgYXMuY2hhcmFjdGVyKG1heChuY2hhcih0YXJnZXQkU0FNUENUKSkpLA0KICAgICAgICAgICAnLjBmJyksDQogICAgdGFyZ2V0JFNBTVBDVCkNCikNCmhlYWQodGFyZ2V0KQ0KYGBgDQoNCg0KRGljZSBqdXN0IHRoZSB2YXJpYWJsZXMgbmVlZGVkIGZvciBtYXRjaGluZw0KYGBge3J9DQpyZWNvZGVfbWFwIDwtIGZyZWFkKHJlY29kZXBhdGgpDQptYXRjaGluZy52YXJzIDwtIHVuaXF1ZShyZWNvZGVfbWFwJGNvbW1vbl92YXIpDQp0YXJnZXQgPC0gdGFyZ2V0WyxjKCJzYW1wbGVJZCIsbWF0Y2hpbmcudmFycyksd2l0aD1GXQ0KYGBgDQoNClNpbmNlIHdlIGp1c3QgcmUtZGVmaW5lZCB0aGUgZ2VvZ3JhcGhpZXMgdG8gZGVwYXJ0bWVudHMgYWdhaW4sIGxldCdzIG1ha2Ugc3VyZSB0aGUgbmV3IGFuZCBpbXByb3ZlZCB0YXJnZXQgaXMgZXhhY3RseSB0aGUgc2FtZSBhcyB0aGUgcHJldmlvdXMsIGV4Y2VwdCBmb3IgWCBhbmQgWS4NCg0KTG9hZCBwcmV2aW91cyB0YXJnZXQ6DQpgYGB7cn0NCnRhcmdldC5vbGQgPC0gZnJlYWQocGFzdGUwKGRhdGFkaXIsICJzYW1wbGUvQVJfdGFyZ2V0XzIwMTkwOTA5X3Byb3ZpbmNlLmNzdiIpLGNvbENsYXNzZXMgPSBjKHNhbXBsZUlkPSJjaGFyYWN0ZXIiKSkNCiN0YXJnZXQub3RoZXIgPC0gZnJlYWQocGFzdGUwKGRhdGFkaXIsICIvc2FtcGxlL0FSX3RhcmdldF8xOTA5MTJfcHJvdmluY2UuY3N2IiksY29sQ2xhc3NlcyA9IGMoc2FtcGxlSWQ9ImNoYXJhY3RlciIpKQ0KDQpgYGANCkxvb2sgYXQgYm90aDoNCmBgYHtyfQ0KI3N1bSh0YXJnZXQub3RoZXIkc2FtcGxlSWQlaW4ldGFyZ2V0Lm9sZCRzYW1wbGVJZCkNCmBgYA0KTm90ZSB0aGF0IHRoaXMgZG9lc24ndCB3b3JrLiBXZSdsbCBuZWVkIHRvIHJlLWZpdCB0aGUgb2xkIHNhbXBsZSB3aXRoIHRoZSBuZXcgZGF0YS4NCkl0IHNlZW1zIEkgdXNlZCB0aGUgMTkwOSBjZW5zdXMgdGFyZ2V0IGFsbCBhbG9uZzsgaG9wZWZ1bGx5IG5vdGhpbmcgZWxzZSBiaWcgY2hhbmdlZC4uLg0KDQpSZS1lbmdpbmVlciBjZW5zdXNJZDoNCmBgYHtyfQ0KbWF4KG5jaGFyKGNlbnN1cyRjZW5zdXNJZCkpDQptYXgobmNoYXIodGFyZ2V0Lm9sZCRzYW1wbGVJZCkpDQojIG1heChuY2hhcih0YXJnZXQkc2FtcGxlSWQpKQ0KdGFyZ2V0Lm9sZCRjZW5zdXNJZCA8LSBzdWJzdHIodGFyZ2V0Lm9sZCRzYW1wbGVJZCwxLDEyKQ0KdGFibGUobmNoYXIodGFyZ2V0Lm9sZCRjZW5zdXNJZCkpDQp0YWJsZShuY2hhcih0YXJnZXQub2xkJHNhbXBsZUlkKSkNCg0KYGBgDQpVc2UgY2Vuc3VzSWQgdG8gcmVwbGFjZSBYLFkgaW4gdGFyZ2V0Lm9sZA0KYGBge3J9DQp0YXJnZXQubmV3IDwtIG1lcmdlKHRhcmdldC5vbGRbLGdyZXAoIlh8WSIsbmFtZXModGFyZ2V0Lm9sZCksaW52ZXJ0PVQsdmFsdWUgPSBUKSx3aXRoPUZdLA0KICAgICAgY2Vuc3VzWyxjKCJjZW5zdXNJZCIsIlgiLCJZIiksd2l0aD1GXSwgYnk9ImNlbnN1c0lkIikNCnN1bSghdGFyZ2V0Lm5ldyRzYW1wbGVJZCVpbiV0YXJnZXQub2xkJHNhbXBsZUlkKQ0KZGltKHRhcmdldC5uZXcpDQpzdW0oIXRhcmdldC5vbGQkY2Vuc3VzSWQlaW4lY2Vuc3VzJGNlbnN1c0lkKQ0KdGFyZ2V0Lm9sZFshY2Vuc3VzSWQlaW4lY2Vuc3VzJGNlbnN1c0lkLF0NCmNlbnN1c1tYPT0tNTguNDQ4ODgsXQ0KYGBgDQoNCldyaXRlIHRhcmdldCB3aXRoIG5ldyBnZW9ncmFwaHkgdG8gZGlzaw0KYGBge3J9DQpuYW1lcyh0YXJnZXQubmV3KQ0Kd3JpdGUuY3N2KHg9dGFyZ2V0Lm5ldywNCiAgICAgICAgICBmaWxlID0gcGFzdGUwKGRhdGFkaXIsDQogICAgICAgICAgICAgICAgICAgICAgICAic2FtcGxlLyIsDQogICAgICAgICAgICAgICAgICAgICAgICBjb3VudHJ5LA0KICAgICAgICAgICAgICAgICAgICAgICAgIl90YXJnZXRfIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICMgZm9ybWF0KFN5cy50aW1lKCksIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgIiV5JW0lZCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgIjIwMTkwOTA5IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICIuY3N2IiksDQogICAgICAgICAgcm93Lm5hbWVzID0gRg0KICAgICAgICAgICAgICAgICAgICApDQoNCmBgYA0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIm1hdGNoIg0KYXV0aG9yOiAiTWFpdGEgU2NoYWRlIg0KZGF0ZTogIkF1ZyAyNiwgMjAxOSINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCg0KR2l2ZW4gYSB0YXJnZXQgc2FtcGxlLCByZWNvZGVkIHBhbmVsLCBhbmQgcG9zc2libHkgcHJldmlvdXMgaW52aXRlcyBhbmQgY29tcGxldGVzLCB0aGlzIG5vdGVib29rIHByb2R1Y2VzIGEgbmV3IHNldCBvZiBwYW5lbGlzdHMgdG8gaW52aXRlLCB3aXRoIGZsZXhpYmxlIG51bWJlciBvZiBjb2x1bW5zIChmb3IgbGFyZ2VyIGJhdGNoZXMpLg0KDQpNYWtlIHN1cmUgd2UncmUgZGVhbGluZyB3aXRoIGEgY2xlYXIgc3BhY2U6DQpgYGB7cn0NCnJtKGxpc3QgPSBscyhhbGwgPSBUUlVFKSkNCmBgYA0KDQpTZXQgdGhlIHNwYWNlIHVwLiBDb3VudHJ5IGlzIHRoZSBvbmx5IHRoaW5nIHlvdSBzaG91bGQgbmVlZCB0byBzZXQgbWFudWFsbHksIGlmIHRoZSBmaWxlcyBhcmUgYWxsIHNldCB1cCBwcm9wZXJseS4NCmBgYHtyfQ0KY291bnRyeSA8LSAiQVIiDQpgYGANCg0KRGVmaW5pbmcgZmlsZXMtLW1ha2Ugc3VyZSB0aGUgZGlycyBhcmUgb2theTsgb3RoZXIgdGhhbiB0aGF0IHlvdSBzaG91bGRuJ3QgbmVlZCB0byB0b3VjaCB0aGlzIGlmIHRoZSBmaWxlIHN0cnVjdHVyZSBpcyBzZXQgdXAgcHJvcGVybHkuDQpgYGB7cn0NCiNzdHJhdHMgPSAoIkdFTzFfQVIyMDEwIikNCiNzdHJhdDIgPSAiVVJCQU4iDQojIHdhdmUgPSAxNw0KIyBmaWxlZGF0ZSA9ICIxOTA4MjYiDQoNCmRhdGFkaXIgPC0gcGFzdGUwKCdDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9Db29yZGluYXRpb24vTm9hbSBBcmdlbnRpbmEgUGFuZWwvTWF0Y2hpbmcgcHJvY2Vzcy9EYXRhLycsY291bnRyeSwnLycpDQoNCg0KDQpwYW5lbGZpbGUgPC0gcGFzdGUwKGRhdGFkaXIsJ3BhbmVsLycsIGNvdW50cnksICdfbmV0cXVlc3RfcmVjb2RlZC5jc3YnKQ0KDQpyZWNvZGVwYXRoIDwtIHBhc3RlMCgiLi9yZWNvZGVfTmV0cXVlc3RfSVBVTVNfIixjb3VudHJ5LCAiLmNzdiIpICN0YWJsZSBzcGVjaWZ5aW5nIHJlY29kZXMNCnBhcmFtcGF0aCA8LSAiLi9jb3VudHJ5X3BhcmFtZXRlcnMuY3N2IiAjIHNldCBzcGVjZWZpYyBwYXJhbWV0ZXJzIGluIHRoaXMgZmlsZQ0KDQpyZXNwb25zZWZpbGUgPC0gcGFzdGUwKCdDOi9Vc2Vycy9zY2hhZGVtL0JveCBTeW5jL0xBUE9QIFNoYXJlZC93b3JraW5nIGRvY3VtZW50cy9tYWl0YS9Db29yZGluYXRpb24vTm9hbSBBcmdlbnRpbmEgUGFuZWwvRGF0YSBwcm9jZXNzaW5nL0RhdGEvQVBFXzIwMTlfc2VwdDd2Ml9PY3RvYmVyIDMsIDIwMTlfMTEuMjMuY3N2JykNCiNmaWxlIG9mIG5vdCB5ZXQgc2VudCBJRHMNCnJlY3ljbGVmaWxlIDwtIHBhc3RlMChkYXRhZGlyLCAicGFuZWwvQVJfc2VsZWN0ZWRfd2F2ZTFfUUMuY3N2IikNCiMgY29tcGxldGVzDQojIHByZXZpb3VzIHNlbGVjdGlvbnMNCmBgYA0KDQoNCmBgYHtyfQ0KbGlicmFyeSgnTWF0Y2hJdCcpDQpsaWJyYXJ5KCdkYXRhLnRhYmxlJykNCmxpYnJhcnkoJ29wZW54bHN4JykNCiMgbGlicmFyeSgnbGFiZWxsZWQnKQ0KIyANCiMgcmVxdWlyZShwbHlyKQ0KIyByZXF1aXJlKHJlc2hhcGUyKQ0KbGlicmFyeShzdHJpbmdyKQ0KYGBgDQoNCkxvYWQgY291bnRyeS1zcGVjaWZpYyBwYXJhbWV0ZXJzOg0KYGBge3J9DQpwYXJhbXMgPC0gZnJlYWQocGFyYW1wYXRoLGtleSA9ICJjb3VudHJ5IilbY291bnRyeSxdDQp0YXJnZXQuZGF0ZSA8LSBwYXJhbXNbLHRhcmdldC5kYXRlXQ0KcHJpbnQocGFzdGUwKCJUYXJnZXQgZGF0ZSBpcyAiLCB0YXJnZXQuZGF0ZSkpDQoNCk5RX2lkIDwtIHBhcmFtc1ssTlFfaWRdDQoNCg0KdGFyZ2V0ZmlsZSA8LSBwYXN0ZTAoZGF0YWRpciwgInNhbXBsZS8iLCBjb3VudHJ5LCAiX3RhcmdldF8iLCB0YXJnZXQuZGF0ZSwgIi5jc3YiKQ0KYGBgDQoNCg0KDQoNCkxvYWQgZGF0YQ0KYGBge3J9DQp0YXJnZXQgPC0gZnJlYWQodGFyZ2V0ZmlsZSwgY29sQ2xhc3NlcyA9IGMoc2FtcGxlSWQ9ImNoYXJhY3RlciIpLGRyb3AgPSBjKCJjZW5zdXNJZCIpKQ0KdGFyZ2V0WyxzYW1wbGVJZDo9c3RyX3BhZChzYW1wbGVJZCx3aWR0aD0xMyxwYWQ9IjAiKV0NCnBhbmVsIDwtIGZyZWFkKHBhbmVsZmlsZSkNCnJlY3ljbGUgPC0gZnJlYWQocmVjeWNsZWZpbGUpDQpsZW5ndGgodW5pcXVlKHBhbmVsJFgpKQ0KbGVuZ3RoKHVuaXF1ZSh0YXJnZXQkWCkpDQpgYGANCg0KDQpBcmUgdGhlcmUgcHJldmlvdXMgaW52aXRlcz8gSWYgc28sIGxvYWQgdGhlbS4NCkFsc28sIHBydW5lIHRoZSBwYW5lbCB0byBqdXN0IHRob3NlIG5vdCBwcmV2aW91c2x5IGludml0ZWQuDQpgYGB7cn0NCmlmIChsZW5ndGgobGlzdC5maWxlcyhwYXRoPXBhc3RlMChkYXRhZGlyLCJwYW5lbC8iKSwgcGF0dGVybiA9ICJ3YXZlIikpPjApew0KICBwcmludCgicHJldmlvdXMgaW52aXRlcyBmb3VuZCIpDQogICMgUHJpbnRpbmcgd2hhdCBpbnZpdGVzIGFyZSBjb25zaWRlcmVkDQogIGNhdChwYXN0ZTAoIkluY2x1ZGVkIGludml0ZSBmaWxlczogXG4iKSkNCg0KICAjIFJlYWRpbmcgaW4gaW52aXRlIGZpbGVzIGZyb20gYWxsIHdhdmVzDQogIHdhdmVzIDwtIGxhcHBseSgNCiAgICBncmVwKCJRQyIsbGlzdC5maWxlcyhwYXRoPXBhc3RlMChkYXRhZGlyLCJwYW5lbC8iKSwgcGF0dGVybiA9ICJ3YXZlIiksDQogICAgICAgICBpbnZlcnQgPSBULCB2YWx1ZSA9IFQpLCANCiAgICBmdW5jdGlvbiAoeCl7DQogICAgICBjYXQocGFzdGUwKCIgICAgIix4LCJcbiIpKQ0KICAgICMjIFdlIG1ha2Ugc3VyZSB0aGUgaW5kaXZpZHVhbCB3YXZlcyBoYXZlIGRpc3Rpbmd1aXNoYWJsZSBuYW1lcyBieSBhdHRhY2hpbmcgc3VmZml4ZXMNCiAgDQogICAgICBkZjwtZnJlYWQocGFzdGUwKGRhdGFkaXIsICJwYW5lbC8iLHgpLGNvbENsYXNzZXMgPSBjKHNhbXBsZUlkPSJjaGFyYWN0ZXIiKSkNCiAgICAgIGRmWyxzYW1wbGVJZCA6PSBzdHJfcGFkKHN0cmluZyA9IHNhbXBsZUlkLCB3aWR0aCA9IG1heChuY2hhcihzYW1wbGVJZCkpLCBzaWRlID0gImxlZnQiLCBwYWQgPSAiMCIpXQ0KICAgICAgI2RmWyxncmVwKCJwYW5lbElkIixuYW1lcyhkZiksdmFsdWUgPSBUKV08LXNhcHBseShkZlssZ3JlcCgicGFuZWxJZCIsbmFtZXMoZGYpLHZhbHVlID0gVCldLCB0b2xvd2VyKQ0KICAgICAgbndhdmU9YXMubnVtZXJpYyhzdHJfbWF0Y2goeCwgIndhdmUoXFxkKykiKVsyXSkNCiAgICAgIHN1ZmZpeD1wYXN0ZTAoIi4iLCgobndhdmUtMSkqNSkrMToobmNvbChkZiktMSkpDQogICAgICBwcmludChzdWZmaXgpDQogICAgICBuYW1lcyhkZilbZ3JlcCgicGFuZWxJZC4/IixuYW1lcyhkZikpXSA8LSBwYXN0ZTAoInBhbmVsSWQiLHN1ZmZpeCkNCiAgICAgIHJldHVybihkZikNCg0KICAgfQ0KICApDQogIA0KICAjIFRoZSB0YXJnZXQgaXMgYSB0YWJsZSBvZiB0YXJnZXQgcmVjb3Jkcywgd2l0aCBzZWxlY3RlZCBwYW5lbGlzdCBJRHMgZm9yIGVhY2ggd2F2ZQ0KICB0YXJnZXQuc2VsZWN0IDwtIFJlZHVjZShmdW5jdGlvbihkdGYxLCBkdGYyKSB7bWVyZ2UoZHRmMSwgZHRmMiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnkgPSBjKCJzYW1wbGVJZCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhbGwueCA9IFRSVUUpfSwNCiAgICAgICAgICAgICAgICAgICB3YXZlcykNCiAgDQogICMgdGFyZ2V0IDwtIHRhcmdldFtuYW1lcyh0YXJnZXQpWywtZ3JlcCgidGFyZ2V0SWR8WCIsbmFtZXModGFyZ2V0KSldXQ0KICANCiAgIyAic2VsZWN0ZWQiIGlzIGEgbG9uZyBsaXN0IG9mIGFsbCBOUSBwYW5lbGlzdHMgc2VsZWN0ZWQgZnJvbSBvdXIgZW5kDQogIHNlbGVjdGVkLndpZGUgPC0gUmVkdWNlKGZ1bmN0aW9uKGR0ZjEsIGR0ZjIpIHttZXJnZShkdGYxLCBkdGYyLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBieSA9IGMoInNhbXBsZUlkIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFsbC54ID0gVFJVRSwgYWxsLnkgPSBUUlVFKX0sDQogICAgICAgICAgICAgICAgICAgd2F2ZXMpDQogIHNlbGVjdGVkLndpZGUNCiAgIyBzZWxlY3RlZCA8LSBzZWxlY3RlZF93aWRlW25hbWVzKHNlbGVjdGVkX3dpZGUpWy1ncmVwKCJ0YXJnZXRJZHxYIixuYW1lcyhzZWxlY3RlZF93aWRlKSldXQ0KICBzZWxlY3RlZCA8LSBtZWx0KGRhdGEgPSBzZWxlY3RlZC53aWRlLG1lYXN1cmUudmFycyA9IGMoZ3JlcCgicGFuZWxJZCIsbmFtZXMoc2VsZWN0ZWQud2lkZSkpKSkNCiAgDQogIG5hbWVzKHNlbGVjdGVkKTwtYygic2FtcGxlSWQiLCAgICJ2YXJpYWJsZSIsICAgInBhbmVsSWQiKQ0KICBzZWxlY3RlZFssYmF0Y2g6PSBhcy5pbnRlZ2VyKHN0cl9tYXRjaCh2YXJpYWJsZSwiXFxkXFxkPyIpKV0NCiAgDQogIHNlbGVjdGVkPC1zZWxlY3RlZFtzZWxlY3RlZFssIWlzLm5hKHBhbmVsSWQpXSxdDQogICMgc2VsZWN0ZWQkd2F2ZSA8LSBhcy5pbnRlZ2VyKHJlZ21hdGNoZXMoc2VsZWN0ZWQkdmFyaWFibGUsIA0KICAjICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ2V4cHIoIlxcLlxcS1xcZCskIixzZWxlY3RlZCR2YXJpYWJsZSxwZXJsPVRSVUUpDQogICMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKQ0KICAjICAgICAgICAgICAgICAgICAgICAgICAgICAgICApDQoNCiAgIyBSZW1vdmUgd2hvIHdhcyBfbm90XyBpbnZpdGVkDQogIG5hbWVzKHJlY3ljbGUpWzFdIDwtICJwYW5lbElkIg0KDQogICMgd2hhdCBpcyBnb2luZyBvbiB3aXRoIG1vcmUgcmVtb3ZhbHMgdGhhbiByZWN5Y2xlZCBJRHM/DQogICMgSSB3b3VsZCBleHBlY3QgdGhhdCB0aGUgbnVtYmVyIG9mIHJlY3ljbGVzIG1pbnVzIHRoZSBudW1iZXIgb2YgZHVwbGljYXRlcyBlcXVhbHMgdGhlIHJlbW92YWxzLg0KICBhY3R1YWxseS51c2VkIDwtICghKHNlbGVjdGVkJHBhbmVsSWQlaW4lcmVjeWNsZSRwYW5lbElkKSl8KHNlbGVjdGVkJGJhdGNoPjUpDQogIG5yb3coc2VsZWN0ZWQpLXN1bShhY3R1YWxseS51c2VkKQ0KICANCiAgDQogIGludml0ZWQgPC0gc2VsZWN0ZWRbYWN0dWFsbHkudXNlZCxdDQogIGRpbShpbnZpdGVkKQ0KDQogICMgUHJ1bmUgcGFuZWwgdG8gZXhjbHVkZSBpbnZpdGVkDQogIHBhbmVsIDwtIHBhbmVsWyFwYW5lbElkICVpbiUgaW52aXRlZCRwYW5lbElkLF0NCiAgDQogICMgc2V0IHdhdmUNCiAgd2F2ZSA8LSBsZW5ndGgod2F2ZXMpKzENCiAgDQoNCn0gZWxzZSB7d2F2ZSA8LSAxfQ0KYGBgDQoNCkNoZWNrIHRoYXQgdGFyZ2V0LnNlbGVjdCBhbmQgdGFyZ2V0IGFyZSBjb21wYXRpYmxlIChhbmQgbm90aGluZyBnb3Qgc29tZWhvdyBtZXNzZWQgdXAgd2hlbiBmaXhpbmcgdG8gZGVwdCkNCmBgYHtyfQ0KI0FyZSB3ZSBva2F5LS1kaWQgd2Ugbm90IG1lc3MgdXAgdGhlIHNhbXBsZSB3aGVuIGZpeGluZyBkZXB0cz8NCnN1bSghdGFyZ2V0LnNlbGVjdCRzYW1wbGVJZCVpbiV0YXJnZXQkc2FtcGxlSWQpPT0wDQpgYGANCg0KDQpBcmUgdGhlcmUgcHJldmlvdXMgY29tcGxldGVzPyBJZiBzbywgbG9hZCB0aGVtLg0KYGBge3J9DQppZiAoIWlzLm51bGwocmVzcG9uc2VmaWxlKSl7DQogIHByaW50KCJjb21wbGV0ZXMgZm91bmQhIikNCg0KICAjICMgInJlc3BvbmRlZCIgY2FuIGJlIGxvYWRlZCBzdHJhaWdodCBmcm9tIFF1YWx0cmljcyANCiAgcmVzcG9uZGVkIDwtIGZyZWFkKHJlc3BvbnNlZmlsZSkNCiAgcmVzcG9uZGVkWywicGFuZWxJZCIgOj0gc3Vic3RyKHRpY2tldCwxLDE2KV0NCiAgcmVzcG9uZGVkIDwtIHJlc3BvbmRlZFstKDE6MykscGFuZWxJZF0NCg0KICAjLi4uIGZvciBpZGVudGlmeWluZyBob3cgbWFueSB0YXJnZXRzIGhhdmUgYmVlbiBoaXQsIGF0dGFjaCB0byBlYWNoIHJlc3BvbmRlbnQgaXRzIHVuaXF1ZSBTQU1QSUQNCiAgcmVzcG9uZGVkIDwtIHNlbGVjdGVkW3BhbmVsSWQlaW4lcmVzcG9uZGVkXQ0KICByZXNwb25kZWQgPC0gcmVzcG9uZGVkWyFkdXBsaWNhdGVkKHBhbmVsSWQsZnJvbUxhc3QgPSBUUlVFKSxdDQogIA0KDQogICAgDQogICMgQ291bnRpbmcgZHVwbGljYXRlcyBieSBjb3VudGluZyBvY2N1cnJlbmNlIG9mIHNhbXBsZUlkIGluIHJlc3BvbmRlbnRzOg0KICBuc2FtcF9yZXNwIDwtIHRhYmxlKHJlc3BvbmRlZCRzYW1wbGVJZCkNCiANCiAgZHVwZXMgPC0gc3VtKG5zYW1wX3Jlc3AtMSkgIA0KICBkdXBlcw0KICANCiAgbGVnaXQgPC0gbnJvdyhyZXNwb25kZWQpLWR1cGVzDQoNCiAgY2F0KHBhc3RlMCgiXG5EdXBsaWNhdGVzIGluICIsIGNvdW50cnksICI6ICIsIGR1cGVzLCJcbiIpKQ0KICBjYXQocGFzdGUwKCJcbkxlZ2l0IHJlc3BvbnNlczogIiwgbGVnaXQpKQ0KDQogICMgIyBSZXNwb25kZW50cyB0aGF0IHdlcmUgbm90IGludml0ZWQ/DQogICMgY2F0KHJlc3BvbmRlZFtpcy5uYShyZXNwb25kZWQkU0FNUElEKSxdW1tOUV9pZF1dKQ0KICANCiAgIyMgUHJ1bmUgdGFyZ2V0IHRvIGV4Y2x1ZGUgZmlsbGVkIHNsb3RzDQogICMgY3JlYXRlIGxpc3Qgb2YgcmVzcG9uZGVudHMgaW4gd2lkZSBzYW1wbGUgaWQgZm9ybWF0LS1hY3R1YWxseSB0aGlzIHNob3VsZG4ndCBiZSBuZWNlc3NhcnkgaGVyZSwgYnV0IGxldCdzIG5vdCBmdXR6IHdpdGggaXQgZm9yIG5vdw0KICBpbnZpdGVkLnJlc3AgPC0gaW52aXRlZFsocGFuZWxJZCAlaW4lIHJlc3BvbmRlZCRwYW5lbElkKSxdICN0aG9zZSB0aGF0IHdlcmUgaW52aXRlZCBhbmQgYWN0dWFsbHkgcmVzcG9uZGVkDQogIHJlc3BvbmRlZC53aWRlIDwtIGRjYXN0KGludml0ZWQucmVzcCwgLi4uIH4gdmFyaWFibGUpDQogIHJlc3BvbmRlZC53aWRlDQogIA0KICAjIENoZWNrIHRoYXQgbm8gc2FtcGxlSWQncyBhcmUgZHVwbGljYXRlZDoNCiAgaWYgKHN1bShkdXBsaWNhdGVkKHJlc3BvbmRlZC53aWRlJHNhbXBsZUlkKSkhPSAwKXsNCiAgICBwcmludCgiQWxlcnQhIER1cGxpY2F0ZWQgc2FtcGxlSWRzIGluIHJlc3BvbnNlcyIpDQogICAgcHJpbnQoc3VtKGR1cGxpY2F0ZWQocmVzcG9uZGVkLndpZGUkc2FtcGxlSWQpKSkNCiAgICB9DQogIA0KICAjIGtlZXAgb25seSB0YXJnZXRzIHRoYXQgYXJlIG5vdCBpbmNsdWRlZCBpbiByZXNwb25zZSBzZXQNCiAgdGFyZ2V0LnBydW5lZCA8LSB0YXJnZXRbIXNhbXBsZUlkJWluJXJlc3BvbmRlZC53aWRlJHNhbXBsZUlkLF0NCiAgZGltKGludml0ZWQucmVzcCkNCiAgZGltKHJlc3BvbmRlZCkNCiAgZGltKHJlc3BvbmRlZC53aWRlKQ0KICBwcmludCgiRGltZW5zaW9ucyBvZiBwcnVuZWQgdGFyZ2V0OiIpDQogIGRpbSh0YXJnZXQucHJ1bmVkKQ0KfSBlbHNlIHsNCiAgdGFyZ2V0LnBydW5lZCA8LSB0YXJnZXQNCg0KICAgICMgQ2hlY2sgdGhhdCBubyBzYW1wbGVJZCdzIGFyZSBkdXBsaWNhdGVkOg0KICBpZiAoc3VtKGR1cGxpY2F0ZWQodGFyZ2V0LnBydW5lZCRzYW1wbGVJZCkpIT0gMCl7DQogICAgcHJpbnQoIkFsZXJ0ISBEdXBsaWNhdGVkIHNhbXBsZUlkcyBpbiB0YXJnZXQhIikNCiAgICBwcmludChzdW0oZHVwbGljYXRlZCh0YXJnZXQucHJ1bmVkJHNhbXBsZUlkKSkpDQogICAgfQ0KICANCiAgfQ0KDQogIA0KDQpgYGANCg0KDQoNCkFkZCBhIHRyZWF0bWVudCBpbnRvIGl0Og0KYGBge3J9DQpwYW5lbFssJ3RyZWF0Jzo9IHJlcCgwLG5yb3cocGFuZWwpKV0NCnRhcmdldC5wcnVuZWRbLCd0cmVhdCc6PXJlcCgxLG5yb3codGFyZ2V0LnBydW5lZCkpXQ0KYGBgDQoNCk5vdyBqb2luIHRoaXMgZGF0YSB0b2dldGhlcjoNCmBgYHtyfQ0KYWxsZGF0YSA8LSByYmluZChwYW5lbCwgdGFyZ2V0LnBydW5lZCwgZmlsbD1UKQ0KI2ZpbGwgTkENCmFsbGRhdGFbaXMubmEocGFuZWxJZCkscGFuZWxJZDo9Ijk5OTk5OTk5OTkiXQ0KYWxsZGF0YVtpcy5uYShzYW1wbGVJZCksc2FtcGxlSWQ6PSI5OTk5OTk5OTk5Il0NCg0KaGVhZChhbGxkYXRhKQ0KYGBgDQoNCkRpdmlkZSB0YXJnZXQgc2FtcGxlIGludG8gYWdlIHF1YW50aWxlcyAoaW4gdGhpcyBjYXNlLCBkZWNpbGVzKSBhbmQgYWRkIHRoYXQgdG8gdGhlIGRhdGE6DQpgYGB7cn0NCmFnZV9xIDwtIHF1YW50aWxlKHRhcmdldCRhZ2UscHJvYiA9IHNlcSgwLDEsMC4xKSkgI3RoaXMgaXMgdGhlIGZ1bGwgdGFyZ2V0DQphbGxkYXRhWywnYWdlX2dyb3VwJyA6PSAgYXMuaW50ZWdlcihjdXQoYWxsZGF0YSRhZ2UsYnJlYWtzID0gYWdlX3EsIGluY2x1ZGUubG93ZXN0ID0gVFJVRSkpXQ0KYWxsZGF0YVtpcy5uYShhZ2VfZ3JvdXApLGFnZV0NCmFsbGRhdGEkYWdlX2dyb3VwW2lzLm5hKGFsbGRhdGEkYWdlX2dyb3VwKV0gPC0gMTAgI2hpZ2hlc3QgYWdlLWdyb3VwIGNhbiBnZXQgbG9zdDsgZmlsbCBpdCBpbg0KYGBgDQoNCg0KTG9hZCBpbiBtYXRjaGluZy52YXJzIGZyb20gcmVjb2RlZmlsZQ0KYGBge3J9DQpyZWNvZGVfbWFwIDwtIGZyZWFkKHJlY29kZXBhdGgpDQptYXRjaGluZy52YXJzIDwtIHVuaXF1ZShyZWNvZGVfbWFwJGNvbW1vbl92YXIpDQpgYGANCg0KTm93IGNhcnJ5IG91dCB0aGUgbWF0Y2hpbmcuIA0KYGBge3J9DQptYXRjaGluZy5mb3JtIDwtIGFzLmZvcm11bGEocGFzdGUwKCJ0cmVhdCB+ICIsIHBhc3RlKG1hdGNoaW5nLnZhcnMsIGNvbGxhcHNlPScgKyAnKSkpDQpgYGANCg0KDQpXZSdsbCBoYXZlIHRvIHJlcGVhdCB0aGlzIHByb2Nlc3MgKGF0IGxlYXN0IGZvciBldmVyeXRoaW5nIGV4Y2VwdCBQUykuIA0KKiBzdGFydCBlbXB0eSBkYXRhZnJhbWUgaW5pdGlhbGl6ZWQgd2l0aCB0YXJnZXQgSURzDQoqIG1ha2UgYSBjb3B5IG9mIHRoZSBkYXRhIHRvIGFsdGVyDQoqIGZvciBlYWNoIGkgaW4gcmFuZ2U6DQogICsgcnVuIHRoZSBtYXRjaGluZw0KICArIHN0b3JlIHRoZSBtYXRjaGVkIElEcw0KICArIHN0b3JlIHNvbWUgb3ZlcmFsbCBtZXRyaWNzIGFib3V0IHRoZSBtYXRjaA0KICArIHJlZHVjZSB0aGUgcGFuZWwgZGF0YQ0KKiByZXR1cm4gdGhlIG1hdGNoIG9iamVjdHMNCg0KYGBge3J9DQptYXRjaFJhdGlvIDwtIGZ1bmN0aW9uKGRhdGEsIG1ldHJpYywgbiwgZXhhY3QgPSBjKCkpew0KICAjIEEgd3JhcHBlciBmb3IgdGhlIE1hdGNoSXQgZnJhbWV3b3JrIHRvIGNhcnJ5IG91dCBhcmJpdHJhcnkgbnVtYmVycyBvZiBzdWNjZXNzaXZlIG1hdGNoZXMNCiAgIyBkYXRhIG11c3QgaGF2ZToNCiAgIyAgICogc2FtcGxlSWQNCiAgIyAgICogcGFuZWxJZA0KICAjICAgKiB0cmVhdA0KICByZXF1aXJlKE1hdGNoSXQpDQogICAgDQogICMgYXNzaWduIHRoZSBkYXRhZnJhbWUgdG8gaG9sZCB0aGUgbWF0Y2hpbmcgcmVzdWx0cw0KICBkZiA8LSBkYXRhLmZyYW1lKG1hdHJpeChuY29sPTEsIG5yb3c9c3VtKGRhdGEkdHJlYXQ9PTEpKSkNCiAgbmFtZXMoZGYpIDwtIGMoInNhbXBsZUlkIikNCiAgZGYkc2FtcGxlSWQgPC0gZGF0YSRzYW1wbGVJZFtkYXRhJHRyZWF0PT0xXQ0KICANCiAgIyBhc3NpZ24gdGhlIG9iamVjdCB0byBob2xkIGFsbCB0aGUgbWF0Y2hpbmcgaW5mb3JtYXRpb24NCiAgbWF0Y2hlcyA8LSB2ZWN0b3IoImxpc3QiLG4pDQogIA0KICAjIG1ha2UgYSBjb3B5IG9mIHRoZSBwYXNzZWQtaW4gZGF0YQ0KICBkYXRhLmNvcHkgPC0gZGF0YS5mcmFtZShkYXRhKQ0KICANCiAgIyBsb29wIG92ZXIgdGhlIG51bWJlciBvZiByZXNwb25kZW50cyBwZXIgdGFyZ2V0DQogICMgaWYgdGhlcmUgYXJlIGlzc3VlcywgY2FuIEkgcmVsYXggdGhlIGFnZSBncm91cHM/DQogIGZvcihpIGluIDE6bil7DQogICAgcHJpbnQocGFzdGUoJ2kgPSAnLGFzLmNoYXJhY3RlcihpKSkpDQogICAgbSA8LSBtYXRjaGl0KG1hdGNoaW5nLmZvcm0sIA0KICAgICAgICAgICAgICAgICBkYXRhID0gZGF0YS5jb3B5LCBleGFjdD1leGFjdCwgbWV0aG9kID0gIm5lYXJlc3QiLCBkaXN0YW5jZSA9IG1ldHJpYykNCiAgICBjb250cm9scyA8LSBtYXRjaC5kYXRhKG0sIGdyb3VwPSdjb250cm9sJykNCiAgICANCiAgICB0cnkoe21hdGNoZXNbW2ldXSA8LSBtDQogICAgICAgIHNhbXBsZWlkcyA8LSBkYXRhLmNvcHlbcm93Lm5hbWVzKG0kbWF0Y2gubWF0cml4KSwgInNhbXBsZUlkIl0NCiAgICAgICAgcGFuZWxpZHMgPC0gZGF0YS5jb3B5W20kbWF0Y2gubWF0cml4LCJwYW5lbElkIl0NCiAgICAgICAgaWRzIDwtIGRhdGEuZnJhbWUoc2FtcGxlSWQ9c2FtcGxlaWRzLCBwYW5lbElkPXBhbmVsaWRzLCBzdHJpbmdzQXNGYWN0b3JzID0gRikNCiAgICAgICAgZGYgPC0gbWVyZ2UoeD1kZiwgeT1pZHMsIGJ5PSJzYW1wbGVJZCIsIGFsbC54ID0gVFJVRSwgc3VmZml4ZXM9YygiIixhcy5jaGFyYWN0ZXIoaSkpKQ0KICAgICAgICB9IA0KICAgICkNCiAgICBkYXRhLmNvcHkgPC0gZGF0YS5jb3B5WyFkYXRhLmNvcHkkcGFuZWxJZCAlaW4lIGNvbnRyb2xzJHBhbmVsSWQsXSAjIG5vdCByZWx5aW5nIG9uIHJvd25hbWVzDQogICAgDQogIH0NCiAgcmV0dXJuKGxpc3QoImlkcyI9ZGYsICJtYXRjaGVzIj1tYXRjaGVzKSkNCn0NCg0KYGBgDQoNCg0KDQpgYGB7cn0NCm4gPC0gNQ0KbWF0Y2hlcyA9IG1hdGNoUmF0aW8oYWxsZGF0YSwgIm1haGFsYW5vYmlzIiwgbiwgZXhhY3QgPSBjKCJhZ2VfZ3JvdXAiLCJnZW5kIikpDQpgYGANCg0KDQpgYGB7cn0NCnBsb3RfaW1iYWxhbmNlX292ZXJfdGltZSA8LSBmdW5jdGlvbihtYXRjaGVzLCB0aXRsZSl7DQogIHJlcXVpcmUoZ2dwbG90MikNCiAgIyBtYWtlIGEgY29weSBvZiBwYXNzZWQtaW4gbWF0Y2ggZGF0YSwgZ2V0IG51bWJlcg0KICBwcmludCgnc2V0dGluZyB1cCcpDQogIHRtcCA8LSBtYXRjaGVzDQogIG4gPC0gbGVuZ3RoKHRtcCRtYXRjaGVzKQ0KDQogICMgY3JlYXRpbmcgYSBtYXRyaXggdG8gc3RvcmUgcmVzdWx0cyBmb3IgZWFjaCBwYXNzIGFuZCB2YXJpYWJsZSAgDQogIHByaW50KCdwcmVwYXJlIGRhdGFmcmFtZScpDQogIG1zIDwtIGRhdGEuZnJhbWUobWF0cml4KG5jb2wgPSBuLCBucm93ID0gbnJvdyhzdW1tYXJ5KHRtcCRtYXRjaGVzW1sxXV0pJHN1bS5tYXRjaGVkKSkpDQogIHZhcnMgPC0gcm93Lm5hbWVzKHN1bW1hcnkodG1wJG1hdGNoZXNbWzFdXSkkc3VtLm1hdGNoZWQpDQogIHJvdy5uYW1lcyhtcykgPC0gdmFycw0KICANCiAgIyBsb29rIHRocm91Z2ggcGFzc2VzIGFuZA0KICBwcmludCgiZ28gdGhyb3VnaCBtYXRjaGVzIikNCiAgZm9yIChpIGluIDE6bil7DQogICAgbXNbaV0gPC0gc3VtbWFyeSh0bXAkbWF0Y2hlc1tbaV1dLCBzdGFuZGFyZGl6ZSA9IFRSVUUpJHN1bS5tYXRjaGVkJGBTdGQuIE1lYW4gRGlmZi5gDQogIH0gDQogIA0KICBwcmludCgibWFzc2FnZSBkYXRhIikNCiAgbXMudHJhbnNwIDwtIGFzLmRhdGEuZnJhbWUodChtcykpDQogIGNvbG5hbWVzKG1zLnRyYW5zcCkgPC0gdmFycw0KICBtcy50cmFuc3BbJ1Bhc3MnXSA8LSBzZXEoMSxuKQ0KICBtb2x0ZW4gPC0gbWVsdChtcy50cmFuc3AsIGlkLnZhcnM9IlBhc3MiKQ0KICByb3duYW1lcyhtcy50cmFuc3ApDQogIA0KICAjZ2dwbG90IGl0Li4uDQogIA0KICAjcG5nKGZpbGVuYW1lPSJwc19pbWJhbGFuY2UucG5nIikNCiAgcHJpbnQoInJldHVybiBwbG90IikNCiAgcCA8LSBnZ3Bsb3QobW9sdGVuLCBhZXMoeD1QYXNzLCB5PXZhbHVlLCBjb2xvdXI9dmFyaWFibGUpKSArIGdlb21fbGluZSgpICsgbGFicyh5PSAiQmFsYW5jZSIsdGl0bGU9dGl0bGUpICsgdGhlbWUoYXNwZWN0LnJhdGlvID0gMTAvMTYpICsgY29vcmRfY2FydGVzaWFuKHlsaW0gPSBjKC0xLjUsIDEuNSkpIA0KICBnZ3NhdmUocGFzdGUwKCIuLyIsdGl0bGUsICIucG5nIikpDQogIHJldHVybihwKQ0KICAjZGV2Lm9mZigpDQp9DQpgYGANCmBgYHtyfQ0KcGxvdF9pbWJhbGFuY2Vfb3Zlcl90aW1lKG1hdGNoZXMsIk1haGFsYW5vYmlzIGltYmFsYW5jZSBpbiByZXBlYXQgbWF0Y2hpbmciKQ0KYGBg</div>
 
 
 
@@ -2062,7 +2253,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("2_sample.Rmd");
+  window.initializeSourceEmbed("9_match-decay.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

@@ -1,5 +1,5 @@
 ---
-title: "recode"
+title: "recode (Noam panel)"
 author: "Maita Schade"
 date: "Sep 8, 2019"
 output: html_notebook
@@ -19,12 +19,12 @@ rm(list = ls(all = TRUE))
 
 Setting specifics--may want to iterate over countries rather than set things individually, eventually.
 ```{r}
-country = "MX"
+country = "AR"
 ```
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
-datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Analysis/Sample match abstraction/Data/',country,'/')
+datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
 
 censuspath <- paste0(datadir,'sample/',country,'_ipums-census_geo.csv')
 
@@ -34,6 +34,13 @@ recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifyi
 parampath <- "./country_parameters.csv" # set specific parameters in this file
 ```
 
+
+
+```{r}
+library(data.table)
+library(bit64)
+```
+
 Load country-specific parameters:
 ```{r}
 params <- fread(parampath,key = "country")[country,]
@@ -41,10 +48,6 @@ NQ_id <- params$NQ_id
 strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
 ```
 
-
-```{r}
-library(data.table)
-```
 
 
 
@@ -71,7 +74,10 @@ source("./recode_country.R")
 
 Load datafile
 ```{r}
-census<- fread(censuspath, colClasses = c(SERIAL="character",PERNUM="character"))
+census<- fread(censuspath)
+```
+```{r}
+dim(census)
 ```
 
 Recode
@@ -111,11 +117,7 @@ census.proc$censusId <- paste0(
 )
 max(table(census.proc$censusId)) #make sure is unique!
 census.proc$censusId[1:10]
-table(nchar(census.proc$censusId))
-```
-```{r}
-sprintf(paste0('%0', "10",'.0f'), 
-        census.proc$SERIAL[1:10])
+table(nchar(census$SERIAL))
 ```
 
 Then cut things down
@@ -127,7 +129,11 @@ census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats),with=F]
 
 census.proc <- na.omit(census.proc)
 head(census.proc)
+
 summary(census.proc)
+```
+```{r}
+dim(census.proc)
 ```
 
 Save to disk:
@@ -145,17 +151,21 @@ write.csv(x = census.proc,
 Load datafile
 ```{r}
 netquest <- fread(netquestpath)
+unique(netquest$X)
 ```
 
 Recode
 ```{r}
 netquest.proc <- countryRecode(dt = netquest, source = 'netquest', country = country)
+
 ```
 Reduce to what we need:
+
 ```{r}
 netquest.proc$panelId  <- netquest.proc[[NQ_id]]
 netquest.proc <- netquest.proc[netquest.proc$age>17,]
 netquest.proc <- netquest.proc[,c(matching.vars, 'panelId'),with=F]
+head(netquest.proc)
 netquest.proc <- na.omit(netquest.proc)        
 summary(netquest.proc)
 ```

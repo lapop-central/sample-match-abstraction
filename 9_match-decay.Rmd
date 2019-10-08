@@ -1,0 +1,255 @@
+---
+title: "match"
+author: "Maita Schade"
+date: "Aug 26, 2019"
+output: html_notebook
+---
+
+
+Given a target sample, recoded panel, and possibly previous invites and completes, this notebook produces a new set of panelists to invite, with flexible number of columns (for larger batches).
+
+Make sure we're dealing with a clear space:
+```{r}
+rm(list = ls(all = TRUE))
+```
+
+Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
+```{r}
+country <- "AR"
+```
+
+Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
+```{r}
+#strats = ("GEO1_AR2010")
+#strat2 = "URBAN"
+# wave = 17
+# filedate = "190826"
+
+datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
+
+
+
+panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
+
+recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
+parampath <- "./country_parameters.csv" # set specefic parameters in this file
+
+```
+
+
+```{r}
+library('MatchIt')
+library('data.table')
+library('openxlsx')
+library(stringr)
+```
+
+Load country-specific parameters:
+```{r}
+params <- fread(parampath,key = "country")[country,]
+target.date <- params[,target.date]
+print(paste0("Target date is ", target.date))
+
+NQ_id <- params[,NQ_id]
+
+
+targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv")
+```
+
+
+
+
+Load data
+```{r}
+target <- fread(targetfile, colClasses = c(sampleId="character"),drop = c("censusId"))
+target[,sampleId:=str_pad(sampleId,width=13,pad="0")]
+panel <- fread(panelfile)
+
+length(unique(panel$X))
+length(unique(target$X))
+```
+
+
+Ignore previous invites
+```{r}
+wave <- 1
+```
+
+
+Ignore previous completes
+```{r}
+target.pruned <- target
+```
+
+
+
+Add a treatment into it:
+```{r}
+panel[,'treat':= rep(0,nrow(panel))]
+target.pruned[,'treat':=rep(1,nrow(target.pruned))]
+```
+
+Now join this data together:
+```{r}
+alldata <- rbind(panel, target.pruned, fill=T)
+#fill NA
+alldata[is.na(panelId),panelId:="9999999999"]
+alldata[is.na(sampleId),sampleId:="9999999999"]
+
+head(alldata)
+```
+
+Divide target sample into age quantiles (in this case, deciles) and add that to the data:
+```{r}
+age_q <- quantile(target$age,prob = seq(0,1,0.1)) #this is the full target
+alldata[,'age_group' :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
+alldata[is.na(age_group),age]
+alldata$age_group[is.na(alldata$age_group)] <- 10 #highest age-group can get lost; fill it in
+```
+
+
+Load in matching.vars from recodefile
+```{r}
+recode_map <- fread(recodepath)
+matching.vars <- unique(recode_map$common_var)
+```
+
+Now carry out the matching. 
+```{r}
+matching.form <- as.formula(paste0("treat ~ ", paste(matching.vars, collapse=' + ')))
+```
+
+
+We'll have to repeat this process (at least for everything except PS). 
+* start empty dataframe initialized with target IDs
+* make a copy of the data to alter
+* for each i in range:
+  + run the matching
+  + store the matched IDs
+  + store some overall metrics about the match
+  + reduce the panel data
+* return the match objects
+
+```{r}
+matchRatio <- function(data, metric, n, exact = c()){
+  # A wrapper for the MatchIt framework to carry out arbitrary numbers of successive matches
+  # data must have:
+  #   * sampleId
+  #   * panelId
+  #   * treat
+  require(MatchIt)
+    
+  # assign the dataframe to hold the matching results
+  df <- data.frame(matrix(ncol=1, nrow=sum(data$treat==1)))
+  names(df) <- c("sampleId")
+  df$sampleId <- data$sampleId[data$treat==1]
+  
+  # assign the object to hold all the matching information
+  matches <- vector("list",n)
+  
+  # make a copy of the passed-in data
+  data.copy <- data.frame(data)
+  
+  # loop over the number of respondents per target
+  # if there are issues, can I relax the age groups?
+  for(i in 1:n){
+    print(paste('i = ',as.character(i)))
+    m <- matchit(matching.form, 
+                 data = data.copy, exact=exact, method = "nearest", distance = metric)
+    controls <- match.data(m, group='control')
+    
+    try({matches[[i]] <- m
+        sampleids <- data.copy[row.names(m$match.matrix), "sampleId"]
+        panelids <- data.copy[m$match.matrix,"panelId"]
+        ids <- data.frame(sampleId=sampleids, panelId=panelids, stringsAsFactors = F)
+        df <- merge(x=df, y=ids, by="sampleId", all.x = TRUE, suffixes=c("",as.character(i)))
+        } 
+    )
+    data.copy <- data.copy[!data.copy$panelId %in% controls$panelId,] # not relying on rownames
+    
+  }
+  return(list("ids"=df, "matches"=matches))
+}
+
+```
+
+
+
+```{r}
+n <- 10
+matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
+```
+
+
+```{r}
+plot_imbalance_over_time <- function(matches, title){
+  require(ggplot2)
+  # make a copy of passed-in match data, get number
+  print('setting up')
+  tmp <- matches
+  n <- length(tmp$matches)
+
+  # creating a matrix to store results for each pass and variable  
+  print('prepare dataframe')
+  ms <- data.frame(matrix(ncol = n, nrow = nrow(summary(tmp$matches[[1]])$sum.matched)))
+  vars <- row.names(summary(tmp$matches[[1]])$sum.matched)
+  row.names(ms) <- vars
+  
+  # look through passes and
+  print("go through matches")
+  for (i in 1:n){
+    ms[i] <- summary(tmp$matches[[i]], standardize = TRUE)$sum.matched$`Std. Mean Diff.`
+  } 
+  
+  print("massage data")
+  ms.transp <- as.data.frame(t(ms))
+  colnames(ms.transp) <- vars
+  ms.transp['Pass'] <- seq(1,n)
+  molten <- melt(ms.transp, id.vars="Pass")
+  rownames(ms.transp)
+  
+  #ggplot it...
+  
+  #png(filename="ps_imbalance.png")
+  print("return plot")
+  p <- ggplot(molten, aes(x=Pass, y=value, colour=variable)) + geom_line() + labs(y= "Balance",title=title) + theme(aspect.ratio = 10/16) + coord_cartesian(ylim = c(-1.5, 1.5)) 
+  ggsave(paste0("./",title, ".png"))
+  return(p)
+  #dev.off()
+}
+```
+```{r}
+plot_imbalance_over_time(matches,"Mahalanobis imbalance in repeat matching")
+```
+
+Visualize imbalances
+```{r}
+m.mah1 <- matches$matches[[1]]
+m.mahf <- tail(matches$matches, n=1)[[1]]
+```
+
+...for first set of matches
+```{r}
+diff.mah <- data.frame(summary(m.mah1, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
+row.names(diff.mah)<-row.names(summary(m.mah1)$sum.matched)
+# png(filename="mahalanobis_balance.png")
+barplot(diff.mah[[1]], names.arg = rownames(diff.mah),las=2,ylim=c(-0.5,0.5))
+title("First match")
+# dev.off()
+
+```
+...for last set of matches
+```{r}
+diff.mah <- data.frame(summary(m.mahf, standardize = TRUE)$sum.matched$`Std. Mean Diff.`)
+row.names(diff.mah)<-row.names(summary(m.mahf)$sum.matched)
+# png(filename="mahalanobis_balance.png")
+barplot(diff.mah[[1]], names.arg = rownames(diff.mah),las=2,ylim=c(-0.5,0.5))
+title("Last match")
+```
+
+Can we use the Mahalanobis distance itself?
+```{r}
+table(matches$matches[[1]]$distance)
+```
+Doesn't look like it.
+
