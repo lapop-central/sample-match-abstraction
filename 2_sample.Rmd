@@ -17,12 +17,13 @@ country = "AR"
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
-datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
+datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
 
 censuspath <- paste0(datadir,'sample/', country,'_ipums_recoded.csv')
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv")
 parampath <- "./country_parameters.csv" # set specific parametrs in this file
+prior_target_path <- 'C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/AR/panel/AR_selected_wave1_190613.csv'
 ```
 
 ```{r}
