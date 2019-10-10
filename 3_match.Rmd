@@ -78,7 +78,17 @@ if(exists("recyclefile")){
 }
 length(unique(panel$X))
 length(unique(target$X))
+
+set.seed(250291)
+target.pre <- target[sample(.N,600)]
+head(target.pre)
 ```
+We're using the pre-election sample this time around!
+```{r}
+target <- target.pre
+```
+
+
 Are there exclusions from a prior survey?
 If so, remove them from the panel.
 ```{r}
@@ -333,7 +343,7 @@ n <- 5
 matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
 ```
 
-Save the id's of the matches to a file, so I don't lose them--just in case
+Save the id's of the matches to a file
 ```{r}
 write.csv(
   matches$ids, 
