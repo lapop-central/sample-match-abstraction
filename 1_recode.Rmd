@@ -1,5 +1,5 @@
 ---
-title: "recode (Noam panel)"
+title: "recode (remedial Argentina)"
 author: "Maita Schade"
 date: "Sep 8, 2019"
 output: html_notebook
@@ -24,7 +24,7 @@ country = "AR"
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
-datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
+datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
 
 censuspath <- paste0(datadir,'sample/',country,'_ipums-census_geo.csv')
 
@@ -47,9 +47,6 @@ params <- fread(parampath,key = "country")[country,]
 NQ_id <- params$NQ_id
 strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
 ```
-
-
-
 
 ```{r}
 recode_map <- fread(recodepath)
@@ -74,6 +71,7 @@ source("./recode_country.R")
 
 Load datafile
 ```{r}
+print(censuspath)
 census<- fread(censuspath)
 ```
 ```{r}
@@ -125,8 +123,7 @@ Then cut things down
 #census.proc <- census.proc[,,with=F
 #                           ]
 census.proc <- census.proc[census.proc$age>17,]
-census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats),with=F]
-
+census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats[strats!=""]),with=F]
 census.proc <- na.omit(census.proc)
 head(census.proc)
 
@@ -151,13 +148,13 @@ write.csv(x = census.proc,
 Load datafile
 ```{r}
 netquest <- fread(netquestpath)
-unique(netquest$X)
+sort(unique(netquest$X))
 ```
 
 Recode
 ```{r}
 netquest.proc <- countryRecode(dt = netquest, source = 'netquest', country = country)
-
+summary(netquest.proc)
 ```
 Reduce to what we need:
 
