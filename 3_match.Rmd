@@ -34,7 +34,7 @@ panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_September 27, 2019_01.02.csv')
+responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Code/complete_ids.csv')
 #file of not yet sent IDs
 recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 # completes
@@ -169,11 +169,11 @@ if (!is.null(responsefile)){
 
   # # "responded" can be loaded straight from Qualtrics 
   responded <- fread(responsefile)
-  responded[,"panelId" := substr(ticket,1,16)]
-  responded <- responded[-(1:3),panelId]
+  # responded[,"panelId" := substr(ticket,1,16)]
+  # responded <- responded[-(1:3),panelId]
 
   #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
-  responded <- selected[panelId%in%responded]
+  responded <- selected[panelId%in%responded$V2]
   responded <- responded[!duplicated(panelId,fromLast = TRUE),]
   
 
