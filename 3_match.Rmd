@@ -34,7 +34,7 @@ panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+16%2C+2019_12.44.csv')
+responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+21%2C+2019_10.33.csv')
 #file of not yet sent IDs
 excludefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
@@ -89,7 +89,9 @@ We're using the pre-election sample this time around!
 # not if there are already invites out
 previous <- fread(paste0(datadir,"panel/AR_selected_wave1_191010.csv"),colClasses = c(sampleId="character"))
 # head(previous)
+target <- target[sampleId%in%previous$sampleId]
 # sum(target.pre$sampleId%in%previous$sampleId)
+nrow(target)
 ```
 
 
@@ -198,9 +200,7 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
 wave
 
 ```
-```{r}
-sum(target$sampleId%in%previous$sampleId)
-```
+
 
 
 
@@ -354,7 +354,7 @@ matchRatio <- function(data, metric, n, exact = c()){
 
 
 ```{r}
-n <- 8
+n <- 10
 matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
 ```
 
@@ -366,6 +366,11 @@ write.csv(
   row.names = F)
 wave
 ```
+Make sure I got the right sampleIds...
+```{r}
+sum(matches$ids$sampleId%in%previous$sampleId)==nrow(matches$ids)
+```
+
 
 Do I have a good number of discrete location codes?
 ```{r}
@@ -387,8 +392,8 @@ set <- matches$ids
 set <- Reduce(x = set[,grep("panelId",names(set),value = T)],f = append)
 set <- panel[panelId%in%set,]
 
-hist(target.pruned$ed)
-hist(set$ed)
+table(target.pruned$ed)/nrow(target.pruned)
+table(set$ed)/nrow(set)
 ```
 ```{r}
 target.pruned[,censusId:=substr(sampleId,1,12)]
