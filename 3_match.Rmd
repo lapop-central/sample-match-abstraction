@@ -25,7 +25,7 @@ Defining files--make sure the dirs are okay; other than that you shouldn't need 
 # wave = 17
 # filedate = "190826"
 
-datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
+datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/',country,'/')
 
 
 
@@ -34,9 +34,9 @@ panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+23%2C+2019_08.17.csv')
+responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+25%2C+2019_15.36.csv')
 #file of not yet sent IDs
-excludefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
+# excludefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 ```
 
@@ -256,6 +256,13 @@ if (exists("responsefile")){
 } else {
   target.pruned <- target
   }
+```
+
+Netquest wanted to know which targets were already complete, so find them and write them out.
+```{r}
+write.csv(target[!sampleId%in%target.pruned$sampleId,sampleId],
+          paste0("completes_",format(Sys.time(),"%y%m%d"),".csv"))
+
 
 ```
 
