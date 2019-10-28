@@ -263,7 +263,6 @@ Netquest wanted to know which targets were already complete, so find them and wr
 write.csv(target[!sampleId%in%target.pruned$sampleId,sampleId],
           paste0("completes_",format(Sys.time(),"%y%m%d"),".csv"))
 
-
 ```
 
 
