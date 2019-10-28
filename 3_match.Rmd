@@ -34,7 +34,7 @@ panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+25%2C+2019_15.36.csv')
+responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+28%2C+2019_08.59.csv')
 #file of not yet sent IDs
 # excludefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
@@ -69,7 +69,6 @@ targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv
 
 Load data
 ```{r}
-target <- fread(targetfile)
 target <- fread(targetfile, colClasses = c(sampleId="character"))
 target[,sampleId:=str_pad(sampleId,width=13,pad="0")]
 panel <- fread(panelfile)
@@ -83,15 +82,14 @@ set.seed(250291)
 target.pre <- target[sample(.N,600)]
 head(target.pre)
 ```
-We're using the pre-election sample this time around!
+If using the pre-election sample, load it from the first wave...
 ```{r}
-# target <- target.pre
-# not if there are already invites out
 previous <- fread(paste0(datadir,"panel/AR_selected_wave1_191010.csv"),colClasses = c(sampleId="character"))
-# head(previous)
-target <- target[sampleId%in%previous$sampleId]
-# sum(target.pre$sampleId%in%previous$sampleId)
+# 
+# target <- target[sampleId%in%previous$sampleId]
+# 
 nrow(target)
+previous[sampleId%in%target$sampleId]
 ```
 
 
@@ -191,14 +189,14 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   
   #Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
   #Are we okay--did we not mess up the sample when fixing depts?
-  if(sum(!target.select$sampleId%in%target$sampleId)==0){
-    target <- target[sampleId%in%target.select$sampleId]
+  if(sum(!target.select$sampleId%in%target$sampleId)==0){ #if all IDs in selected are in sample
+    #target <- target[sampleId%in%target.select$sampleId]
   }
   
 
 } else {wave <- 1}
 wave
-
+nrow(target)
 ```
 
 
@@ -255,7 +253,8 @@ if (exists("responsefile")){
   dim(target.pruned)
 } else {
   target.pruned <- target
-  }
+}
+nrow(target.pruned)
 ```
 
 Netquest wanted to know which targets were already complete, so find them and write them out.
@@ -360,7 +359,7 @@ matchRatio <- function(data, metric, n, exact = c()){
 
 
 ```{r}
-n <- 10
+n <- 5
 matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
 ```
 
