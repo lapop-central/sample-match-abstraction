@@ -25,20 +25,25 @@ Defining files--make sure the dirs are okay; other than that you shouldn't need 
 # wave = 17
 # filedate = "190826"
 
+rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/',country,'/')
 datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
 
 
 
-panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
+panelfile <- paste0(rawdir,'panel/', country, '_netquest_recoded.csv')
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Code/complete_ids.csv')
+#responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Code/complete_ids.csv')
 #file of not yet sent IDs
-recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
-# completes
-# previous selections
+#recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
+excludefiles <- list(
+  # Concurrent IDB study
+  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+28%2C+2019_08.59.csv'),
+  # First wave of this study
+  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
+)
 ```
 
 
@@ -73,9 +78,36 @@ Load data
 target <- fread(targetfile, colClasses = c(sampleId="character"),drop = c("censusId"))
 target[,sampleId:=str_pad(sampleId,width=13,pad="0")]
 panel <- fread(panelfile)
-recycle <- fread(recyclefile)
+if(exists("recyclefile")){
+  recycle <- fread(recyclefile)}
 length(unique(panel$X))
 length(unique(target$X))
+```
+ Are there exclusions from a prior survey?
+If so, remove them from the panel.
+```{r}
+dim(panel)
+if (exists("excludefiles")){
+  for (excludefile in excludefiles){
+    print(paste0("excluding previous respondents from ",excludefile))
+  
+    #The following will depend on the file that we're reading exclusions from
+    exclude <- fread(excludefile)
+    if("ticket"%in%names(exclude)){
+      print("ticket")
+      exclude[,"panelId" := substr(ticket,1,16)]
+      # print(exclude$panelId)
+    } else {if ("pid"%in%names(exclude)){
+      print("pid")
+      exclude[,"panelId":=pid]
+    }}
+    # Prune panel to exclude previous respondents
+    panel <- panel[!panelId %in% exclude$panelId,]
+  print(dim(panel))
+  }  
+}
+
+
 ```
 
 
@@ -153,6 +185,7 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   
 
 } else {wave <- 1}
+print(wave)
 ```
 
 Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
@@ -164,7 +197,7 @@ sum(!target.select$sampleId%in%target$sampleId)==0
 
 Are there previous completes? If so, load them.
 ```{r}
-if (!is.null(responsefile)){
+if (exists("responsefile")){
   print("completes found!")
 
   # # "responded" can be loaded straight from Qualtrics 
