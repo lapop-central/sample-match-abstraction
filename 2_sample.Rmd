@@ -17,9 +17,10 @@ country = "AR"
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
+rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/',country,'/')
 datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
 
-censuspath <- paste0(datadir,'sample/', country,'_ipums_recoded.csv')
+censuspath <- paste0(rawdir,'sample/', country,'_ipums_recoded.csv')
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv")
 parampath <- "./country_parameters.csv" # set specific parametrs in this file
@@ -53,9 +54,10 @@ head(census)
 Try stratified sampling.
 
 ```{r}
-n <- 1200
-set.seed(121988)
+n <- 600
+set.seed(121991)
 target  <- strat_weight_sample(census,strats,'PERWT',n)
+target
 ```
 
 This chunk just for testing multi-appearances of censusIds
@@ -71,8 +73,8 @@ Making sure this stratification worked...
 barplot(table( target[[strats[1]]]))
 nrow(target)
 head(target)
-hist(target$age)
-hist(census$age)
+hist(target$ed, xlim = c(1,6))
+hist(census$ed)
 table(target$age,target$gend)
 ```
 
@@ -106,53 +108,16 @@ matching.vars <- unique(recode_map$common_var)
 target <- target[,c("sampleId",matching.vars),with=F]
 ```
 
-Since we just re-defined the geographies to departments again, let's make sure the new and improved target is exactly the same as the previous, except for X and Y.
-
-Load previous target:
+Write target to disk.
 ```{r}
-target.old <- fread(paste0(datadir, "sample/AR_target_20190909_province.csv"),colClasses = c(sampleId="character"))
-#target.other <- fread(paste0(datadir, "/sample/AR_target_190912_province.csv"),colClasses = c(sampleId="character"))
-
-```
-Look at both:
-```{r}
-#sum(target.other$sampleId%in%target.old$sampleId)
-```
-Note that this doesn't work. We'll need to re-fit the old sample with the new data.
-It seems I used the 1909 census target all along; hopefully nothing else big changed...
-
-Re-engineer censusId:
-```{r}
-max(nchar(census$censusId))
-max(nchar(target.old$sampleId))
-# max(nchar(target$sampleId))
-target.old$censusId <- substr(target.old$sampleId,1,12)
-table(nchar(target.old$censusId))
-table(nchar(target.old$sampleId))
-
-```
-Use censusId to replace X,Y in target.old
-```{r}
-target.new <- merge(target.old[,grep("X|Y",names(target.old),invert=T,value = T),with=F],
-      census[,c("censusId","X","Y"),with=F], by="censusId")
-sum(!target.new$sampleId%in%target.old$sampleId)
-dim(target.new)
-sum(!target.old$censusId%in%census$censusId)
-target.old[!censusId%in%census$censusId,]
-census[X==-58.44888,]
-```
-
-Write target with new geography to disk
-```{r}
-names(target.new)
-write.csv(x=target.new,
+names(target)
+write.csv(x=target,
           file = paste0(datadir,
                         "sample/",
                         country,
                         "_target_",
-                        # format(Sys.time(), 
-                               # "%y%m%d"),
-                        "20190909",
+                        format(Sys.time(),
+                        "%y%m%d"),
                         ".csv"),
           row.names = F
                     )
