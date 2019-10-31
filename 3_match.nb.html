@@ -2089,6 +2089,9 @@ matching.vars &lt;- unique(recode_map$common_var)</code></pre>
 <p>Now carry out the matching.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hpbmcuZm9ybSA8LSBhcy5mb3JtdWxhKHBhc3RlMChcInRyZWF0IH4gXCIsIHBhc3RlKG1hdGNoaW5nLnZhcnMsIGNvbGxhcHNlPScgKyAnKSkpXG5gYGAifQ== -->
+<pre class="r"><code>matching.form &lt;- as.formula(paste0(&quot;treat ~ &quot;, paste(matching.vars, collapse=&#39; + &#39;)))</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We’ll have to repeat this process (at least for everything except PS). * start empty dataframe initialized with target IDs * make a copy of the data to alter * for each i in range: + run the matching + store the matched IDs + store some overall metrics about the match + reduce the panel data * return the match objects</p>
