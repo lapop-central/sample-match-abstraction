@@ -40,7 +40,7 @@ parampath <- "./country_parameters.csv" # set specefic parameters in this file
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 excludefiles <- list(
   # Concurrent IDB study
-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+28%2C+2019_08.59.csv'),
+  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+31%2C+2019_14.57.csv'),
   # First wave of this study
   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
 )
@@ -166,16 +166,17 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   #                             )
 
   # Remove who was _not_ invited
-  names(recycle)[1] <- "panelId"
-
-  # what is going on with more removals than recycled IDs?
-  # I would expect that the number of recycles minus the number of duplicates equals the removals.
-  actually.used <- (!(selected$panelId%in%recycle$panelId))|(selected$batch>5)
-  nrow(selected)-sum(actually.used)
+  if(exists("recycle")){
+    names(recycle)[1] <- "panelId"
   
-  
-  invited <- selected[actually.used,]
-  dim(invited)
+    # what is going on with more removals than recycled IDs?
+    # I would expect that the number of recycles minus the number of duplicates equals the removals.
+    actually.used <- (!(selected$panelId%in%recycle$panelId))|(selected$batch>5)
+    nrow(selected)-sum(actually.used)
+    
+    
+    invited <- selected[actually.used,]
+    dim(invited)} else {invited <- selected}
 
   # Prune panel to exclude invited
   panel <- panel[!panelId %in% invited$panelId,]
@@ -191,7 +192,7 @@ print(wave)
 Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
 ```{r}
 #Are we okay--did we not mess up the sample when fixing depts?
-sum(!target.select$sampleId%in%target$sampleId)==0
+# sum(!target.select$sampleId%in%target$sampleId)==0
 ```
 
 
@@ -376,15 +377,15 @@ set <- matches$ids
 set <- Reduce(x = set[,grep("panelId",names(set),value = T)],f = append)
 set <- panel[panelId%in%set,]
 
-hist(target.pruned$gend)
-hist(set$gend)
+hist(target.pruned$ed)
+hist(set$ed)
 ```
 ```{r}
 target.pruned[,censusId:=substr(sampleId,1,12)]
 target.pruned[,PERNUM:=substr(censusId,11,12)]
 target.pruned[,SERIAL:=substr(censusId,1,10)]
-write.csv(target.pruned,"pruned_target_190927.csv")
-write.csv(set,"selected_IDs_190927.csv")
+write.csv(target.pruned,paste0("pruned_target_", format(Sys.time(),"%y%m%d"),".csv"))
+write.csv(set,paste0("selected_IDs_", format(Sys.time(),"%y%m%d"),".csv"))
 ```
 
 
