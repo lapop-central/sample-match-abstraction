@@ -25,19 +25,25 @@ Defining files--make sure the dirs are okay; other than that you shouldn't need 
 # wave = 17
 # filedate = "190826"
 
-datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/',country,'/')
+rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/',country,'/')
+datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
 
 
 
-panelfile <- paste0(datadir,'panel/', country, '_netquest_recoded.csv')
+panelfile <- paste0(rawdir,'panel/', country, '_netquest_recoded.csv')
 
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
 responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+28%2C+2019_08.59.csv')
 #file of not yet sent IDs
-# excludefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
+excludefiles <- list(
+  # Concurrent IDB study
+  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+31%2C+2019_14.57.csv'),
+  # First wave of this study
+  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
+)
 ```
 
 
@@ -60,7 +66,7 @@ print(paste0("Target date is ", target.date))
 
 NQ_id <- params[,NQ_id]
 
-# On repeated sampling, just make sure that the previous target is re-used
+
 targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv")
 ```
 
@@ -69,46 +75,39 @@ targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv
 
 Load data
 ```{r}
-target <- fread(targetfile, colClasses = c(sampleId="character"))
+target <- fread(targetfile, colClasses = c(sampleId="character"),drop = c("censusId"))
 target[,sampleId:=str_pad(sampleId,width=13,pad="0")]
 panel <- fread(panelfile)
 if(exists("recyclefile")){
-  recycle <- fread(recyclefile)
-}
+  recycle <- fread(recyclefile)}
 length(unique(panel$X))
 length(unique(target$X))
-
-set.seed(250291)
-target.pre <- target[sample(.N,600)]
-head(target.pre)
 ```
-If using the pre-election sample, load it from the first wave...
-```{r}
-previous <- fread(paste0(datadir,"panel/AR_selected_wave1_191010.csv"),colClasses = c(sampleId="character"))
-# 
-# target <- target[sampleId%in%previous$sampleId]
-# 
-nrow(target)
-previous[sampleId%in%target$sampleId]
-```
-
-
-Are there exclusions from a prior survey?
+ Are there exclusions from a prior survey?
 If so, remove them from the panel.
 ```{r}
 dim(panel)
-if (exists("excludefile")){
-  print(paste0("excluding previous respondents from ",excludefile))
-
-  #The following will depend on the file that we're reading exclusions from
-  exclude <- fread(excludefile)
-  exclude[,"panelId" := substr(ticket,1,16)]
+if (exists("excludefiles")){
+  for (excludefile in excludefiles){
+    print(paste0("excluding previous respondents from ",excludefile))
   
-  # Prune panel to exclude previous respondents
-  panel <- panel[!panelId %in% exclude$panelId,]
-  
+    #The following will depend on the file that we're reading exclusions from
+    exclude <- fread(excludefile)
+    if("ticket"%in%names(exclude)){
+      print("ticket")
+      exclude[,"panelId" := substr(ticket,1,16)]
+      # print(exclude$panelId)
+    } else {if ("pid"%in%names(exclude)){
+      print("pid")
+      exclude[,"panelId":=pid]
+    }}
+    # Prune panel to exclude previous respondents
+    panel <- panel[!panelId %in% exclude$panelId,]
+  print(dim(panel))
+  }  
 }
-dim(panel)
+
+
 ```
 
 
@@ -166,11 +165,8 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   #                                        )
   #                             )
 
-
-  # what is going on with more removals than recycled IDs?
-  # I would expect that the number of recycles minus the number of duplicates equals the removals.
+  # Remove who was _not_ invited
   if(exists("recycle")){
-    # Remove who was _not_ invited
     names(recycle)[1] <- "panelId"
     actually.used <- (!(selected$panelId%in%recycle$panelId))|(selected$batch>5)
     nrow(selected)-sum(actually.used)
@@ -187,19 +183,16 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   # set wave
   wave <- length(waves)+1
   
-  #Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
-  #Are we okay--did we not mess up the sample when fixing depts?
-  if(sum(!target.select$sampleId%in%target$sampleId)==0){ #if all IDs in selected are in sample
-    #target <- target[sampleId%in%target.select$sampleId]
-  }
-  
 
 } else {wave <- 1}
-wave
-nrow(target)
+print(wave)
 ```
 
-
+Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
+```{r}
+#Are we okay--did we not mess up the sample when fixing depts?
+# sum(!target.select$sampleId%in%target$sampleId)==0
+```
 
 
 Are there previous completes? If so, load them.
@@ -209,8 +202,9 @@ if (exists("responsefile")){
 
   # # "responded" can be loaded straight from Qualtrics 
   responded <- fread(responsefile)
-  responded[,"panelId" := str_to_lower(pid)]
-  responded <- responded[-(1:3),panelId]
+  # This depends on the complete file, and how pid was saved
+  # responded[,"panelId" := substr(ticket,1,16)]
+  # responded <- responded[-(1:3),panelId]
 
   #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
   responded <- selected[panelId%in%responded]
@@ -371,11 +365,6 @@ write.csv(
   row.names = F)
 wave
 ```
-Make sure I got the right sampleIds...
-```{r}
-sum(matches$ids$sampleId%in%previous$sampleId)==nrow(matches$ids)
-```
-
 
 Do I have a good number of discrete location codes?
 ```{r}
@@ -404,17 +393,9 @@ table(set$ed)/nrow(set)
 target.pruned[,censusId:=substr(sampleId,1,12)]
 target.pruned[,PERNUM:=substr(censusId,11,12)]
 target.pruned[,SERIAL:=substr(censusId,1,10)]
-write.csv(target.pruned,paste0("pruned_target_",format(Sys.time(),"%y%m%d"),".csv"))
-write.csv(set,paste0("selected_IDs_",format(Sys.time(),"%y%m%d"),".csv"))
+write.csv(target.pruned,paste0("pruned_target_", format(Sys.time(),"%y%m%d"),".csv"))
+write.csv(set,paste0("selected_IDs_", format(Sys.time(),"%y%m%d"),".csv"))
 ```
-
-What does it look like, compared to the old sample?
-```{r}
-sample.old <- fread("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/AR/sample/AR_target_20190909.csv")
-hist(sample.old$age)
-hist(target$age)
-```
-
 
 
 
