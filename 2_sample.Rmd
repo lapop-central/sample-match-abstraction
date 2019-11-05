@@ -110,8 +110,7 @@ write.csv(x=target,
                         "_target_",
                         format(Sys.time(),
                         "%y%m%d"),
-
-".csv"),
+                        ".csv"),
           row.names = F
                     )
 

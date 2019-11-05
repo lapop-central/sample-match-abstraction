@@ -35,7 +35,7 @@ panelfile <- paste0(rawdir,'panel/', country, '_netquest_recoded.csv')
 recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Code/complete_ids.csv')
+#responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Code/complete_ids.csv')
 #file of not yet sent IDs
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 excludefiles <- list(
@@ -186,12 +186,13 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   
 
 } else {wave <- 1}
+print(wave)
 ```
 
 Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
 ```{r}
 #Are we okay--did we not mess up the sample when fixing depts?
-sum(!target.select$sampleId%in%target$sampleId)==0
+# sum(!target.select$sampleId%in%target$sampleId)==0
 ```
 
 
