@@ -1,12 +1,12 @@
 # Process and facilities for collaborating with panel provider on
 sample-matched survey project
 
-* Currently, this is very much in progress, based on our prototype
-  project in Summer 2019
+* This project is a module to facilitate sample matching for survey
+  projects
+* It assumes it sits in a folder at the root of a larger project
+  directory, and has access to "raw", a data directory
+  * doc and out directories are contained within the submodule
 * matching_process.* provides a flowchart for the current process
+  (currently in dire need of updating)
 * SampleMatch is a package being developed simultaneously, currently
   hosted at [https://github.com/maitagorri/sampleMatch/]
-* There are several issues in the issue tracker on GitHub, which
-  outline next steps to work on
-    * Next steps will probably include creating branches to work on
-      each of these issues
