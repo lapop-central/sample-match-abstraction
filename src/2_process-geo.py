@@ -14,20 +14,20 @@ import numpy as np
 Defining specific parameters
 """
 country = "AR"
-nq_date = "191018"
+nq_date = "190628"
 geo1_nq = "AR_provincia"
 geo2_nq = "AR_departamento"
 geo1_ipums = 'GEO1_AR2010'
 geo2_ipums = 'GEO2_AR2010'
 year = '2010'
 ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00015.csv"
-netquestfile = "../out/prep/panel_country/"+country+"_netquest-panel.csv"
-dictfile = "../out/prep/panel_country/"+country+"_levels.xlsx"
-geo2file = '../out/prep/ipums_country/ipums_codebook_'+geo2_ipums+'.csv'
-geo1file = '../out/prep/ipums_country/ipums_codebook_'+geo1_ipums+'.csv'
-centroidfile = '../out/prep/geo/'+country+'_geo2_centroids.csv'
-panelout = '../out/prep/panel_country/'+country+'_netquest-panel_geo.csv'
-ipumsout = '../out/prep/ipums_country/'+country+'_ipums-census_geo.csv'
+netquestfile = "../out/panel_country/"+country+"_netquest-panel.csv"
+dictfile = "../out/panel_country/"+country+"_levels.xlsx"
+geo2file = '../out/ipums_country/ipums_codebook_'+geo2_ipums+'.csv'
+geo1file = '../out/ipums_country/ipums_codebook_'+geo1_ipums+'.csv'
+centroidfile = '../out/geo/'+country+'_geo2_centroids.csv'
+panelout = '../out/panel_country/'+country+'_netquest-panel_geo.csv'
+ipumsout = '../out/ipums_country/'+country+'_ipums-census_geo.csv'
 
 """
 Loading things
@@ -164,7 +164,7 @@ if country=="AR":
     # dropping CABA-related duplicates
     ipums_geodf.drop_duplicates(subset=["geo1_name","geo2_name"], inplace=True)
     # make sure there is only one CABA-code left
-    print(len(ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code.values[0])==1)
+    #print(len(ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code.values[0])==1)
     census.loc[census[geo2_ipums].isin(caba_codes),geo2_ipums] = \
     len(census.loc[census[geo2_ipums].isin(caba_codes),geo2_ipums])*[ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code[0]]
     # give CABA locations without geo2 a specific code: 999
@@ -248,8 +248,9 @@ print(
     [["geo1_code","geo2_code",
       "geo1_name","geo1_match_name",
       "geo2_name","geo2_match_name",
-      "count"]]==0
-))      
+      "count"]]
+    )==0
+)      
     
 # determination of cutoff
 print(
@@ -289,6 +290,12 @@ panel_geo = netquest.merge(nq_geodf_merged[['X','Y','geo2_code']],
                how='left'
               )
 
+#Merge census geometries onto census data
+census_geo = census.merge(geo2_centroids[['ADMIN_NAME','X',"Y",'IPUM'+year]],
+                          left_on = geo2_ipums,
+                          right_on='IPUM'+year,
+                          how='left'
+                         ).drop('IPUM'+year,axis=1)
 """
 Writing out
 """
