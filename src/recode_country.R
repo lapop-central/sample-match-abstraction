@@ -65,8 +65,111 @@ countryRecode <- function(dt, source, country){
                                 )    
     }
     else {print("Unknown source!")}
+    
+    
    
-  } else if(country=="MX"){
+  } else if(country=='BR'){
+    if(source=='ipums'){
+      # Gender:         
+      dt$gend <- dt$SEX
+      # Age:
+      dt$age <- mapvalues(dt$AGE, from=c(999), to=c(NA))
+      # Education:    
+      dt$ed <- rep(NA, length=length(dt$EDUCBR))
+      dt$ed[dt$EDUCBR==0] <- 1
+      dt$ed[dt$EDUCBR>=1000 & dt$EDUCBR<=2140] <- 2
+      dt$ed[(dt$EDUCBR==2141)|(dt$EDUCBR==2190)] <- 3
+      dt$ed[(dt$EDUCBR>=2210 & dt$EDUCBR<=2230)|dt$EDUCBR==2900] <- 4
+      dt$ed[(dt$EDUCBR==2241)|(dt$EDUCBR==2290)] <- 5
+      dt$ed[dt$EDUCBR>=3100 & dt$EDUCBR<=3200] <- 6
+      dt$ed[dt$EDUCBR %in% c(3300, 3900)] <- 7
+      dt$ed[dt$EDUCBR %in% c(4170, 4180)] <- 8
+      dt$ed[dt$EDUCBR==4190] <- 9
+      dt$ed[dt$EDUCBR %in% c(4270, 4280)] <- 10
+      dt$ed[dt$EDUCBR %in% c(4230, 4240)] <- 11
+      dt$ed[dt$EDUCBR %in% c(4250, 4260)] <- 12
+      #Employment. RECONSIDER ORDERING.
+      census$emp <- mapvalues(census$EMPSTAT,
+              from=c(1, 2, 3,  0),
+              to=  c(1, 3, 4, NA))
+      census$emp[census$CLASSWK==2]<- 2   # Wage/salary worker
+      # Auto:
+      census$auto <- mapvalues(census$AUTOS,
+        from=c(0,7,9),
+        to=  c(2,1,NA))
+      #Have Bath?
+      census$nbath <- mapvalues(census$BATH,
+              from=c(1,2,0),
+              to=  c(2,1,NA))
+      # Computer:
+      census$pc <- mapvalues(census$COMPUTER,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+      # fridge:
+      census$fridg <- mapvalues(census$REFRIG,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+      # Washing machine:
+      census$washer <- mapvalues(census$WASHER,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+      #number of persons in household
+      dt$pern <- dt$PERSONS
+      #head of household?
+      dt$hhh <- rep(NA,length=length(dt$RELATE))
+      dt$hhh[dt$RELATE>1] <- 2
+      dt$hhh[dt$RELATE==1] <- 1
+    }
+    else if(source=='netquest'){
+      # Gender:
+      dt$gend <- dt$p_sexo
+      #Age:          is fine, need to filter these to make sure we exclude too young respondents.
+      dt$age <- dt$panelistAge
+      dt$age[dt$panelistAge>100] <- 100
+      #Education:    EDUCCL partially matches CL_education_level; the census doesn't count postgrad so have to collapse in panel
+      netquest$ed <- as.integer(netquest$BR_education_level_full)
+      #Employment. RECONSIDER ORDERING.
+      netquest$emp <- mapvalues(netquest$BR_laboral_situation,
+             from=c(1,2,3,4,5,6,7,8,9),
+             to=  c(2,1,4,3,4,3,4,4,4))
+      # Auto:
+      netquest$auto <- mapvalues(netquest$BR_numAutos,
+       from=c(1,2,3,4,5),
+       to=  c(2,1,1,1,1))
+      #Have Bath?
+      netquest$nbath <- mapvalues(netquest$BR_numBaths,
+             from=c(1,2,3,4,5),
+             to=  c(2,1,1,1,1))
+      
+      # Computer:
+      netquest$pc <- mapvalues(netquest$BR_numComputer,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+      # Fridge:
+      netquest$fridg <- mapvalues(netquest$BR_numFridge,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+      # Washer:
+      netquest$washer <- mapvalues(netquest$BR_numWashmachine,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+
+      #number of persons in household
+      dt$pern <- dt$P2
+      #head of household?
+      dt$hhh <- mapvalues(dt$P12,
+                                from=c(1,2,3),
+                                to  =c(1,2,1)
+                                )    
+    }
+    else {print("Unknown source!")}
+    } else if(country=="MX"){
     if(source=="ipums"){
       #Gender:  
       dt$gend <- dt$SEX

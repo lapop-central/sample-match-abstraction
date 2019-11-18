@@ -278,6 +278,7 @@ has_ipums_geo = nq_geodf.geo2_match_score>int(cutoff )
 nq_geodf['IPUMS_geo2_code'] = np.nan
 
 nq_geodf.loc[has_ipums_geo,'IPUMS_geo2_code'] = nq_geodf[has_ipums_geo]                            .geo2_match_index                            .astype(int)                            .apply(
+
                                 lambda i: ipums_geodf.loc[i,'geo2_code']
                             .astype(int)
 )
