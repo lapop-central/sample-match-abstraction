@@ -24,13 +24,13 @@ country = "AR"
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
-datadir <-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online/Matching process/Data/',country,'/')
+datadir <-  paste0('../out/')
 
-censuspath <- paste0(datadir,'sample/',country,'_ipums-census_geo.csv')
+censuspath <- paste0(datadir,'ipums_country/',country,'_ipums-census_geo.csv')
 
-netquestpath <- paste0(datadir, "panel/", country, "_netquest-panel_geo.csv")
+netquestpath <- paste0(datadir, "panel_country/", country, "_netquest-panel_geo.csv")
 
-recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
+varpath <- paste0("../../doc/matching/matching-vars2.csv") #table specifying matching vars by country
 parampath <- "./country_parameters.csv" # set specific parameters in this file
 ```
 
@@ -48,15 +48,15 @@ NQ_id <- params$NQ_id
 strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
 ```
 
-```{r}
-recode_map <- fread(recodepath)
-```
-
-
 We have to recode the various characteristics we have at our disposal.
 ```{r}
-matching.vars <- unique(recode_map$common_var)
+matching.vars <- Filter(
+  f=Negate(is.na),
+  fread("../../doc/matching/matching_vars.csv",na.strings = "")[[country]]
+)
+matching.vars
 ```
+
 
 Load external function to do the dirty work, depending on country etc.
 Note that this function will need to get updated when adding new countries/data sources.
@@ -136,7 +136,7 @@ dim(census.proc)
 Save to disk:
 ```{r}
 write.csv(x = census.proc, 
-          file = paste0(datadir,'/sample/', country,'_ipums_recoded.csv'),
+          file = paste0(datadir,'ipums_country/', country,'_ipums_recoded.csv'),
           row.names = F
 )
 ```
@@ -170,7 +170,7 @@ summary(netquest.proc)
 Save to disk:
 ```{r}
 write.csv(x = netquest.proc, 
-          file = paste0(datadir,'/panel/', country, '_netquest_recoded.csv'),
+          file = paste0(datadir,'panel_country/', country, '_netquest_recoded.csv'),
           row.names = F
 )
 
