@@ -68,7 +68,8 @@ countryRecode <- function(dt, source, country){
     
     
    
-  } else if(country=='BR'){
+  
+    } else if(country=='BR'){
     if(source=='ipums'){
       # Gender:         
       dt$gend <- dt$SEX
@@ -89,79 +90,128 @@ countryRecode <- function(dt, source, country){
       dt$ed[dt$EDUCBR %in% c(4230, 4240)] <- 11
       dt$ed[dt$EDUCBR %in% c(4250, 4260)] <- 12
       #Employment. RECONSIDER ORDERING.
-      census$emp <- mapvalues(census$EMPSTAT,
+      dt$emp <- mapvalues(dt$EMPSTAT,
               from=c(1, 2, 3,  0),
               to=  c(1, 3, 4, NA))
-      census$emp[census$CLASSWK==2]<- 2   # Wage/salary worker
+      dt$emp[dt$CLASSWK==2]<- 2   # Wage/salary worker
       # Auto:
-      census$auto <- mapvalues(census$AUTOS,
+      dt$auto <- mapvalues(dt$AUTOS,
         from=c(0,7,9),
         to=  c(2,1,NA))
       #Have Bath?
-      census$nbath <- mapvalues(census$BATH,
+      dt$nbath <- mapvalues(dt$BATH,
               from=c(1,2,0),
               to=  c(2,1,NA))
       # Computer:
-      census$pc <- mapvalues(census$COMPUTER,
+      dt$pc <- mapvalues(dt$COMPUTER,
                        from=c(1,2,0),
                        to  =c(2,1,NA)
                        )
       # fridge:
-      census$fridg <- mapvalues(census$REFRIG,
+      dt$fridg <- mapvalues(dt$REFRIG,
                        from=c(1,2,0),
                        to  =c(2,1,NA)
                        )
       # Washing machine:
-      census$washer <- mapvalues(census$WASHER,
+      dt$washer <- mapvalues(dt$WASHER,
                        from=c(1,2,0),
                        to  =c(2,1,NA)
                        )
+      # Children:
+      dt$child<-dt$NCHILD
+      dt$child[dt$NCHILD>7] <- 7
+      # marital status:
+      
+      dt$marst <- mapvalues(dt$MARST,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                            )
+      # radio:
+      dt$radio <- mapvalues(dt$RADIO,
+                       from=c(1,2,0),
+                       to  =c(2,1,NA)
+                       )
+      # TV:
+      dt$tv <- mapvalues(dt$TV,
+                       from=c(10,20,0),
+                       to  =c(2,1,NA)
+                       )
+
       #number of persons in household
       dt$pern <- dt$PERSONS
+      # type of household
+      dt$hhtype <- mapvalues(dt$HHTYPE,
+                          from=c(1,5,6,7,8,2,3,4,6,11,99, 0),
+                          to  =c(1,5,5,6,6,2,4,3,5, 0, 0,NA)
+                          )
+
       #head of household?
-      dt$hhh <- rep(NA,length=length(dt$RELATE))
+      dt$hhh <- vector(length=length(dt$RELATE))
       dt$hhh[dt$RELATE>1] <- 2
       dt$hhh[dt$RELATE==1] <- 1
     }
     else if(source=='netquest'){
       # Gender:
       dt$gend <- dt$p_sexo
-      #Age:          is fine, need to filter these to make sure we exclude too young respondents.
+      #Age:         
       dt$age <- dt$panelistAge
       dt$age[dt$panelistAge>100] <- 100
       #Education:    EDUCCL partially matches CL_education_level; the census doesn't count postgrad so have to collapse in panel
-      netquest$ed <- as.integer(netquest$BR_education_level_full)
+      dt$ed <- as.integer(dt$BR_education_level_full)
       #Employment. RECONSIDER ORDERING.
-      netquest$emp <- mapvalues(netquest$BR_laboral_situation,
+      dt$emp <- mapvalues(dt$BR_laboral_situation,
              from=c(1,2,3,4,5,6,7,8,9),
              to=  c(2,1,4,3,4,3,4,4,4))
       # Auto:
-      netquest$auto <- mapvalues(netquest$BR_numAutos,
+      dt$auto <- mapvalues(dt$BR_numAutos,
        from=c(1,2,3,4,5),
        to=  c(2,1,1,1,1))
       #Have Bath?
-      netquest$nbath <- mapvalues(netquest$BR_numBaths,
+      dt$nbath <- mapvalues(dt$BR_numBaths,
              from=c(1,2,3,4,5),
              to=  c(2,1,1,1,1))
       
       # Computer:
-      netquest$pc <- mapvalues(netquest$BR_numComputer,
+      dt$pc <- mapvalues(dt$BR_numComputer,
                          from=c(1,2,3,4,5),
                          to  =c(2,1,1,1,1)
                          )
       # Fridge:
-      netquest$fridg <- mapvalues(netquest$BR_numFridge,
+      dt$fridg <- mapvalues(dt$BR_numFridge,
                          from=c(1,2,3,4,5),
                          to  =c(2,1,1,1,1)
                          )
       # Washer:
-      netquest$washer <- mapvalues(netquest$BR_numWashmachine,
+      dt$washer <- mapvalues(dt$BR_numWashmachine,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+      # child:
+      dt$child <- dt$number_P3
+      dt$child[dt$P3==2] <- 0
+      # marital status:
+      dt$marst <- mapvalues(dt$P1,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                          )
+      # radio:
+      dt$radio <- mapvalues(dt$BR_2012_numRadio,
+                         from=c(1,2,3,4,5),
+                         to  =c(2,1,1,1,1)
+                         )
+      # TV:
+      dt$tv <- mapvalues(dt$BR_2012_numTV,
                          from=c(1,2,3,4,5),
                          to  =c(2,1,1,1,1)
                          )
 
       #number of persons in household
       dt$pern <- dt$P2
+      # household type
+      dt$hhtype <- mapvalues(dt$P8,
+                          from=c(1,2,3,4,5,6,7,99),
+                          to  =c(1,5,6,2,4,3,5, 0)
+                          )
       #head of household?
       dt$hhh <- mapvalues(dt$P12,
                                 from=c(1,2,3),
@@ -169,7 +219,220 @@ countryRecode <- function(dt, source, country){
                                 )    
     }
     else {print("Unknown source!")}
-    } else if(country=="MX"){
+    
+      } else if(country=='CL'){
+    if(source=='ipums'){
+      # Gender:         
+      dt$gend <- dt$SEX
+      # Age:
+      dt$age <- mapvalues(dt$AGE, from=c(999), to=c(NA))
+      # Education:    
+      dt$ed[dt$EDUCCL==0] <- 1
+      dt$ed[dt$EDUCCL>=221 & dt$EDUCCL<=227] <- 2
+      dt$ed[dt$EDUCCL==228] <- 3
+      dt$ed[dt$EDUCCL>=311 & dt$EDUCCL<=393] <- 4
+      dt$ed[dt$EDUCCL %in% c(316, 324,325, 334,335, 344, 345, 354, 355, 364, 365, 386, 387, 394)] <- 5
+      dt$ed[dt$EDUCCL>=400] <- 6
+      # Education head of household:
+      dt$ed_hhh[dt$EDUCCL_HEAD==0] <- 1
+      dt$ed_hhh[dt$EDUCCL_HEAD>=221 & dt$EDUCCL_HEAD<=227] <- 2
+      dt$ed_hhh[dt$EDUCCL_HEAD==228] <- 3
+      dt$ed_hhh[dt$EDUCCL_HEAD>=311 & dt$EDUCCL_HEAD<=393] <- 4
+      dt$ed_hhh[dt$EDUCCL_HEAD %in% c(316, 324,325, 334,335, 344, 345, 354, 355, 364, 365, 386, 387, 394)] <- 5
+      dt$ed_hhh[dt$EDUCCL_HEAD>=400] <- 6
+
+      #Employment. RECONSIDER ORDERING.
+      dt$emp <- mapvalues(dt$EMPSTATD,
+          from=c(110,120,330,210,220,390,340,320,310,  0),
+          to=  c(  1,  1,  4,  6,  5,  8,  8,  9,  3, NA))
+      dt$emp[dt$CLASSWK==2]<- 2   # Wage/salary worker
+      # Employment HHH:
+      dt$emp_hhh <- mapvalues(dt$EMPSTATD_HEAD,
+          from=c(110,120,330,210,220,390,340,320,310,  0),
+          to=  c(  1,  1,  4,  6,  5,  8,  8,  9,  3, NA))
+      dt$emp_hhh[dt$CLASSWK_HEAD==2]<- 2
+      # Auto:
+      dt$auto <- mapvalues(dt$AUTOS,
+        from=c(0,7,9),
+        to=  c(2,1,NA))
+      # Cellphone (this may be a bad variable in Chile given the changes since 2002)
+      dt$cell <- mapvalues(dt$CL2002A_CELLPH,
+          from=c(1,2,0),
+          to=  c(1,2,NA))
+      # Children:
+      dt$child<-dt$NCHILD
+      dt$child[dt$NCHILD>7] <- 7
+      # marital status:
+      
+      dt$marst <- mapvalues(dt$MARST,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                            )
+      # number of persons in household
+      dt$pern <- dt$PERSONS
+      # type of household
+      dt$hhtype <- mapvalues(dt$HHTYPE,
+                          from=c(1,5,6,7,8,2,3,4,6,11,99, 0),
+                          to  =c(1,5,5,6,6,2,4,3,5, 0, 0,NA)
+                          )
+
+      #head of household?
+      dt$hhh <- vector(length=length(dt$RELATE))
+      dt$hhh[dt$RELATE>1] <- 2
+      dt$hhh[dt$RELATE==1] <- 1
+    }
+    else if(source=='netquest'){
+      # Gender:
+      dt$gend <- dt$p_sexo
+      #Age:         
+      dt$age <- dt$panelistAge
+      dt$age[dt$panelistAge>100] <- 100
+      #Education:    EDUCCL partially matches CL_education_level; the census doesn't count postgrad so have to collapse in panel
+      dt$ed <- mapvalues(as.integer(dt$CL_education_level),
+        from=c(6, 7, 8, 9),
+        to=  c(6, 6, 6, 6))
+      # Education HHH
+      dt$ed_hhh <- mapvalues(as.integer(dt$CL_education_level_hhousehold),
+          from=c(6, 7, 8, 9),
+          to=  c(6, 6, 6, 6))
+      #Employment. RECONSIDER ORDERING.
+      dt$emp <- mapvalues(dt$CL_laboral_situation,
+         from=c(1,2,3,4,5,6,7,8,9),
+         to=  c(1,2,4,6,5,8,8,9,3))
+      # Employment HHH:
+      dt$emp_hhh <- mapvalues(dt$CL_laboral_situation_hhousehold,
+       from=c(1,2,3,4,5,6,7,8,9),
+       to=  c(1,2,4,6,5,8,8,9,3))
+      # Auto:
+      dt$auto <- mapvalues(dt$CL_NSE_hasvehicle_hhousehold,
+          from=c(1,2),
+          to=  c(1,2))
+      # cellphone: 
+      dt$cell <- mapvalues(dt$CL_NSE_mobilecontract_hhousehold,
+         from=c(1,2,3),
+         to=  c(1,1,2))
+      # child:
+      dt$child <- dt$number_P3
+      dt$child[dt$P3==2] <- 0
+      # marital status:
+      dt$marst <- mapvalues(dt$P1,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                          )
+      #number of persons in household
+      dt$pern <- dt$P2
+      # household type
+      dt$hhtype <- mapvalues(dt$P8,
+                          from=c(1,2,3,4,5,6,7,99),
+                          to  =c(1,5,6,2,4,3,5, 0)
+                          )
+      #head of household?
+      dt$hhh <- mapvalues(dt$P12,
+                                from=c(1,2,3),
+                                to  =c(1,2,1)
+                                )    
+    }
+    else {print("Unknown source!")}
+    
+      
+      } else if(country=='CO'){
+    if(source=='ipums'){
+      # Gender:         
+      dt$gend <- dt$SEX
+      # Age:
+      dt$age <- mapvalues(dt$AGE, from=c(999), to=c(NA))
+      # Education:    
+      census$ed[census$EDUCCO<=250 | census$EDUCCO==270] <- 1
+      census$ed[census$EDUCCO==260] <- 2
+      census$ed[census$EDUCCO>=320 & census$EDUCCO<=380] <- 3
+      census$ed[census$EDUCCO>=390 & census$EDUCCO<=439] <- 4
+      census$ed[census$EDUCCO>=440 & census$EDUCCO<=449] <- 5
+      census$ed[census$EDUCCO>=500 & census$EDUCCO<=590] <- 6
+      # Education head of household:
+      census$ed_hhh[census$EDUCCO_HEAD<=250 | census$EDUCCO_HEAD==270] <- 1
+      census$ed_hhh[census$EDUCCO_HEAD==260] <- 2
+      census$ed_hhh[census$EDUCCO_HEAD>=320 & census$EDUCCO_HEAD<=380] <- 3
+      census$ed_hhh[census$EDUCCO_HEAD>=390 & census$EDUCCO_HEAD<=439] <- 4
+      census$ed_hhh[census$EDUCCO_HEAD>=440 & census$EDUCCO_HEAD<=449] <- 5
+      census$ed_hhh[census$EDUCCO_HEAD>=500 & census$EDUCCO_HEAD<=590] <- 6
+
+      #Employment. RECONSIDER ORDERING.
+      census$emp <- mapvalues(census$CO2005A_EMPSTAT,
+        from=c(  1,  5,  3,  4,  8,  7,  6,  9, 98, 99),
+        to=  c(  1,  4,  6,  5,  8,  9,  3, NA, NA, NA))
+      census$emp[census$CLASSWK==2]<- 2
+
+      # Employment HHH:
+      census$emp_hhh <- mapvalues(census$CO2005A_EMPSTAT_HEAD,
+        from=c(  1,  5,  3,  4,  8,  7,  6,  9, 98, 99),
+        to=  c(  1,  4,  6,  5,  8,  9,  3, NA, NA, NA))
+      census$emp_hhh[census$CLASSWK_HEAD==2]<- 2
+      # Children:
+      dt$child<-dt$NCHILD
+      dt$child[dt$NCHILD>7] <- 7
+      # marital status:
+      
+      dt$marst <- mapvalues(dt$MARST,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                            )
+      # number of persons in household
+      dt$pern <- dt$PERSONS
+      # type of household
+      dt$hhtype <- mapvalues(dt$HHTYPE,
+                          from=c(1,5,6,7,8,2,3,4,6,11,99, 0),
+                          to  =c(1,5,5,6,6,2,4,3,5, 0, 0,NA)
+                          )
+
+      #head of household?
+      dt$hhh <- vector(length=length(dt$RELATE))
+      dt$hhh[dt$RELATE>1] <- 2
+      dt$hhh[dt$RELATE==1] <- 1
+    }
+    else if(source=='netquest'){
+      # Gender:
+      dt$gend <- dt$p_sexo
+      #Age:         
+      dt$age <- dt$panelistAge
+      dt$age[dt$panelistAge>100] <- 100
+      #Education:    EDUCCL partially matches CL_education_level; the census doesn't count postgrad so have to collapse in panel
+      netquest$ed <- as.integer(netquest$CO_education_level)
+      # Education HHH
+      netquest$ed_hhh <- as.integer(netquest$CO_education_level_hhousehold)
+      #Employment. RECONSIDER ORDERING.
+      netquest$emp <- mapvalues(netquest$CO_laboral_situation,
+             from=c(1,2,3,4,5,6,7,8,9),
+             to=  c(1,2,4,6,5,8,8,9,3))
+      # Employment HHH:
+      netquest$emp_hhh <- mapvalues(netquest$CO_laboral_situation_hhousehold,
+             from=c(1,2,3,4,5,6,7,8,9),
+             to=  c(1,2,4,6,5,8,8,9,3))
+      # child:
+      dt$child <- dt$number_P3
+      dt$child[dt$P3==2] <- 0
+      # marital status:
+      dt$marst <- mapvalues(dt$P1,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                          )
+      #number of persons in household
+      dt$pern <- dt$P2
+      # household type
+      dt$hhtype <- mapvalues(dt$P8,
+                          from=c(1,2,3,4,5,6,7,99),
+                          to  =c(1,5,6,2,4,3,5, 0)
+                          )
+      #head of household?
+      dt$hhh <- mapvalues(dt$P12,
+                                from=c(1,2,3),
+                                to  =c(1,2,1)
+                                )    
+    }
+    else {print("Unknown source!")}
+    
+      
+        
+      } else if(country=="MX"){
     if(source=="ipums"){
       #Gender:  
       dt$gend <- dt$SEX
@@ -281,7 +544,8 @@ countryRecode <- function(dt, source, country){
       dt$hhh[dt$RELATE==1] <- 1
       
       
-    } else if(source=='netquest'){
+    
+      } else if(source=='netquest'){
       #Gender:         
       dt$gend <- dt$p_sexo
       #Age:       
