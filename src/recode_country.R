@@ -545,7 +545,8 @@ countryRecode <- function(dt, source, country){
       
       
     
-      } else if(source=='netquest'){
+      } 
+        else if(source=='netquest'){
       #Gender:         
       dt$gend <- dt$p_sexo
       #Age:       
@@ -620,7 +621,154 @@ countryRecode <- function(dt, source, country){
                                 )
     }
     else {print("Unknown source!")}
-  }
+  
+      } else if (country=="PE"){
+     if(source=='ipums'){
+      # Gender:         
+      dt$gend <- dt$SEX
+      # Age:
+      dt$age <- mapvalues(dt$AGE, from=c(999), to=c(NA))
+      # Education:    
+      dt$ed[dt$EDUCPE==100] <- 1
+      dt$ed[dt$EDUCPE>= 110 & dt$EDUCPE<=305] <- 2
+      dt$ed[dt$EDUCPE==306 | dt$EDUCPE==611] <- 3
+      dt$ed[dt$EDUCPE==612] <- 4
+      dt$ed[dt$EDUCPE==621] <- 5
+      dt$ed[dt$EDUCPE==622] <- 6
+      # Education head of household:
+      dt$ed_hhh[dt$EDUCPE_HEAD==100] <- 1
+      dt$ed_hhh[dt$EDUCPE_HEAD>= 110 & dt$EDUCPE_HEAD<=305] <- 2
+      dt$ed_hhh[dt$EDUCPE_HEAD==306 | dt$EDUCPE_HEAD==611] <- 3
+      dt$ed_hhh[dt$EDUCPE_HEAD==612] <- 4
+      dt$ed_hhh[dt$EDUCPE_HEAD==621] <- 5
+      dt$ed_hhh[dt$EDUCPE_HEAD==622] <- 6
+
+      #Employment. RECONSIDER ORDERING.
+      dt$emp[dt$EMPSTATD==117] <- 1
+      dt$emp[dt$EMPSTATD==110 | dt$EMPSTATD==120] <- 2
+      dt$emp[dt$EMPSTATD==330] <- 3
+      dt$emp[dt$EMPSTATD==210] <- 4
+      dt$emp[dt$EMPSTATD==220] <- 5
+      dt$emp[dt$EMPSTATD==341 | dt$EMPSTATD==343] <- 6
+      dt$emp[dt$EMPSTATD==310] <- 8
+      dt$emp[dt$DISEMP==1]<- 7
+      # Employment HHH:
+      dt$emp_hhh[dt$EMPSTATD_HEAD_HEAD==117] <- 1
+      dt$emp_hhh[dt$EMPSTATD_HEAD==110 | dt$EMPSTATD_HEAD==120] <- 2
+      dt$emp_hhh[dt$EMPSTATD_HEAD==330] <- 3
+      dt$emp_hhh[dt$EMPSTATD_HEAD==210] <- 4
+      dt$emp_hhh[dt$EMPSTATD_HEAD==220] <- 5
+      dt$emp_hhh[dt$EMPSTATD_HEAD==341 | dt$EMPSTATD_HEAD==343] <- 6
+      dt$emp_hhh[dt$EMPSTATD_HEAD==310] <- 8
+      dt$emp_hhh[dt$DISEMP_HEAD==1]<- 7
+      # Offwater:
+      dt$bath[dt$PE2007A_SEWAGE==6] <- 1
+      dt$bath[dt$PE2007A_SEWAGE%in%c(3, 4, 5)] <- 2
+      dt$bath[dt$PE2007A_SEWAGE==2] <- 3
+      dt$bath[dt$PE2007A_SEWAGE==6] <- 4
+      # Health insurance:
+      dt$health[dt$PE2007A_INSURSIS_HEAD==1 | dt$PE2007A_INSURNON_HEAD==1] <- 1
+      dt$health[dt$PE2007A_INSURESS_HEAD==1] <- 2
+      dt$health[dt$PE2007A_INSUROTH_HEAD==1] <- 3
+      # Floor:
+      dt$floor[dt$PE2007A_FLOOR==1] <- 1
+      dt$floor[dt$PE2007A_FLOOR%in%c(2,5)] <- 2
+      dt$floor[dt$PE2007A_FLOOR%in%c(3,6)] <- 3
+      dt$floor[dt$PE2007A_FLOOR==4] <- 4
+      dt$floor[dt$PE2007A_FLOOR==7] <- NaN
+      # Walls:
+      dt$wall[dt$PE2007A_WALL==5] <- 1
+      dt$wall[dt$PE2007A_WALL%in%c(2,3,4,6)] <- 2
+      dt$wall[dt$PE2007A_WALL==7] <- 3
+      dt$wall[dt$PE2007A_WALL==1] <- 4
+      # Children:
+      dt$child<-dt$NCHILD
+      dt$child[dt$NCHILD>7] <- 7
+      # marital status:
+      dt$marst <- mapvalues(dt$MARST,
+                          from=c(1,2,3,4),
+                          to  =c(1,4,2,3)
+                            )
+      # type of household
+      dt$hhtype <- mapvalues(dt$HHTYPE,
+                          from=c(1,5,6,7,8,2,3,4,6,11,99, 0),
+                          to  =c(1,5,5,6,6,2,4,3,5, 0, 0,NA)
+                          )
+      #head of household?
+      dt$hhh <- vector(length=length(dt$RELATE))
+      dt$hhh[dt$RELATE>1] <- 2
+      dt$hhh[dt$RELATE==1] <- 1
+      # number of persons in household
+      dt$pern <- dt$PERSONS
+    } 
+        else if (source=='netquest'){
+          # Gender:         
+          dt$gend <- dt$p_sexo
+          #Age:       
+          dt$age <- dt$panelistAge
+          dt$age[dt$panelistAge>100] <- 100
+          # Education:    
+          dt$ed[dt$PE_education_level==1] <- 1
+          dt$ed[dt$PE_education_level==2] <- 2
+          dt$ed[dt$PE_education_level==3] <- 3
+          dt$ed[dt$PE_education_level==4] <- 4
+          dt$ed[dt$PE_education_level==5] <- 5
+          dt$ed[dt$PE_education_level%in%c(6,7)] <- 6
+          # Education head of household:
+          dt$ed[dt$PE_education_level_hhousehold==1] <- 1
+          dt$ed[dt$PE_education_level_hhousehold==2] <- 2
+          dt$ed[dt$PE_education_level_hhousehold==3] <- 3
+          dt$ed[dt$PE_education_level_hhousehold==4] <- 4
+          dt$ed[dt$PE_education_level_hhousehold==5] <- 5
+          dt$ed[dt$PE_education_level_hhousehold%in%c(6,7)] <- 6
+          #Employment. RECONSIDER ORDERING.
+          dt$emp <- dt$PE_laboral_situation
+          dt$emp[dt$PE_laboral_situation==7] <- 6
+          dt$emp[dt$PE_laboral_situation==8] <- 7
+          dt$emp[dt$PE_laboral_situation==9] <- 8
+          # Employment HHH:
+          dt$emp <- dt$PE_laboral_situation_hhousehold
+          dt$emp[dt$PE_laboral_situation_hhousehold==7] <- 6
+          dt$emp[dt$PE_laboral_situation_hhousehold==8] <- 7
+          dt$emp[dt$PE_laboral_situation_hhousehold==9] <- 8
+          # Offwater:
+          dt$bath <- dt$PE_NSE_bath
+          # Health insurance:
+          dt$health <- dt$PE_NSE_health
+          dt$health[dt$PE_NSE_health==4] <- 3
+          dt$health[dt$PE_NSE_health==5] <- NaN
+          # Floor:
+          dt$floor <- dt$PE_NSE_pavement
+          dt$floor[dt$PE_NSE_pavement==4] <- 3
+          dt$floor[dt$PE_NSE_pavement==5] <- 4
+          # Walls:
+          dt$wall[dt$PE2007A_WALL==5] <- 1
+          dt$wall[dt$PE2007A_WALL%in%c(2,3,4,6)] <- 2
+          dt$wall[dt$PE2007A_WALL==7] <- 3
+          dt$wall[dt$PE2007A_WALL==1] <- 4
+          # Children:
+          dt$child <- dt$number_P3
+          dt$child[dt$P3==2] <- 0
+          # marital status:
+          dt$marst <- mapvalues(dt$P1,
+                                    from=c(1,2,3,4),
+                                    to  =c(1,4,2,3)
+                                    )
+          # type of household
+          dt$hhtype <- mapvalues(dt$P8,
+                                    from=c(1,2,3,4,5,6,7,99),
+                                    to  =c(1,5,6,2,4,3,5, 0)
+                                    )
+          # head of household?
+          dt$hhh <- mapvalues(dt$P12,
+                                    from=c(1,2,3),
+                                    to  =c(1,2,1)
+                                    )
+          # number of persons in household
+          dt$pern <- dt$P2
+        }
+        else {print("Unknown source!")}  
+      }
   else {print("Unknown country!")}
   return(dt)
 }
