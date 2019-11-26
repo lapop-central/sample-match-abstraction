@@ -681,11 +681,26 @@ countryRecode <- function(dt, source, country){
       dt$wall[dt$PE2007A_WALL%in%c(2,3,4,6)] <- 2
       dt$wall[dt$PE2007A_WALL==7] <- 3
       dt$wall[dt$PE2007A_WALL==1] <- 4
+      # Computer:
+      dt$pc[dt$PE2007A_COMPUTR==1] <- 1
+      dt$pc[dt$PE2007A_COMPUTR==2] <- 0
+      # Washer:
+      dt$washer[dt$PE2007A_WASHER==1] <- 1
+      dt$washer[dt$PE2007A_WASHER==2] <- 0
+      # Fridge:
+      dt$fridg[dt$PE2007A_FRIDGE==1] <- 1
+      dt$fridg[dt$PE2007A_FRIDGE==2] <- 0
+      # Phone:
+      dt$phone[dt$PHONE==1] <- 1
+      dt$phone[dt$PHONE==2] <- 0
+      # Cable TV:
+      dt$cable[dt$PE2007_CABLETV==1] <- 1
+      dt$cable[dt$PE2007_CABLETV==2] <- 0
       # Children:
       dt$child<-dt$NCHILD
       dt$child[dt$NCHILD>7] <- 7
       # marital status:
-      dt$marst <- mapvalues(dt$MARST,
+      dt$marst <- mapvalues(dt$MARST, #(includes info on consensual union)
                           from=c(1,2,3,4),
                           to  =c(1,4,2,3)
                             )
@@ -700,7 +715,8 @@ countryRecode <- function(dt, source, country){
       dt$hhh[dt$RELATE==1] <- 1
       # number of persons in household
       dt$pern <- dt$PERSONS
-    } 
+     } 
+        dt <- fread("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/panel_country/PE_netquest-panel.csv")
         else if (source=='netquest'){
           # Gender:         
           dt$gend <- dt$p_sexo
@@ -746,6 +762,21 @@ countryRecode <- function(dt, source, country){
           dt$wall[dt$PE2007A_WALL%in%c(2,3,4,6)] <- 2
           dt$wall[dt$PE2007A_WALL==7] <- 3
           dt$wall[dt$PE2007A_WALL==1] <- 4
+          # Computer:
+          dt$pc[dt$`PE_NSE_comodities#1`==1] <- 1
+          dt$pc[dt$`PE_NSE_comodities#1`==0] <- 0
+          # Washer:
+          dt$washer[dt$`PE_NSE_comodities#2`==1] <- 1
+          dt$washer[dt$`PE_NSE_comodities#2`==0] <- 0
+          # Fridge:
+          dt$fridg[dt$`PE_NSE_comodities#4`==1] <- 1
+          dt$fridg[dt$`PE_NSE_comodities#4`==0] <- 0
+          # Phone:
+          dt$phone[dt$`PE_NSE_comodities#6`==1] <- 1
+          dt$phone[dt$`PE_NSE_comodities#6`==0] <- 0
+          # Cable TV:
+          dt$cable[dt$`PE_NSE_comodities#7`==1] <- 1
+          dt$cable[dt$`PE_NSE_comodities#7`==0] <- 0
           # Children:
           dt$child <- dt$number_P3
           dt$child[dt$P3==2] <- 0
