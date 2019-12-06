@@ -715,8 +715,7 @@ countryRecode <- function(dt, source, country){
       dt$hhh[dt$RELATE==1] <- 1
       # number of persons in household
       dt$pern <- dt$PERSONS
-     } 
-        dt <- fread("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/panel_country/PE_netquest-panel.csv")
+     }         
         else if (source=='netquest'){
           # Gender:         
           dt$gend <- dt$p_sexo
