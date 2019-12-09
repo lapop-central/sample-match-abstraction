@@ -336,37 +336,39 @@ countryRecode <- function(dt, source, country){
     
       
       } else if(country=='CO'){
+        print("got CO")
     if(source=='ipums'){
+      print("got ipums")
       # Gender:         
       dt$gend <- dt$SEX
       # Age:
       dt$age <- mapvalues(dt$AGE, from=c(999), to=c(NA))
       # Education:    
-      census$ed[census$EDUCCO<=250 | census$EDUCCO==270] <- 1
-      census$ed[census$EDUCCO==260] <- 2
-      census$ed[census$EDUCCO>=320 & census$EDUCCO<=380] <- 3
-      census$ed[census$EDUCCO>=390 & census$EDUCCO<=439] <- 4
-      census$ed[census$EDUCCO>=440 & census$EDUCCO<=449] <- 5
-      census$ed[census$EDUCCO>=500 & census$EDUCCO<=590] <- 6
+      dt$ed[dt$EDUCCO<=250 | dt$EDUCCO==270] <- 1
+      dt$ed[dt$EDUCCO==260] <- 2
+      dt$ed[dt$EDUCCO>=320 & dt$EDUCCO<=380] <- 3
+      dt$ed[dt$EDUCCO>=390 & dt$EDUCCO<=439] <- 4
+      dt$ed[dt$EDUCCO>=440 & dt$EDUCCO<=449] <- 5
+      dt$ed[dt$EDUCCO>=500 & dt$EDUCCO<=590] <- 6
       # Education head of household:
-      census$ed_hhh[census$EDUCCO_HEAD<=250 | census$EDUCCO_HEAD==270] <- 1
-      census$ed_hhh[census$EDUCCO_HEAD==260] <- 2
-      census$ed_hhh[census$EDUCCO_HEAD>=320 & census$EDUCCO_HEAD<=380] <- 3
-      census$ed_hhh[census$EDUCCO_HEAD>=390 & census$EDUCCO_HEAD<=439] <- 4
-      census$ed_hhh[census$EDUCCO_HEAD>=440 & census$EDUCCO_HEAD<=449] <- 5
-      census$ed_hhh[census$EDUCCO_HEAD>=500 & census$EDUCCO_HEAD<=590] <- 6
+      dt$ed_hhh[dt$EDUCCO_HEAD<=250 | dt$EDUCCO_HEAD==270] <- 1
+      dt$ed_hhh[dt$EDUCCO_HEAD==260] <- 2
+      dt$ed_hhh[dt$EDUCCO_HEAD>=320 & dt$EDUCCO_HEAD<=380] <- 3
+      dt$ed_hhh[dt$EDUCCO_HEAD>=390 & dt$EDUCCO_HEAD<=439] <- 4
+      dt$ed_hhh[dt$EDUCCO_HEAD>=440 & dt$EDUCCO_HEAD<=449] <- 5
+      dt$ed_hhh[dt$EDUCCO_HEAD>=500 & dt$EDUCCO_HEAD<=590] <- 6
 
       #Employment. RECONSIDER ORDERING.
-      census$emp <- mapvalues(census$CO2005A_EMPSTAT,
+      dt$emp <- mapvalues(dt$CO2005A_EMPSTAT,
         from=c(  1,  5,  3,  4,  8,  7,  6,  9, 98, 99),
         to=  c(  1,  4,  6,  5,  8,  9,  3, NA, NA, NA))
-      census$emp[census$CLASSWK==2]<- 2
+      dt$emp[dt$CLASSWK==2]<- 2
 
       # Employment HHH:
-      census$emp_hhh <- mapvalues(census$CO2005A_EMPSTAT_HEAD,
+      dt$emp_hhh <- mapvalues(dt$CO2005A_EMPSTAT_HEAD,
         from=c(  1,  5,  3,  4,  8,  7,  6,  9, 98, 99),
         to=  c(  1,  4,  6,  5,  8,  9,  3, NA, NA, NA))
-      census$emp_hhh[census$CLASSWK_HEAD==2]<- 2
+      dt$emp_hhh[dt$CLASSWK_HEAD==2]<- 2
       # Children:
       dt$child<-dt$NCHILD
       dt$child[dt$NCHILD>7] <- 7
@@ -396,15 +398,15 @@ countryRecode <- function(dt, source, country){
       dt$age <- dt$panelistAge
       dt$age[dt$panelistAge>100] <- 100
       #Education:    EDUCCL partially matches CL_education_level; the census doesn't count postgrad so have to collapse in panel
-      netquest$ed <- as.integer(netquest$CO_education_level)
+      dt$ed <- as.integer(dt$CO_education_level)
       # Education HHH
-      netquest$ed_hhh <- as.integer(netquest$CO_education_level_hhousehold)
+      dt$ed_hhh <- as.integer(dt$CO_education_level_hhousehold)
       #Employment. RECONSIDER ORDERING.
-      netquest$emp <- mapvalues(netquest$CO_laboral_situation,
+      dt$emp <- mapvalues(dt$CO_laboral_situation,
              from=c(1,2,3,4,5,6,7,8,9),
              to=  c(1,2,4,6,5,8,8,9,3))
       # Employment HHH:
-      netquest$emp_hhh <- mapvalues(netquest$CO_laboral_situation_hhousehold,
+      dt$emp_hhh <- mapvalues(dt$CO_laboral_situation_hhousehold,
              from=c(1,2,3,4,5,6,7,8,9),
              to=  c(1,2,4,6,5,8,8,9,3))
       # child:
