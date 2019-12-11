@@ -336,9 +336,7 @@ countryRecode <- function(dt, source, country){
     
       
       } else if(country=='CO'){
-        print("got CO")
     if(source=='ipums'){
-      print("got ipums")
       # Gender:         
       dt$gend <- dt$SEX
       # Age:
@@ -664,10 +662,10 @@ countryRecode <- function(dt, source, country){
       dt$emp_hhh[dt$EMPSTATD_HEAD==310] <- 8
       dt$emp_hhh[dt$DISEMP_HEAD==1]<- 7
       # Offwater:
-      dt$bath[dt$PE2007A_SEWAGE==6] <- 1
+      dt$bath[dt$PE2007A_SEWAGE==1] <- 4
       dt$bath[dt$PE2007A_SEWAGE%in%c(3, 4, 5)] <- 2
       dt$bath[dt$PE2007A_SEWAGE==2] <- 3
-      dt$bath[dt$PE2007A_SEWAGE==6] <- 4
+      dt$bath[dt$PE2007A_SEWAGE==6] <- 1
       # Health insurance:
       dt$health[dt$PE2007A_INSURSIS_HEAD==1 | dt$PE2007A_INSURNON_HEAD==1] <- 1
       dt$health[dt$PE2007A_INSURESS_HEAD==1] <- 2
@@ -696,8 +694,8 @@ countryRecode <- function(dt, source, country){
       dt$phone[dt$PHONE==1] <- 1
       dt$phone[dt$PHONE==2] <- 0
       # Cable TV:
-      dt$cable[dt$PE2007_CABLETV==1] <- 1
-      dt$cable[dt$PE2007_CABLETV==2] <- 0
+      dt$cable[dt$PE2007A_CABLETV==1] <- 1
+      dt$cable[dt$PE2007A_CABLETV==2] <- 0
       # Children:
       dt$child<-dt$NCHILD
       dt$child[dt$NCHILD>7] <- 7
@@ -732,22 +730,22 @@ countryRecode <- function(dt, source, country){
           dt$ed[dt$PE_education_level==5] <- 5
           dt$ed[dt$PE_education_level%in%c(6,7)] <- 6
           # Education head of household:
-          dt$ed[dt$PE_education_level_hhousehold==1] <- 1
-          dt$ed[dt$PE_education_level_hhousehold==2] <- 2
-          dt$ed[dt$PE_education_level_hhousehold==3] <- 3
-          dt$ed[dt$PE_education_level_hhousehold==4] <- 4
-          dt$ed[dt$PE_education_level_hhousehold==5] <- 5
-          dt$ed[dt$PE_education_level_hhousehold%in%c(6,7)] <- 6
+          dt$ed_hhh[dt$PE_education_level_hhousehold==1] <- 1
+          dt$ed_hhh[dt$PE_education_level_hhousehold==2] <- 2
+          dt$ed_hhh[dt$PE_education_level_hhousehold==3] <- 3
+          dt$ed_hhh[dt$PE_education_level_hhousehold==4] <- 4
+          dt$ed_hhh[dt$PE_education_level_hhousehold==5] <- 5
+          dt$ed_hhh[dt$PE_education_level_hhousehold%in%c(6,7)] <- 6
           #Employment. RECONSIDER ORDERING.
           dt$emp <- dt$PE_laboral_situation
           dt$emp[dt$PE_laboral_situation==7] <- 6
           dt$emp[dt$PE_laboral_situation==8] <- 7
           dt$emp[dt$PE_laboral_situation==9] <- 8
           # Employment HHH:
-          dt$emp <- dt$PE_laboral_situation_hhousehold
-          dt$emp[dt$PE_laboral_situation_hhousehold==7] <- 6
-          dt$emp[dt$PE_laboral_situation_hhousehold==8] <- 7
-          dt$emp[dt$PE_laboral_situation_hhousehold==9] <- 8
+          dt$emp_hhh <- dt$PE_laboral_situation_hhousehold
+          dt$emp_hhh[dt$PE_laboral_situation_hhousehold==7] <- 6
+          dt$emp_hhh[dt$PE_laboral_situation_hhousehold==8] <- 7
+          dt$emp_hhh[dt$PE_laboral_situation_hhousehold==9] <- 8
           # Offwater:
           dt$bath <- dt$PE_NSE_bath
           # Health insurance:
@@ -759,10 +757,10 @@ countryRecode <- function(dt, source, country){
           dt$floor[dt$PE_NSE_pavement==4] <- 3
           dt$floor[dt$PE_NSE_pavement==5] <- 4
           # Walls:
-          dt$wall[dt$PE2007A_WALL==5] <- 1
-          dt$wall[dt$PE2007A_WALL%in%c(2,3,4,6)] <- 2
-          dt$wall[dt$PE2007A_WALL==7] <- 3
-          dt$wall[dt$PE2007A_WALL==1] <- 4
+          dt$wall[dt$PE_NSE_walls==5] <- 1
+          dt$wall[dt$PE_NSE_walls%in%c(2,3,4,6)] <- 2
+          dt$wall[dt$PE_NSE_walls==7] <- 3
+          dt$wall[dt$PE_NSE_walls==1] <- 4
           # Computer:
           dt$pc[dt$`PE_NSE_comodities#1`==1] <- 1
           dt$pc[dt$`PE_NSE_comodities#1`==0] <- 0

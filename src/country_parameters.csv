@@ -1,6 +1,7 @@
 country,strat1,strat2,NQ_id,target.date
 AR,GEO1_AR2010,,p_codigo,191010
 BR,GEO1_BR2010,GEO2_BR2010,p_codigo,
-CO,,,,
+CO,GEO1_CO2005,GEO2_CO2005,p_codigo,
 CL,GEO1_CL2002,GEO2_CL2002,p_codigo,
-MX,GEO1_MX2015,URBAN,gp_codigo,190910
+MX,GEO1_MX2015,URBAN,p_codigo,190910
+PE,GEO1_PE2007,,p_codigo,

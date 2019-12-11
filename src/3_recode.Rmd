@@ -19,7 +19,7 @@ rm(list = ls(all = TRUE))
 
 Setting specifics--may want to iterate over countries rather than set things individually, eventually.
 ```{r}
-country = "B+R"
+country = "PE"
 ```
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
@@ -39,6 +39,10 @@ parampath <- "./country_parameters.csv" # set specific parameters in this file
 ```{r}
 library(data.table)
 library(bit64)
+
+# Load external function to do the dirty work, depending on country etc.
+# Note that this function will need to get updated when adding new countries/data sources.
+source("./recode_country.R")
 ```
 
 Load country-specific parameters:
@@ -57,9 +61,6 @@ matching.vars <- Filter(
 cat("Matching on: ")
 cat(matching.vars)
 
-# Load external function to do the dirty work, depending on country etc.
-# Note that this function will need to get updated when adding new countries/data sources.
-source("./recode_country.R")
 ```
 
 
@@ -75,17 +76,18 @@ census.proc <- countryRecode(dt = census, source = 'ipums', country = country)
 # Summarize
 # summary(census.proc)
 cat("Census vars ending up with lots of NA: ")
-cat(Filter(function(name){sum(is.na(census.proc[[name]]))}/nrow(census.proc) > 0.3, names(census.proc)))
+cat(Filter(function(name){sum(is.na(census.proc[[name]]))}/nrow(census.proc) > 0.2, names(census.proc)))
 ```
 
 
 Investigate ones with lots of NA (as needed):
 ```{r}
-table(census.proc$AUTOS)
+table(census.proc[age>17,c("PE2007A_SEWAGE")])
+sum(is.na(census.proc$bath))
 ```
 These are not in universe.
 ```{r}
-table(census$AR2010A_EDLEV_HEAD)
+nrow(census.proc[PE2007A_CABLETV==1,cable:=1])
 ```
 This is special ed, and not in universe.
 
@@ -113,14 +115,18 @@ census.proc <- census.proc[,c('censusId','PERWT',matching.vars,strats[strats!=""
 census.proc <- na.omit(census.proc)
 #head(census.proc)
 
-#summary(census.proc)
+summary(census.proc)
 ```
+
 
 ```{r}
 # what proportion ends up in sampling frame
 cat("Proportion of census in sampling frame: ")
 cat(dim(census.proc)/dim(census))
+
 ```
+
+
 
 Save to disk:
 ```{r}
@@ -143,13 +149,17 @@ netquest <- fread(netquestpath)
 netquest.proc <- countryRecode(dt = netquest, source = 'netquest', country = country)
 
 cat("Netquest vars ending with lots of NA: ")
-cat(Filter(function(name){sum(is.na(netquest.proc[[name]]))}/nrow(netquest.proc) > 0.3, names(netquest.proc)))
+cat(Filter(function(name){sum(is.na(netquest.proc[[name]]))}/nrow(netquest.proc) > 0.1, names(netquest.proc)))
+
+dim(netquest.proc)/dim(netquest)
 
 # Reduce to what we need:
 netquest.proc$panelId  <- netquest.proc[[NQ_id]]
 netquest.proc <- netquest.proc[netquest.proc$age>17,]
 netquest.proc <- netquest.proc[,c(matching.vars, 'panelId'),with=F]
-netquest.proc <- na.omit(netquest.proc)        
+# experimenting with leaving out certain variables to get a higher survival rate of panelists
+# netquest.proc <- netquest.proc[,grep("floor|health",names(netquest.proc), invert = T, value = T),with=F]
+netquest.proc <- na.omit(netquest.proc)     
 
 # what proportion ends up in sampling frame
 cat("\n\nProportion of Netquest available: ")

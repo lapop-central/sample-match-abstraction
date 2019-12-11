@@ -20,7 +20,7 @@ import numpy as np
 # In[265]:
 
 
-for country in ["CO","MX","PE"]:
+for country in ["PE"]:
     print (country)
 
 
@@ -78,7 +78,7 @@ for country in ["CO","MX","PE"]:
         geo1_ipums = "GEO1_PE2007" # department
         geo2_ipums = "GEO2_PE2007" # province
         year = '2007'
-        ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00030.csv"
+        ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00031.csv"
         
     netquestfile = "../out/panel_country/"+country+"_netquest-panel.csv"
     dictfile = "../out/panel_country/"+country+"_levels.xlsx"
@@ -192,7 +192,7 @@ for country in ["CO","MX","PE"]:
     # Setting up helper structures
     
     # In[280]:
-    
+    print("Setting up helper structures...")
     
     nq_geo1 = nq_dict[nq_dict.Variable==geo1_nq]
     nq_geo1.columns = ["Variable",geo1_nq,geo1_nq+"_name"]
@@ -289,7 +289,7 @@ for country in ["CO","MX","PE"]:
     
     # In[290]:
     
-    
+    print("Cleaning up names...")
     if country=="AR":
         nq_geodf.loc[nq_geodf.geo2_code==999, 'geo2_name'] = "CABA"
     
@@ -450,6 +450,7 @@ for country in ["CO","MX","PE"]:
     
     
     # The fuzzy join
+    print("Finding matching geographies...")
     nq_geodf[['geo1_match_name','geo1_match_score','geo1_match_index']] = fuzzy_join(nq_geodf, ipums_geodf, 'geo1_name')[['name','score','index']]
     nq_geodf[['geo2_match_name','geo2_match_score','geo2_match_index']] = fuzzy_join(nq_geodf, ipums_geodf, 'geo2_name', 
                  subset=['geo1_match_name','geo1_name']
@@ -513,7 +514,7 @@ for country in ["CO","MX","PE"]:
     # Writing out
     
     # In[292]:
-    
+    print("Writing out the result...")
     
     if panel_geo.shape[0]!=netquest.shape[0]:
         print("Problem with panel shape match")
