@@ -78,7 +78,7 @@ for country in ["PE"]:
         geo1_ipums = "GEO1_PE2007" # department
         geo2_ipums = "GEO2_PE2007" # province
         year = '2007'
-        ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00031.csv"
+        ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00032.csv"
         
     netquestfile = "../out/panel_country/"+country+"_netquest-panel.csv"
     dictfile = "../out/panel_country/"+country+"_levels.xlsx"
