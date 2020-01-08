@@ -31,7 +31,7 @@ library(data.table)
 library(devtools)
 #install.packages('devtools')
 #install_github("maitagorri/sampleMatch")
-library(sampleMatch)
+#library(sampleMatch)
 ```
 
 Load country-specific parameters:
@@ -47,6 +47,7 @@ Here, we are using the IPUMS data.
 ```{r}
 census<- fread(censuspath, colClasses = c(censusId="character")) #keep it simple, and keep leading 0s
 head(census)
+strats
 ```
 
 Define the sampling function
@@ -66,10 +67,9 @@ strat_weight_sample <- function(df, strats, weights, N){
     s1 <- r[[strats[1]]]
     if (length(strats)>1){
       s2 <- r[[strats[2]]]
-      block <- census[(census[strats[1]]==s1) & (census[strats[2]]==s2),]
-    }
-    else{
-      block <- census[(census[strats[1]]==s1),]
+      block <- census[(census[[strats[1]]]==s1) & (census[[strats[2]]]==s2),]
+    } else{
+      block <- census[(census[[strats[1]]]==s1),]
     }
     # block <- merge(t(r[strats]), census, by=c('URBAN','GEO1_CO2005'))
     n = as.double(r['nblock'])
@@ -83,9 +83,11 @@ strat_weight_sample <- function(df, strats, weights, N){
 
   #...and bind them together
   sample <- do.call(rbind, apply(blocks,1,weighted_sample_helper))
+  apply(blocks,1,weighted_sample_helper)
+  blocks
   return(sample)
 }
-strats
+
 ```
 
 
