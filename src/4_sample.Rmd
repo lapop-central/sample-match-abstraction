@@ -12,7 +12,8 @@ rm(list = ls(all = TRUE))
   
 Set the following chunk depending on the circumstances:
 ```{r}
-country = "BR"
+countries = c("AR","BR","CL","CO","MX","PE")
+n = 1200 #sample size in each country
 ```
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
@@ -20,10 +21,8 @@ Defining files--make sure the dirs are okay; other than that you shouldn't need 
 rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/raw/')
 datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
 
-censuspath <- paste0(datadir,'ipums_country/', country,'_ipums_recoded.csv')
-
 varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
-parampath <- "./country_parameters.csv" # set specific parametrs in this file
+parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/country_parameters.csv" # set specific parameters in this file
 ```
 
 ```{r}
@@ -33,23 +32,6 @@ library(devtools)
 #install_github("maitagorri/sampleMatch")
 #library(sampleMatch)
 ```
-
-Load country-specific parameters:
-```{r}
-params <- fread(parampath,key = "country",na.strings = "")[country,]
-strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
-```
-
-
-Reading in the sampling data and making necessary updates.
-
-Here, we are using the IPUMS data.
-```{r}
-census<- fread(censuspath, colClasses = c(censusId="character")) #keep it simple, and keep leading 0s
-head(census)
-strats
-```
-
 Define the sampling function
 ```{r}
 strat_weight_sample <- function(df, strats, weights, N){
@@ -61,6 +43,7 @@ strat_weight_sample <- function(df, strats, weights, N){
 
   #Then we determine how many individuals to randomly draw from each stratum.
   blocks$nblock <- round(blocks[[weights]] * N/sum(blocks[[weights]]))
+    # Use "ceiling" for always rounding up / larger N
 
   #Then we do a weighted random sample from each stratum.
   weighted_sample_helper <- function(r){
@@ -82,25 +65,80 @@ strat_weight_sample <- function(df, strats, weights, N){
   }
 
   #...and bind them together
-  sample <- do.call(rbind, apply(blocks,1,weighted_sample_helper))
-  apply(blocks,1,weighted_sample_helper)
-  blocks
-  return(sample)
+  # result <-data.table()
+  # print(nrow(result))
+  # while (nrow(result)<N){
+    result <- do.call(rbind, apply(blocks,1,weighted_sample_helper))
+  # }
+  return(result)
 }
 
 ```
 
-
-
-Try stratified sampling.
-
+Loop over countries:
 ```{r}
-n <- 1200
-set.seed(191010)
-target  <- strat_weight_sample(census,strats,'PERWT',n)
-dim(target)
+for (country in countries){
+  #Load/set country-specific parameters:
+  
+  censuspath <- paste0(datadir,'ipums_country/', country,'_ipums_recoded.csv')
+  params <- fread(parampath,key = "country",na.strings = "")[country,]
+  strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
+
+  #Reading in the sampling data and making necessary updates.
+  
+  #Here, we are using the IPUMS data.
+  census<- fread(censuspath, colClasses = c(censusId="character")) #keep it simple, and keep leading 0s
+  print(paste0("strata for ",country, ": ", paste(strats,collapse = ", ")))
+
+  #Try stratified sampling.
+  #set.seed(191010) Should I set a seed?
+  target  <- strat_weight_sample(census,strats,'PERWT',n)
+  print(paste0("Final target size in ",country,": ",nrow(target)))
+
+  #Add a sample id, counting those that occur more than once (this is possible since we're sampling with replacement, but shouldn't occur too often):
+  target[,SAMPCT:=1]
+  target[,SAMPCT:=as.integer(SAMPCT)]
+  multis <- unique(target[duplicated(censusId)][['censusId']])
+  for (i in multis){
+    # print(i)
+    target[censusId==i,'SAMPCT':=1:table(target$censusId)[i]]
+  }
+  table(target$SAMPCT) # check that the sampcounts are right
+
+  target$sampleId <- paste0(
+    target$censusId,
+    sprintf(
+      paste0('%0',
+             as.character(max(nchar(target$SAMPCT))),
+             '.0f'),
+      target$SAMPCT)
+  )
+
+  #Dice just the variables needed for matching
+  matching.vars <- grep(".",fread(varpath)[[country]],value = T) #grab variables that are not the empty string
+  target <- target[,c("sampleId",matching.vars),with=F]
+  
+  # Write target to disk.
+  print(
+    paste("Writing these variables to target: ",
+           paste(names(target), collapse = ", ")
+    )
+  )
+  write.csv(x=target,
+            file = paste0(datadir,
+                          "sample/",
+                          country,
+                          "_target_",
+                          format(Sys.time(),
+                          "%y%m%d"),
+                          ".csv"),
+            row.names = F
+                      )
+  }
+
 ```
 
+# Stuff for checking
 
 Making sure this stratification worked...
 ```{r}
@@ -113,48 +151,3 @@ hist(census$ed)
 table(target$age,target$gend)
 ```
 
-Add a sample id, counting those that occur more than once:
-```{r}
-target$SAMPCT<-1
-multis <- unique(target[duplicated(target$censusId),'censusId'])
-
-for (i in multis){
-  print(i)
-  target[target$censusId==i,'SAMPCT':=1:table(target$censusId)[i]]
-}
-table(target$SAMPCT) # check that the sampcounts are right
-
-target$sampleId <- paste0(
-  target$censusId,
-  sprintf(
-    paste0('%0',
-           as.character(max(nchar(target$SAMPCT))),
-           '.0f'),
-    target$SAMPCT)
-)
-head(target)
-```
-
-
-Dice just the variables needed for matching
-```{r}
-recode_map <- fread(recodepath)
-matching.vars <- unique(recode_map$common_var)
-target <- target[,c("sampleId",matching.vars),with=F]
-```
-
-Write target to disk.
-```{r}
-names(target)
-write.csv(x=target,
-          file = paste0(datadir,
-                        "sample/",
-                        country,
-                        "_target_",
-                        format(Sys.time(),
-                        "%y%m%d"),
-                        ".csv"),
-          row.names = F
-                    )
-
-```
