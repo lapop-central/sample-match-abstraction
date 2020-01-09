@@ -28,9 +28,6 @@ parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coo
 ```{r}
 library(data.table)
 library(devtools)
-#install.packages('devtools')
-#install_github("maitagorri/sampleMatch")
-#library(sampleMatch)
 ```
 Define the sampling function
 ```{r}
