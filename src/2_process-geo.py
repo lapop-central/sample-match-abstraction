@@ -20,7 +20,7 @@ import numpy as np
 # In[265]:
 
 
-for country in ["PE"]:
+for country in ["AR","BR",'CL',"CO",'MX',"PE"]:
     print (country)
 
 
@@ -87,6 +87,8 @@ for country in ["PE"]:
     centroidfile = '../out/geo/'+country+'_geo_centroids.csv'
     panelout = '../out/panel_country/'+country+'_netquest-panel_geo.csv'
     ipumsout = '../out/ipums_country/'+country+'_ipums-census_geo.csv'
+    codebook1out = '../out/geo/'+country+'_geo1_codebook.csv'
+    codebook2out = '../out/geo/'+country+'_geo2_codebook.csv'
     
     
     # Loading things
@@ -368,7 +370,7 @@ for country in ["PE"]:
         nq_geodf.geo1_name = nq_geodf.geo1_name.str.replace("Provincia ","")
         nq_geodf.geo1_name = nq_geodf.geo1_name.str.replace("de ","")
         nq_geodf.loc[nq_geodf.geo1_name=="Marga Marga",'geo1_name'] = 'Valparaíso' #(?)
-        nq_geodf.loc[nq_geodf.geo1_name=="Tamarugal",'geo1_name'] = 'Valparaíso'
+        nq_geodf.loc[nq_geodf.geo1_name=="Tamarugal",'geo1_name'] = 'Iquique'
         nq_geodf.loc[nq_geodf.geo1_name=="Aysen",'geo1_name'] = 'Aisén'
         nq_geodf.loc[nq_geodf.geo1_name=="Diguillin",'geo1_name'] = 'Ñuble'
         nq_geodf.loc[nq_geodf.geo1_name=="Itata",'geo1_name'] = 'Ñuble'
@@ -484,10 +486,15 @@ for country in ["PE"]:
     has_ipums_geo = nq_geodf.geo2_match_score>int(cutoff )
     
     # attaching geography codes
+    nq_geodf['IPUMS_geo1_code'] = np.nan
     nq_geodf['IPUMS_geo2_code'] = np.nan
     
     nq_geodf.loc[has_ipums_geo,'IPUMS_geo2_code'] = nq_geodf[has_ipums_geo]                            .geo2_match_index                            .astype(int)                            .apply(
                                     lambda i: ipums_geodf.loc[i,'geo2_code']
+                                .astype(int)
+    )
+    nq_geodf.loc[has_ipums_geo,'IPUMS_geo1_code'] = nq_geodf[has_ipums_geo]                            .geo1_match_index                            .astype(int)                            .apply(
+                                    lambda i: ipums_geodf.loc[i,'geo1_code']
                                 .astype(int)
     )
                                 
@@ -513,15 +520,23 @@ for country in ["PE"]:
     
     # Writing out
     
-    # In[292]:
-    print("Writing out the result...")
+    # In[]:
+    print("Saving the geo codebook...")
     
-    if panel_geo.shape[0]!=netquest.shape[0]:
-        print("Problem with panel shape match")
-    if census_geo.shape[0]!=census.shape[0]:
-        print("Problem with census shape match")
-    panel_geo.loc[:,[not("Unnamed" in k) for k in panel_geo.columns]].to_csv(panelout)
-    census_geo.loc[:,[not("Unnamed" in k) for k in census_geo.columns]].to_csv(ipumsout)
+    codebook_geo2 = nq_geodf[["geo1_name","geo1_code","geo2_name","geo2_code","geo1_match_name","IPUMS_geo1_code","geo2_match_name","IPUMS_geo2_code"]]
+    codebook_geo1 = codebook_geo2.drop_duplicates(subset=["geo1_code","IPUMS_geo1_code"])[["geo1_name","geo1_code","geo1_match_name","IPUMS_geo1_code"]]
+    
+    codebook_geo1.to_csv(codebook1out)    
+    codebook_geo2.to_csv(codebook2out)
+    # In[292]:
+#    print("Writing out the result...")
+#    
+#    if panel_geo.shape[0]!=netquest.shape[0]:
+#        print("Problem with panel shape match")
+#    if census_geo.shape[0]!=census.shape[0]:
+#        print("Problem with census shape match")
+#    panel_geo.loc[:,[not("Unnamed" in k) for k in panel_geo.columns]].to_csv(panelout)
+#    census_geo.loc[:,[not("Unnamed" in k) for k in census_geo.columns]].to_csv(ipumsout)
 
 
 # In[ ]:
