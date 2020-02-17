@@ -1,7 +1,7 @@
 # ---
 # title: "recode (IDB Trust)"
 # author: "Maita Schade"
-# date: "Sep 8, 2019"
+# date: "Feb 17, 2020"
 # output: html_notebook
 # ---
 
@@ -20,9 +20,9 @@ library(bit64)
 # set working dir
 setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/')
 
-# Setting specifics--may want to iterate over countries rather than set things individually, eventually.
+# Setting specifics--iterate over countries.
 
-for (country in c("BR","CL","CO","PE")){
+for (country in c("AR","BR","CL","CO","MX","PE")){
 
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 
@@ -34,7 +34,7 @@ netquestpath <- paste0(datadir, "panel_country/", country, "_netquest-panel_geo.
 
 varpath <- paste0("../../doc/matching/matching-vars.csv") #table specifying matching vars by country
 parampath <- "./country_parameters.csv" # set specific parameters in this file
-
+regiopath <- paste0("../../doc/design/geo/",country,"_regions.csv")
 
 # Load external function to do the dirty work, depending on country etc.
 # Note that this function will need to get updated when adding new countries/data sources.
@@ -60,6 +60,7 @@ cat(matching.vars)
 # Load datafile
 print(censuspath)
 census<- fread(censuspath)
+
 # Recode
 census.proc <- countryRecode(dt = census, source = 'ipums', country = country)
 # Summarize
@@ -75,6 +76,21 @@ cat(Filter(function(name){sum(is.na(census.proc[[name]]))}/nrow(census.proc) > 0
 # nrow(census.proc[PE2007A_CABLETV==1,cable:=1])
 # This is special ed, and not in universe.
 
+# Add the region
+regio_dict <- fread(regiopath)
+## Figure out what we are lining up
+codevars <- list(IPUMS=grep("IPUM",names(regio_dict),value=T),
+                 netquest=grep("geo\\d_code",names(regio_dict),value=T))
+geotype <- regmatches(codevars$netquest,regexpr("\\d",codevars$netquest))
+ipum_geovar <- grep(paste0("GEO",geotype,"_",country,"\\d{4,4}"), 
+                     names(census.proc),
+                     value = T)
+## Get just unique geo for IPUMS
+regio_dict <- unique(regio_dict,by = codevars$IPUMS)
+## join to census info
+census.proc[,region:=regio_dict[census.proc,.(REGION_n),on=paste0(codevars$IPUMS,"==",ipum_geovar)]]
+### test a little bit
+# unique(census.proc[region==3,.(ADMIN_NAME)])
 
 # Give ID to all members
 nSERIAL <- max(nchar(as.character(census.proc$SERIAL)))
@@ -125,6 +141,21 @@ cat("Netquest vars ending with lots of NA: ")
 cat(Filter(function(name){sum(is.na(netquest.proc[[name]]))}/nrow(netquest.proc) > 0.1, names(netquest.proc)))
 
 dim(netquest.proc)/dim(netquest)
+
+# Add the region
+regio_dict <- fread(regiopath)
+## Figure out what we are lining up
+codevars <- list(IPUMS=grep("IPUM",names(regio_dict),value=T),
+                 netquest=grep("geo\\d_code",names(regio_dict),value=T))
+geotype <- regmatches(codevars$netquest,regexpr("\\d",codevars$netquest))
+nq_geovar <- params[[paste0("geo",geotype,"_nq")]]
+
+## Get just unique geo for Netquest
+regio_dict <- unique(regio_dict,by = codevars$netquest)
+## join to census info
+netquest.proc[,region:=regio_dict[netquest.proc,.(REGION_n),on=paste0(codevars$netquest,"==",nq_geovar)]]
+### test a little bit
+#unique(netquest.proc[region==3,.(CO_departamento)])
 
 # Reduce to what we need:
 netquest.proc$panelId  <- netquest.proc[[NQ_id]]

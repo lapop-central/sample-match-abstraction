@@ -29,6 +29,8 @@ parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coo
 library(data.table)
 library(devtools)
 ```
+Add region variables for stratifying
+
 Define the sampling function
 ```{r}
 strat_weight_sample <- function(df, strats, weights, N){
