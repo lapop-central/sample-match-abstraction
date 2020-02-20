@@ -20,7 +20,7 @@ import numpy as np
 # In[265]:
 
 
-for country in ["AR","BR",'CL',"CO",'MX',"PE"]:
+for country in ['CL',"CO",'MX',"PE"]:
     print (country)
 
 
@@ -34,11 +34,6 @@ for country in ["AR","BR",'CL',"CO",'MX',"PE"]:
         geo2_ipums = 'GEO2_AR2010'
         year = '2010'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00015.csv"
-        netquestfile = "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/AR/panel/AR_netquest-panel.csv"#"../out/panel_country/"+country+"_netquest-panel.csv"
-        dictfile = "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/AR/panel/AR_levels.xlsx"#"../out/panel_country/"+country+"_levels.xlsx"
-        geo2file = '../out/ipums_country/ipums_codebook_'+geo2_ipums+'.csv'
-        geo1file = '../out/ipums_country/ipums_codebook_'+geo1_ipums+'.csv'
-        centroidfile = '../out/geo/'+country+'_geo2_centroids.csv'
     
     elif country == "BR":
         geo1_nq = "int_estado"
@@ -395,6 +390,25 @@ for country in ["AR","BR",'CL',"CO",'MX',"PE"]:
         ipums_geodf.loc[ipums_geodf.geo2_name.str.contains("Olmué"),'geo1_name'] = 'Valparaíso'
         ipums_geodf.loc[ipums_geodf.geo2_name=="Limache",'geo1_name'] = 'Valparaíso'
         
+#                    geo1_name  geo1_code geo1_match_name     geo2_name  geo2_code  \
+#        476246    Bío-Bío       28.0         Bío Bío           NaN        0.0   
+#        473320  Chacabuco       46.0       Chacabuco           NaN        NaN   
+#        1859      Iquique        2.0         Iquique  Pozo Almonte        3.0   
+#        109083    Iquique        2.0         Iquique        Camiña        4.0   
+#        236593    Iquique        2.0         Iquique      Colchane        5.0   
+#        6988      Iquique        2.0         Iquique         Huara        6.0   
+#        3768      Iquique        2.0         Iquique          Pica        7.0   
+#        
+#               geo2_match_name  geo2_match_score  
+#        476246     Los Angeles                67  
+#        473320          Colina                67  
+#        1859           Iquique                14  
+#        109083         Iquique                17  
+#        236593         Iquique                14  
+#        6988           Iquique                20  
+#        3768           Iquique                25 
+        
+        
     elif country=="CO":
         ipums_geodf.loc[(ipums_geodf.geo1_name=="Guania"),'geo1_name'] = 'Guainía'
         ipums_geodf.loc[(ipums_geodf.geo1_name=="Valle"),'geo1_name'] = 'Valle del Cauca'
@@ -521,22 +535,22 @@ for country in ["AR","BR",'CL',"CO",'MX',"PE"]:
     # Writing out
     
     # In[]:
-    print("Saving the geo codebook...")
-    
-    codebook_geo2 = nq_geodf[["geo1_name","geo1_code","geo2_name","geo2_code","geo1_match_name","IPUMS_geo1_code","geo2_match_name","IPUMS_geo2_code"]]
-    codebook_geo1 = codebook_geo2.drop_duplicates(subset=["geo1_code","IPUMS_geo1_code"])[["geo1_name","geo1_code","geo1_match_name","IPUMS_geo1_code"]]
-    
-    codebook_geo1.to_csv(codebook1out)    
-    codebook_geo2.to_csv(codebook2out)
-    # In[292]:
-#    print("Writing out the result...")
+#    print("Saving the geo codebook...")
 #    
-#    if panel_geo.shape[0]!=netquest.shape[0]:
-#        print("Problem with panel shape match")
-#    if census_geo.shape[0]!=census.shape[0]:
-#        print("Problem with census shape match")
-#    panel_geo.loc[:,[not("Unnamed" in k) for k in panel_geo.columns]].to_csv(panelout)
-#    census_geo.loc[:,[not("Unnamed" in k) for k in census_geo.columns]].to_csv(ipumsout)
+#    codebook_geo2 = nq_geodf[["geo1_name","geo1_code","geo2_name","geo2_code","geo1_match_name","IPUMS_geo1_code","geo2_match_name","IPUMS_geo2_code"]]
+#    codebook_geo1 = codebook_geo2.drop_duplicates(subset=["geo1_code","IPUMS_geo1_code"])[["geo1_name","geo1_code","geo1_match_name","IPUMS_geo1_code"]]
+#    
+#    codebook_geo1.to_csv(codebook1out)    
+#    codebook_geo2.to_csv(codebook2out)
+    # In[292]:
+    print("Writing out the result...")
+    
+    if panel_geo.shape[0]!=netquest.shape[0]:
+        print("Problem with panel shape match")
+    if census_geo.shape[0]!=census.shape[0]:
+        print("Problem with census shape match")
+    panel_geo.loc[:,[not("Unnamed" in k) for k in panel_geo.columns]].to_csv(panelout)
+    census_geo.loc[:,[not("Unnamed" in k) for k in census_geo.columns]].to_csv(ipumsout)
 
 
 # In[ ]:
