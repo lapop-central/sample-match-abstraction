@@ -16,55 +16,32 @@ import numpy as np
 
 
 # Defining specific parameters
+# In[1]:
+params = pd.read_csv("./country_parameters.csv")
+params
 
 # In[265]:
 
 
-for country in ['CL',"CO",'MX',"PE"]:
-    print (country)
+for country in ['AR','BR','CL',"CO",'MX',"PE"]:
 
 
 # In[271]:
 
     
     if country == "AR":
-        geo1_nq = "AR_provincia"
-        geo2_nq = "AR_departamento"
-        geo1_ipums = 'GEO1_AR2010'
-        geo2_ipums = 'GEO2_AR2010'
-        year = '2010'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00015.csv"
     
     elif country == "BR":
-        geo1_nq = "int_estado"
-        geo2_nq = "int_cidade"
-        geo1_ipums = 'GEO1_BR2010'
-        geo2_ipums = 'GEO2_BR2010'
-        year = '2010'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00026.csv"
         
     elif country == "CL":
-        geo1_nq = "CL_provincia"
-        geo2_nq = "CL_comuna"
-        geo1_ipums = 'GEO1_CL2002'
-        geo2_ipums = 'GEO2_CL2002'
-        year = '2002'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00020.csv"
         
     elif country=="CO":
-        geo2_nq = "CO_municipio"
-        geo1_nq = "CO_departamento"
-        geo1_ipums = 'GEO1_CO2005'
-        geo2_ipums = 'GEO2_CO2005'
-        year = '2005'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00022.csv"
         
     elif country=="MX":
-        geo1_nq = "MX_int_estado"
-        geo2_nq = "int_municipio_delegacion"
-        geo1_ipums = 'GEO1_MX2015'
-        geo2_ipums = 'GEO2_MX2015'
-        year = '2015'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00021.csv"
         
     elif country=="PE":
@@ -74,7 +51,13 @@ for country in ['CL',"CO",'MX',"PE"]:
         geo2_ipums = "GEO2_PE2007" # province
         year = '2007'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00032.csv"
-        
+      
+    year = str(params[params.country==country].year.values[0])
+    geo1_nq = params[params.country==country].geo1_nq.values[0]
+    geo2_nq = params[params.country==country].geo2_nq.values[0]
+    geo1_ipums = "GEO1_"+ country + year
+    geo2_ipums = "GEO2_"+ country + year
+    
     netquestfile = "../out/panel_country/"+country+"_netquest-panel.csv"
     dictfile = "../out/panel_country/"+country+"_levels.xlsx"
     geo2file = '../out/ipums_country/ipums_codebook_'+geo2_ipums+'.csv'
@@ -100,6 +83,9 @@ for country in ['CL',"CO",'MX',"PE"]:
     census = pd.read_csv(ipumsfile)
     netquest = pd.read_csv(netquestfile)
     nq_dict = pd.read_excel(dictfile)
+    if country=="AR":
+        # deal with mis-stored values in the current extract
+        nq_dict.Valor = nq_dict.Valor.astype(str).str.replace(",00","").astype(int)
     if country=="PE":
         ipums_geo2 = pd.read_csv(geo2file, names=['code','name'], skiprows=1)
         ipums_geo1 = pd.read_csv(geo1file, names=['code','name'], skiprows=1)
@@ -114,7 +100,7 @@ for country in ['CL',"CO",'MX',"PE"]:
     # In[270]:
     
     
-    [k for k in netquest.columns if k.startswith('PE')]
+    [k for k in netquest.columns if k.startswith('AR')]
     
     
     # Defining functions
@@ -227,10 +213,10 @@ for country in ['CL',"CO",'MX',"PE"]:
     # Country-specific pre-processing
     
     # In[284]:
-    
+    # Create the netquest geoframe
     
     if country=="AR":
-        # accounting for the CABA mess
+        # Consolidating all of CABA into one geography
         ipums_geodf.loc[ipums_geodf.geo1_name=="City of Buenos Aires",
                  'geo1_name'] = 'CABA'
         ipums_geodf.loc[(ipums_geodf.geo1_name=="CABA"),'geo2_name'] = 'CABA'
@@ -238,12 +224,15 @@ for country in ['CL',"CO",'MX',"PE"]:
         # dropping CABA-related duplicates
         ipums_geodf.drop_duplicates(subset=["geo1_name","geo2_name"], inplace=True)
         # make sure there is only one CABA-code left
-        #print(len(ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code.values[0])==1)
-        census.loc[census[geo2_ipums].isin(caba_codes),geo2_ipums] =     len(census.loc[census[geo2_ipums].isin(caba_codes),geo2_ipums])*[ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code[0]]
+        # print(len(ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code.values)==1)
+        # set all the IPUMS records with CABA GEO2-codes to the one that is left in the geodf
+        census.loc[census[geo2_ipums].isin(caba_codes),geo2_ipums] =  len(census.loc[census[geo2_ipums].isin(caba_codes),geo2_ipums])*[ipums_geodf[ipums_geodf.geo1_name=="CABA"].geo2_code[0]]
         
-        # give CABA locations without geo2 a specific code: 999
+        # give Netquest CABA locations without geo2 a specific code: 999
         netquest.loc[netquest[geo2_nq].isna()&(netquest[geo1_nq]==1),geo2_nq] = 999
-        nq_geodf = netquest.merge(nq_geo2, on=geo2_nq, how='left')                       .merge(nq_geo1, on=geo1_nq, how='left')[[geo1_nq,geo1_nq+'_name',geo2_nq,geo2_nq+'_name']]
+        # generate a df of geographies
+        nq_geodf = netquest.merge(nq_geo2, on=geo2_nq, how='left'
+                            ).merge(nq_geo1, on=geo1_nq, how='left')[[geo1_nq,geo1_nq+'_name',geo2_nq,geo2_nq+'_name']]
         nq_geodf.columns = ['geo1_code','geo1_name','geo2_code','geo2_name']
         nq_geodf.drop_duplicates(inplace=True)
         
@@ -252,7 +241,7 @@ for country in ['CL',"CO",'MX',"PE"]:
         nq_geodf.loc[nq_geodf.geo1_name=="Ciudad Autónoma de Buenos Aires",
                      'geo1_name'] = 'CABA'
         nq_geodf = nq_geodf[(nq_geodf['geo1_code'].notna()) & (nq_geodf['geo2_code'].notna())] 
-    
+        nq_geodf[nq_geodf.geo1_code==1]
     else:
         nq_geodf = netquest.merge(nq_geo2, on=geo2_nq, how='left')                       .merge(nq_geo1, on=geo1_nq, how='left')[[geo1_nq,geo1_nq+'_name',geo2_nq,geo2_nq+'_name']]
         nq_geodf.columns = ['geo1_code','geo1_name','geo2_code','geo2_name']
@@ -288,171 +277,133 @@ for country in ['CL',"CO",'MX',"PE"]:
     
     print("Cleaning up names...")
     if country=="AR":
+        # Fix the location-NAs as CABA
         nq_geodf.loc[nq_geodf.geo2_code==999, 'geo2_name'] = "CABA"
-    
+        
+        # harmonize IPUMS and Netquest
         ipums_geodf.loc[ipums_geodf.geo1_name.str.contains("Buenos Aires province"),
                      'geo1_name'] = "Buenos Aires"
-        
         ipums_geodf.loc[ipums_geodf.geo2_name.str.contains("Puan"),
                         'geo2_name'] = "Puán"
-        ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("General San Martín"))                    &(ipums_geodf.geo1_name=="Buenos Aires"),
-                        'geo2_name'] = "Ciudad Libertador San Martín"
-        ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("La Capital"))                    &(ipums_geodf.geo1_name=="San Luis"),
-                        'geo2_name'] = "Juan Martín de Pueyrredón"
-        ipums_geodf.loc[(ipums_geodf.geo2_name=="Maipú")                    &(ipums_geodf.geo2_code==6050),
-                        'geo2_name'] = "Marcos Paz"
-        
-        
         
         ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Chascomus")),
                         'geo2_name'] = "Chascomús"
         ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Jose C. Paz")),
                         'geo2_name'] = "José C. Paz"
-        nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Paso de Indios"))                    &(nq_geodf.geo1_name=="Chubut"),
+        nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Paso De Indios"))                    &(nq_geodf.geo1_name=="Chubut"),
                         'geo2_name'] = "Paso de los Indios"
-        nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Coronel de Marina Leonardo Rosales"))                    &(nq_geodf.geo1_name=="Buenos Aires"),
-                        'geo2_name'] = "Coronel de Marine L. Rosales"
+        ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Coronel de Marine L. Rosales"))&(ipums_geodf.geo1_name=="Buenos Aires"),
+                        'geo2_name'] = "Coronel De Marina Leonardo Rosales"
         ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Veinticinco de Mayo"))                    &(ipums_geodf.geo1_name=="Buenos Aires"),
                         'geo2_name'] = "25 de Mayo"
         nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Pueyrredón"))                    &(nq_geodf.geo1_name=="Buenos Aires"),
                         'geo2_name'] = "General Pueyrredón"
+                        
+        ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("La Capital"))                    &(ipums_geodf.geo1_name=="San Luis"),
+                        'geo2_name'] = "Juan Martín de Pueyrredón"
+                        # La Capital renamed to JMdP in 2010
+#        ipums_geodf.loc[(ipums_geodf.geo2_name=="Maipú")                    &(ipums_geodf.geo2_code==6050),
+#                        'geo2_name'] = "Marcos Paz"
+                        # problem with IPUMS data
+        nq_geodf.loc[(nq_geodf.geo2_name==("Ciudad Libertador San Martín"))                    &(nq_geodf.geo1_name=="Buenos Aires"),
+                        'geo2_name'] = "General San Martín"
+                     # switching to official partido name
+        
+        
         
     elif country=="BR":
+        # basic harmonization
         ipums_geodf.loc[ipums_geodf.geo1_name.str.contains("Federal District"),
                     'geo1_name'] = "Distrito Federal"
     
-    
-        ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Santarém"))&                     (ipums_geodf.geo1_name.str.contains("Paraíba")),
+        ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Santarém"))& (ipums_geodf.geo1_name.str.contains("Paraíba")),
                         'geo2_name'] = "Joca Claudino"
+                        # name change in 2010; using new name here
     
         ipums_geodf.loc[(ipums_geodf.geo2_name.str.contains("Presidente Juscelino"))&                     (ipums_geodf.geo1_name.str.contains("Rio Grande do Norte")),
                         'geo2_name'] = "Serra Caiada"
-    
-        nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Bonfim"))&                     (nq_geodf.geo1_name.str.contains("Rio de Janeiro")),
-                        'geo1_name'] = "Minas Gerais"
-    
-        nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Iracema"))&                     (nq_geodf.geo1_name.str.contains("Santa Catarina")),
-                        'geo2_name'] = "Itaiópolis"
-    
+                        # name change; using new name here        
     
         nq_geodf.loc[nq_geodf.geo2_name=="Pescaria Brava",'geo2_name'] = 'Laguna'
+            # Pescaria Brava established 2013
         nq_geodf.loc[nq_geodf.geo2_name=="Balneário Rincão",'geo2_name'] = 'Içara'
+            # B.R. est. 2013
         nq_geodf.loc[nq_geodf.geo2_name=="Pinto Bandeira",'geo2_name'] = 'Bento Gonçalves'
+            # P.B. est. 2013
         nq_geodf.loc[nq_geodf.geo2_name=="Paraíso Das Águas",'geo2_name'] = 'Costa Rica'
-        nq_geodf.loc[nq_geodf.geo2_name=="Açailândia",'geo1_name'] = 'Maranhão'
-        nq_geodf.loc[nq_geodf.geo2_name=="Mariana",'geo1_name'] = 'Minas Gerais'
-        nq_geodf.loc[nq_geodf.geo2_name=="Fortaleza",'geo1_name'] = 'Ceará'
-        nq_geodf.loc[nq_geodf.geo2_name.isin(["Leme",
-                                              "São Paulo",
-                                              'Itapevi',
-                                              "Franca",
-                                              "Presidente Prudente",
-                                              "Suzano",
-                                              "Ourinhos"
-                                             ]),'geo1_name'] = 'São Paulo'
+            # P.d.A. est. 2012
     
-        nq_geodf.loc[(nq_geodf.geo2_name=="Praia Grande") &                 ((nq_geodf.geo1_name=="Acre")|(nq_geodf.geo1_name=="Maranhão")),
-                     'geo1_name'] = 'São Paulo'
-    
-        nq_geodf.loc[nq_geodf.geo1_name=="Brasília",'geo1_name'] = 'Distrito Federal'
-        nq_geodf.loc[nq_geodf.geo2_name=="Brasília",'geo1_name'] = 'Distrito Federal'
-        nq_geodf.loc[nq_geodf.geo2_name=="Tupanatinga",'geo1_name'] = 'Pernambuco'
-        nq_geodf.loc[nq_geodf.geo2_name=="Macaé",'geo1_name'] = 'Rio de Janeiro'
-        nq_geodf.loc[nq_geodf.geo2_name=="Queimados",'geo1_name'] = 'Rio de Janeiro'
-        nq_geodf.loc[nq_geodf.geo2_name=="São Miguel do Iguaçu",'geo1_name'] = 'Paraná'
-        
     elif country=="CL":
         nq_geodf.geo1_name = nq_geodf.geo1_name.str.replace("Provincia ","")
-        nq_geodf.geo1_name = nq_geodf.geo1_name.str.replace("de ","")
-        nq_geodf.loc[nq_geodf.geo1_name=="Marga Marga",'geo1_name'] = 'Valparaíso' #(?)
-        nq_geodf.loc[nq_geodf.geo1_name=="Tamarugal",'geo1_name'] = 'Iquique'
-        nq_geodf.loc[nq_geodf.geo1_name=="Aysen",'geo1_name'] = 'Aisén'
+        # Removing province moniker
+        ipums_geodf.loc[(ipums_geodf.geo1_name=="Iquique") & (ipums_geodf.geo2_name=="Iquique"),["geo1_name","geo2_name"]] = ["Tarapacá", "Iquique"]
+        ipums_geodf.loc[(ipums_geodf.geo1_name=="Iquique") & (ipums_geodf.geo2_name!="Iquique"),["geo1_name","geo2_name"]] = ["Tarapacá", "Tamarugal"]
+        nq_geodf.loc[(nq_geodf.geo1_name=="Tamarugal"),["geo1_name","geo2_name"]] = ["Tarapacá", "Tamarugal"]
+        nq_geodf.loc[(nq_geodf.geo1_name=="Iquique"),["geo1_name","geo2_name"]] = ["Tarapacá", "Iquique"]        
+            # This is all Tarapacá region, with two provinces, which are IPUMS' smallest subdivision
         nq_geodf.loc[nq_geodf.geo1_name=="Diguillin",'geo1_name'] = 'Ñuble'
         nq_geodf.loc[nq_geodf.geo1_name=="Itata",'geo1_name'] = 'Ñuble'
         nq_geodf.loc[nq_geodf.geo1_name=="Punilla",'geo1_name'] = 'Ñuble'
-        nq_geodf.loc[nq_geodf.geo2_name=="Alto Hospicio",'geo2_name'] = 'Iquique'
-        nq_geodf.loc[nq_geodf.geo2_name=="Aysen",'geo2_name'] = 'Aisén'
+            # The region is Ñuble, with comunas given in both IPUMS and Netquest
         nq_geodf.loc[nq_geodf.geo2_name=="Hualpén",'geo2_name'] = 'Talcahuano'
+            # Hualpén separated from Talcahuano in 2004
         nq_geodf.loc[nq_geodf.geo2_name=="Cholchol",'geo2_name'] = 'Nueva Imperial'
+            # Cholchol separated from Nueva Imperial in 2004
         nq_geodf.loc[nq_geodf.geo2_name=="Alto Bío-Bío",'geo2_name'] = 'Santa Bárbara'
-        
-        ipums_geodf.loc[ipums_geodf.geo2_name.isin(["Pozo Almonte","Colchane",'Pica','Huara',"Camiña"]),
-                    'geo1_name'] = "Valparaíso"
-        ipums_geodf.loc[ipums_geodf.geo2_name.isin(["San Fernando","Palmilla", "Chimbarongo", 
-                                                "Nancagua","Chépica","Pumanque","Placilla",
-                                                "Lolol", "Peralillo", "Santa Cruz"
-                                               ]),
-                   'geo1_name'] = "Colchagua"
+            # Alto Bíobío separated from Santa Bárbara in 2003
+        ipums_geodf.loc[ipums_geodf.geo1_code==63,"geo1_name"] = "Colchagua"
+            # mistake in IPUMS dataset
         ipums_geodf.loc[ipums_geodf.geo2_name.isin(["Lago Ranco", "Futrono", "Río Bueno", 
                                                     "La Unión"
                                                ]),
                    'geo1_name'] = "Ranco"
-        ipums_geodf.loc[ipums_geodf.geo2_name.str.contains("Olmué"),'geo1_name'] = 'Valparaíso'
-        ipums_geodf.loc[ipums_geodf.geo2_name=="Limache",'geo1_name'] = 'Valparaíso'
+            # Ranco separated from Valdivia in 2007; comunas given in both Netquest and IPUMS
+        nq_geodf.loc[nq_geodf.geo2_name.isin(["Olmué","Limache"]),'geo1_name'] = 'Quillota'
+        nq_geodf.loc[nq_geodf.geo2_name.isin(["Villa Alemana","Quilpué"]),'geo1_name'] = 'Valparaíso'
+            # Marga Marga was put together with provinces from Valparaíso and Quillota in 2009. 
+        # harmonizing with IPUMS
         
-#                    geo1_name  geo1_code geo1_match_name     geo2_name  geo2_code  \
-#        476246    Bío-Bío       28.0         Bío Bío           NaN        0.0   
-#        473320  Chacabuco       46.0       Chacabuco           NaN        NaN   
-#        1859      Iquique        2.0         Iquique  Pozo Almonte        3.0   
-#        109083    Iquique        2.0         Iquique        Camiña        4.0   
-#        236593    Iquique        2.0         Iquique      Colchane        5.0   
-#        6988      Iquique        2.0         Iquique         Huara        6.0   
-#        3768      Iquique        2.0         Iquique          Pica        7.0   
-#        
-#               geo2_match_name  geo2_match_score  
-#        476246     Los Angeles                67  
-#        473320          Colina                67  
-#        1859           Iquique                14  
-#        109083         Iquique                17  
-#        236593         Iquique                14  
-#        6988           Iquique                20  
-#        3768           Iquique                25 
-        
+        nq_geodf.loc[nq_geodf.geo1_name=="Aysen",'geo1_name'] = 'Aisén'
+        nq_geodf.loc[nq_geodf.geo2_name=="Aysen",'geo2_name'] = 'Aisén'
+        # typos and spelling differences
         
     elif country=="CO":
         ipums_geodf.loc[(ipums_geodf.geo1_name=="Guania"),'geo1_name'] = 'Guainía'
         ipums_geodf.loc[(ipums_geodf.geo1_name=="Valle"),'geo1_name'] = 'Valle del Cauca'
         ipums_geodf.loc[(ipums_geodf.geo2_name=="Itagui"),'geo2_name'] = 'Itagüí'
-        
-        nq_geodf.loc[(nq_geodf.geo2_name=="Ubaté"),'geo2_name'] = 'Villa de San Diego de Ubate'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Machetá"),'geo2_name'] = 'Macheta'
+        ipums_geodf.loc[(ipums_geodf.geo2_name=="Macheta"),'geo2_name'] = 'Machetá'
+        ipums_geodf.loc[(ipums_geodf.geo2_name=="Mompós"),'geo2_name'] = "Santa Cruz de Mompox"
+        ipums_geodf.loc[(ipums_geodf.geo2_name=="Anza"),'geo2_name'] = 'Anzá'
+            # fixing/elaborating IPUMS names
+        nq_geodf.loc[(nq_geodf.geo2_name.str.lower()=="san jose de ure"),'geo2_name'] = 'Montelíbano'
+            # San José separated in 2007; still part of Montelíbano in IPUMS
+        nq_geodf.loc[(nq_geodf.geo2_name=="Guachene"),'geo2_name'] = 'Caloto'
+            # Guachené separated from Caloto in 2006
         nq_geodf.loc[(nq_geodf.geo2_name=="Tuchin"),'geo2_name'] = 'San Andrés Sotavento'
-        nq_geodf.loc[(nq_geodf.geo2_name.str.lower()=="santa cruz de mompox"),'geo2_name'] = 'Mompós'
+            # separated from San Andrés in 2008
         nq_geodf.loc[(nq_geodf.geo2_name=="Ramiquirí"),'geo2_name'] = 'Ramiriquí'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Bogotá Distrito Capital (D. C.)"),'geo2_name'] = 'Bogotá'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Anzá"),'geo2_name'] = 'Anza'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Suán"),'geo2_name'] = 'Suan'
         nq_geodf.loc[(nq_geodf.geo2_name=="Villa Gamuez (La Hormiga)"),'geo2_name'] = 'Valle del Guamuez'
         nq_geodf.loc[(nq_geodf.geo2_name=="Imúes"),'geo2_name'] = 'Imués'
-        nq_geodf.loc[(nq_geodf.geo2_name.str.lower()=="san jose de ure"),'geo2_name'] = 'Montelíbano'
-        nq_geodf.loc[((nq_geodf.geo2_name=="Guachené") | (nq_geodf.geo2_name=="Guachene")
-                     ),'geo2_name'] = 'Caloto'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Capitanejo"),'geo1_name'] = 'Santander'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Bojacá"),'geo1_name'] = 'Cundinamarca'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Beltrán"),'geo1_name'] = 'Cundinamarca'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Soacha"),'geo1_name'] = 'Cundinamarca'
-        
+            # typo
+        nq_geodf.loc[(nq_geodf.geo2_name=="Bogotá Distrito Capital (D. C.)"),'geo2_name'] = 'Bogotá'
+        nq_geodf.loc[(nq_geodf.geo2_name=="Ubaté"),'geo2_name'] = 'Villa de San Diego de Ubate'
+        nq_geodf.loc[(nq_geodf.geo2_name=="Suán"),'geo2_name'] = 'Suan'
+        nq_geodf.loc[(nq_geodf.geo2_name=="Toluviejo"),'geo2_name'] = 'Tolú Viejo'
+        nq_geodf.loc[(nq_geodf.geo2_name=="Páez (Belalcazar)"),'geo2_name'] = 'Paez'
+            # harmonizing with IPUMS
+
     elif country=="MX":
-        nq_geodf.loc[(nq_geodf.geo2_name=="Mexicali")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Baja California'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Xochimilco")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Ciudad de México'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Coacalco de Berriozábal")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'México'
-        nq_geodf.loc[(nq_geodf.geo2_name.str.contains("Murguía"))&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Zacatecas'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Chimalhuacán")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'México'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Ecatepec de Morelos")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'México'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Querétaro")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Querétaro'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Tepic")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Nayarit'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Coyoacán")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Ciudad de México'
-        nq_geodf.loc[(nq_geodf.geo2_name=="Mérida")&(~nq_geodf.geo2_name.isna()),'geo1_name'] = 'Yucatán'
         nq_geodf.loc[(nq_geodf.geo2_name=="Puerto Morelos")&(~nq_geodf.geo2_name.isna()),'geo2_name'] = 'Benito Juárez'
-        nq_geodf.loc[(nq_geodf.geo1_name.str.contains("Baja California S"))&(~nq_geodf.geo1_name.isna()),
-                        'geo1_name'] = "Baja California Sur"
+            # separated from Benito Juárez in 2015; still Benito Juárez in IPUMS
         ipums_geodf.loc[ipums_geodf.geo1_name.str.contains("Distrito Federal"),
                         'geo1_name'] = "Ciudad de México"
+                        # Harmonizing naming--now Ciudad de Mexico
         nq_geodf.loc[nq_geodf.geo2_name.str.contains("Túxpam")&(~nq_geodf.geo2_name.isna()),
                         'geo2_name'] = "Tuxpan"
+                     # Harmonizing naming
     
-        nq_geodf.geo2_name = nq_geodf.geo2_name.str.replace("- Dto.", "Distrito")                                .str.replace("Dr.", "Doctor")                                .str.replace("Gral.", "General")
-        
+        nq_geodf.geo2_name = nq_geodf.geo2_name.str.replace("- Dto.", "Distrito").str.replace("Dr.", "Doctor")                                .str.replace("Gral.", "General")
+            # Standardizing abbreviations
     elif country=="PE":
         ipums_geodf.loc[ipums_geodf.geo2_name==("Huzánuco"),
                         'geo2_name'] = "Huánuco" 
@@ -535,13 +486,13 @@ for country in ['CL',"CO",'MX',"PE"]:
     # Writing out
     
     # In[]:
-#    print("Saving the geo codebook...")
-#    
-#    codebook_geo2 = nq_geodf[["geo1_name","geo1_code","geo2_name","geo2_code","geo1_match_name","IPUMS_geo1_code","geo2_match_name","IPUMS_geo2_code"]]
-#    codebook_geo1 = codebook_geo2.drop_duplicates(subset=["geo1_code","IPUMS_geo1_code"])[["geo1_name","geo1_code","geo1_match_name","IPUMS_geo1_code"]]
-#    
-#    codebook_geo1.to_csv(codebook1out)    
-#    codebook_geo2.to_csv(codebook2out)
+    print("Saving the geo codebook...")
+    
+    codebook_geo2 = nq_geodf[["geo1_name","geo1_code","geo2_name","geo2_code","geo1_match_name","IPUMS_geo1_code","geo2_match_name","IPUMS_geo2_code"]]
+    codebook_geo1 = codebook_geo2.drop_duplicates(subset=["geo1_code","IPUMS_geo1_code"])[["geo1_name","geo1_code","geo1_match_name","IPUMS_geo1_code"]]
+    
+    codebook_geo1.to_csv(codebook1out)    
+    codebook_geo2.to_csv(codebook2out)
     # In[292]:
     print("Writing out the result...")
     
