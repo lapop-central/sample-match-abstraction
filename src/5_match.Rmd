@@ -332,7 +332,7 @@ matchRatio <- function(data, metric, n, exact = c()){
 
 ```{r}
 n <- 1
-matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
+matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","region"))
 ```
 
 Save the id's of the matches to a file
@@ -376,6 +376,11 @@ target.pruned[,PERNUM:=substr(censusId,11,12)]
 target.pruned[,SERIAL:=substr(censusId,1,10)]
 write.csv(target.pruned,paste0("pruned_target_", format(Sys.time(),"%y%m%d"),".csv"))
 write.csv(set,paste0("selected_IDs_", format(Sys.time(),"%y%m%d"),".csv"))
+```
+What about the regions? did it work?
+```{r}
+table(set$region)
+table(target$region)
 ```
 
 
