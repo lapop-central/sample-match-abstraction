@@ -122,15 +122,14 @@ for (country in countries){
            paste(names(target), collapse = ", ")
     )
   )
-  write.csv(x=target,
+  fwrite(x=target,
             file = paste0(datadir,
                           "sample/",
                           country,
                           "_target_",
                           format(Sys.time(),
                           "%y%m%d"),
-                          ".csv"),
-            row.names = F
+                          ".csv")
                       )
   }
 
