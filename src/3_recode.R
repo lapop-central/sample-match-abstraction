@@ -24,6 +24,7 @@ setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordinati
 
 for (country in c("AR","BR","CL","CO","MX","PE")){
 
+#  country<-"PE"
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 
 datadir <-  paste0('../out/')
@@ -88,7 +89,9 @@ ipum_geovar <- grep(paste0("GEO",geotype,"_",country,"\\d{4,4}"),
 ## Get just unique geo for IPUMS
 regio_dict <- unique(regio_dict,by = codevars$IPUMS)
 ## join to census info
-census.proc[,region:=regio_dict[census.proc,.(REGION_n),on=paste0(codevars$IPUMS,"==",ipum_geovar)]]
+census.proc[,c("region","capital"):=regio_dict[census.proc,
+                                               .(REGION_n,CAPITAL),
+                                               on=paste0(codevars$IPUMS,"==",ipum_geovar)]]
 ### test a little bit
 # unique(census.proc[region==3,.(ADMIN_NAME)])
 
@@ -121,9 +124,8 @@ cat("Proportion of census in sampling frame: ")
 cat(dim(census.proc)/dim(census))
 
 # Save to disk:
-write.csv(x = census.proc, 
-          file = paste0(datadir,'ipums_country/', country,'_ipums_recoded.csv'),
-          row.names = F
+fwrite(x = census.proc, 
+          file = paste0(datadir,'ipums_country/', country,'_ipums_recoded.csv')
 )
 
 
@@ -153,7 +155,10 @@ nq_geovar <- params[[paste0("geo",geotype,"_nq")]]
 ## Get just unique geo for Netquest
 regio_dict <- unique(regio_dict,by = codevars$netquest)
 ## join to census info
-netquest.proc[,region:=regio_dict[netquest.proc,.(REGION_n),on=paste0(codevars$netquest,"==",nq_geovar)]]
+#netquest.proc[,region:=regio_dict[netquest.proc,.(REGION_n,CAPITAL),on=paste0(codevars$netquest,"==",nq_geovar)]]
+netquest.proc[,c("region","capital"):=regio_dict[netquest.proc,
+                                               .(REGION_n,CAPITAL),
+                                               on=paste0(codevars$netquest,"==",nq_geovar)]]
 ### test a little bit
 #unique(netquest.proc[region==3,.(CO_departamento)])
 
@@ -170,9 +175,8 @@ cat("\n\nProportion of Netquest available: ")
 cat(dim(netquest.proc)/dim(netquest))
 
 # Save to disk:
-write.csv(x = netquest.proc, 
-          file = paste0(datadir,'panel_country/', country, '_netquest_recoded.csv'),
-          row.names = F
+fwrite(x = netquest.proc, 
+          file = paste0(datadir,'panel_country/', country, '_netquest_recoded.csv')
 )
 
 }
