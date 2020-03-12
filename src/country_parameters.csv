@@ -1,7 +1,7 @@
 country,strat1,strat2,NQ_id,target.date,geo1_nq,geo2_nq,year
-AR,GEO1_AR2010,,p_codigo,200221,AR_provincia,AR_departamento,2010
-BR,GEO1_BR2010,URBAN,p_codigo,200221,int_estado,int_cidade,2010
-CO,GEO1_CO2005,URBAN,p_codigo,200221,CO_departamento,CO_municipio,2005
-CL,GEO1_CL2002,URBAN,p_codigo,200221,CL_provincia,CL_comuna,2002
-MX,GEO1_MX2015,URBAN,p_codigo,200221,MX_int_estado,int_municipio_delegacion,2015
-PE,GEO1_PE2007,URBAN,p_codigo,200221,PE_departamento,PE_provincia,2007
+AR,GEO1_AR2010,,p_codigo,200310,AR_provincia,AR_departamento,2010
+BR,GEO1_BR2010,URBAN,p_codigo,200310,int_estado,int_cidade,2010
+CO,GEO1_CO2005,URBAN,p_codigo,200310,CO_departamento,CO_municipio,2005
+CL,GEO1_CL2002,URBAN,p_codigo,200310,CL_provincia,CL_comuna,2002
+MX,GEO1_MX2015,URBAN,p_codigo,200310,MX_int_estado,int_municipio_delegacion,2015
+PE,GEO1_PE2007,URBAN,p_codigo,200310,PE_departamento,PE_provincia,2007
