@@ -114,7 +114,7 @@ for (country in countries){
 
   #Dice just the variables needed for matching
   matching.vars <- grep(".",fread(varpath)[[country]],value = T) #grab variables that are not the empty string
-  target <- target[,c("sampleId",matching.vars),with=F]
+  target <- target[,c("sampleId",matching.vars, strats[1]),with=F]
   
   # Write target to disk.
   print(
@@ -146,5 +146,8 @@ head(target)
 hist(target$ed, xlim = c(1,6))
 hist(census$ed)
 table(target$age,target$gend)
+
+?table
+
 ```
 
