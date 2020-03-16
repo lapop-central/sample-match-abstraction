@@ -17,7 +17,7 @@ setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordinati
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
 countries = c("AR","BR","CL","CO","MX","PE")
-n <- 5 # batch depth--how many panelists per target?
+n <- 3 # batch depth--how many panelists per target?
 
 
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
@@ -53,6 +53,7 @@ library(stringr)
 
 # Loop over countries.
 for (country in countries){
+  country <- "PE"
   print(paste0("Working on ", country, "..."))
   
   # set panel file
@@ -229,7 +230,9 @@ for (country in countries){
 
   # Now join this data together:
 
-  alldata <- rbind(panel, target.pruned, fill=T)
+  alldata <- rbind(panel, 
+                   target.pruned[,grep("GEO",names(target.pruned),invert = T,value = T),with=F], 
+                   fill=T)
   #fill NA
   alldata[is.na(panelId),panelId:="9999999999"]
   alldata[is.na(sampleId),sampleId:="9999999999"]
@@ -238,11 +241,11 @@ for (country in countries){
 
   # Divide target sample into age quantiles (in this case, deciles) and add that to the data:
   # This may need adjustment if you run out of targets to match to.
-
-  age_q <- quantile(target$age,prob = seq(0,1,0.1)) #this is the full target
+  n_age_group <- 3
+  age_q <- quantile(target$age,prob = seq(0,1,1/n_age_group)) #this is the full target
   alldata[,'age_group' :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
   alldata[is.na(age_group),age]
-  alldata$age_group[is.na(alldata$age_group)] <- 10 #highest age-group can get lost; fill it in
+  alldata$age_group[is.na(alldata$age_group)] <- n_age_group #highest age-group can get lost; fill it in
 
   # Load in matching.vars from recodefile
 
@@ -301,7 +304,7 @@ for (country in countries){
     return(list("ids"=df, "matches"=matches))
   }
 
-  matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","region"))
+  matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","capital"))
 
 
   # Save the id's of the matches to a file
@@ -346,6 +349,12 @@ for (country in countries){
   # table(set$region)
   # table(target$region)
 
+target.pruned$sampleId[25]
 
+# issue with NAs?
+problematic <- alldata[as.data.table(matches$ids)[!complete.cases(matches$ids)],
+              .(gend,age_group,region,capital),
+              on="sampleId"]
 
-
+table(problematic$capital, problematic$gend)
+age_q
