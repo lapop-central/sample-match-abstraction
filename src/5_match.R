@@ -16,7 +16,7 @@ setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordinati
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("AR","BR","CL","CO","MX","PE")
+countries = c("BR","MX")
 n <- 3 # batch depth--how many panelists per target?
 
 
@@ -53,7 +53,7 @@ library(stringr)
 
 # Loop over countries.
 for (country in countries){
-  country <- "PE"
+  # country <- "PE"
   print(paste0("Working on ", country, "..."))
   
   # set panel file
@@ -100,7 +100,8 @@ for (country in countries){
   # Are there previous invites? If so, load them.
   # Also, prune the panel to just those not previously invited.
 
-  if (length(list.files(path=paste0(datadir,"sample/"), pattern = "wave"))>0){ #check this before the first time you create additional invite table
+  if (length(list.files(path=paste0(datadir,"matches/"), 
+                        pattern = paste0(country,"_selected_wave")))>0){ #check this before the first time you create additional invite table
     print("previous invites found")
     # Printing what invites are considered
     cat(paste0("Included invite files: \n"))
@@ -237,15 +238,7 @@ for (country in countries){
   alldata[is.na(panelId),panelId:="9999999999"]
   alldata[is.na(sampleId),sampleId:="9999999999"]
   
-  head(alldata)
-
-  # Divide target sample into age quantiles (in this case, deciles) and add that to the data:
-  # This may need adjustment if you run out of targets to match to.
-  n_age_group <- 3
-  age_q <- quantile(target$age,prob = seq(0,1,1/n_age_group)) #this is the full target
-  alldata[,'age_group' :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
-  alldata[is.na(age_group),age]
-  alldata$age_group[is.na(alldata$age_group)] <- n_age_group #highest age-group can get lost; fill it in
+  # head(alldata)
 
   # Load in matching.vars from recodefile
 
@@ -304,8 +297,37 @@ for (country in countries){
     return(list("ids"=df, "matches"=matches))
   }
 
-  matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","capital"))
-
+  
+  # Check if we have a good final sample...
+  done<-F
+  
+  # If not, assign age groups and match
+  
+  # Divide target sample into age quantiles (in this case, deciles) and add that to the data:
+  # This may need adjustment if you run out of targets to match to.
+  n_age_group <- 5
+  while(!done & n_age_group>0){
+    age_q <- quantile(target$age,prob = seq(0,1,1/n_age_group)) #this is the full target
+    alldata[,'age_group' :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
+    alldata[is.na(age_group),age]
+    alldata$age_group[is.na(alldata$age_group)] <- n_age_group #highest age-group can get lost; fill it in
+    
+    
+    
+    matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","capital"))
+    
+    # issue with NAs?
+    problematic <- alldata[as.data.table(matches$ids)[!complete.cases(matches$ids)],
+                           .(gend,age_group,region,capital),
+                           on="sampleId"]
+    if(dim(problematic)[1]==0){
+      print(paste0("Successfully created match in ",country," with ",n_age_group," age groups."))
+      done <- T
+    } else {
+      print(paste0(country,": With ",n_age_group," age groups, ",dim(problematic)[1]," NAs in match"))
+      n_age_group <- n_age_group-1
+    }
+  }
 
   # Save the id's of the matches to a file
 
@@ -352,9 +374,6 @@ for (country in countries){
 target.pruned$sampleId[25]
 
 # issue with NAs?
-problematic <- alldata[as.data.table(matches$ids)[!complete.cases(matches$ids)],
-              .(gend,age_group,region,capital),
-              on="sampleId"]
 
 table(problematic$capital, problematic$gend)
 age_q
