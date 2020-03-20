@@ -243,7 +243,7 @@ for (country in countries){
   # Load in matching.vars from recodefile
 
   matching.vars <- grep(".",fread(varpath)[[country]],value = T) #grab variables from file, excluding empty strings
-
+  matching.vars <- grep("region",matching.vars,value = T, invert = T)
   # Now carry out the matching. 
   matching.form <- as.formula(paste0("treat ~ ", paste(matching.vars, collapse=' + ')))
 
@@ -314,7 +314,8 @@ for (country in countries){
     
     
     
-    matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","capital"))
+    matches = matchRatio(alldata[,grep("region",names(alldata),value = T, invert = T),with=F],
+                         "mahalanobis", n, exact = c("age_group","gend","capital"))
     
     # issue with NAs?
     problematic <- alldata[as.data.table(matches$ids)[!complete.cases(matches$ids)],
