@@ -40,11 +40,14 @@ parampath <- "./country_parameters.csv" # set specefic parameters in this file
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 
 # IDs to exclude
-# excludefiles <- list(
-#   # Concurrent IDB study
-#   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+31%2C+2019_14.57.csv'),
+excludefiles <- (
+  # Concurrent IDB-T2
+  list.files('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/matches/IDBT2/',
+             pattern = country, 
+             full.names = T)
 #   # First wave of this study
 #   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv'))
+)
 
 library('MatchIt')
 library('data.table')
@@ -90,7 +93,12 @@ for (country in countries){
       } else {if ("pid"%in%names(exclude)){
         print("pid")
         exclude[,"panelId":=pid]
-      }}
+      } else {if ("panelId"%in%names(exclude)){
+        print("panelId")
+        exclude <- melt(exclude,
+             measure.vars = grep("panelId", names(exclude), value = T),
+             value.name = "panelId")
+      }}}
       # Prune panel to exclude previous respondents
       panel <- panel[!panelId %in% exclude$panelId,]
     print(dim(panel))
