@@ -1,7 +1,6 @@
 ---
 title: "sample (IDB Trust)"
 author: "Maita Schade"
-date: "Aug 8, 2019"
 output: html_notebook
 ---
 
@@ -22,7 +21,7 @@ rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita
 datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
 
 varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
-parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/country_parameters.csv" # set specific parameters in this file
+parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/country_parameters1.csv" # set specific parameters in this file
 ```
 
 ```{r}
@@ -147,7 +146,6 @@ hist(target$ed, xlim = c(1,6))
 hist(census$ed)
 table(target$age,target$gend)
 
-?table
 
 ```
 
