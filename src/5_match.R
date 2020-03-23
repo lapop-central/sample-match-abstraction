@@ -16,7 +16,7 @@ setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordinati
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("BR","MX")
+countries = c("AR")#,"BR","MX")
 n <- 3 # batch depth--how many panelists per target?
 
 
