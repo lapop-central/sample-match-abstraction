@@ -15,7 +15,7 @@ setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordinati
 # set data dir
 datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
 # set parameter path
-parampath <- "./country_parameters.csv" # set specefic parameters in this file
+parampath <- "./country_parameters1.csv" # set specefic parameters in this file
 
 # set wave to check
 wave <- 1
@@ -27,8 +27,9 @@ library(data.table)
 library(questionr)
 
 library(ggplot2)
+library(dplyr)
 
-country <- "AR"
+country <- "PE"
 # Load country-specific parameters:
 params <- fread(parampath,key = "country")[country,]
 target.date <- params[,target.date]
@@ -60,20 +61,26 @@ matches.all <- netquest[melt(matches, id= c("sampleId")),on="panelId==value"]
 
 # for each variable:
 for(var in names(ipums)[names(ipums)%in%names(netquest)]){
+  var <- "emp"
   print(paste0(country,": ",var))
   # percent-tab categories in ipums
-  ipums.tab <- wtd.table(ipums.18[[var]],weights=ipums.18$PERWT)/sum(ipums.18$PERWT)*100
+  ipums.tab <- data.table(wtd.table(ipums.18[[var]],weights=ipums.18$PERWT)/sum(ipums.18$PERWT)*100)
+  setnames(ipums.tab, c("V1","N"),c("category","ipums"))
   # percent-tab categories in target
-  target.tab <- table(target.all[[var]])/nrow(target.all)*100
+  target.tab <- data.table(table(target.all[[var]])/nrow(target.all)*100)
+  setnames(target.tab, c("V1","N"),c("category","target"))
   # percent-tab categories in match
-  match.tab <- table(matches.all[[var]])/nrow(matches.all)*100
+  match.tab <- data.table(table(matches.all[[var]])/nrow(matches.all)*100)
+  setnames(match.tab, c("V1","N"),c("category","match"))
   # plot ipums & difference tabs
-  tabs <- data.table(t(rbind(ipums.tab,target.tab,match.tab)))
-  tabs[,category := 1:.N]
-  tabs[,target.diff:=target.tab-ipums.tab]  
-  tabs[,match.diff:=match.tab-ipums.tab]  
+  tabs <- Reduce(function(x,y){merge(x,y,by="category",all=T)},
+                 list(ipums.tab, target.tab, match.tab)) 
+                  # data.table(t(cbind(ipums.tab,target.tab,match.tab)))
+  tabs[,target.diff:=target-ipums]  
+  tabs[,match.diff:=match-ipums]
+  tabs[,category:=as.integer(category)]
   tabs.melted <- melt(tabs, id="category")
-  print(ggplot(tabs.melted[variable%in%c("ipums.tab","target.tab","match.tab")], 
+  print(ggplot(tabs.melted[variable%in%c("ipums","target","match")], 
          aes(x=category, y=value,fill=variable)) + 
     geom_col(position = position_dodge(width=0.5)) +
     ggtitle(paste0(country,": ",var)) +
