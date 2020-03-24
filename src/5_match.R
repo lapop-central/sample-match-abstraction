@@ -16,7 +16,7 @@ setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordinati
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("AR")#,"BR","MX")
+countries = c("AR","BR","CL","CO","MX","PE")
 n <- 3 # batch depth--how many panelists per target?
 
 
@@ -31,7 +31,7 @@ n <- 3 # batch depth--how many panelists per target?
 datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
 
 varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
-parampath <- "./country_parameters.csv" # set specefic parameters in this file
+parampath <- "./country_parameters1.csv" # set specefic parameters in this file
 
 # previous responses:
 # responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/....csv')
@@ -39,15 +39,6 @@ parampath <- "./country_parameters.csv" # set specefic parameters in this file
 #file of not yet sent IDs
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
 
-# IDs to exclude
-excludefiles <- (
-  # Concurrent IDB-T2
-  list.files('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/matches/IDBT2/',
-             pattern = country, 
-             full.names = T)
-#   # First wave of this study
-#   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv'))
-)
 
 library('MatchIt')
 library('data.table')
@@ -79,6 +70,15 @@ for (country in countries){
   length(unique(target$X))
 
  # Are there exclusions from a prior survey?
+  # IDs to exclude
+  excludefiles <- (
+    # Concurrent IDB-T2
+    list.files('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/matches/IDBT2/',
+               pattern = country, 
+               full.names = T)
+    #   # First wave of this study
+    #   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv'))
+  )
  # If so, remove them from the panel.
   if (exists("excludefiles")){
     for (excludefile in excludefiles){
