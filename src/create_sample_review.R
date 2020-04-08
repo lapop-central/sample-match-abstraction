@@ -3,11 +3,11 @@ library(data.table)
 
 # set working dir
 setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/')
-targetdate <- "200221"
+targetdate <- "200323"
 datadir <-  paste0('../out/')
 
 
-for (country in c("CL","CO","MX","PE")){
+for (country in c("AR","BR","CL","CO","MX","PE")){
   print(country)
   ipumspath <- paste0(datadir,'ipums_country/',country,'_ipums-census_geo.csv')
   

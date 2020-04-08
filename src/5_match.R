@@ -11,12 +11,16 @@
 # Make sure we're dealing with a clear space:
 rm(list = ls(all = TRUE))
 
+# Which part are we working on?
+part <- 2
+
 # set working dir
-setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/')
+setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("AR","BR","CL","CO","MX","PE")
+countries = c("AR","BR","MX")
+country.names = c("AR"="Argentina","BR"="Brazil","MX"="Mexico")
 n <- 3 # batch depth--how many panelists per target?
 
 
@@ -28,13 +32,10 @@ n <- 3 # batch depth--how many panelists per target?
 # filedate = "190826"
 
 # rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/raw/')
-datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
+datadir <- paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/')
 
-varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
-parampath <- "./country_parameters1.csv" # set specefic parameters in this file
-
-# previous responses:
-# responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/....csv')
+varpath <- paste0("C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/doc/matching/matching_vars.csv")
+parampath <- paste0("./country_parameters",part,".csv") # set specefic parameters in this file
 
 #file of not yet sent IDs
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
@@ -47,7 +48,7 @@ library(stringr)
 
 # Loop over countries.
 for (country in countries){
-  # country <- "PE"
+  # country <- "MX"
   print(paste0("Working on ", country, "..."))
   
   # set panel file
@@ -59,8 +60,7 @@ for (country in countries){
   print(paste0("Target date is ", target.date))
   NQ_id <- params[,NQ_id]
   
-  targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv")
-
+  targetfile <- paste0(datadir, "sample/IDBT",part, "/",country, "_target_", target.date, ".csv")
   # Load data
   target <- fread(targetfile, colClasses = c(sampleId="character")) #make sure the sampleId has leading zeroes
   panel <- fread(panelfile)
@@ -68,12 +68,22 @@ for (country in countries){
     recycle <- fread(recyclefile)}
   length(unique(panel$X))
   length(unique(target$X))
+  
+  # previous responses:
+  responsefile <- grep(paste0(country.names[country],".*\\.csv"),
+                       list.files(paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/out/IDBT2/'),
+                                  full.names = T),
+                       value = T)
 
  # Are there exclusions from a prior survey?
   # IDs to exclude
   excludefiles <- (
     # Concurrent IDB-T2
-    list.files('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/matches/IDBT2/',
+    # list.files('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/matches/IDBT2/',
+    #            pattern = country, 
+    #            full.names = T)
+    # Concurrent IDB-T
+    list.files('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/matches/IDBT1/',
                pattern = country, 
                full.names = T)
     #   # First wave of this study
@@ -108,7 +118,7 @@ for (country in countries){
   # Are there previous invites? If so, load them.
   # Also, prune the panel to just those not previously invited.
 
-  if (length(list.files(path=paste0(datadir,"matches/"), 
+  if (length(list.files(path=paste0(datadir,"matches/IDBT",part), 
                         pattern = paste0(country,"_selected_wave")))>0){ #check this before the first time you create additional invite table
     print("previous invites found")
     # Printing what invites are considered
@@ -116,13 +126,13 @@ for (country in countries){
   
     # Reading in invite files from all waves
     waves <- lapply(
-      grep("QC",list.files(path=paste0(datadir,"panel/"), pattern = "wave"),
+      grep("QC",list.files(path=paste0(datadir,"matches/IDBT",part), pattern = "wave"),
            invert = T, value = T), 
       function (x){
         cat(paste0("    ",x,"\n"))
       ## We make sure the individual waves have distinguishable names by attaching suffixes
     
-        df<-fread(paste0(datadir, "panel/",x),colClasses = c(sampleId="character"))
+        df<-fread(paste0(datadir, "matches/IDBT",part,"/",x),colClasses = c(sampleId="character"))
         df[,sampleId := str_pad(string = sampleId, width = max(nchar(sampleId)), side = "left", pad = "0")]
         #df[,grep("panelId",names(df),value = T)]<-sapply(df[,grep("panelId",names(df),value = T)], tolower)
         nwave=as.numeric(str_match(x, "wave(\\d+)")[2])
@@ -176,14 +186,14 @@ for (country in countries){
 
   # Are there previous completes? If so, load them.
 
-  if (exists("responsefile")){ #Check this before the first time using a responsefile--best against remedial AR
+  if (exists("responsefile")){ #Check this before the first time using a responsefile
     print("completes found!")
   
     # # "responded" can be loaded straight from Qualtrics 
     responded <- fread(responsefile)
     
     #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
-    responded <- selected[panelId%in%responded]
+    responded <- selected[panelId%in%responded$pid]
     responded <- responded[!duplicated(panelId,fromLast = TRUE),]
     
   
