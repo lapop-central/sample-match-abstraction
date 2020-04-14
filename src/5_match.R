@@ -48,7 +48,7 @@ library(stringr)
 
 # Loop over countries.
 for (country in countries){
-  # country <- "MX"
+  # country <- "AR"
   print(paste0("Working on ", country, "..."))
   
   # set panel file
@@ -191,20 +191,26 @@ for (country in countries){
   
     # # "responded" can be loaded straight from Qualtrics 
     responded <- fread(responsefile)
+    if (country=="AR"){ # accounting for coding error in Calvo survey
+      completed <- responded[Finished==1 & Bienvenido==2]
+    } else{
+      completed <- responded[Finished==1 & Bienvenido==1]}
     
     #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
-    responded <- selected[panelId%in%responded$pid]
-    responded <- responded[!duplicated(panelId,fromLast = TRUE),]
+    completed <- selected[panelId%in%completed$pid]
+    completed <- completed[!duplicated(panelId,fromLast = TRUE),]
+    
+    
     
   
       
     # Counting duplicates by counting occurrence of sampleId in respondents:
     # !!! Make sure you only count the full responses here! still needs to be fixed
-    nsamp_resp <- table(responded$sampleId)
+    nsamp_resp <- table(completed$sampleId)
    
     dupes <- sum(nsamp_resp-1)
     
-    legit <- nrow(responded)-dupes
+    legit <- nrow(completed)-dupes
   
     cat(paste0("\nDuplicates in ", country, ": ", dupes,"\n"))
     cat(paste0("\nLegit responses: ", legit))
@@ -214,21 +220,21 @@ for (country in countries){
     
     ## Prune target to exclude filled slots
     # create list of respondents in wide sample id format--actually this shouldn't be necessary here, but let's not futz with it for now
-    invited.resp <- invited[(panelId %in% responded$panelId),] #those that were invited and actually responded
-    responded.wide <- dcast(invited.resp, ... ~ variable)
+    invited.resp <- invited[(panelId %in% completed$panelId),] #those that were invited and actually responded
+    completed.wide <- dcast(invited.resp, ... ~ variable)
     # responded.wide[sampleId%in%sampleId[duplicated(sampleId)]]
     
     
     # Check that no sampleId's are duplicated:
-    if (sum(duplicated(responded.wide$sampleId))!= 0){
+    if (sum(duplicated(completed.wide$sampleId))!= 0){
       print("Alert! Somehow you have duplicated sampleIds!")
       }
     
     # keep only targets that are not included in response set
-    target.pruned <- target[!sampleId%in%responded.wide$sampleId,]
+    target.pruned <- target[!sampleId%in%completed.wide$sampleId,]
     dim(invited.resp)
-    dim(responded)
-    dim(responded.wide)
+    dim(completed)
+    dim(completed.wide)
     print("Dimensions of pruned target:")
     dim(target.pruned)
   } else {
