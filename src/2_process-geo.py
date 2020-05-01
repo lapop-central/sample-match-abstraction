@@ -17,7 +17,7 @@ import numpy as np
 
 # Defining specific parameters
 # In[1]:
-params = pd.read_csv("./country_parameters.csv")
+params = pd.read_csv("./country_parameters1.csv")
 params
 
 # In[265]:

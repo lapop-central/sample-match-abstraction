@@ -11,14 +11,14 @@
 rm(list = ls(all = TRUE))
 
 # set working dir
-setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/')
+setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 # set data dir
-datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
+datadir <- paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/')
 # set parameter path
 parampath <- "./country_parameters1.csv" # set specefic parameters in this file
 
 # set wave to check
-wave <- 1
+wave <- 2
 
 
 # load libraries
@@ -29,7 +29,7 @@ library(questionr)
 library(ggplot2)
 library(dplyr)
 
-country <- "PE"
+country <- "MX"
 # Load country-specific parameters:
 params <- fread(parampath,key = "country")[country,]
 target.date <- params[,target.date]
@@ -43,14 +43,14 @@ netquestpath <-  paste0(datadir,'panel_country/', country, '_netquest_recoded.cs
 netquest <- fread(netquestpath)
 
 # load target sample & merge census vars
-targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv")
+targetfile <- paste0(datadir, "sample/IDBT1/", country, "_target_", target.date, ".csv")
 target <- fread(targetfile, colClasses = c(sampleId="character"))
 target[,censusId:=as.double(substr(sampleId, 1, nchar(sampleId)-1))]
 target.all <- ipums[target[,.(censusId)],on="censusId"]
 
 # load matched sample & merge netquest vars
-matchfile <- paste0(datadir, "matches/",
-                    list.files(paste0(datadir, "matches/"),
+matchfile <- paste0(datadir, "matches/IDBT1/",
+                    list.files(paste0(datadir, "matches/IDBT1/"),
                                pattern = paste0(country,"_selected_wave",wave)))
 matches <- fread(matchfile)
 matches.all <- netquest[melt(matches, id= c("sampleId")),on="panelId==value"]
@@ -61,7 +61,7 @@ matches.all <- netquest[melt(matches, id= c("sampleId")),on="panelId==value"]
 
 # for each variable:
 for(var in names(ipums)[names(ipums)%in%names(netquest)]){
-  var <- "emp"
+  # var <- "region"
   print(paste0(country,": ",var))
   # percent-tab categories in ipums
   ipums.tab <- data.table(wtd.table(ipums.18[[var]],weights=ipums.18$PERWT)/sum(ipums.18$PERWT)*100)

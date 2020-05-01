@@ -18,13 +18,13 @@ rm(list = ls(all = TRUE))
 library(data.table)
 library(bit64)
 # set working dir
-setwd('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/')
+setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Setting specifics--iterate over countries.
 
-for (country in c("AR","BR","CL","CO","MX","PE")){
+for (country in c("AR","BR","CO","MX")){ # "CL"
 
-#  country<-"PE"
+ # country<-"PE"
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 
 datadir <-  paste0('../out/')
@@ -34,7 +34,7 @@ censuspath <- paste0(datadir,'ipums_country/',country,'_ipums-census_geo.csv')
 netquestpath <- paste0(datadir, "panel_country/", country, "_netquest-panel_geo.csv")
 
 varpath <- paste0("../../doc/matching/matching-vars.csv") #table specifying matching vars by country
-parampath <- "./country_parameters.csv" # set specific parameters in this file
+parampath <- "./country_parameters1.csv" # set specific parameters in this file
 regiopath <- paste0("../../doc/design/geo/",country,"_regions.csv")
 
 # Load external function to do the dirty work, depending on country etc.

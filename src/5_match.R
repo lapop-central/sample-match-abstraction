@@ -12,16 +12,16 @@
 rm(list = ls(all = TRUE))
 
 # Which part are we working on?
-part <- 2
+part <- 1
 
 # set working dir
 setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("AR","BR","MX")
-country.names = c("AR"="Argentina","BR"="Brazil","MX"="Mexico")
-n <- 3 # batch depth--how many panelists per target?
+countries = c("AR","BR","CO","MX","PE")
+country.names = c("AR"="Argentina","BR"="Brazil","MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
+n <- 6 # batch depth--how many panelists per target?
 
 
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
@@ -71,7 +71,7 @@ for (country in countries){
   
   # previous responses:
   responsefile <- grep(paste0(country.names[country],".*\\.csv"),
-                       list.files(paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/out/IDBT2/'),
+                       list.files(paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/out/IDBT',part,'/'),
                                   full.names = T),
                        value = T)
 
@@ -79,13 +79,13 @@ for (country in countries){
   # IDs to exclude
   excludefiles <- (
     # Concurrent IDB-T2
-    # list.files('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/matches/IDBT2/',
+    list.files('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/matches/IDBT2/',
+               pattern = country,
+               full.names = T)
+    # Concurrent IDB-T
+    # list.files('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/matches/IDBT1/',
     #            pattern = country, 
     #            full.names = T)
-    # Concurrent IDB-T
-    list.files('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/matches/IDBT1/',
-               pattern = country, 
-               full.names = T)
     #   # First wave of this study
     #   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv'))
   )
@@ -125,9 +125,7 @@ for (country in countries){
     cat(paste0("Included invite files: \n"))
   
     # Reading in invite files from all waves
-    waves <- lapply(
-      grep("QC",list.files(path=paste0(datadir,"matches/IDBT",part), pattern = "wave"),
-           invert = T, value = T), 
+    waves <- lapply(list.files(path=paste0(datadir,"matches/IDBT",part), pattern = country),
       function (x){
         cat(paste0("    ",x,"\n"))
       ## We make sure the individual waves have distinguishable names by attaching suffixes
@@ -191,11 +189,14 @@ for (country in countries){
   
     # # "responded" can be loaded straight from Qualtrics 
     responded <- fread(responsefile)
-    if (country=="AR"){ # accounting for coding error in Calvo survey
-      completed <- responded[Finished==1 & Bienvenido==2]
-    } else{
-      completed <- responded[Finished==1 & Bienvenido==1]}
-    
+    if (part==2){
+      if (country=="AR"){ # accounting for coding error in Calvo survey
+        completed <- responded[Finished==1 & Bienvenido==2]
+      } else{
+        completed <- responded[Finished==1 & Bienvenido==1]}
+    } else if (part==1){
+      completed <- responded[Finished==1 & CONSENT==1]
+      }
     #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
     completed <- selected[panelId%in%completed$pid]
     completed <- completed[!duplicated(panelId,fromLast = TRUE),]
@@ -205,7 +206,7 @@ for (country in countries){
   
       
     # Counting duplicates by counting occurrence of sampleId in respondents:
-    # !!! Make sure you only count the full responses here! still needs to be fixed
+    # !!! Make sure you only count the full responses here! 
     nsamp_resp <- table(completed$sampleId)
    
     dupes <- sum(nsamp_resp-1)
