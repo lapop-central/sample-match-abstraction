@@ -23,7 +23,7 @@ params
 # In[265]:
 
 
-for country in ['AR','BR','CL',"CO",'MX',"PE"]:
+for country in ['CL']: #'AR','BR',,"CO",'MX',"PE"
 
 
 # In[271]:

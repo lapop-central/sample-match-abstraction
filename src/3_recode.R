@@ -22,7 +22,7 @@ setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Setting specifics--iterate over countries.
 
-for (country in c("AR","BR","CO","MX")){ # "CL"
+for (country in c("CL")){ # "AR","BR","CO","MX"
 
  # country<-"PE"
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.

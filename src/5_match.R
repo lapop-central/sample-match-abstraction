@@ -19,8 +19,8 @@ setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("AR","BR","CO","MX","PE")
-country.names = c("AR"="Argentina","BR"="Brazil","MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
+countries = c("CL")#"AR","BR","CO","MX","PE"
+country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
 n <- 6 # batch depth--how many panelists per target?
 
 
@@ -237,7 +237,7 @@ for (country in countries){
     dim(completed)
     dim(completed.wide)
     print("Dimensions of pruned target:")
-    dim(target.pruned)
+    print(dim(target.pruned))
   } else {
     target.pruned <- target
   }

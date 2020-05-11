@@ -29,7 +29,7 @@ library(questionr)
 library(ggplot2)
 library(dplyr)
 
-country <- "MX"
+country <- "CL"
 # Load country-specific parameters:
 params <- fread(parampath,key = "country")[country,]
 target.date <- params[,target.date]
