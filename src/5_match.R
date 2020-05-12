@@ -19,7 +19,7 @@ setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("CL")#"AR","BR","CO","MX","PE"
+countries = c("AR","BR","CO","MX","PE","CL")#
 country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
 n <- 6 # batch depth--how many panelists per target?
 
@@ -195,7 +195,9 @@ for (country in countries){
       } else{
         completed <- responded[Finished==1 & Bienvenido==1]}
     } else if (part==1){
-      completed <- responded[Finished==1 & CONSENT==1]
+      # completed <- responded[Finished==1 & CONSENT==1]
+      # Need to avoid the screen-out issue--true if they have answered last question
+        completed <- responded[!ETID==""]
       }
     #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
     completed <- selected[panelId%in%completed$pid]
