@@ -188,7 +188,7 @@ for (country in countries){
     print("completes found!")
   
     # # "responded" can be loaded straight from Qualtrics 
-    responded <- fread(responsefile)
+    responded <- fread(responsefile,na.strings = "")
     if (part==2){
       if (country=="AR"){ # accounting for coding error in Calvo survey
         completed <- responded[Finished==1 & Bienvenido==2]
@@ -197,7 +197,7 @@ for (country in countries){
     } else if (part==1){
       # completed <- responded[Finished==1 & CONSENT==1]
       # Need to avoid the screen-out issue--true if they have answered last question
-        completed <- responded[!ETID==""]
+        completed <- responded[!is.na(ETID)]
       }
     #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
     completed <- selected[panelId%in%completed$pid]
