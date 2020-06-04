@@ -8,5 +8,3 @@ sample-matched survey project
   * doc and out directories are contained within the submodule
 * matching_process.* provides a flowchart for the current process
   (currently in dire need of updating)
-* SampleMatch is a package being developed simultaneously, currently
-  hosted at [https://github.com/maitagorri/sampleMatch/]
