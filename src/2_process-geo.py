@@ -23,7 +23,8 @@ params
 # In[265]:
 
 
-for country in ['CL']: #'AR','BR',,"CO",'MX',"PE"
+for country in ['BR']:#,"CO",'MX',"PE",'CL','AR'
+    print("working on ", country)
 
 
 # In[271]:
@@ -45,11 +46,6 @@ for country in ['CL']: #'AR','BR',,"CO",'MX',"PE"
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00021.csv"
         
     elif country=="PE":
-        geo2_nq = "PE_provincia"
-        geo1_nq = "PE_departamento"
-        geo1_ipums = "GEO1_PE2007" # department
-        geo2_ipums = "GEO2_PE2007" # province
-        year = '2007'
         ipumsfile = "../../raw/ipums/"+country+"/ipumsi_00032.csv"
       
     year = str(params[params.country==country].year.values[0])
