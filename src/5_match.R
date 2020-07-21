@@ -19,9 +19,9 @@ setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
 
 # Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("BR")#,"AR","CO","MX","PE","CL"
+countries = c("BR")#,"MX","CL")#,"AR","CO","PE")
 country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
-n <- 8 # batch depth--how many panelists per target?
+n <- 10 # batch depth--how many panelists per target?
 
 
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
@@ -217,7 +217,8 @@ for (country in countries){
   
     cat(paste0("\nDuplicates in ", country, ": ", dupes,"\n"))
     cat(paste0("\nLegit responses: ", legit))
-  
+    
+    # next
     # # Respondents that were not invited?
     # cat(responded[is.na(responded$SAMPID),][[NQ_id]])
     
