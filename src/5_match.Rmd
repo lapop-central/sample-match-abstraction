@@ -1,7 +1,7 @@
 ---
-title: "match"
+title: "match (IDB Trust)"
 author: "Maita Schade"
-date: "Aug 26, 2019"
+date: "Jan 09, 2020"
 output: html_notebook
 ---
 
@@ -16,6 +16,7 @@ rm(list = ls(all = TRUE))
 Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 ```{r}
 country <- "AR"
+n <- 1 # batch depth--how many panelists per target?
 ```
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
@@ -25,25 +26,26 @@ Defining files--make sure the dirs are okay; other than that you shouldn't need 
 # wave = 17
 # filedate = "190826"
 
-rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Matching process/Data/',country,'/')
-datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Matching process/Data/',country,'/')
+# rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/raw/')
+datadir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
 
+panelfile <- paste0(datadir,'panel_country/', country, '_netquest_recoded.csv')
 
-
-panelfile <- paste0(rawdir,'panel/', country, '_netquest_recoded.csv')
-
-recodepath <- paste0("./recode_Netquest_IPUMS_",country, ".csv") #table specifying recodes
+varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
 parampath <- "./country_parameters.csv" # set specefic parameters in this file
 
-responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+28%2C+2019_08.59.csv')
+# previous responses:
+# responsefile <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/....csv')
+
 #file of not yet sent IDs
 #recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
-excludefiles <- list(
-  # Concurrent IDB study
-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+31%2C+2019_14.57.csv'),
-  # First wave of this study
-  paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv')
-)
+
+# IDs to exclude
+# excludefiles <- list(
+#   # Concurrent IDB study
+#   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Crime/Data processing/Data/IADB+Argentina+Questionnaire+-+Netquest+v2_October+31%2C+2019_14.57.csv'),
+#   # First wave of this study
+#   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv'))
 ```
 
 
@@ -51,10 +53,6 @@ excludefiles <- list(
 library('MatchIt')
 library('data.table')
 library('openxlsx')
-# library('labelled')
-# 
-# require(plyr)
-# require(reshape2)
 library(stringr)
 ```
 
@@ -63,9 +61,7 @@ Load country-specific parameters:
 params <- fread(parampath,key = "country")[country,]
 target.date <- params[,target.date]
 print(paste0("Target date is ", target.date))
-
 NQ_id <- params[,NQ_id]
-
 
 targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv")
 ```
@@ -75,8 +71,7 @@ targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv
 
 Load data
 ```{r}
-target <- fread(targetfile, colClasses = c(sampleId="character"),drop = c("censusId"))
-target[,sampleId:=str_pad(sampleId,width=13,pad="0")]
+target <- fread(targetfile, colClasses = c(sampleId="character")) #make sure the sampleId has leading zeroes
 panel <- fread(panelfile)
 if(exists("recyclefile")){
   recycle <- fread(recyclefile)}
@@ -86,7 +81,6 @@ length(unique(target$X))
  Are there exclusions from a prior survey?
 If so, remove them from the panel.
 ```{r}
-dim(panel)
 if (exists("excludefiles")){
   for (excludefile in excludefiles){
     print(paste0("excluding previous respondents from ",excludefile))
@@ -114,7 +108,7 @@ if (exists("excludefiles")){
 Are there previous invites? If so, load them.
 Also, prune the panel to just those not previously invited.
 ```{r}
-if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
+if (length(list.files(path=paste0(datadir,"sample/"), pattern = "wave"))>0){ #check this before the first time you create additional invite table
   print("previous invites found")
   # Printing what invites are considered
   cat(paste0("Included invite files: \n"))
@@ -140,11 +134,6 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   )
   
   # The target is a table of target records, with selected panelist IDs for each wave
-  target.select <- Reduce(function(dtf1, dtf2) {merge(dtf1, dtf2,
-                                               by = c("sampleId"),
-                                               all.x = TRUE)},
-                   waves)
-  
   # target <- target[names(target)[,-grep("targetId|X",names(target))]]
   
   # "selected" is a long list of all NQ panelists selected from our end
@@ -152,8 +141,6 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
                                                by = c("sampleId"),
                                                all.x = TRUE, all.y = TRUE)},
                    waves)
-  selected.wide
-  # selected <- selected_wide[names(selected_wide)[-grep("targetId|X",names(selected_wide))]]
   selected <- melt(data = selected.wide,measure.vars = c(grep("panelId",names(selected.wide))))
   
   names(selected)<-c("sampleId",   "variable",   "panelId")
@@ -185,27 +172,17 @@ if (length(list.files(path=paste0(datadir,"panel/"), pattern = "wave"))>0){
   
 
 } else {wave <- 1}
-print(wave)
-```
-
-Check that target.select and target are compatible (and nothing got somehow messed up when fixing to dept)
-```{r}
-#Are we okay--did we not mess up the sample when fixing depts?
-# sum(!target.select$sampleId%in%target$sampleId)==0
 ```
 
 
 Are there previous completes? If so, load them.
 ```{r}
-if (exists("responsefile")){
+if (exists("responsefile")){ #Check this before the first time using a responsefile--best against remedial AR
   print("completes found!")
 
   # # "responded" can be loaded straight from Qualtrics 
   responded <- fread(responsefile)
-  # This depends on the complete file, and how pid was saved
-  # responded[,"panelId" := substr(ticket,1,16)]
-  # responded <- responded[-(1:3),panelId]
-
+  
   #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
   responded <- selected[panelId%in%responded]
   responded <- responded[!duplicated(panelId,fromLast = TRUE),]
@@ -213,10 +190,10 @@ if (exists("responsefile")){
 
     
   # Counting duplicates by counting occurrence of sampleId in respondents:
+  # !!! Make sure you only count the full responses here! still needs to be fixed
   nsamp_resp <- table(responded$sampleId)
  
-  dupes <- sum(nsamp_resp-1)  
-  dupes
+  dupes <- sum(nsamp_resp-1)
   
   legit <- nrow(responded)-dupes
 
@@ -251,10 +228,11 @@ if (exists("responsefile")){
 nrow(target.pruned)
 ```
 
-Netquest wanted to know which targets were already complete, so find them and write them out.
+Netquest wants to know which targets were already complete, so find them and write them out.
 ```{r}
-write.csv(target[!sampleId%in%target.pruned$sampleId,sampleId],
-          paste0("completes_",format(Sys.time(),"%y%m%d"),".csv"))
+# This needs to be fixed to only count full responses
+# write.csv(target[!sampleId%in%target.pruned$sampleId,sampleId],
+#           paste0("completes_",format(Sys.time(),"%y%m%d"),".csv"))
 
 ```
 
@@ -277,6 +255,7 @@ head(alldata)
 ```
 
 Divide target sample into age quantiles (in this case, deciles) and add that to the data:
+This may need adjustment if you run out of targets to match to.
 ```{r}
 age_q <- quantile(target$age,prob = seq(0,1,0.1)) #this is the full target
 alldata[,'age_group' :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
@@ -287,8 +266,7 @@ alldata$age_group[is.na(alldata$age_group)] <- 10 #highest age-group can get los
 
 Load in matching.vars from recodefile
 ```{r}
-recode_map <- fread(recodepath)
-matching.vars <- unique(recode_map$common_var)
+matching.vars <- grep(".",fread(varpath)[[country]],value = T) #grab variables from file, excluding empty strings
 ```
 
 Now carry out the matching. 
@@ -353,18 +331,21 @@ matchRatio <- function(data, metric, n, exact = c()){
 
 
 ```{r}
-n <- 5
-matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend"))
+n <- 1
+matches = matchRatio(alldata, "mahalanobis", n, exact = c("age_group","gend","region"))
 ```
 
 Save the id's of the matches to a file
 ```{r}
 write.csv(
   matches$ids, 
-  file=paste0(datadir,"panel/",country,"_selected_wave",wave,"_",format(Sys.time(),"%y%m%d"),".csv"),
+  file=paste0(datadir,"matches/",country,"_selected_wave",wave,"_",format(Sys.time(),"%y%m%d"),".csv"),
   row.names = F)
 wave
 ```
+
+
+# Double check a few things...
 
 Do I have a good number of discrete location codes?
 ```{r}
@@ -395,6 +376,11 @@ target.pruned[,PERNUM:=substr(censusId,11,12)]
 target.pruned[,SERIAL:=substr(censusId,1,10)]
 write.csv(target.pruned,paste0("pruned_target_", format(Sys.time(),"%y%m%d"),".csv"))
 write.csv(set,paste0("selected_IDs_", format(Sys.time(),"%y%m%d"),".csv"))
+```
+What about the regions? did it work?
+```{r}
+table(set$region)
+table(target$region)
 ```
 
 

@@ -1,0 +1,151 @@
+---
+title: "sample (IDB Trust)"
+author: "Maita Schade"
+output: html_notebook
+---
+
+Make sure we're dealing with a clear space:
+```{r}
+rm(list = ls(all = TRUE))
+```
+  
+Set the following chunk depending on the circumstances:
+```{r}
+countries = c("AR","BR","CL","CO","MX","PE")
+n = 1200 #sample size in each country
+```
+
+Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
+```{r}
+rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/raw/')
+datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
+
+varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
+parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/country_parameters1.csv" # set specific parameters in this file
+```
+
+```{r}
+library(data.table)
+library(devtools)
+```
+
+Define the sampling function
+```{r}
+strat_weight_sample <- function(df, strats, weights, N){
+  census <- df
+
+  #First, we'll make a table of strata, and their sum of weights.
+  blocks <- aggregate(as.formula(paste0(weights, " ~ ", paste(strats, collapse=' + '))), data=census, sum)
+  print(as.formula(paste0(weights, " ~ ", paste(strats, collapse=' + '))))
+
+  #Then we determine how many individuals to randomly draw from each stratum.
+  blocks$nblock <- round(blocks[[weights]] * N/sum(blocks[[weights]]))
+    # Use "ceiling" for always rounding up / larger N
+
+  #Then we do a weighted random sample from each stratum.
+  weighted_sample_helper <- function(r){
+    s1 <- r[[strats[1]]]
+    if (length(strats)>1){
+      s2 <- r[[strats[2]]]
+      block <- census[(census[[strats[1]]]==s1) & (census[[strats[2]]]==s2),]
+    } else{
+      block <- census[(census[[strats[1]]]==s1),]
+    }
+    # block <- merge(t(r[strats]), census, by=c('URBAN','GEO1_CO2005'))
+    n = as.double(r['nblock'])
+    index = sample(nrow(block),
+                   size = n,
+                   replace = TRUE,
+                   prob = block[[weights]]
+    )
+    return(block[index,])
+  }
+
+  #...and bind them together
+  # result <-data.table()
+  # print(nrow(result))
+  # while (nrow(result)<N){
+    result <- do.call(rbind, apply(blocks,1,weighted_sample_helper))
+  # }
+  return(result)
+}
+
+```
+
+Loop over countries:
+```{r}
+for (country in countries){
+  #Load/set country-specific parameters:
+  
+  censuspath <- paste0(datadir,'ipums_country/', country,'_ipums_recoded.csv')
+  params <- fread(parampath,key = "country",na.strings = "")[country,]
+  strats <- unlist(Filter(f = Negate(is.na), params[,c("strat1","strat2")]))
+
+  #Reading in the sampling data and making necessary updates.
+  
+  #Here, we are using the IPUMS data.
+  census<- fread(censuspath, colClasses = c(censusId="character")) #keep it simple, and keep leading 0s
+  print(paste0("strata for ",country, ": ", paste(strats,collapse = ", ")))
+
+  #Try stratified sampling.
+  #set.seed(191010) Should I set a seed?
+  target  <- strat_weight_sample(census,strats,'PERWT',n)
+  print(paste0("Final target size in ",country,": ",nrow(target)))
+
+  #Add a sample id, counting those that occur more than once (this is possible since we're sampling with replacement, but shouldn't occur too often):
+  target[,SAMPCT:=1]
+  target[,SAMPCT:=as.integer(SAMPCT)]
+  multis <- unique(target[duplicated(censusId)][['censusId']])
+  for (i in multis){
+    # print(i)
+    target[censusId==i,'SAMPCT':=1:table(target$censusId)[i]]
+  }
+  table(target$SAMPCT) # check that the sampcounts are right
+
+  target$sampleId <- paste0(
+    target$censusId,
+    sprintf(
+      paste0('%0',
+             as.character(max(nchar(target$SAMPCT))),
+             '.0f'),
+      target$SAMPCT)
+  )
+
+  #Dice just the variables needed for matching
+  matching.vars <- grep(".",fread(varpath)[[country]],value = T) #grab variables that are not the empty string
+  target <- target[,c("sampleId",matching.vars, strats[1]),with=F]
+  
+  # Write target to disk.
+  print(
+    paste("Writing these variables to target: ",
+           paste(names(target), collapse = ", ")
+    )
+  )
+  fwrite(x=target,
+            file = paste0(datadir,
+                          "sample/",
+                          country,
+                          "_target_",
+                          format(Sys.time(),
+                          "%y%m%d"),
+                          ".csv")
+                      )
+  }
+
+```
+
+# Stuff for checking
+
+Making sure this stratification worked...
+```{r}
+barplot(table(target[[strats[1]]]))
+barplot(table(census[[strats[1]]]))
+nrow(target)
+head(target)
+hist(target$ed, xlim = c(1,6))
+hist(census$ed)
+table(target$age,target$gend)
+
+
+```
+
