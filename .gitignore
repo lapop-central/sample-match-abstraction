@@ -1,10 +1,9 @@
 Archive
-Graphics
 sampleMatch
-rematch_COUNTRY/AR_data_loaded.RData
-rematch_COUNTRY/BR_data_loaded.RData
-rematch_COUNTRY/*_data_loaded.RData
 .Rhistory
 .ipynb_checkpoints
-Data
 .Rproj.user
+raw
+out
+Matching process.Rproj
+
