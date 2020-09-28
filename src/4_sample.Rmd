@@ -1,5 +1,5 @@
 ---
-title: "sample (IDB Trust)"
+title: "sample"
 author: "Maita Schade"
 output: html_notebook
 ---
@@ -11,22 +11,21 @@ rm(list = ls(all = TRUE))
   
 Set the following chunk depending on the circumstances:
 ```{r}
-countries = c("AR","BR","CL","CO","MX","PE")
+countries = c("AR")#,"BR","CL","CO","MX","PE")
 n = 1200 #sample size in each country
 ```
 
 Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 ```{r}
-rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/raw/')
-datadir = paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/out/')
+rawdir <- paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/Matching process/raw/')
+datadir = paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/Matching process/out/')
 
-varpath <- paste0("C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/doc/matching/matching_vars.csv")
-parampath <- "C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/prep/src/country_parameters1.csv" # set specific parameters in this file
+varpath <- paste0("C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/Matching process/src/matching_vars.csv")
+parampath <- "C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/Matching process/src/country_parameters.csv" # set specific parameters in this file
 ```
 
 ```{r}
 library(data.table)
-library(devtools)
 ```
 
 Define the sampling function
@@ -145,7 +144,5 @@ head(target)
 hist(target$ed, xlim = c(1,6))
 hist(census$ed)
 table(target$age,target$gend)
-
-
 ```
 
