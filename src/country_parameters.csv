@@ -1,5 +1,5 @@
 country,strat1,strat2,NQ_id,target.date,geo1_nq,geo2_nq,year
-AR,GEO1_AR2010,,p_codigo,,AR_provincia,AR_departamento,2010
+AR,GEO1_AR2010,,p_codigo,200928,AR_provincia,AR_departamento,2010
 BR,GEO1_BR2010,URBAN,p_codigo,,int_estado,int_cidade,2010
 CO,GEO1_CO2005,URBAN,p_codigo,,CO_departamento,CO_municipio,2005
 CL,GEO1_CL2002,URBAN,p_codigo,,CL_provincia,CL_comuna,2002

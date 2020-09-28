@@ -1,54 +1,52 @@
 # ---
-# title: "match (IDB Trust)"
+# title: "match"
 # author: "Maita Schade"
-# date: "Feb 27, 2020"
 # output: html_notebook
 # ---
 # 
 
-# Given a target sample, recoded panel, and possibly previous invites and completes, this notebook produces a new set of panelists to invite, with flexible number of columns (for larger batches).
+# Given a target sample, recoded panel, and possibly previous invites and completes, this notebook 
+# produces a new set of panelists to invite, with flexible number of columns (for larger batches).
 
 # Make sure we're dealing with a clear space:
 rm(list = ls(all = TRUE))
 
-# Which part are we working on?
-part <- 1
+# define project path
+prpath <- 'C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/'
 
 # set working dir
-setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/src/')
+#setwd(paste0(prpath, 'src/'))
 
-# Set the space up. Country is the only thing you should need to set manually, if the files are all set up properly.
 
-countries = c("BR")#,"MX","CL")#,"AR","CO","PE")
+
+# Set the space up. Country is the only thing you should need to set manually, 
+# if the files are all set up properly.
+
+countries = c("AR")#,"MX","CL")#,"AR","CO","PE")
 country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
 n <- 10 # batch depth--how many panelists per target?
 
 
-# Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
+# Defining files--make sure the dirs are okay; other than that you shouldn't need
+# to touch this if the file structure is set up properly.
 
-#strats = ("GEO1_AR2010")
-#strat2 = "URBAN"
-# wave = 17
-# filedate = "190826"
 
-# rawdir <- paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/IDB Online Trust/raw/')
-datadir <- paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/')
+datadir <- paste0(prpath, 'Matching process/out/') #where we look for files to use/save
+respdir <- paste0(prpath, 'Data processing/Data/') #where survey data are stored
 
-varpath <- paste0("C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/doc/matching/matching_vars.csv")
-parampath <- paste0("./country_parameters",part,".csv") # set specefic parameters in this file
-
-#file of not yet sent IDs
-#recyclefile <- paste0(datadir, "panel/AR_selected_wave1_QC.csv")
+varpath <- paste0(prpath, "Matching process/src/matching_vars.csv")
+parampath <- paste0(prpath, "Matching process/src/country_parameters.csv") # set specefic parameters in this file
 
 
 library('MatchIt')
 library('data.table')
-library('openxlsx')
-library(stringr)
+#library('openxlsx')
+#library(stringr)
 
 # Loop over countries.
 for (country in countries){
-  # country <- "AR"
+  # For testing/dev, set country right here
+  country <- "AR"
   print(paste0("Working on ", country, "..."))
   
   # set panel file
@@ -60,34 +58,31 @@ for (country in countries){
   print(paste0("Target date is ", target.date))
   NQ_id <- params[,NQ_id]
   
-  targetfile <- paste0(datadir, "sample/IDBT",part, "/",country, "_target_", target.date, ".csv")
+  targetfile <- paste0(datadir, "sample/", country, "_target_", target.date, ".csv")
+  
   # Load data
   target <- fread(targetfile, colClasses = c(sampleId="character")) #make sure the sampleId has leading zeroes
   panel <- fread(panelfile)
-  if(exists("recyclefile")){
+  if(exists("recyclefile")){ # if there are previous invites that were not sent, set this above
     recycle <- fread(recyclefile)}
   length(unique(panel$X))
   length(unique(target$X))
   
-  # previous responses:
-  responsefile <- grep(paste0(country.names[country],".*\\.csv"),
-                       list.files(paste0('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/out/IDBT',part,'/'),
-                                  full.names = T),
-                       value = T)
+  # get filename for previous responses, by listing corresponding directory:
+  # UNCOMMENT WHEN YOU HAVE PREVIOUS RESONSES!
+  
+  # responsefile <- grep(paste0(country.names[country],".*\\.csv"),
+  #                      list.files(respdir,
+  #                                 full.names = T),
+  #                      value = T)
 
  # Are there exclusions from a prior survey?
   # IDs to exclude
   excludefiles <- (
-    # Concurrent IDB-T2
-    list.files('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/matches/IDBT2/',
-               pattern = country,
+    # e.g. prior waves of same study
+    list.files(paste0(respdir,"Archive"),
+               pattern = paste0("complete_ids.*\\.csv"),
                full.names = T)
-    # Concurrent IDB-T
-    # list.files('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2020 IDB Trust/prep/out/matches/IDBT1/',
-    #            pattern = country, 
-    #            full.names = T)
-    #   # First wave of this study
-    #   paste0('C:/Users/schadem/Box Sync/LAPOP Shared/working documents/maita/Coordination/Noam Argentina Panel/Data processing/Data/APE_2019_sept7v2_October 7, 2019_09.01.csv'))
   )
  # If so, remove them from the panel.
   if (exists("excludefiles")){
@@ -118,13 +113,14 @@ for (country in countries){
   # Are there previous invites? If so, load them.
   # Also, prune the panel to just those not previously invited.
 
-  if (length(list.files(path=paste0(datadir,"matches/IDBT",part), 
-                        pattern = paste0(country,"_selected_wave")))>0){ #check this before the first time you create additional invite table
+  if (length(list.files(path=paste0(datadir,"matches/"), 
+                        pattern = paste0(country,"_selected_wave")))>0){ 
+    # !! check this before the first time you create additional invite table
     print("previous invites found")
     # Printing what invites are considered
     cat(paste0("Included invite files: \n"))
   
-    # Reading in invite files from all waves
+    # Reading in invite files from all waves. Here, wave means batch of invites!
     waves <- lapply(list.files(path=paste0(datadir,"matches/IDBT",part), pattern = country),
       function (x){
         cat(paste0("    ",x,"\n"))
@@ -186,19 +182,13 @@ for (country in countries){
 
   if (exists("responsefile")){ #Check this before the first time using a responsefile
     print("completes found!")
-  
-    # # "responded" can be loaded straight from Qualtrics 
+    
+    # # "responded" can be loaded straight from Qualtrics
     responded <- fread(responsefile,na.strings = "")
-    if (part==2){
-      if (country=="AR"){ # accounting for coding error in Calvo survey
-        completed <- responded[Finished==1 & Bienvenido==2]
-      } else{
-        completed <- responded[Finished==1 & Bienvenido==1]}
-    } else if (part==1){
-      # completed <- responded[Finished==1 & CONSENT==1]
-      # Need to avoid the screen-out issue--true if they have answered last question
-        completed <- responded[!is.na(ETID)]
-      }
+    # THE FOLLOWING DEFINES WHAT A COMPLETE RESPONSE LOOKS LIKE
+    # PLEASE ADJUST FOR NEW STUDIES!
+    completed <- responded[Finished==1 & CONSENT==1]
+    
     #... for identifying how many targets have been hit, attach to each respondent its unique SAMPID
     completed <- selected[panelId%in%completed$pid]
     completed <- completed[!duplicated(panelId,fromLast = TRUE),]
@@ -218,23 +208,20 @@ for (country in countries){
     cat(paste0("\nDuplicates in ", country, ": ", dupes,"\n"))
     cat(paste0("\nLegit responses: ", legit))
     
+    # If you're only interested in complete/dupe-counts, uncomment this to skip the actual matching:
     # next
-    # # Respondents that were not invited?
-    # cat(responded[is.na(responded$SAMPID),][[NQ_id]])
     
     ## Prune target to exclude filled slots
     # create list of respondents in wide sample id format--actually this shouldn't be necessary here, but let's not futz with it for now
     invited.resp <- invited[(panelId %in% completed$panelId),] #those that were invited and actually responded
     completed.wide <- dcast(invited.resp, ... ~ variable)
-    # responded.wide[sampleId%in%sampleId[duplicated(sampleId)]]
-    
     
     # Check that no sampleId's are duplicated:
     if (sum(duplicated(completed.wide$sampleId))!= 0){
       print("Alert! Somehow you have duplicated sampleIds!")
       }
     
-    # keep only targets that are not included in response set
+    # keep only targets that are not included in existing response set
     target.pruned <- target[!sampleId%in%completed.wide$sampleId,]
     dim(invited.resp)
     dim(completed)
@@ -246,13 +233,8 @@ for (country in countries){
   }
   nrow(target.pruned)
 
-  # Netquest wants to know which targets were already complete, so find them and write them out.
-    # This needs to be fixed to only count full responses
-    # write.csv(target[!sampleId%in%target.pruned$sampleId,sampleId],
-    #           paste0("completes_",format(Sys.time(),"%y%m%d"),".csv"))
-
-
-  # Add a treatment into it:
+  # Add a "treatment" into it, for sample matching
+  # 0 is the panel, 1 is the target
   panel[,'treat':= rep(0,nrow(panel))]
   target.pruned[,'treat':=rep(1,nrow(target.pruned))]
 
@@ -265,14 +247,14 @@ for (country in countries){
   #fill NA
   alldata[is.na(panelId),panelId:="9999999999"]
   alldata[is.na(sampleId),sampleId:="9999999999"]
-  
-  # head(alldata)
+
 
   # Load in matching.vars from recodefile
 
   matching.vars <- grep(".",fread(varpath)[[country]],value = T) #grab variables from file, excluding empty strings
   matching.vars <- grep("region",matching.vars,value = T, invert = T)
   # Now carry out the matching. 
+  # Formula for matching:
   matching.form <- as.formula(paste0("treat ~ ", paste(matching.vars, collapse=' + ')))
 
   # We'll have to repeat this process (at least for everything except PS). 
@@ -328,12 +310,13 @@ for (country in countries){
   
   # Check if we have a good final sample...
   done<-F
+  n_age_group <- 5
   
   # If not, assign age groups and match
   
   # Divide target sample into age quantiles (in this case, deciles) and add that to the data:
-  # This may need adjustment if you run out of targets to match to.
-  n_age_group <- 5
+  # This may need adjustment if you run out of panelists to match to.
+
   while(!done & n_age_group>0){
     age_q <- quantile(target$age,prob = seq(0,1,1/n_age_group)) #this is the full target
     alldata[,'age_group' :=  as.integer(cut(alldata$age,breaks = age_q, include.lowest = TRUE))]
@@ -367,7 +350,7 @@ for (country in countries){
   wave
 }
 
-  # # Double check a few things...
+  # # Double check a few things as needed...
   # 
   # # Do I have a good number of discrete location codes?
   # length(unique(panel$X))
@@ -399,10 +382,3 @@ for (country in countries){
   # # What about the regions? did it work?
   # table(set$region)
   # table(target$region)
-
-target.pruned$sampleId[25]
-
-# issue with NAs?
-
-table(problematic$capital, problematic$gend)
-age_q

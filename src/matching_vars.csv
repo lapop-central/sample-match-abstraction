@@ -1,0 +1,25 @@
+﻿AR,BR,CL,CO,MX,PE
+gend,gend,gend ,gend ,gend,gend
+age,age,age ,age ,age,age
+bath,ed,ed ,ed ,ed,ed_hhh
+ed,emp,ed_hhh ,ed_hhh ,ed_hhh,ed
+emp,auto,emp ,emp ,emp,emp
+pern,nbath,emp_hhh ,emp_hhh ,emp_hhh,emp_hhh
+hhh,pc,child,child,auto,bath
+X,fridg,marst,marst,pc,health
+Y,washer,pern,pern,web,floor
+region,child,hhtype,hhtype,lightbulb,wall
+capital,radio,hhh,hhh,floors,pc
+,tv,X,X,nrooms,washer
+,marst,Y,Y,shower,fridg
+,pern,region,region,tv,phone
+,hhtype,capital,capital,child,cable
+,hhh,,,marst,child
+,X,,,pern,marst
+,Y,,,hhtype,hhtype
+,region,,,hhh,hhh
+,capital,,,X,pern
+,,,,Y,X
+,,,,region,Y
+,,,,capital,region
+,,,,,capital
