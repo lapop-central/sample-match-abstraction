@@ -24,7 +24,7 @@ prpath <- 'C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/'
 
 countries = c("AR")#,"MX","CL","AR","CO","PE")
 country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
-n <- 10 # batch depth--how many panelists per target?
+n <- 3 # batch depth--how many panelists per target?
 
 
 # Defining files--make sure the dirs are okay; other than that you shouldn't need
@@ -41,10 +41,10 @@ parampath <- paste0(prpath, "Matching process/src/country_parameters.csv") # set
 library('MatchIt')
 library('data.table')
 #library('openxlsx')
-#library(stringr)
+library(stringr)
 
 # Loop over countries.
-for (country in countries){
+#for (country in countries){
   # For testing/dev, set country right here
   country <- "AR"
   print(paste0("Working on ", country, "..."))
@@ -115,57 +115,53 @@ for (country in countries){
   # Also, prune the panel to just those not previously invited.
 
   if (length(list.files(path=paste0(datadir,"matches/"), 
-                        pattern = paste0(country,"_selected_round")))>0){ 
+                        pattern = paste0(country,"_selected_batch")))>0){ 
     # !! check this before the first time you create additional invite table
     print("previous invites found")
     # Printing what invites are considered
     cat(paste0("Included invite files: \n"))
   
-    # Reading in invite files from all rounds. Here, round means batch of invites!
-    rounds <- lapply(list.files(path=paste0(datadir,"matches/IDBT",part), pattern = country),
+    # Reading in invite files from all batches. Here, batch means batch of invites!
+    batches <- lapply(list.files(path=paste0(datadir,"matches/"), pattern = country),
       function (x){
         cat(paste0("    ",x,"\n"))
-      ## We make sure the individual rounds have distinguishable names by attaching suffixes
+      ## We make sure the individual batches have distinguishable names by attaching suffixes
     
-        df<-fread(paste0(datadir, "matches/IDBT",part,"/",x),colClasses = c(sampleId="character"))
+        df<-fread(paste0(datadir, "matches/",x),colClasses = c(sampleId="character"))
         df[,sampleId := str_pad(string = sampleId, width = max(nchar(sampleId)), side = "left", pad = "0")]
-        #df[,grep("panelId",names(df),value = T)]<-sapply(df[,grep("panelId",names(df),value = T)], tolower)
-        nround=as.numeric(str_match(x, "round(\\d+)")[2])
-        suffix=paste0(".",((nround-1)*5)+1:(ncol(df)-1))
-        # print(suffix)
-        names(df)[grep("panelId.?",names(df))] <- paste0("panelId",suffix)
+        nbatch=as.numeric(str_match(x, "batch(\\d+)")[2])
+        # select columns that have a number in the name, and create a suffix combined of batch and pass number
+        suffixed <- paste("panelId",nbatch,str_match(grep("\\d",names(df),value = T),"\\d*$"),sep=".")
+        # replace those colnames by "panelId" + suffix
+        names(df)[grep("\\d",names(df))] <- suffixed
         return(df)
   
      }
     )
   
-  # The target is a table of target records, with selected panelist IDs for each round
+  # The target is a table of target records, with selected panelist IDs for each batch
   # target <- target[names(target)[,-grep("targetId|X",names(target))]]
   
   # "selected" is a long list of all NQ panelists selected from our end
     selected.wide <- Reduce(function(dtf1, dtf2) {merge(dtf1, dtf2,
                                                  by = c("sampleId"),
                                                  all.x = TRUE, all.y = TRUE)},
-                     rounds)
+                     batches)
     selected <- melt(data = selected.wide,measure.vars = c(grep("panelId",names(selected.wide))))
     
     names(selected)<-c("sampleId",   "variable",   "panelId")
-    selected[,batch:= as.integer(str_match(variable,"\\d\\d?"))]
+    selected[,pass:= str_match(variable,"\\d+\\.\\d+")]
     
     selected<-selected[selected[,!is.na(panelId)],]
-    # selected$round <- as.integer(regmatches(selected$variable, 
-    #                                        regexpr("\\.\\K\\d+$",selected$variable,perl=TRUE)
-    #                                        )
-    #                             )
-  
-    # Prune panel to exclude invited
-    panel <- panel[!panelId %in% invited$panelId,]
+ 
+    # Prune panel to exclude selected/invited
+    panel <- panel[!panelId %in% selected$panelId,]
     
-    # set round
-    round <- length(rounds)+1
+    # set batch
+    batch <- length(batches)+1
     
   
-  } else {round <- 1}
+  } else {batch <- 1}
 
   # Are there previous completes? If so, load them.
 
@@ -184,8 +180,6 @@ for (country in countries){
     
     
     
-  
-      
     # Counting duplicates by counting occurrence of sampleId in respondents:
     # !!! Make sure you only count the full responses here! 
     nsamp_resp <- table(completed$sampleId)
@@ -202,8 +196,8 @@ for (country in countries){
     
     ## Prune target to exclude filled slots
     # create list of respondents in wide sample id format--actually this shouldn't be necessary here, but let's not futz with it for now
-    invited.resp <- invited[(panelId %in% completed$panelId),] #those that were invited and actually responded
-    completed.wide <- dcast(invited.resp, ... ~ variable)
+    selected.resp <- selected[(panelId %in% completed$panelId),] #those that were selected and actually responded
+    completed.wide <- dcast(selected.resp, ... ~ variable)
     
     # Check that no sampleId's are duplicated:
     if (sum(duplicated(completed.wide$sampleId))!= 0){
@@ -212,7 +206,7 @@ for (country in countries){
     
     # keep only targets that are not included in existing response set
     target.pruned <- target[!sampleId%in%completed.wide$sampleId,]
-    dim(invited.resp)
+    dim(selected.resp)
     dim(completed)
     dim(completed.wide)
     print("Dimensions of pruned target:")
@@ -276,7 +270,6 @@ for (country in countries){
     data.copy <- data.frame(data)
     
     # loop over the number of respondents per target
-    # if there are issues, can I relax the age groups?
     for(i in 1:n){
       print(paste('i = ',as.character(i)))
       m <- matchit(matching.form, 
@@ -286,7 +279,11 @@ for (country in countries){
       try({matches[[i]] <- m
           sampleids <- data.copy[row.names(m$match.matrix), "sampleId"]
           panelids <- data.copy[m$match.matrix,"panelId"]
+          # setting column names of the ids so they'll be easy to read and tell apart
+          print(paste("panelId",batch,i,sep="."))
           ids <- data.frame(sampleId=sampleids, panelId=panelids, stringsAsFactors = F)
+          names(ids)[grep("panelId",names(ids))] <- paste("panelId",batch,i,sep=".")
+          # adding them to already matched ids
           df <- merge(x=df, y=ids, by="sampleId", all.x = TRUE, suffixes=c("",as.character(i)))
           } 
       )
@@ -334,10 +331,10 @@ for (country in countries){
 
   write.csv(
     matches$ids, 
-    file=paste0(datadir,"matches/",country,"_selected_round",round,"_",format(Sys.time(),"%y%m%d"),".csv"),
+    file=paste0(datadir,"matches/",country,"_selected_batch",batch,"_",format(Sys.time(),"%y%m%d"),".csv"),
     row.names = F)
-  round
-}
+  
+# }
 
   # # Double check a few things as needed...
   # 
