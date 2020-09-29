@@ -1,5 +1,5 @@
 # ---
-# title: "Recode"
+# title: "Recode (APES Wave 3)"
 # author: "Maita Schade"
 # date: "Sep 28, 2020"
 # ---
@@ -24,7 +24,7 @@ setwd('C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/Matching process/s
 for (country in c("AR")){ # "CL","BR","CO","MX","PE"
 
 # For testing/dev, just set one country
-country<-"AR"
+# country<-"AR"
 # Defining files--make sure the dirs are okay; other than that you shouldn't need to touch this if the file structure is set up properly.
 
 datadir <-  paste0('../out/')

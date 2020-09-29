@@ -1,5 +1,5 @@
 # ---
-# title: "Match"
+# title: "Match (APES Wave 3)"
 # author: "Maita Schade"
 # date: "Sep 28, 2020"
 # ---
@@ -22,7 +22,7 @@ prpath <- 'C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/'
 # Set the space up. Country is the only thing you should need to set manually, 
 # if the files are all set up properly.
 
-countries = c("AR")#,"MX","CL")#,"AR","CO","PE")
+countries = c("AR")#,"MX","CL","AR","CO","PE")
 country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
 n <- 10 # batch depth--how many panelists per target?
 
@@ -76,11 +76,12 @@ for (country in countries){
   #                                 full.names = T),
   #                      value = T)
 
- # Are there exclusions from a prior survey?
+  # Are there exclusions from a prior survey?
+  # UNCOMMENT WHEN YOU WANT TO EXCLUDE OTHER LISTS OF IDs
   # IDs to exclude
   excludefiles <- (
     # e.g. prior waves of same study
-    list.files(paste0(respdir,"Archive"),
+    list.files(c(paste0(respdir,"Wave1"), paste0(respdir,"Wave2")),
                pattern = paste0("complete_ids.*\\.csv"),
                full.names = T)
   )
@@ -114,23 +115,23 @@ for (country in countries){
   # Also, prune the panel to just those not previously invited.
 
   if (length(list.files(path=paste0(datadir,"matches/"), 
-                        pattern = paste0(country,"_selected_wave")))>0){ 
+                        pattern = paste0(country,"_selected_round")))>0){ 
     # !! check this before the first time you create additional invite table
     print("previous invites found")
     # Printing what invites are considered
     cat(paste0("Included invite files: \n"))
   
-    # Reading in invite files from all waves. Here, wave means batch of invites!
-    waves <- lapply(list.files(path=paste0(datadir,"matches/IDBT",part), pattern = country),
+    # Reading in invite files from all rounds. Here, round means batch of invites!
+    rounds <- lapply(list.files(path=paste0(datadir,"matches/IDBT",part), pattern = country),
       function (x){
         cat(paste0("    ",x,"\n"))
-      ## We make sure the individual waves have distinguishable names by attaching suffixes
+      ## We make sure the individual rounds have distinguishable names by attaching suffixes
     
         df<-fread(paste0(datadir, "matches/IDBT",part,"/",x),colClasses = c(sampleId="character"))
         df[,sampleId := str_pad(string = sampleId, width = max(nchar(sampleId)), side = "left", pad = "0")]
         #df[,grep("panelId",names(df),value = T)]<-sapply(df[,grep("panelId",names(df),value = T)], tolower)
-        nwave=as.numeric(str_match(x, "wave(\\d+)")[2])
-        suffix=paste0(".",((nwave-1)*5)+1:(ncol(df)-1))
+        nround=as.numeric(str_match(x, "round(\\d+)")[2])
+        suffix=paste0(".",((nround-1)*5)+1:(ncol(df)-1))
         # print(suffix)
         names(df)[grep("panelId.?",names(df))] <- paste0("panelId",suffix)
         return(df)
@@ -138,45 +139,33 @@ for (country in countries){
      }
     )
   
-  # The target is a table of target records, with selected panelist IDs for each wave
+  # The target is a table of target records, with selected panelist IDs for each round
   # target <- target[names(target)[,-grep("targetId|X",names(target))]]
   
   # "selected" is a long list of all NQ panelists selected from our end
     selected.wide <- Reduce(function(dtf1, dtf2) {merge(dtf1, dtf2,
                                                  by = c("sampleId"),
                                                  all.x = TRUE, all.y = TRUE)},
-                     waves)
+                     rounds)
     selected <- melt(data = selected.wide,measure.vars = c(grep("panelId",names(selected.wide))))
     
     names(selected)<-c("sampleId",   "variable",   "panelId")
     selected[,batch:= as.integer(str_match(variable,"\\d\\d?"))]
     
     selected<-selected[selected[,!is.na(panelId)],]
-    # selected$wave <- as.integer(regmatches(selected$variable, 
+    # selected$round <- as.integer(regmatches(selected$variable, 
     #                                        regexpr("\\.\\K\\d+$",selected$variable,perl=TRUE)
     #                                        )
     #                             )
   
-    # Remove who was _not_ invited
-    if(exists("recycle")){
-      names(recycle)[1] <- "panelId"
-      actually.used <- (!(selected$panelId%in%recycle$panelId))|(selected$batch>5)
-      nrow(selected)-sum(actually.used)
-      
-      
-      invited <- selected[actually.used,]
-      dim(invited)
-    } else {
-      invited <- selected
-    }
     # Prune panel to exclude invited
     panel <- panel[!panelId %in% invited$panelId,]
     
-    # set wave
-    wave <- length(waves)+1
+    # set round
+    round <- length(rounds)+1
     
   
-  } else {wave <- 1}
+  } else {round <- 1}
 
   # Are there previous completes? If so, load them.
 
@@ -345,9 +334,9 @@ for (country in countries){
 
   write.csv(
     matches$ids, 
-    file=paste0(datadir,"matches/",country,"_selected_wave",wave,"_",format(Sys.time(),"%y%m%d"),".csv"),
+    file=paste0(datadir,"matches/",country,"_selected_round",round,"_",format(Sys.time(),"%y%m%d"),".csv"),
     row.names = F)
-  wave
+  round
 }
 
   # # Double check a few things as needed...
