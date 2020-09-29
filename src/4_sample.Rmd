@@ -1,7 +1,7 @@
 ---
-title: "sample"
+title: "Sample"
 author: "Maita Schade"
-output: html_notebook
+date: "Sep 28, 2020"
 ---
 
 Make sure we're dealing with a clear space:

@@ -1,5 +1,11 @@
 # Code to handle mapping into regions, if used for sampling
-# deprecated, since now we only use CAPITAL
+# Somewhat deprecated, since now we only use CAPITAL
+
+# ---
+# title: "Combine regions"
+# author: "Maita Schade"
+# date: "Sep 28, 2020"
+# ---
 
 # clear space
 rm(list = ls(all=T))

@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# ---
+# title: "Geo-process"
+# author: "Maita Schade"
+# date: "Sep 28, 2020"
+# ---
 # Creating geo-structures that match across IPUMS and Netquest
 
 # In[263]:

@@ -1,8 +1,7 @@
 # ---
-# title: "recode (IDB Trust)"
+# title: "Recode"
 # author: "Maita Schade"
-# date: "Feb 17, 2020"
-# output: html_notebook
+# date: "Sep 28, 2020"
 # ---
 
 # This notebook helps in recoding panel and census datasets to a compatible format.

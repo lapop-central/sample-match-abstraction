@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# ---
+# title: "Initial Netquest Processing"
+# author: "Maita Schade"
+# date: "Sep 28, 2020"
+# ---
+
 # In[1]:
 
 
