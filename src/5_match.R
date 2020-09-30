@@ -24,7 +24,7 @@ prpath <- 'C:/Users/schadem/Box/LAPOP Shared/2_Projects/2019 APES/'
 
 countries = c("AR")#,"MX","CL","AR","CO","PE")
 country.names = c("AR"="Argentina","BR"="Brazil","CL"="Chile", "MX"="Mexico","CO"="Colombia","MX"="Mexico","PE"="Peru")
-n <- 3 # batch depth--how many panelists per target?
+n <- 5 # batch depth--how many panelists per target?
 
 
 # Defining files--make sure the dirs are okay; other than that you shouldn't need
@@ -40,13 +40,12 @@ parampath <- paste0(prpath, "Matching process/src/country_parameters.csv") # set
 
 library('MatchIt')
 library('data.table')
-#library('openxlsx')
 library(stringr)
 
 # Loop over countries.
-#for (country in countries){
+for (country in countries){
   # For testing/dev, set country right here
-  country <- "AR"
+  # country <- "AR"
   print(paste0("Working on ", country, "..."))
   
   # set panel file
@@ -63,10 +62,6 @@ library(stringr)
   # Load data
   target <- fread(targetfile, colClasses = c(sampleId="character")) #make sure the sampleId has leading zeroes
   panel <- fread(panelfile)
-  if(exists("recyclefile")){ # if there are previous invites that were not sent, set this above
-    recycle <- fread(recyclefile)}
-  length(unique(panel$X))
-  length(unique(target$X))
   
   # get filename for previous responses, by listing corresponding directory:
   # UNCOMMENT WHEN YOU HAVE PREVIOUS RESONSES!
@@ -167,6 +162,7 @@ library(stringr)
 
   if (exists("responsefile")){ #Check this before the first time using a responsefile
     print("completes found!")
+    print(paste0("Responses loaded from: ",responsefile))
     
     # # "responded" can be loaded straight from Qualtrics
     responded <- fread(responsefile,na.strings = "")
@@ -334,7 +330,7 @@ library(stringr)
     file=paste0(datadir,"matches/",country,"_selected_batch",batch,"_",format(Sys.time(),"%y%m%d"),".csv"),
     row.names = F)
   
-# }
+}
 
   # # Double check a few things as needed...
   # 

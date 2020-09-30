@@ -24,7 +24,7 @@ import os
 # In[2]:
 
 # date of Netquest panel export
-paneldate = "200612"
+paneldate = "200929"
 
 
 # ### needs oversight
